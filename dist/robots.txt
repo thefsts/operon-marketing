@@ -1,0 +1,28 @@
+# OPERON Marketing Site
+# https://operon.io
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://operon.io/sitemap.xml
+
+# Disallow admin and private paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /_next/
+Disallow: /static/
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Google specific
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing specific
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
