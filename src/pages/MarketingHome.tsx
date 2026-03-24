@@ -9,7 +9,7 @@ import {
 
 export default function MarketingHome() {
   // App URL for login/signup - can be configured
-  const APP_URL = import.meta.env.VITE_APP_URL || 'https://operon-crm-web.vercel.app';
+  const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeIndustry, setActiveIndustry] = useState(0);

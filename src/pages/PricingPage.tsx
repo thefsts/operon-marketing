@@ -85,7 +85,7 @@ const PricingPage: React.FC = () => {
     
     // Simulate Stripe checkout redirect
     // In production, this would call your backend to create a Stripe Checkout session
-    const APP_URL = import.meta.env.VITE_APP_URL || 'https://operon-crm-web.vercel.app';
+    const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
     window.location.href = `${APP_URL}/signup?plan=${plan.priceId}&billing=${billingCycle}`;
   };
 
@@ -116,7 +116,7 @@ const PricingPage: React.FC = () => {
             <a href="/#features" className="text-gray-400 hover:text-white transition-colors">Features</a>
             <a href="/pricing" className="text-cyan-400">Pricing</a>
             <a href="/docs" className="text-gray-400 hover:text-white transition-colors">API Docs</a>
-            <a href={`${import.meta.env.VITE_APP_URL || 'https://operon-crm-web.vercel.app'}/login`} className="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+            <a href={`${import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com'}/login`} className="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
               Sign In
             </a>
           </nav>

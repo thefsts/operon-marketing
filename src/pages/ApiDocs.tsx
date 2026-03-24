@@ -275,7 +275,7 @@ const ApiDocs: React.FC = () => {
           <div className="flex items-center gap-4">
             <a href="/pricing" className="text-gray-400 hover:text-white text-sm transition-colors">Pricing</a>
             <a
-              href={`${import.meta.env.VITE_APP_URL || 'https://operon-crm-web.vercel.app'}/login`}
+              href={`${import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com'}/login`}
               className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-fuchsia-500 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
             >
               Get API Key
@@ -310,7 +310,7 @@ const ApiDocs: React.FC = () => {
                   Navigate to Settings → API Keys in your OPERON dashboard to generate a new API key.
                 </p>
                 <a
-                  href={`${import.meta.env.VITE_APP_URL || 'https://operon-crm-web.vercel.app'}/settings/api-keys`}
+                  href={`${import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com'}/settings/api-keys`}
                   className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300"
                 >
                   Go to API Settings <ExternalLink size={16} />

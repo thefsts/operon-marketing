@@ -43,7 +43,7 @@ const ContactPage: React.FC = () => {
             <a href="/#features" className="text-gray-400 hover:text-white transition-colors">Features</a>
             <a href="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</a>
             <a href="/docs" className="text-gray-400 hover:text-white transition-colors">API Docs</a>
-            <a href={`${import.meta.env.VITE_APP_URL || 'https://operon-crm-web.vercel.app'}/login`} className="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+            <a href={`${import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com'}/login`} className="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
               Sign In
             </a>
           </nav>

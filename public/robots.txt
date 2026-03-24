@@ -1,11 +1,11 @@
 # OPERON Marketing Site
-# https://operon.io
+# https://operoncrm.com
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://operon.io/sitemap.xml
+Sitemap: https://operoncrm.com/sitemap.xml
 
 # Disallow admin and private paths
 Disallow: /api/
