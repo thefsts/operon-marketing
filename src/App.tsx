@@ -6,7 +6,10 @@ import ApiDocs from './pages/ApiDocs';
 import ContactPage from './pages/ContactPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import CookiePolicy from './pages/CookiePolicy';
 import NotFound from './pages/NotFound';
+import CookieConsent from './components/CookieConsent';
+import AccessibilityControls from './components/AccessibilityControls';
 
 function App() {
   return (
@@ -18,8 +21,11 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <CookieConsent />
+      <AccessibilityControls />
     </BrowserRouter>
   );
 }

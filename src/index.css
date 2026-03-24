@@ -16,14 +16,75 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0f;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94a3b8;
+}
+
+/* Accessibility: Text Size */
+.text-size-normal {
+  font-size: 16px;
+}
+
+.text-size-large {
+  font-size: 18px;
+}
+
+.text-size-xlarge {
+  font-size: 20px;
+}
+
+/* Accessibility: High Contrast */
+.high-contrast {
+  filter: contrast(1.2);
+}
+
+.high-contrast * {
+  border-color: currentColor !important;
+}
+
+/* Accessibility: Reduced Motion */
+.reduced-motion *,
+.reduced-motion *::before,
+.reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Accessibility: Screen Reader Mode */
+.screen-reader-mode {
+  letter-spacing: 0.02em;
+  word-spacing: 0.1em;
+  line-height: 1.8;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 3px solid #06b6d4;
+  outline-offset: 2px;
+}
+
+/* Skip to main content link */
+.skip-to-main {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #06b6d4;
+  color: white;
+  padding: 8px 16px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-to-main:focus {
+  top: 0;
 }
