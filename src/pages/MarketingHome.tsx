@@ -4,7 +4,7 @@ import {
   Megaphone, Zap, Building2, Home, Scale, Stethoscope, Laptop,
   Store, Briefcase, BarChart3, Kanban, CheckSquare, FileSignature,
   Share2, MapPin, MessageSquare, Shield, CheckCircle, ArrowRight,
-  Play, Menu, X, Sparkles
+  Play, Menu, X, Sparkles, Mail, User, Building, Phone
 } from 'lucide-react';
 
 export default function MarketingHome() {
@@ -14,12 +14,42 @@ export default function MarketingHome() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeIndustry, setActiveIndustry] = useState(0);
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
+  const [showDemo, setShowDemo] = useState(false);
+  const [demoEnded, setDemoEnded] = useState(false);
+  const [leadForm, setLeadForm] = useState({ name: '', email: '', company: '', phone: '' });
+  const [leadSubmitting, setLeadSubmitting] = useState(false);
+  const [leadSubmitted, setLeadSubmitted] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleStartDemo = () => {
+    setShowDemo(true);
+    setDemoEnded(false);
+    setLeadSubmitted(false);
+    setLeadForm({ name: '', email: '', company: '', phone: '' });
+  };
+
+  const handleDemoEnd = () => {
+    setDemoEnded(true);
+  };
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLeadSubmitting(true);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setLeadSubmitting(false);
+    setLeadSubmitted(true);
+  };
+
+  const closeDemo = () => {
+    setShowDemo(false);
+    setDemoEnded(false);
+  };
 
   const industries = [
     { name: 'Service Companies', icon: Briefcase, color: 'from-blue-500 to-cyan-400', description: 'HVAC, plumbing, cleaning, landscaping, and all service-based businesses' },
@@ -156,13 +186,13 @@ export default function MarketingHome() {
               Get Started Free
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a
-              href={`${APP_URL}/login`}
-              className="px-8 py-4 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold text-lg hover:border-blue-500 hover:text-blue-600 transition-all flex items-center gap-2"
+            <button
+              onClick={handleStartDemo}
+              className="px-8 py-4 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold text-lg hover:border-cyan-500 hover:text-cyan-600 transition-all flex items-center gap-2"
             >
               <Play className="w-5 h-5" />
-              View Demo
-            </a>
+              Watch Demo
+            </button>
             <a
               href={`${APP_URL}/login`}
               className="text-slate-500 hover:text-blue-600 transition-colors font-medium"
@@ -438,62 +468,69 @@ export default function MarketingHome() {
 
           <div className="grid md:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {/* Starter */}
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all">
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-cyan-300 hover:shadow-lg transition-all">
               <h3 className="text-xl font-bold text-slate-900 mb-2">Starter</h3>
               <p className="text-slate-500 text-sm mb-4">Perfect for small teams getting started</p>
               <div className="mb-4">
                 <span className="text-4xl font-bold text-slate-900">${billingPeriod === 'annual' ? '23' : '29'}</span>
                 <span className="text-slate-500">/month</span>
                 {billingPeriod === 'annual' && (
-                  <p className="text-xs text-green-600 mt-1">Billed ${23 * 12}/year (save 20%)</p>
+                  <p className="text-xs text-green-600 mt-1">Billed $276/year (save 20%)</p>
                 )}
               </div>
               <ul className="space-y-2 mb-6 text-sm">
-                {['Up to 2 users', '1,000 contacts', 'Basic CRM', 'Email support', 'Mobile app'].map(feature => (
+                {['Up to 2 users', '1,000 contacts', 'Basic CRM', 'Task Management', 'Email support', 'Mobile app'].map(feature => (
                   <li key={feature} className="flex items-center gap-2 text-slate-600">
-                    <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-cyan-600 flex-shrink-0" />
                     {feature}
                   </li>
                 ))}
               </ul>
               <a
                 href={`${APP_URL}/login`}
-                className="block w-full text-center py-2.5 rounded-xl border-2 border-slate-300 hover:border-blue-500 hover:text-blue-600 transition-colors font-medium text-slate-700 text-sm"
+                className="block w-full text-center py-2.5 rounded-xl border-2 border-slate-300 hover:border-cyan-500 hover:text-cyan-600 transition-colors font-medium text-slate-700 text-sm"
               >
                 Start Free Trial
               </a>
             </div>
 
             {/* Professional */}
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all">
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-cyan-300 hover:shadow-lg transition-all">
               <h3 className="text-xl font-bold text-slate-900 mb-2">Professional</h3>
               <p className="text-slate-500 text-sm mb-4">For growing businesses</p>
               <div className="mb-4">
                 <span className="text-4xl font-bold text-slate-900">${billingPeriod === 'annual' ? '39' : '49'}</span>
                 <span className="text-slate-500">/month</span>
                 {billingPeriod === 'annual' && (
-                  <p className="text-xs text-green-600 mt-1">Billed ${39 * 12}/year (save 20%)</p>
+                  <p className="text-xs text-green-600 mt-1">Billed $468/year (save 20%)</p>
                 )}
               </div>
               <ul className="space-y-2 mb-6 text-sm">
-                {['Up to 4 users', '5,000 contacts', 'Full CRM + Projects', 'AI Assistant', 'Email support'].map(feature => (
-                  <li key={feature} className="flex items-center gap-2 text-slate-600">
-                    <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                {[
+                  'Everything in Starter, plus:',
+                  'Up to 4 users',
+                  '5,000 contacts',
+                  'Project Management',
+                  'Basic Automation',
+                  'AI Assistant'
+                ].map((feature, i) => (
+                  <li key={i} className={`flex items-center gap-2 ${feature === 'Everything in Starter, plus:' ? 'text-cyan-600 font-medium pt-2 border-t border-slate-200' : 'text-slate-600'}`}>
+                    <CheckCircle className="w-4 h-4 text-cyan-600 flex-shrink-0" />
                     {feature}
                   </li>
                 ))}
               </ul>
               <a
                 href={`${APP_URL}/login`}
-                className="block w-full text-center py-2.5 rounded-xl border-2 border-slate-300 hover:border-blue-500 hover:text-blue-600 transition-colors font-medium text-slate-700 text-sm"
+                className="block w-full text-center py-2.5 rounded-xl border-2 border-slate-300 hover:border-cyan-500 hover:text-cyan-600 transition-colors font-medium text-slate-700 text-sm"
               >
                 Start Free Trial
               </a>
             </div>
 
             {/* Business - Most Popular */}
-            <div className="relative p-6 rounded-2xl bg-gradient-to-b from-blue-50 to-purple-50 border-2 border-blue-300 shadow-xl">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-sm font-medium text-white">
+            <div className="relative p-6 rounded-2xl bg-gradient-to-b from-cyan-50 to-purple-50 border-2 border-cyan-300 shadow-xl">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-sm font-medium text-white">
                 Most Popular
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">Business</h3>
@@ -502,47 +539,62 @@ export default function MarketingHome() {
                 <span className="text-4xl font-bold text-slate-900">${billingPeriod === 'annual' ? '79' : '99'}</span>
                 <span className="text-slate-500">/month</span>
                 {billingPeriod === 'annual' && (
-                  <p className="text-xs text-green-600 mt-1">Billed ${79 * 12}/year (save 20%)</p>
+                  <p className="text-xs text-green-600 mt-1">Billed $948/year (save 20%)</p>
                 )}
               </div>
               <ul className="space-y-2 mb-6 text-sm">
-                {['Up to 10 users', '25,000 contacts', 'Full CRM + Projects', 'AI Assistant', 'Documents & Contracts', 'Priority support'].map(feature => (
-                  <li key={feature} className="flex items-center gap-2 text-slate-700">
-                    <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                {[
+                  'Everything in Professional, plus:',
+                  'Up to 10 users',
+                  '25,000 contacts',
+                  'Documents & Contracts',
+                  'E-Signatures',
+                  'Social Media Marketing',
+                  'Priority support'
+                ].map((feature, i) => (
+                  <li key={i} className={`flex items-center gap-2 ${feature === 'Everything in Professional, plus:' ? 'text-cyan-600 font-medium pt-2 border-t border-cyan-200' : 'text-slate-700'}`}>
+                    <CheckCircle className="w-4 h-4 text-cyan-600 flex-shrink-0" />
                     {feature}
                   </li>
                 ))}
               </ul>
               <a
                 href={`${APP_URL}/login`}
-                className="block w-full text-center py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 font-medium text-white hover:shadow-lg hover:shadow-blue-500/30 transition-all text-sm"
+                className="block w-full text-center py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 font-medium text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all text-sm"
               >
                 Start Free Trial
               </a>
             </div>
 
             {/* Enterprise */}
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all">
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-cyan-300 hover:shadow-lg transition-all">
               <h3 className="text-xl font-bold text-slate-900 mb-2">Enterprise</h3>
               <p className="text-slate-500 text-sm mb-4">For regulated industries</p>
               <div className="mb-4">
-                <span className="text-4xl font-bold text-slate-900">${billingPeriod === 'annual' ? '159' : '199'}</span>
+                <span className="text-4xl font-bold text-slate-900">$159</span>
                 <span className="text-slate-500">/month</span>
-                {billingPeriod === 'annual' && (
-                  <p className="text-xs text-green-600 mt-1">Billed ${159 * 12}/year (save 20%)</p>
-                )}
+                <p className="text-xs text-slate-500 mt-1">Billed $1,908/year</p>
               </div>
               <ul className="space-y-2 mb-6 text-sm">
-                {['Up to 10 users', 'Unlimited contacts', 'Full compliance suite', 'HIPAA/GDPR ready', 'Custom integrations', 'Dedicated support', 'SLA guarantee'].map(feature => (
-                  <li key={feature} className="flex items-center gap-2 text-slate-600">
-                    <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                {[
+                  'Everything in Business, plus:',
+                  'Up to 10 users',
+                  'Unlimited contacts',
+                  'Full compliance suite',
+                  'HIPAA/GDPR ready',
+                  'Custom integrations',
+                  'Dedicated support',
+                  'SLA guarantee'
+                ].map((feature, i) => (
+                  <li key={i} className={`flex items-center gap-2 ${feature === 'Everything in Business, plus:' ? 'text-cyan-600 font-medium pt-2 border-t border-slate-200' : 'text-slate-600'}`}>
+                    <CheckCircle className="w-4 h-4 text-cyan-600 flex-shrink-0" />
                     {feature}
                   </li>
                 ))}
               </ul>
               <a
                 href={`${APP_URL}/login`}
-                className="block w-full text-center py-2.5 rounded-xl border-2 border-slate-300 hover:border-blue-500 hover:text-blue-600 transition-colors font-medium text-slate-700 text-sm"
+                className="block w-full text-center py-2.5 rounded-xl border-2 border-slate-300 hover:border-cyan-500 hover:text-cyan-600 transition-colors font-medium text-slate-700 text-sm"
               >
                 Contact Sales
               </a>
@@ -569,12 +621,12 @@ export default function MarketingHome() {
               Start Now — It's Free
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a
-              href={`${APP_URL}/login`}
+            <button
+              onClick={handleStartDemo}
               className="px-8 py-4 border-2 border-white/40 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all"
             >
-              Book a Demo
-            </a>
+              Watch Demo
+            </button>
             <a
               href={`${APP_URL}/login`}
               className="text-blue-100 hover:text-white transition-colors font-medium"
@@ -599,6 +651,208 @@ export default function MarketingHome() {
           </div>
         </div>
       </section>
+
+      {/* Demo Modal */}
+      {showDemo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+          <div className="relative w-full max-w-5xl bg-slate-900 rounded-2xl overflow-hidden shadow-2xl">
+            {/* Close button */}
+            <button
+              onClick={closeDemo}
+              className="absolute top-4 right-4 z-10 p-2 bg-slate-800/80 hover:bg-slate-700 rounded-full text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {!demoEnded ? (
+              <>
+                {/* Demo Video/Preview */}
+                <div className="aspect-video bg-slate-800 relative">
+                  {/* Simulated CRM Demo */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900">
+                    {/* Mock CRM Interface */}
+                    <div className="h-full flex">
+                      {/* Sidebar */}
+                      <div className="w-16 bg-slate-900 border-r border-slate-700 flex flex-col items-center py-4 gap-4">
+                        <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-lg" />
+                        <div className="w-8 h-8 bg-slate-700 rounded-lg" />
+                        <div className="w-8 h-8 bg-slate-700 rounded-lg" />
+                        <div className="w-8 h-8 bg-slate-700 rounded-lg" />
+                        <div className="w-8 h-8 bg-slate-700 rounded-lg" />
+                      </div>
+                      {/* Main Content */}
+                      <div className="flex-1 p-6">
+                        <div className="flex items-center justify-between mb-6">
+                          <div className="h-8 w-32 bg-slate-700 rounded" />
+                          <div className="flex gap-2">
+                            <div className="h-8 w-24 bg-cyan-600 rounded-lg" />
+                            <div className="h-8 w-24 bg-slate-700 rounded-lg" />
+                          </div>
+                        </div>
+                        {/* Stats */}
+                        <div className="grid grid-cols-4 gap-4 mb-6">
+                          {[
+                            { label: 'Total Leads', value: '2,847', change: '+12%' },
+                            { label: 'Active Deals', value: '156', change: '+8%' },
+                            { label: 'Revenue MTD', value: '$48,290', change: '+23%' },
+                            { label: 'Tasks Due', value: '24', change: '-5%' },
+                          ].map((stat, i) => (
+                            <div key={i} className="bg-slate-800 rounded-xl p-4 border border-slate-700">
+                              <div className="text-slate-400 text-xs mb-1">{stat.label}</div>
+                              <div className="text-2xl font-bold text-white">{stat.value}</div>
+                              <div className={`text-xs ${stat.change.startsWith('+') ? 'text-green-400' : 'text-red-400'}`}>{stat.change}</div>
+                            </div>
+                          ))}
+                        </div>
+                        {/* Pipeline */}
+                        <div className="bg-slate-800 rounded-xl p-4 border border-slate-700 mb-6">
+                          <div className="text-slate-300 text-sm mb-4">Sales Pipeline</div>
+                          <div className="flex gap-4">
+                            {['Lead', 'Qualified', 'Proposal', 'Negotiation', 'Closed'].map((stage, i) => (
+                              <div key={i} className="flex-1 bg-slate-700 rounded-lg p-3 text-center">
+                                <div className="text-2xl font-bold text-white">{[42, 28, 15, 8, 12][i]}</div>
+                                <div className="text-xs text-slate-400">{stage}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        {/* Activity Feed */}
+                        <div className="bg-slate-800 rounded-xl p-4 border border-slate-700">
+                          <div className="text-slate-300 text-sm mb-3">Recent Activity</div>
+                          <div className="space-y-2">
+                            {[
+                              'New lead: John Smith from Acme Corp',
+                              'Deal moved to Proposal: Website Redesign',
+                              'Task completed: Follow up with Sarah',
+                            ].map((activity, i) => (
+                              <div key={i} className="flex items-center gap-2 text-sm text-slate-400">
+                                <div className="w-2 h-2 bg-cyan-400 rounded-full" />
+                                {activity}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Demo Controls */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <button className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+                          <Play className="w-5 h-5 text-white" />
+                        </button>
+                        <div className="h-1 w-64 bg-white/30 rounded-full">
+                          <div className="h-full w-1/3 bg-cyan-400 rounded-full" />
+                        </div>
+                        <span className="text-white text-sm">1:23 / 4:00</span>
+                      </div>
+                      <button
+                        onClick={handleDemoEnd}
+                        className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-medium transition-colors"
+                      >
+                        Skip to End
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : !leadSubmitted ? (
+              /* Lead Capture Form */
+              <div className="p-8 md:p-12">
+                <div className="text-center mb-8">
+                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Sparkles className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                    Ready to Transform Your Business?
+                  </h3>
+                  <p className="text-slate-400">
+                    Get started with OPERON today and see results in days, not months.
+                  </p>
+                </div>
+
+                <form onSubmit={handleLeadSubmit} className="max-w-md mx-auto space-y-4">
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                    <input
+                      type="text"
+                      placeholder="Your Name"
+                      required
+                      value={leadForm.name}
+                      onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
+                      className="w-full pl-12 pr-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                    />
+                  </div>
+                  <div className="relative">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                    <input
+                      type="email"
+                      placeholder="Work Email"
+                      required
+                      value={leadForm.email}
+                      onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
+                      className="w-full pl-12 pr-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                    />
+                  </div>
+                  <div className="relative">
+                    <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                    <input
+                      type="text"
+                      placeholder="Company Name"
+                      required
+                      value={leadForm.company}
+                      onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
+                      className="w-full pl-12 pr-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                    />
+                  </div>
+                  <div className="relative">
+                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                    <input
+                      type="tel"
+                      placeholder="Phone Number (optional)"
+                      value={leadForm.phone}
+                      onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
+                      className="w-full pl-12 pr-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={leadSubmitting}
+                    className="w-full py-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-xl font-semibold text-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-50"
+                  >
+                    {leadSubmitting ? 'Submitting...' : 'Get Started Free'}
+                  </button>
+                </form>
+
+                <p className="text-center text-slate-500 text-sm mt-4">
+                  No credit card required • 14-day free trial
+                </p>
+              </div>
+            ) : (
+              /* Success State */
+              <div className="p-8 md:p-12 text-center">
+                <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle className="w-10 h-10 text-green-400" />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                  Welcome to OPERON!
+                </h3>
+                <p className="text-slate-400 mb-6">
+                  We've received your information. Check your email for next steps to access your free trial.
+                </p>
+                <a
+                  href={`${APP_URL}/login`}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all"
+                >
+                  Go to Dashboard
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="py-12 border-t border-slate-200 bg-slate-900 text-white">
