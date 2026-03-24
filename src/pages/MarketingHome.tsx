@@ -571,9 +571,11 @@ export default function MarketingHome() {
               <h3 className="text-xl font-bold text-slate-900 mb-2">Enterprise</h3>
               <p className="text-slate-500 text-sm mb-4">For regulated industries</p>
               <div className="mb-4">
-                <span className="text-4xl font-bold text-slate-900">$159</span>
+                <span className="text-4xl font-bold text-slate-900">${billingPeriod === 'annual' ? '159' : '199'}</span>
                 <span className="text-slate-500">/month</span>
-                <p className="text-xs text-slate-500 mt-1">Billed $1,908/year</p>
+                {billingPeriod === 'annual' && (
+                  <p className="text-xs text-green-600 mt-1">Billed $1,908/year (save 20%)</p>
+                )}
               </div>
               <ul className="space-y-2 mb-6 text-sm">
                 {[
