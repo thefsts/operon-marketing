@@ -240,23 +240,23 @@ export default function MarketingHome() {
       )}
 
       {/* ─── Navigation ─────────────────────────────────────────────────── */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-xl shadow-sm border-b border-slate-100' : 'bg-transparent'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/97 backdrop-blur-xl shadow-sm border-b border-slate-100' : 'bg-slate-900/80 backdrop-blur-md'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <a href="/" className="inline-flex items-center">
-              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-9 w-auto object-contain" />
+              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-8 w-auto object-contain max-w-[160px]" />
             </a>
 
             <div className="hidden md:flex items-center gap-6">
-              <a href="#platform" className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Platform</a>
-              <a href="#industries" className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Industries</a>
-              <a href="#sports" className="text-slate-600 hover:text-green-600 transition-colors text-sm font-medium flex items-center gap-1">
+              <a href="#platform" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Platform</a>
+              <a href="#industries" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Industries</a>
+              <a href="#sports" className={`transition-colors text-sm font-medium flex items-center gap-1 ${scrolled ? 'text-slate-700 hover:text-green-600' : 'text-white/90 hover:text-white'}`}>
                 <Trophy className="w-3.5 h-3.5" />Sports
               </a>
-              <a href="#compliance" className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Compliance</a>
-              <a href="#pricing" className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Pricing</a>
+              <a href="#compliance" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Compliance</a>
+              <a href="#pricing" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Pricing</a>
               <LanguageSwitcher />
-              <a href={`${APP_URL}/login`} className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Login</a>
+              <a href={`${APP_URL}/login`} className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Login</a>
               <a
                 href="/start"
                 onClick={() => saveFunnel('start')}
@@ -266,7 +266,7 @@ export default function MarketingHome() {
               </a>
             </div>
 
-            <button className="md:hidden text-slate-700" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            <button className={`md:hidden ${scrolled ? 'text-slate-700' : 'text-white'}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
