@@ -4,7 +4,8 @@ import {
   Megaphone, Zap, Building2, Home, Scale, Stethoscope, Laptop,
   Store, Briefcase, BarChart3, Kanban, CheckSquare, FileSignature,
   Share2, MapPin, MessageSquare, Shield, CheckCircle, ArrowRight,
-  Play, Menu, X, Sparkles, Mail, User, Building, Phone, Globe
+  Play, Menu, X, Sparkles, Mail, User, Building, Phone, Globe,
+  Trophy, Calendar, CreditCard, Heart, Star, Activity
 } from 'lucide-react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
@@ -60,6 +61,8 @@ export default function MarketingHome() {
     { name: 'Medical', icon: Stethoscope, color: 'from-rose-500 to-red-400', description: 'Healthcare providers, clinics, and medical practices (HIPAA ready)' },
     { name: 'IT & Tech', icon: Laptop, color: 'from-indigo-500 to-violet-400', description: 'MSPs, software companies, and technology consultants' },
     { name: 'Retail', icon: Store, color: 'from-pink-500 to-rose-400', description: 'Retail stores, e-commerce, and consumer goods businesses' },
+    { name: 'Sports & Athletics', icon: Trophy, color: 'from-green-500 to-emerald-400', description: 'Sports teams, coaches, trainers, and athletic organizations — roster, scheduling, waivers, payments, and dedicated portals' },
+    { name: 'Firearms Business', icon: Shield, color: 'from-gray-500 to-slate-400', description: 'FFL dealers, shooting ranges, and firearm instructors — compliance-ready with ATF tracking and bound book integration' },
   ];
 
   const features = [
@@ -108,6 +111,7 @@ export default function MarketingHome() {
             <div className="hidden md:flex items-center gap-6">
               <a href="#features" className="text-slate-600 hover:text-cyan-600 transition-colors font-medium">Features</a>
               <a href="#industries" className="text-slate-600 hover:text-cyan-600 transition-colors font-medium">Industries</a>
+              <a href="#sports" className="text-slate-600 hover:text-green-600 transition-colors font-medium flex items-center gap-1"><Trophy className="w-3.5 h-3.5" />Sports</a>
               <a href="#compliance" className="text-slate-600 hover:text-cyan-600 transition-colors font-medium">Compliance</a>
               <a href="#pricing" className="text-slate-600 hover:text-cyan-600 transition-colors font-medium">Pricing</a>
               <LanguageSwitcher />
@@ -136,6 +140,7 @@ export default function MarketingHome() {
             <div className="px-4 py-4 space-y-4">
               <a href="#features" className="block text-slate-600 hover:text-cyan-600 font-medium">Features</a>
               <a href="#industries" className="block text-slate-600 hover:text-cyan-600 font-medium">Industries</a>
+              <a href="#sports" className="block text-slate-600 hover:text-green-600 font-medium flex items-center gap-1"><Trophy className="w-3.5 h-3.5" />Sports</a>
               <a href="#compliance" className="block text-slate-600 hover:text-cyan-600 font-medium">Compliance</a>
               <a href="#pricing" className="block text-slate-600 hover:text-cyan-600 font-medium">Pricing</a>
               <div className="py-2 border-t border-slate-200">
@@ -314,6 +319,12 @@ export default function MarketingHome() {
                       <span key={tag} className="px-3 py-1 rounded-full bg-white/80 text-slate-700 text-sm font-medium shadow-sm">{tag}</span>
                     ))}
                     {i === 6 && ['Inventory', 'POS Integration', 'E-commerce', 'Loyalty Programs', 'Vendor Management'].map(tag => (
+                      <span key={tag} className="px-3 py-1 rounded-full bg-white/80 text-slate-700 text-sm font-medium shadow-sm">{tag}</span>
+                    ))}
+                    {i === 7 && ['Roster Management', 'Game Scheduling', 'Attendance Tracking', 'Waivers & Forms', 'Parent Portal', 'Player Portal', 'Payments'].map(tag => (
+                      <span key={tag} className="px-3 py-1 rounded-full bg-white/80 text-slate-700 text-sm font-medium shadow-sm">{tag}</span>
+                    ))}
+                    {i === 8 && ['ATF Bound Book', 'FFL Compliance', 'Form 4473 Tracking', 'Transfer Logs', 'Inventory Control'].map(tag => (
                       <span key={tag} className="px-3 py-1 rounded-full bg-white/80 text-slate-700 text-sm font-medium shadow-sm">{tag}</span>
                     ))}
                   </div>
@@ -604,6 +615,147 @@ export default function MarketingHome() {
                 className="block w-full text-center py-2.5 rounded-xl border-2 border-slate-300 hover:border-cyan-500 hover:text-cyan-600 transition-colors font-medium text-slate-700 text-sm"
               >
                 Contact Sales
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Operon Sports CRM Suite ─────────────────────────────────────── */}
+      <section id="sports" className="py-24 relative bg-gradient-to-b from-slate-50 via-green-50/40 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-100 border border-green-300 text-green-700 text-sm font-semibold mb-6">
+              <Trophy className="w-4 h-4" /> New Add-On
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">
+                Operon Sports CRM Suite
+              </span>
+            </h2>
+            <p className="text-slate-500 text-lg max-w-3xl mx-auto">
+              The complete management platform for sports teams, coaches, trainers, and athletic organizations.
+              Rosters, schedules, attendance, waivers, payments, and dedicated portals — all in one place.
+            </p>
+          </div>
+
+          {/* Features Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            {[
+              { icon: Users, title: 'Full Roster Management', description: 'Manage teams, players, parents/guardians, and coaches. Separate communication groups with role-based permissions.', color: 'from-blue-500 to-cyan-400' },
+              { icon: Calendar, title: 'Smart Scheduling', description: 'Schedule practices, games, and tournaments. Calendar views, RSVP tracking, recurring events, and location management.', color: 'from-green-500 to-emerald-400' },
+              { icon: CheckSquare, title: 'Attendance Tracking', description: 'Track attendance per player per event. Present, absent, late, excused statuses with parent notification support.', color: 'from-indigo-500 to-violet-400' },
+              { icon: FileCheck, title: 'Waivers & Forms', description: 'Digital waivers with e-signatures, timestamped and IP-verified. Liability, medical, photo release, travel, and custom forms.', color: 'from-orange-500 to-amber-400' },
+              { icon: CreditCard, title: 'Payments & Registrations', description: 'Season registrations, camp fees, tournament entries, and memberships. Payment plans, auto-renew, and overdue alerts.', color: 'from-purple-500 to-pink-400' },
+              { icon: Heart, title: 'Parent Portal', description: 'Dedicated portal for parents to view schedules, RSVP, sign waivers, make payments, and message coaching staff.', color: 'from-rose-500 to-red-400' },
+              { icon: Star, title: 'Player Portal', description: 'Player dashboard with personal stats, season achievements, skill ratings, attendance history, and upcoming events.', color: 'from-yellow-500 to-orange-400' },
+              { icon: Activity, title: 'Stats & Analytics', description: 'Season statistics, skill ratings, attendance rates, and payment summaries. Coach notes and player development tracking.', color: 'from-teal-500 to-cyan-400' },
+              { icon: Globe, title: 'Website Widgets', description: "Embeddable schedule, roster, registration, payment portal, and waiver widgets for your organization's website.", color: 'from-cyan-500 to-blue-400' },
+            ].map((feature, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-green-300 hover:shadow-lg transition-all group">
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feature.color} mb-4`}>
+                  <feature.icon className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">{feature.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Who It's For */}
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
+            {[
+              { emoji: '🏅', title: 'Sports Teams & Clubs', items: ['Youth & adult leagues', 'Multi-team management', 'Full roster + parent contacts', 'Season scheduling & tournaments'] },
+              { emoji: '🏋️', title: 'Coaches & Trainers', items: ['Individual athlete tracking', 'Skills & progress notes', 'Class scheduling & billing', 'Certification tracking'] },
+              { emoji: '🎓', title: 'Athletic Organizations', items: ['Multi-sport programs', 'Staff & volunteer management', 'Compliance & waivers', 'Membership tiers'] },
+            ].map((card, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200">
+                <div className="text-4xl mb-3">{card.emoji}</div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-3">{card.title}</h3>
+                <ul className="space-y-2">
+                  {card.items.map((item, j) => (
+                    <li key={j} className="flex items-center gap-2 text-slate-600 text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Sports Pricing */}
+          <div className="text-center mb-10">
+            <h3 className="text-2xl font-bold text-slate-900 mb-2">Sports Suite Pricing</h3>
+            <p className="text-slate-500">Add sports management to any OPERON plan</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {/* Sports Add-on */}
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-green-400 transition-all shadow-sm">
+              <div className="text-2xl mb-2">⚽</div>
+              <h4 className="text-lg font-bold text-slate-900 mb-1">Sports Add-On</h4>
+              <p className="text-slate-500 text-sm mb-4">Core sports module for existing plans</p>
+              <div className="mb-4">
+                <span className="text-3xl font-bold text-green-600">$49</span>
+                <span className="text-slate-500">/month</span>
+              </div>
+              <ul className="space-y-2 mb-6">
+                {['Roster management', 'Schedule & attendance', 'Waivers & forms', 'Parent & player portals', 'Payment & registration'].map(f => (
+                  <li key={f} className="flex items-center gap-2 text-slate-600 text-sm">
+                    <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />{f}
+                  </li>
+                ))}
+              </ul>
+              <a href={`${APP_URL}/login`} className="block w-full py-2.5 rounded-xl border border-green-400 hover:bg-green-50 transition-colors font-semibold text-green-700 text-sm text-center">
+                Add to My Plan
+              </a>
+            </div>
+
+            {/* Branding Add-on */}
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-purple-400 transition-all shadow-sm">
+              <div className="text-2xl mb-2">🎨</div>
+              <h4 className="text-lg font-bold text-slate-900 mb-1">Sports + Branding</h4>
+              <p className="text-slate-500 text-sm mb-4">Sports add-on with custom team branding</p>
+              <div className="mb-4">
+                <span className="text-3xl font-bold text-purple-600">$74</span>
+                <span className="text-slate-500">/month</span>
+                <div className="text-xs text-slate-400 mt-0.5">($49 + $25 branding)</div>
+              </div>
+              <ul className="space-y-2 mb-6">
+                {['Everything in Sports Add-On', 'Custom team colors & logo', 'Branded parent/player portals', 'Custom email templates', 'White-labeled widgets'].map(f => (
+                  <li key={f} className="flex items-center gap-2 text-slate-600 text-sm">
+                    <CheckCircle className="w-4 h-4 text-purple-500 flex-shrink-0" />{f}
+                  </li>
+                ))}
+              </ul>
+              <a href={`${APP_URL}/login`} className="block w-full py-2.5 rounded-xl border border-purple-400 hover:bg-purple-50 transition-colors font-semibold text-purple-700 text-sm text-center">
+                Add to My Plan
+              </a>
+            </div>
+
+            {/* Full Suite */}
+            <div className="relative p-6 rounded-2xl bg-gradient-to-b from-green-600 to-emerald-700 border border-green-500 shadow-lg shadow-green-200">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white text-green-700 text-xs font-bold shadow">
+                Best Value
+              </div>
+              <div className="text-2xl mb-2">🏆</div>
+              <h4 className="text-lg font-bold text-white mb-1">Full Sports Suite</h4>
+              <p className="text-green-100 text-sm mb-4">Standalone plan for sports organizations</p>
+              <div className="mb-4">
+                <span className="text-3xl font-bold text-white">$250</span>
+                <span className="text-green-200">/month</span>
+              </div>
+              <ul className="space-y-2 mb-6">
+                {['Everything in Sports + Branding', 'Unlimited teams & players', 'Full CRM + project management', 'Custom domain & branding', 'Priority support & onboarding', 'Unlimited website widgets'].map(f => (
+                  <li key={f} className="flex items-center gap-2 text-green-50 text-sm">
+                    <CheckCircle className="w-4 h-4 text-white flex-shrink-0" />{f}
+                  </li>
+                ))}
+              </ul>
+              <a href={`${APP_URL}/login`} className="block w-full py-2.5 rounded-xl bg-white text-green-700 font-semibold hover:bg-green-50 transition-colors text-sm text-center">
+                Get Started
               </a>
             </div>
           </div>
@@ -924,6 +1076,8 @@ export default function MarketingHome() {
                 <li><a href="#industries" className="hover:text-cyan-400 transition-colors">Medical</a></li>
                 <li><a href="#industries" className="hover:text-cyan-400 transition-colors">Service Companies</a></li>
                 <li><a href="#industries" className="hover:text-cyan-400 transition-colors">IT & Tech</a></li>
+                <li><a href="#sports" className="hover:text-green-400 transition-colors">Sports & Athletics</a></li>
+                <li><a href="#industries" className="hover:text-cyan-400 transition-colors">Firearms Business</a></li>
               </ul>
             </div>
 
