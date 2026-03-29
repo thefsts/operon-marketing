@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, Zap, Building, Users, ArrowRight, Sparkles } from 'lucide-react';
+import { Check, Zap, Building, Users, ArrowRight, Sparkles, ShoppingCart, MonitorSmartphone, Share2, MapPin, Clock, CreditCard } from 'lucide-react';
 
 interface Plan {
   name: string;
@@ -225,6 +225,111 @@ const PricingPage: React.FC = () => {
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* ADD-ONS Section */}
+        <div className="mb-16">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold mb-3">
+              <span className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">Add-Ons</span>
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Supercharge your CRM with powerful add-ons. Add to any plan for additional capabilities.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* E-commerce Add-on */}
+            <div className="bg-gradient-to-b from-green-500/10 to-emerald-500/5 border border-green-500/30 rounded-2xl p-6 hover:border-green-500/50 transition-all">
+              <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-4">
+                <ShoppingCart className="w-6 h-6 text-green-400" />
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">E-commerce</h3>
+              <p className="text-gray-400 text-sm mb-4">White-label online store with inventory, payments, and mobile shopping.</p>
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className="text-2xl font-bold text-green-400">+$25</span>
+                <span className="text-gray-400 text-sm">/month</span>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-300 mb-4">
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-green-400" /> Product catalog</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-green-400" /> Multiple payments</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-green-400" /> Inventory tracking</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-green-400" /> Mobile store</li>
+              </ul>
+              <a href="/ecommerce" className="text-green-400 text-sm font-medium hover:text-green-300 transition">Learn more →</a>
+            </div>
+
+            {/* POS System Add-on */}
+            <div className="bg-gradient-to-b from-blue-500/10 to-indigo-500/5 border border-blue-500/30 rounded-2xl p-6 hover:border-blue-500/50 transition-all">
+              <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4">
+                <MonitorSmartphone className="w-6 h-6 text-blue-400" />
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">POS System</h3>
+              <p className="text-gray-400 text-sm mb-4">Point-of-sale system with hardware integration and real-time sync.</p>
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className="text-2xl font-bold text-blue-400">+$49</span>
+                <span className="text-gray-400 text-sm">/month</span>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-300 mb-4">
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-400" /> Hardware support</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-400" /> Real-time sync</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-400" /> Inventory sync</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-400" /> Multi-location</li>
+              </ul>
+              <a href="/pos" className="text-blue-400 text-sm font-medium hover:text-blue-300 transition">Learn more →</a>
+            </div>
+
+            {/* Social Media Marketing Add-on */}
+            <div className="bg-gradient-to-b from-purple-500/10 to-pink-500/5 border border-purple-500/30 rounded-2xl p-6 hover:border-purple-500/50 transition-all">
+              <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-4">
+                <Share2 className="w-6 h-6 text-purple-400" />
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">Social Media Marketing</h3>
+              <p className="text-gray-400 text-sm mb-4">Schedule posts, track engagement, and manage all your social accounts.</p>
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className="text-2xl font-bold text-purple-400">+$29</span>
+                <span className="text-gray-400 text-sm">/month</span>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-300 mb-4">
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-400" /> Post scheduling</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-400" /> Analytics dashboard</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-400" /> Multi-platform</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-400" /> Content calendar</li>
+              </ul>
+              <span className="text-purple-400 text-sm font-medium">Coming soon</span>
+            </div>
+
+            {/* Geofence Marketing Add-on - COMING SOON */}
+            <div className="bg-gradient-to-b from-orange-500/10 to-amber-500/5 border border-orange-500/30 rounded-2xl p-6 hover:border-orange-500/50 transition-all relative overflow-hidden">
+              <div className="absolute top-3 right-3 px-3 py-1 bg-orange-500 text-white text-xs font-bold rounded-full flex items-center gap-1">
+                <Clock className="w-3 h-3" /> COMING SOON
+              </div>
+              <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center mb-4">
+                <MapPin className="w-6 h-6 text-orange-400" />
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">Geofence Marketing</h3>
+              <p className="text-gray-400 text-sm mb-4">Location-based marketing with targeted campaigns and real-time triggers.</p>
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className="text-2xl font-bold text-orange-400">TBD</span>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-300 mb-4">
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-orange-400 opacity-50" /> Location targeting</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-orange-400 opacity-50" /> Push notifications</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-orange-400 opacity-50" /> Campaign analytics</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-orange-400 opacity-50" /> Real-time triggers</li>
+              </ul>
+              <span className="text-orange-400 text-sm font-medium">Join waitlist</span>
+            </div>
+          </div>
+
+          {/* Add-on Bundle Savings */}
+          <div className="mt-8 bg-gradient-to-r from-cyan-500/10 to-fuchsia-500/10 border border-cyan-500/30 rounded-2xl p-6 text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Sparkles className="w-5 h-5 text-cyan-400" />
+              <h3 className="text-lg font-bold text-white">Bundle & Save</h3>
+            </div>
+            <p className="text-gray-400 text-sm">Add 2 or more add-ons and save 15% on your total add-on cost!</p>
+          </div>
         </div>
 
         {/* Enterprise CTA */}
