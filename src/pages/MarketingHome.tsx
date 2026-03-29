@@ -7,7 +7,7 @@ import {
   Share2, MapPin, MessageSquare, Shield, CheckCircle, ArrowRight,
   Play, Menu, X, Sparkles, Mail, User, Building, Phone,
   Trophy, Calendar, CreditCard, Star, Activity, Globe, ChevronRight,
-  Linkedin, Facebook, Instagram, Twitter
+  Linkedin, Facebook, Instagram, Twitter, MonitorSmartphone, Clock
 } from 'lucide-react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
@@ -659,10 +659,81 @@ export default function MarketingHome() {
               </div>
             ))}
           </div>
+
+          {/* ADD-ONS Section */}
+          <div className="mt-12 pt-12 border-t border-slate-200">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">ADD-ONS</h3>
+              <p className="text-slate-500">Enhance your plan with powerful add-ons</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* E-commerce Add-on */}
+              <div className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-lg transition-all hover:border-green-300">
+                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-3">
+                  <ShoppingCart className="w-5 h-5 text-green-600" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-1">E-commerce</h4>
+                <p className="text-slate-500 text-sm mb-3">Online store with payments, inventory, and mobile shopping.</p>
+                <div className="text-xl font-bold text-slate-900">
+                  +$25<span className="text-sm font-normal text-slate-500">/month</span>
+                </div>
+              </div>
+
+              {/* POS System Add-on */}
+              <div className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-lg transition-all hover:border-blue-300">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
+                  <MonitorSmartphone className="w-5 h-5 text-blue-600" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-1">POS System</h4>
+                <p className="text-slate-500 text-sm mb-3">Point-of-sale with hardware integration and real-time sync.</p>
+                <div className="text-xl font-bold text-slate-900">
+                  +$49<span className="text-sm font-normal text-slate-500">/month</span>
+                </div>
+              </div>
+
+              {/* Social Media Marketing Add-on */}
+              <div className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-lg transition-all hover:border-purple-300">
+                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-3">
+                  <Share2 className="w-5 h-5 text-purple-600" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-1">Social Media Marketing</h4>
+                <p className="text-slate-500 text-sm mb-3">Schedule posts, track engagement, manage social accounts.</p>
+                <div className="text-xl font-bold text-slate-900">
+                  +$29<span className="text-sm font-normal text-slate-500">/month</span>
+                </div>
+              </div>
+
+              {/* Geofence Marketing Add-on */}
+              <div className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-lg transition-all hover:border-orange-300 relative overflow-hidden">
+                <div className="absolute top-2 right-2">
+                  <span className="bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    COMING SOON
+                  </span>
+                </div>
+                <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-3">
+                  <MapPin className="w-5 h-5 text-orange-600" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-1">Geofence Marketing</h4>
+                <p className="text-slate-500 text-sm mb-3">Location-based marketing with targeted campaigns.</p>
+                <div className="text-lg font-semibold text-slate-400">
+                  Coming Soon
+                </div>
+              </div>
+            </div>
+
+            {/* Bundle Savings */}
+            <div className="mt-6 bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200 rounded-xl p-4 text-center">
+              <p className="text-slate-700 text-sm">
+                <span className="font-semibold">💡 Bundle & Save:</span> Add 2 or more add-ons and save 15% on your total add-on cost!
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ─── Sports CRM Suite ────────────────────────────────────────────── */}
+      {/* ──────────────────────────────────────────────────────────────────────────────── Sports CRM Suite ──────────────────────────────────────────────────────────────────────────────── */}
       <section id="sports" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
