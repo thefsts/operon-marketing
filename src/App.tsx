@@ -13,6 +13,7 @@ import RealEstatePage from './pages/RealEstatePage';
 import StartPage from './pages/StartPage';
 import POSPage from './pages/POSPage';
 import EcommercePage from './pages/EcommercePage';
+import IntegrationsPage from './pages/IntegrationsPage';
 import NotFound from './pages/NotFound';
 import CookieConsent from './components/CookieConsent';
 import AccessibilityControls from './components/AccessibilityControls';
@@ -35,6 +36,7 @@ function App() {
         <Route path="/start" element={<StartPage />} />
         <Route path="/get-started" element={<StartPage />} />
         <Route path="/pos" element={<POSPage />} />
+        <Route path="/integrations" element={<IntegrationsPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <CookieConsent />

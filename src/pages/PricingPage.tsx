@@ -16,34 +16,32 @@ const plans: Plan[] = [
   {
     name: 'Starter',
     description: 'Perfect for small teams getting started',
-    price: 49,
+    price: 29,
     priceId: 'price_starter_monthly',
     features: [
-      'Up to 5 team members',
-      '10,000 contacts',
-      'Basic workflows',
+      'CRM & Leads',
+      'Deals & Pipeline',
+      'Tasks & Activities',
+      'Basic Appointments',
       'Email support',
-      '2 API integrations',
       '5GB storage',
-      'Basic analytics',
     ],
     cta: 'Start Free Trial',
   },
   {
-    name: 'Professional',
+    name: 'Pro',
     description: 'For growing businesses that need more power',
-    price: 149,
-    priceId: 'price_professional_monthly',
+    price: 79,
+    priceId: 'price_pro_monthly',
     features: [
-      'Up to 25 team members',
-      '100,000 contacts',
-      'Advanced workflows & automation',
+      'Full CRM',
+      'Marketing (Email/SMS)',
+      'Automation workflows',
+      'AI Assistant (basic)',
+      'Advanced reporting',
       'Priority support',
-      'Unlimited API integrations',
       '50GB storage',
-      'Advanced analytics & reports',
-      'Custom industry templates',
-      'Webhooks & real-time events',
+      'Webhooks & API access',
     ],
     highlighted: true,
     popular: true,
@@ -52,22 +50,20 @@ const plans: Plan[] = [
   {
     name: 'Enterprise',
     description: 'For large organizations with custom needs',
-    price: 499,
+    price: 199,
     priceId: 'price_enterprise_monthly',
     features: [
-      'Unlimited team members',
-      'Unlimited contacts',
-      'Custom workflow builder',
-      '24/7 dedicated support',
-      'Unlimited API access',
-      'Unlimited storage',
-      'Custom analytics & BI',
+      'Everything in Pro',
+      'Commerce included',
+      'POS + Inventory',
+      'Accounting module',
       'White-label options',
-      'SLA guarantee (99.99%)',
-      'On-premise deployment option',
+      'API access',
+      'Unlimited storage',
+      '24/7 dedicated support',
       'Custom training & onboarding',
     ],
-    cta: 'Contact Sales',
+    cta: 'Book Demo',
   },
 ];
 
@@ -127,10 +123,10 @@ const PricingPage: React.FC = () => {
         {/* Title */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Simple, Transparent <span className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">Pricing</span>
+            Simple pricing. <span className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">Powerful platform.</span>
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
-            Choose the plan that fits your business. All plans include a 14-day free trial.
+            Replace multiple tools with one system.
           </p>
 
           {/* Billing toggle */}
@@ -231,10 +227,10 @@ const PricingPage: React.FC = () => {
         <div className="mb-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold mb-3">
-              <span className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">Add-Ons</span>
+              <span className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">Add more power when you need it</span>
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Supercharge your CRM with powerful add-ons. Add to any plan for additional capabilities.
+              Enhance your plan with powerful add-ons.
             </p>
           </div>
 
@@ -332,6 +328,32 @@ const PricingPage: React.FC = () => {
           </div>
         </div>
 
+        {/* Value Section */}
+        <div className="mb-16 bg-gradient-to-r from-cyan-500/5 to-fuchsia-500/5 border border-white/10 rounded-2xl p-8">
+          <h2 className="text-2xl font-bold text-center mb-8">
+            Replace 5+ tools with one platform
+          </h2>
+          <div className="grid md:grid-cols-5 gap-6 text-center">
+            {[
+              { name: 'CRM', icon: Users },
+              { name: 'Marketing', icon: Zap },
+              { name: 'Storefront', icon: ShoppingCart },
+              { name: 'Accounting', icon: CreditCard },
+              { name: 'Scheduling', icon: Clock },
+            ].map(({ name, icon: Icon }, i) => (
+              <div key={i} className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                  <Icon className="w-6 h-6 text-cyan-400" />
+                </div>
+                <span className="text-sm text-gray-300">{name}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-gray-400 mt-6">
+            All included in one subscription. No more juggling multiple tools.
+          </p>
+        </div>
+
         {/* Enterprise CTA */}
         <div className="bg-gradient-to-r from-cyan-500/10 to-fuchsia-500/10 border border-white/10 rounded-2xl p-8 md:p-12 text-center">
           <Building className="w-12 h-12 mx-auto mb-4 text-cyan-400" />
@@ -342,9 +364,9 @@ const PricingPage: React.FC = () => {
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 rounded-lg font-semibold hover:bg-white/20 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-fuchsia-500 rounded-lg font-semibold hover:opacity-90 transition-colors"
           >
-            Contact Enterprise Sales
+            Book Demo
             <ArrowRight size={18} />
           </a>
         </div>
@@ -393,6 +415,7 @@ const PricingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-wrap justify-center gap-6 text-sm text-gray-500">
           <a href="/" className="hover:text-cyan-400 transition-colors">Home</a>
           <a href="/pricing" className="text-cyan-400">Pricing</a>
+          <a href="/integrations" className="hover:text-cyan-400 transition-colors">Integrations</a>
           <a href="/docs" className="hover:text-cyan-400 transition-colors">API Docs</a>
           <a href="/privacy" className="hover:text-cyan-400 transition-colors">Privacy</a>
           <a href="/terms" className="hover:text-cyan-400 transition-colors">Terms</a>

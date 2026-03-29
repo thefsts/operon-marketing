@@ -162,32 +162,32 @@ export default function SportsPage() {
             <Trophy className="w-4 h-4" /> Sports CRM Suite
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-5 leading-tight">
-            Run Your Entire Team or Club<br />
+            Run your entire sports organization<br />
             <span className="bg-gradient-to-r from-green-400 to-emerald-300 bg-clip-text text-transparent">
-              From One Platform
+              — not just your team
             </span>
           </h1>
           <p className="text-slate-300 text-xl mb-4 max-w-2xl mx-auto">
-            Manage players, parents, schedules, payments, waivers, and portals — built for sports teams, coaches, trainers, and athletic organizations.
+            Teams, schedules, registrations, payments, communication, and merch — all in one platform.
           </p>
           <p className="text-green-400/80 text-sm mb-10 flex items-center justify-center gap-2">
             <Sparkles className="w-4 h-4" /> AI will help you finish setup automatically.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              to="/contact"
+              className="group px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-green-500/30 transition-all flex items-center gap-2"
+            >
+              Book Demo
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
             <a
               href={`${APP_URL}/login`}
               onClick={() => saveFunnel()}
-              className="group px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-green-500/30 transition-all flex items-center gap-2"
+              className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all"
             >
-              Start Your Sports Setup
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              Start Free Trial
             </a>
-            <Link
-              to="/"
-              className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all flex items-center gap-2"
-            >
-              <Play className="w-5 h-5" /> View Demo
-            </Link>
           </div>
         </div>
       </section>
@@ -390,15 +390,15 @@ export default function SportsPage() {
       <section className="py-20 bg-gradient-to-br from-green-900 via-emerald-900 to-slate-900">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <Trophy className="w-12 h-12 text-green-400 mx-auto mb-5" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-5">Ready to Run Your Sports CRM?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-5">Ready to Run Your Sports Organization?</h2>
           <p className="text-slate-300 text-lg mb-8">Set up your roster, schedule, and portals in one afternoon. AI will help you finish everything.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="group px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-green-500/30 transition-all flex items-center gap-2">
-              Start Your Sports CRM <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <Link to="/contact" className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/10 transition-all">
-              Book a Demo
+            <Link to="/contact" className="group px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-green-500/30 transition-all flex items-center gap-2">
+              Book Demo <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
+            <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/10 transition-all">
+              Start Free Trial
+            </a>
           </div>
         </div>
       </section>
@@ -409,6 +409,7 @@ export default function SportsPage() {
           <div className="flex gap-5">
             <Link to="/privacy" className="hover:text-slate-300 transition-colors">Privacy</Link>
             <Link to="/terms" className="hover:text-slate-300 transition-colors">Terms</Link>
+            <Link to="/integrations" className="hover:text-slate-300 transition-colors">Integrations</Link>
             <Link to="/" className="hover:text-slate-300 transition-colors">Home</Link>
           </div>
         </div>

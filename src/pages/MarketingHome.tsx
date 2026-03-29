@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   Users, Brain, FolderKanban, FileCheck, FileText, ShoppingCart,
   Megaphone, Zap, Building2, Home, Scale, Stethoscope,
@@ -299,40 +299,38 @@ export default function MarketingHome() {
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
           {/* Logo */}
           <div className="flex justify-center mb-10">
-            <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-40 w-auto object-contain" />
+            <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-32 w-auto object-contain" />
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight text-white">
-            Run Your Entire Business<br />
+            Operon — The Operating System<br />
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-              From One Platform
+              for Modern Businesses
             </span>
           </h1>
 
           <p className="text-lg sm:text-xl text-slate-300 mb-4 max-w-2xl mx-auto">
-            CRM, projects, contracts, POS, marketing, and compliance — built for your industry and powered by AI.
+            Replace your CRM, marketing tools, storefront, accounting, and operations — all in one platform.
           </p>
-          <p className="text-sm text-cyan-400/80 mb-10 font-medium flex items-center justify-center gap-2">
-            <Sparkles className="w-4 h-4" />
-            AI will help you set everything up automatically.
+          <p className="text-base text-cyan-400/80 mb-10 font-medium">
+            Stop using 5 different tools to run your business.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              to="/contact"
+              className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/30 transition-all flex items-center gap-2"
+            >
+              Book Demo
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
             <a
               href="/start"
               onClick={() => saveFunnel('start')}
-              className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/30 transition-all flex items-center gap-2"
-            >
-              Get Started
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <button
-              onClick={handleStartDemo}
               className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all flex items-center gap-2"
             >
-              <Play className="w-5 h-5" />
-              Watch Demo
-            </button>
+              Start Free Trial
+            </a>
           </div>
 
           <div className="mt-10 flex items-center justify-center gap-8 text-slate-400 text-sm">
@@ -344,21 +342,91 @@ export default function MarketingHome() {
       </section>
 
       {/* ─── Industry Funnel Entry ───────────────────────────────────────── */}
+      {/* ───────────────────────────────────────────────────────────────────────────────────────────── THE PROBLEM ───────────────────────────────────────────────────────────────────────────────────────────── */}
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">What kind of business are you?</h2>
-            <p className="text-slate-500 text-lg">Choose your industry and we'll show you exactly how Operon works for you.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+              Most businesses are stuck juggling disconnected tools
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            {[
+              { icon: Users, text: 'CRM in one place', color: 'text-red-500' },
+              { icon: CreditCard, text: 'Payments in another', color: 'text-orange-500' },
+              { icon: Megaphone, text: 'Marketing somewhere else', color: 'text-amber-500' },
+              { icon: FileText, text: 'Spreadsheets holding everything together', color: 'text-yellow-600' },
+            ].map(({ icon: Icon, text, color }, i) => (
+              <div key={i} className="flex items-center gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <div className={`w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center ${color}`}>
+                  <Icon className="w-5 h-5" />
+                </div>
+                <span className="text-slate-700 font-medium">{text}</span>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-slate-500 text-lg mt-8 font-medium">
+            This slows growth and creates chaos.
+          </p>
+        </div>
+      </section>
+
+      {/* ───────────────────────────────────────────────────────────────────────────────────────────── THE SOLUTION ───────────────────────────────────────────────────────────────────────────────────────────── */}
+      <section id="solution" className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Operon brings everything together
+            </h2>
+            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
+              One system to run your entire business — from clients to revenue.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+            {[
+              { icon: Users, label: 'CRM & Deals', color: 'from-blue-500 to-cyan-400' },
+              { icon: Calendar, label: 'Appointments & Scheduling', color: 'from-emerald-500 to-green-400' },
+              { icon: CreditCard, label: 'Payments & Invoicing', color: 'from-purple-500 to-pink-400' },
+              { icon: Megaphone, label: 'Marketing Automation', color: 'from-orange-500 to-amber-400' },
+              { icon: ShoppingCart, label: 'Commerce & Storefront', color: 'from-rose-500 to-red-400' },
+              { icon: MonitorSmartphone, label: 'POS & Inventory', color: 'from-indigo-500 to-violet-400' },
+              { icon: BarChart3, label: 'Accounting & Reports', color: 'from-teal-500 to-cyan-400' },
+              { icon: Brain, label: 'AI Assistant', color: 'from-fuchsia-500 to-purple-400' },
+            ].map(({ icon: Icon, label, color }, i) => (
+              <div key={i} className="group p-6 rounded-2xl bg-white border border-slate-200 hover:border-cyan-300 hover:shadow-lg transition-all hover:-translate-y-0.5">
+                <div className={`w-12 h-12 mb-4 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                  <Icon className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="font-semibold text-slate-900">{label}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────────────────────────────────────────────────────────────────────────────────────── INDUSTRIES ───────────────────────────────────────────────────────────────────────────────────────────── */}
+      <section id="industries" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Built for every type of business
+            </h2>
+            <p className="text-slate-500 text-lg">Choose your industry to see how Operon works for you.</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { label: 'Real Estate', icon: Home, path: '/real-estate', funnel: 'real_estate', color: 'hover:border-emerald-400 hover:bg-emerald-50', iconColor: 'text-emerald-600 bg-emerald-100' },
+              { label: 'Service Businesses', icon: Briefcase, path: '/start', funnel: 'service', color: 'hover:border-blue-400 hover:bg-blue-50', iconColor: 'text-blue-600 bg-blue-100' },
+              { label: 'Retail & E-Commerce', icon: Store, path: '/ecommerce', funnel: 'ecommerce', color: 'hover:border-purple-400 hover:bg-purple-50', iconColor: 'text-purple-600 bg-purple-100' },
+              { label: 'Restaurants', icon: Store, path: '/pos', funnel: 'pos', color: 'hover:border-orange-400 hover:bg-orange-50', iconColor: 'text-orange-600 bg-orange-100' },
+              { label: 'Healthcare', icon: Stethoscope, path: '/compliance', funnel: 'medical', color: 'hover:border-rose-400 hover:bg-rose-50', iconColor: 'text-rose-600 bg-rose-100' },
+              { label: 'Real Estate & Mortgage', icon: Home, path: '/real-estate', funnel: 'real_estate', color: 'hover:border-emerald-400 hover:bg-emerald-50', iconColor: 'text-emerald-600 bg-emerald-100' },
+              { label: 'Sports Organizations', icon: Trophy, path: '/sports', funnel: 'sports', color: 'hover:border-green-400 hover:bg-green-50', iconColor: 'text-green-600 bg-green-100' },
+              { label: 'Franchises & Multi-location', icon: Building2, path: '/contact', funnel: 'enterprise', color: 'hover:border-cyan-400 hover:bg-cyan-50', iconColor: 'text-cyan-600 bg-cyan-100' },
               { label: 'Legal', icon: Scale, path: '/compliance', funnel: 'legal', color: 'hover:border-amber-400 hover:bg-amber-50', iconColor: 'text-amber-600 bg-amber-100' },
-              { label: 'Medical', icon: Stethoscope, path: '/compliance', funnel: 'medical', color: 'hover:border-rose-400 hover:bg-rose-50', iconColor: 'text-rose-600 bg-rose-100' },
-              { label: 'Sports & Athletics', icon: Trophy, path: '/sports', funnel: 'sports', color: 'hover:border-green-400 hover:bg-green-50', iconColor: 'text-green-600 bg-green-100' },
-              { label: 'Service Business', icon: Briefcase, path: '/start', funnel: 'service', color: 'hover:border-blue-400 hover:bg-blue-50', iconColor: 'text-blue-600 bg-blue-100' },
-              { label: 'POS / Retail', icon: Store, path: '/pos', funnel: 'pos', color: 'hover:border-purple-400 hover:bg-purple-50', iconColor: 'text-purple-600 bg-purple-100' },
             ].map(({ label, icon: Icon, path, funnel, color, iconColor }) => (
               <a
                 key={label}
@@ -374,105 +442,93 @@ export default function MarketingHome() {
               </a>
             ))}
           </div>
+        </div>
+      </section>
 
-          <p className="text-center text-slate-400 text-sm mt-8 flex items-center justify-center gap-2">
-            <Sparkles className="w-4 h-4 text-cyan-500" />
-            AI will help configure your system based on your selection.
+{/* ───────────────────────────────────────────────────────────────────────────────────────────── COMPARISON ───────────────────────────────────────────────────────────────────────────────────────────── */}
+      <section id="comparison" className="py-20 bg-slate-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Why Operon wins
+            </h2>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-200">
+                  <th className="text-left p-5 font-semibold text-slate-900">Competitor</th>
+                  <th className="text-left p-5 font-semibold text-slate-900">What they offer</th>
+                  <th className="text-left p-5 font-semibold text-slate-900">Operon advantage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-slate-100">
+                  <td className="p-5 font-medium text-slate-800">TeamSnap</td>
+                  <td className="p-5 text-slate-500">Team management only</td>
+                  <td className="p-5 text-cyan-600 font-medium">Full organization system</td>
+                </tr>
+                <tr className="border-b border-slate-100">
+                  <td className="p-5 font-medium text-slate-800">Shopify</td>
+                  <td className="p-5 text-slate-500">Store only</td>
+                  <td className="p-5 text-cyan-600 font-medium">Full business platform</td>
+                </tr>
+                <tr>
+                  <td className="p-5 font-medium text-slate-800">HubSpot</td>
+                  <td className="p-5 text-slate-500">CRM only</td>
+                  <td className="p-5 text-cyan-600 font-medium">Full operating system</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="text-center text-slate-900 text-lg mt-8 font-semibold">
+            Operon replaces your entire tech stack.
           </p>
         </div>
       </section>
 
-      {/* ─── Platform Modules ────────────────────────────────────────────── */}
-      <section id="platform" className="py-20 bg-slate-50">
+      {/* ───────────────────────────────────────────────────────────────────────────────────────────── INTEGRATIONS PREVIEW ───────────────────────────────────────────────────────────────────────────────────────────── */}
+      <section id="integrations" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Everything in One Platform</h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">A complete business operating system — no patchwork of tools required.</p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-            {corePlatformModules.map((item, i) => (
-              <div key={i} className="group p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all">
-                <div className="w-12 h-12 mb-4 rounded-xl bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <item.icon className="w-6 h-6 text-blue-600" />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-1">{item.title}</h3>
-                <p className="text-slate-500 text-sm">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Industries ─────────────────────────────────────────────────── */}
-      <section id="industries" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Built for Your Industry</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Connect with the tools you already use
             </h2>
             <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-              Operon adapts its terminology, workflows, and modules to match your specific business type.
+              Native integrations and Zapier support for seamless connectivity.
             </p>
           </div>
 
-          {/* Industry selector tabs */}
-          <div className="flex flex-wrap justify-center gap-3 mb-10">
-            {industries.map((ind, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveIndustry(i)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full border-2 font-medium transition-all text-sm ${
-                  activeIndustry === i
-                    ? `bg-gradient-to-r ${ind.color} border-transparent text-white shadow-md`
-                    : 'border-slate-200 text-slate-600 hover:border-slate-300 bg-white'
-                }`}
-              >
-                <ind.icon className="w-4 h-4" />
-                {ind.name}
-              </button>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-10">
+            {[
+              { name: 'Slack', icon: MessageSquare },
+              { name: 'Twilio', icon: Phone },
+              { name: 'PayPal', icon: CreditCard },
+              { name: 'Square', icon: CreditCard },
+              { name: 'Afterpay', icon: CreditCard },
+              { name: 'Zip', icon: CreditCard },
+              { name: 'Zapier', icon: Zap },
+              { name: 'Make', icon: Zap },
+            ].map(({ name, icon: Icon }, i) => (
+              <div key={i} className="flex flex-col items-center gap-2 p-4 bg-slate-50 rounded-xl border border-slate-200 hover:border-cyan-300 hover:shadow-md transition-all">
+                <Icon className="w-8 h-8 text-slate-600" />
+                <span className="text-sm font-medium text-slate-700">{name}</span>
+              </div>
             ))}
           </div>
 
-          {/* Active industry detail */}
-          <div className="max-w-3xl mx-auto">
-            {industries.map((ind, i) => (
-              <div
-                key={i}
-                className={`transition-all duration-400 ${activeIndustry === i ? 'opacity-100 scale-100' : 'opacity-0 scale-95 absolute pointer-events-none'}`}
-                style={{ display: activeIndustry === i ? 'block' : 'none' }}
-              >
-                <div className="p-8 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm">
-                  <div className="flex items-start gap-5 mb-5">
-                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${ind.color} flex items-center justify-center flex-shrink-0 shadow-md`}>
-                      <ind.icon className="w-7 h-7 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-slate-900 mb-1">{ind.name}</h3>
-                      <p className="text-slate-600">{ind.description}</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {ind.tags.map(tag => (
-                      <span key={tag} className={`px-3 py-1 rounded-full text-sm font-medium ${ind.tagColor}`}>{tag}</span>
-                    ))}
-                  </div>
-                  <a
-                    href={ind.path}
-                    onClick={() => saveFunnel(ind.name.toLowerCase().replace(/\s+/g, '_'))}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all text-sm"
-                  >
-                    See {ind.name} Setup
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
-            ))}
+          <div className="text-center">
+            <Link to="/integrations" className="inline-flex items-center gap-2 text-cyan-600 hover:text-cyan-700 font-semibold transition-colors">
+              View All Integrations
+              <ArrowRight className="w-5 h-5" />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ─── Core Features ───────────────────────────────────────────────── */}
+      {/* ───────────────────────────────────────────────────────────────────────────────────────────── Core Features ───────────────────────────────────────────────────────────────────────────────────────────── */}
       <section id="features" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
@@ -870,7 +926,7 @@ export default function MarketingHome() {
               onClick={handleStartDemo}
               className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all"
             >
-              Watch Demo
+              Book Demo
             </button>
           </div>
         </div>
@@ -911,6 +967,7 @@ export default function MarketingHome() {
                 <li><a href="#platform" className="hover:text-cyan-400 transition-colors">Features</a></li>
                 <li><a href="#industries" className="hover:text-cyan-400 transition-colors">Industries</a></li>
                 <li><a href="#pricing" className="hover:text-cyan-400 transition-colors">Pricing</a></li>
+                <li><a href="/integrations" className="hover:text-cyan-400 transition-colors">Integrations</a></li>
                 <li><button onClick={handleStartDemo} className="hover:text-cyan-400 transition-colors">Demo</button></li>
                 <li><a href={`${APP_URL}/login`} className="hover:text-cyan-400 transition-colors">Login</a></li>
                 <li><a href="/docs" className="hover:text-cyan-400 transition-colors">API Docs</a></li>
