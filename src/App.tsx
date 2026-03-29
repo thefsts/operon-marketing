@@ -12,6 +12,7 @@ import SportsPage from './pages/SportsPage';
 import RealEstatePage from './pages/RealEstatePage';
 import StartPage from './pages/StartPage';
 import POSPage from './pages/POSPage';
+import EcommercePage from './pages/EcommercePage';
 import NotFound from './pages/NotFound';
 import CookieConsent from './components/CookieConsent';
 import AccessibilityControls from './components/AccessibilityControls';
@@ -29,6 +30,7 @@ function App() {
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/compliance" element={<CompliancePage />} />
         <Route path="/sports" element={<SportsPage />} />
+        <Route path="/ecommerce" element={<EcommercePage />} />
         <Route path="/real-estate" element={<RealEstatePage />} />
         <Route path="/start" element={<StartPage />} />
         <Route path="/get-started" element={<StartPage />} />
