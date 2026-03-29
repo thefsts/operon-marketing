@@ -244,7 +244,7 @@ export default function MarketingHome() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <a href="/" className="inline-flex items-center">
-              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-8 w-auto object-contain max-w-[160px]" />
+              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-12 w-auto object-contain max-w-[200px]" />
             </a>
 
             <div className="hidden md:flex items-center gap-6">
@@ -299,7 +299,7 @@ export default function MarketingHome() {
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
           {/* Logo */}
           <div className="flex justify-center mb-10">
-            <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-28 w-auto object-contain" />
+            <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-40 w-auto object-contain" />
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight text-white">
