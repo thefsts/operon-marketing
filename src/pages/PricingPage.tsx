@@ -114,7 +114,7 @@ const PricingPage: React.FC = () => {
     // Simulate Stripe checkout redirect
     // In production, this would call your backend to create a Stripe Checkout session
     const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
-    window.location.href = `${APP_URL}/signup?plan=${plan.priceId}&billing=${billingCycle}`;
+    window.location.href = `${APP_URL}/register?plan=${plan.priceId}&billing=${billingCycle}`;
   };
 
   const getPrice = (monthlyPrice: number) => {
