@@ -195,38 +195,47 @@ export default function MarketingHome() {
   const mainPricing = [
     {
       name: 'Starter',
-      monthly: 29, annual: 23,
-      annualBilled: 276,
+      monthly: 49, annual: 39,
+      annualBilled: 468,
       desc: 'Perfect for small teams getting started',
       features: ['Up to 2 users', '1,000 contacts', 'Basic CRM', 'Task management', 'Mobile app', 'Email support'],
-      cta: 'Start Free Trial',
+      cta: 'Book Demo',
       highlighted: false,
     },
     {
       name: 'Professional',
-      monthly: 49, annual: 39,
-      annualBilled: 468,
+      monthly: 69, annual: 55,
+      annualBilled: 660,
       desc: 'For growing businesses',
-      features: ['Up to 4 users', '5,000 contacts', 'Project management', 'Basic automation', 'AI Assistant', 'Priority email support'],
-      cta: 'Start Free Trial',
+      features: ['Up to 5 users', '5,000 contacts', 'Project management', 'Basic automation', 'AI Assistant', 'Priority email support'],
+      cta: 'Book Demo',
       highlighted: false,
     },
     {
-      name: 'Business',
+      name: 'Growth',
       monthly: 99, annual: 79,
       annualBilled: 948,
-      desc: 'For established teams',
-      features: ['Up to 10 users', '25,000 contacts', 'Documents & contracts', 'E-signatures', 'Custom fields', 'Social media marketing', 'Priority support'],
-      cta: 'Start Free Trial',
+      desc: 'Most popular for scaling',
+      features: ['Up to 10 users', '10,000 contacts', 'Documents & contracts', 'E-signatures', 'Advanced automation', 'Marketing tools', 'Priority support'],
+      cta: 'Book Demo',
       highlighted: true,
     },
     {
+      name: 'Business',
+      monthly: 150, annual: 120,
+      annualBilled: 1440,
+      desc: 'For established teams',
+      features: ['Up to 25 users', '25,000 contacts', 'Custom fields', 'Social media marketing', 'API access', 'Advanced reporting', 'Premium support'],
+      cta: 'Book Demo',
+      highlighted: false,
+    },
+    {
       name: 'Enterprise',
-      monthly: 199, annual: 159,
-      annualBilled: 1908,
-      desc: 'For regulated industries',
-      features: ['Unlimited users', 'Unlimited contacts', 'Multi-business support', 'Full compliance suite', 'HIPAA/GDPR ready', 'Custom integrations', 'Dedicated support & SLA'],
-      cta: 'Contact Sales',
+      monthly: 299, annual: 239,
+      annualBilled: 2868,
+      desc: 'For large organizations',
+      features: ['Unlimited users', 'Unlimited contacts', 'White-label included', 'Multi-business support', 'Full compliance suite', 'Custom integrations', 'Dedicated support & SLA'],
+      cta: 'Book Demo',
       highlighted: false,
     },
   ];
@@ -672,7 +681,7 @@ export default function MarketingHome() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid lg:grid-cols-5 gap-4">
             {mainPricing.map((plan, i) => (
               <div
                 key={i}

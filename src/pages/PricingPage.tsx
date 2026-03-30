@@ -16,7 +16,7 @@ const plans: Plan[] = [
   {
     name: 'Starter',
     description: 'Perfect for small teams getting started',
-    price: 29,
+    price: 49,
     priceId: 'price_starter_monthly',
     features: [
       'CRM & Leads',
@@ -26,39 +26,71 @@ const plans: Plan[] = [
       'Email support',
       '5GB storage',
     ],
-    cta: 'Start Free Trial',
+    cta: 'Book Demo',
   },
   {
-    name: 'Pro',
-    description: 'For growing businesses that need more power',
-    price: 79,
-    priceId: 'price_pro_monthly',
+    name: 'Professional',
+    description: 'For growing businesses needing more features',
+    price: 69,
+    priceId: 'price_professional_monthly',
     features: [
       'Full CRM',
+      'Marketing (Email)',
+      'Basic automation',
+      '5,000 contacts',
+      'Standard reporting',
+      'Priority support',
+      '25GB storage',
+    ],
+    cta: 'Book Demo',
+  },
+  {
+    name: 'Growth',
+    description: 'Best value for scaling businesses',
+    price: 99,
+    priceId: 'price_growth_monthly',
+    features: [
+      'Everything in Professional',
       'Marketing (Email/SMS)',
       'Automation workflows',
       'AI Assistant (basic)',
       'Advanced reporting',
-      'Priority support',
-      '50GB storage',
       'Webhooks & API access',
+      '50GB storage',
+      '10,000 contacts',
     ],
     highlighted: true,
     popular: true,
-    cta: 'Start Free Trial',
+    cta: 'Book Demo',
+  },
+  {
+    name: 'Business',
+    description: 'For established businesses',
+    price: 150,
+    priceId: 'price_business_monthly',
+    features: [
+      'Everything in Growth',
+      'Commerce module',
+      'Multi-user access',
+      'Advanced permissions',
+      '100GB storage',
+      '25,000 contacts',
+      'Premium support',
+    ],
+    cta: 'Book Demo',
   },
   {
     name: 'Enterprise',
     description: 'For large organizations with custom needs',
-    price: 199,
+    price: 299,
     priceId: 'price_enterprise_monthly',
     features: [
-      'Everything in Pro',
-      'Commerce included',
+      'Everything in Business',
+      'White-label included',
       'POS + Inventory',
       'Accounting module',
-      'White-label options',
       'API access',
+      'Unlimited contacts',
       'Unlimited storage',
       '24/7 dedicated support',
       'Custom training & onboarding',
@@ -158,7 +190,7 @@ const PricingPage: React.FC = () => {
         </div>
 
         {/* Pricing cards */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid lg:grid-cols-5 gap-6 mb-16">
           {plans.map((plan) => (
             <div
               key={plan.name}
