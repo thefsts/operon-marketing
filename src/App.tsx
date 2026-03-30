@@ -44,13 +44,14 @@ function App() {
         <Route path="/healthcare" element={<AnchorRedirect anchor="healthcare" />} />
         <Route path="/legal" element={<AnchorRedirect anchor="legal" />} />
         <Route path="/sports" element={<AnchorRedirect anchor="sports" />} />
-        <Route path="/ecommerce" element={<AnchorRedirect anchor="services" />} />
-        <Route path="/pos" element={<AnchorRedirect anchor="services" />} />
+        <Route path="/ecommerce" element={<AnchorRedirect anchor="ecommerce" />} />
+        <Route path="/pos" element={<AnchorRedirect anchor="ecommerce" />} />
         <Route path="/compliance" element={<AnchorRedirect anchor="healthcare" />} />
         <Route path="/integrations" element={<AnchorRedirect anchor="integrations" />} />
         <Route path="/lead-generation" element={<AnchorRedirect anchor="features" />} />
         <Route path="/client-billing" element={<AnchorRedirect anchor="features" />} />
-        <Route path="/reputation-management" element={<AnchorRedirect anchor="features" />} />
+        <Route path="/reputation-management" element={<AnchorRedirect anchor="reputation" />} />
+        <Route path="/reputation" element={<AnchorRedirect anchor="reputation" />} />
         <Route path="/about" element={<AnchorRedirect anchor="about" />} />
 
         <Route path="*" element={<NotFound />} />

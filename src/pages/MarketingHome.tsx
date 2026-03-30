@@ -435,7 +435,7 @@ export default function MarketingHome() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               { label: 'Service Businesses', icon: Briefcase, path: '#services', funnel: 'service', color: 'hover:border-blue-400 hover:bg-blue-50', iconColor: 'text-blue-600 bg-blue-100' },
-              { label: 'Retail & E-Commerce', icon: Store, path: '#services', funnel: 'ecommerce', color: 'hover:border-purple-400 hover:bg-purple-50', iconColor: 'text-purple-600 bg-purple-100' },
+              { label: 'Retail & E-Commerce', icon: Store, path: '#ecommerce', funnel: 'ecommerce', color: 'hover:border-purple-400 hover:bg-purple-50', iconColor: 'text-purple-600 bg-purple-100' },
               { label: 'Restaurants', icon: Store, path: '#services', funnel: 'pos', color: 'hover:border-orange-400 hover:bg-orange-50', iconColor: 'text-orange-600 bg-orange-100' },
               { label: 'Healthcare', icon: Stethoscope, path: '#healthcare', funnel: 'medical', color: 'hover:border-rose-400 hover:bg-rose-50', iconColor: 'text-rose-600 bg-rose-100' },
               { label: 'Real Estate & Mortgage', icon: Home, path: '#real-estate', funnel: 'real_estate', color: 'hover:border-emerald-400 hover:bg-emerald-50', iconColor: 'text-emerald-600 bg-emerald-100' },
@@ -1283,7 +1283,273 @@ export default function MarketingHome() {
       </section>
 
       {/* ─── Final CTA ───────────────────────────────────────────────────── */}
-      <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 relative overflow-hidden">
+      {/* ─── E-commerce Section ─────────────────────────────────────────────── */}
+      <section id="ecommerce" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-sm font-semibold mb-5">
+              <Store className="w-4 h-4" /> E-Commerce
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
+              Run Your Online Store Inside Your CRM
+            </h2>
+            <p className="text-slate-500 text-lg max-w-3xl mx-auto">
+              Operon connects your storefront, orders, inventory, and customer relationships into one system — so you stop switching between tools and start growing faster.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-14">
+            <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">What It Replaces</h3>
+              <ul className="space-y-2 text-slate-600 text-sm">
+                {[
+                  'Disconnected Shopify + separate CRM',
+                  'Manual order tracking in spreadsheets',
+                  'Separate email tools for abandoned cart follow-ups',
+                  'No visibility into customer lifetime value',
+                  'Juggling inventory across multiple platforms',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✕</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-purple-50 rounded-2xl p-8 border border-purple-200">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">What Operon Gives You</h3>
+              <ul className="space-y-2 text-slate-600 text-sm">
+                {[
+                  'Orders, customers, and deals in one dashboard',
+                  'Automated follow-ups for repeat buyers and win-backs',
+                  'Inventory sync with real-time stock tracking',
+                  'Revenue reports and product performance analytics',
+                  'CRM-powered marketing for every store customer',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+            {[
+              { icon: ShoppingCart, title: 'Storefront & Orders', description: 'Manage your products, orders, and fulfillment status without leaving Operon. Every order ties directly to a customer record.', color: 'from-purple-500 to-violet-400' },
+              { icon: CreditCard, title: 'Payments & Checkout', description: 'Accept payments via Stripe, Square, and PayPal. Track revenue, refunds, and payment history per customer automatically.', color: 'from-blue-500 to-cyan-400' },
+              { icon: Layers, title: 'Inventory Sync', description: 'Real-time stock levels, low inventory alerts, and supplier order management — all built into the same platform.', color: 'from-emerald-500 to-teal-400' },
+              { icon: Users, title: 'Customer Tracking', description: 'Every buyer becomes a CRM contact. Track purchase history, lifetime value, and segment customers for targeted marketing.', color: 'from-amber-500 to-orange-400' },
+              { icon: Megaphone, title: 'Marketing Automation', description: 'Automated emails for abandoned carts, post-purchase follow-ups, re-engagement campaigns, and seasonal promotions.', color: 'from-rose-500 to-red-400' },
+              { icon: BarChart3, title: 'Revenue Reporting', description: 'Sales by product, channel, date range, and customer segment. Know exactly what drives your revenue and what to scale.', color: 'from-indigo-500 to-violet-400' },
+            ].map((feat, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-purple-300 hover:shadow-md transition-all">
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feat.color} mb-4`}>
+                  <feat.icon className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">{feat.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{feat.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-3xl p-8 text-white mb-10">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold mb-2">E-Commerce Pricing</h3>
+              <p className="text-purple-200 text-sm">All plans include full CRM + store management. No separate tools needed.</p>
+            </div>
+            <div className="grid md:grid-cols-5 gap-4">
+              {[
+                { name: 'Starter', price: 49, features: ['Up to 100 products', 'Order management', 'Basic inventory', 'Customer CRM'] },
+                { name: 'Professional', price: 69, features: ['Up to 500 products', 'Abandoned cart emails', 'Payment integrations', 'Sales reporting'] },
+                { name: 'Growth', price: 99, popular: true, features: ['Unlimited products', 'Marketing automation', 'Multi-channel inventory', 'Revenue analytics'] },
+                { name: 'Business', price: 150, features: ['Advanced segmentation', 'Supplier ordering', 'Custom reports', 'Priority support'] },
+                { name: 'Enterprise', price: 299, features: ['White-label store', 'API access', 'Dedicated account mgr', 'Custom integrations'] },
+              ].map((plan, i) => (
+                <div key={i} className={`rounded-2xl p-5 text-center ${(plan as any).popular ? 'bg-white text-slate-900 ring-2 ring-cyan-400 scale-105' : 'bg-white/10 border border-white/20'}`}>
+                  {(plan as any).popular && <div className="text-xs font-bold text-cyan-600 mb-2 uppercase tracking-wide">Most Popular</div>}
+                  <div className={`font-bold text-sm mb-2 ${(plan as any).popular ? 'text-slate-900' : 'text-white'}`}>{plan.name}</div>
+                  <div className={`text-3xl font-black mb-1 ${(plan as any).popular ? 'text-indigo-700' : 'text-white'}`}>${plan.price}</div>
+                  <div className={`text-xs mb-4 ${(plan as any).popular ? 'text-slate-500' : 'text-purple-300'}`}>/mo</div>
+                  <ul className="space-y-1 text-left">
+                    {plan.features.map((f, fi) => (
+                      <li key={fi} className={`text-xs flex items-start gap-1.5 ${(plan as any).popular ? 'text-slate-600' : 'text-purple-200'}`}>
+                        <span className="text-emerald-400 font-bold mt-0.5">✓</span>{f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center">
+            <a href="/start" onClick={() => saveFunnel('ecommerce')} className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-violet-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+              Book Demo <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Reputation Management Section ──────────────────────────────────── */}
+      <section id="reputation" className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-sm font-semibold mb-5">
+              <Star className="w-4 h-4" /> Reputation Management
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
+              Protect and Grow Your Online Reputation
+            </h2>
+            <p className="text-slate-500 text-lg max-w-3xl mx-auto">
+              Your reputation is your most valuable business asset. Operon helps you collect more positive reviews, respond to feedback professionally, and turn happy customers into your most powerful marketing channel.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-14">
+            <div className="bg-white rounded-2xl p-8 border border-slate-200">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">The Problem</h3>
+              <ul className="space-y-2 text-slate-600 text-sm">
+                {[
+                  'Negative reviews go unanswered for days or weeks',
+                  'No system to ask happy clients for reviews at the right time',
+                  'Inconsistent presence across Google, Yelp, and Facebook',
+                  'No way to catch dissatisfied customers before they post publicly',
+                  'Lost testimonials that could have driven new referrals',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✕</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-amber-50 rounded-2xl p-8 border border-amber-200">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Operon's Solution</h3>
+              <ul className="space-y-2 text-slate-600 text-sm">
+                {[
+                  'Automated review requests sent after every completed job',
+                  'Review gating — unhappy clients go to private feedback first',
+                  'Monitor reviews across Google, Facebook, and more in one place',
+                  'Dashboard alerts the moment new reviews are posted',
+                  'Save and reuse positive testimonials for your website and ads',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-12 max-w-3xl mx-auto">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <Shield className="w-4 h-4 text-blue-600" />
+              </div>
+              <div>
+                <h4 className="font-bold text-slate-900 mb-1">Honest, Ethical Reputation Management</h4>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  Operon cannot delete or remove reviews from external platforms like Google or Yelp — no software can. What we do is help you <strong>get ahead of problems</strong> by routing dissatisfied customers to a private feedback channel before they post publicly, responding professionally to every review, and making it frictionless for your happy customers to share their experience.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
+            {[
+              {
+                name: 'Starter',
+                price: 99,
+                subtitle: 'Essential monitoring',
+                highlight: false,
+                features: [
+                  'Review request automation',
+                  'Monitor up to 2 platforms',
+                  'Basic review dashboard',
+                  'Email alerts for new reviews',
+                  'Simple response templates',
+                  'Monthly summary report',
+                ],
+              },
+              {
+                name: 'Professional',
+                price: 150,
+                subtitle: 'Advanced workflows',
+                highlight: true,
+                features: [
+                  'Monitor up to 5 platforms',
+                  'Review gating workflow',
+                  'Internal feedback handling',
+                  'AI-assisted response drafts',
+                  'Workflow automation rules',
+                  'Weekly performance reports',
+                  'Testimonial library',
+                ],
+              },
+              {
+                name: 'Enterprise',
+                price: 199,
+                subtitle: 'Multi-location & premium',
+                highlight: false,
+                features: [
+                  'Unlimited platform monitoring',
+                  'Multi-location support',
+                  'Advanced analytics & trends',
+                  'Competitive benchmarking',
+                  'White-glove onboarding',
+                  'Priority response support',
+                  'Custom reporting & API access',
+                ],
+              },
+            ].map((plan, i) => (
+              <div key={i} className={`bg-white rounded-2xl border-2 p-7 relative ${plan.highlight ? 'border-amber-400 shadow-lg shadow-amber-100' : 'border-slate-200'}`}>
+                {plan.highlight && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide">
+                    Most Popular
+                  </div>
+                )}
+                <div className="text-center mb-6">
+                  <div className="text-lg font-bold text-slate-900 mb-1">{plan.name}</div>
+                  <div className="text-sm text-slate-500 mb-3">{plan.subtitle}</div>
+                  <div className="text-4xl font-black text-slate-900">${plan.price}</div>
+                  <div className="text-sm text-slate-500">/month</div>
+                </div>
+                <ul className="space-y-2.5 mb-6">
+                  {plan.features.map((f, fi) => (
+                    <li key={fi} className="flex items-start gap-2.5 text-sm text-slate-600">
+                      <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="/start"
+                  onClick={() => saveFunnel('reputation')}
+                  className={`block text-center px-4 py-3 rounded-xl font-semibold text-sm transition-all ${
+                    plan.highlight
+                      ? 'bg-amber-500 text-white hover:bg-amber-600'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  Book Demo
+                </a>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <p className="text-slate-500 text-sm mb-4">All plans include integration with your Operon CRM account. Cancel anytime.</p>
+            <a href="/start" onClick={() => saveFunnel('reputation')} className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+              Get Started with Reputation Management <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+            <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl" />
@@ -1362,11 +1628,14 @@ export default function MarketingHome() {
               <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wide">Industries</h4>
               <ul className="space-y-3 text-slate-400 text-sm">
                 <li><a href="#real-estate" className="hover:text-cyan-400 transition-colors">Real Estate</a></li>
-                <li><a href="#healthcare" className="hover:text-cyan-400 transition-colors">Legal</a></li>
-                <li><a href="#healthcare" className="hover:text-cyan-400 transition-colors">Medical</a></li>
+                <li><a href="#mortgage" className="hover:text-cyan-400 transition-colors">Mortgage</a></li>
+                <li><a href="#legal" className="hover:text-cyan-400 transition-colors">Legal</a></li>
+                <li><a href="#healthcare" className="hover:text-cyan-400 transition-colors">Healthcare</a></li>
+                <li><a href="#title-companies" className="hover:text-cyan-400 transition-colors">Title Companies</a></li>
                 <li><a href="#sports" className="hover:text-green-400 transition-colors">Sports & Athletics</a></li>
-                <li><a href="#services" className="hover:text-cyan-400 transition-colors">POS & Retail</a></li>
                 <li><a href="#services" className="hover:text-cyan-400 transition-colors">Service Business</a></li>
+                <li><a href="#ecommerce" className="hover:text-cyan-400 transition-colors">E-Commerce</a></li>
+                <li><a href="#reputation" className="hover:text-cyan-400 transition-colors">Reputation Management</a></li>
               </ul>
             </div>
 
