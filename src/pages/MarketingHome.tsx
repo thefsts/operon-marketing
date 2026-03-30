@@ -91,7 +91,7 @@ export default function MarketingHome() {
       tagColor: 'bg-emerald-100 text-emerald-700',
       description: 'Brokerages, agents, and property managers — listings, pipelines, client tracking, commissions, and documents in one place.',
       tags: ['Listings Management', 'Deal Pipeline', 'Client Tracking', 'Commission Tracking', 'Document Storage'],
-      path: '/real-estate',
+      path: '#real-estate',
     },
     {
       name: 'Legal',
@@ -100,7 +100,7 @@ export default function MarketingHome() {
       tagColor: 'bg-amber-100 text-amber-700',
       description: 'Law firms and attorneys — case management, documents, confidentiality controls, time tracking, and billing.',
       tags: ['Case Management', 'Document Vault', 'Confidentiality Controls', 'Time Tracking', 'Client Billing'],
-      path: '/compliance',
+      path: '#healthcare',
     },
     {
       name: 'Medical',
@@ -109,7 +109,7 @@ export default function MarketingHome() {
       tagColor: 'bg-rose-100 text-rose-700',
       description: 'Healthcare providers and clinics — HIPAA-ready structure, patient workflows, role-based access, and compliance-aware records.',
       tags: ['HIPAA-Ready Structure', 'Patient Workflows', 'Role-Based Access', 'Audit Trails', 'Appointment Scheduling'],
-      path: '/compliance',
+      path: '#healthcare',
     },
     {
       name: 'Sports & Athletics',
@@ -118,7 +118,7 @@ export default function MarketingHome() {
       tagColor: 'bg-green-100 text-green-700',
       description: 'Teams, coaches, trainers, and athletic organizations — rosters, schedules, attendance, waivers, payments, and parent/player portals.',
       tags: ['Roster Management', 'Game Scheduling', 'Attendance Tracking', 'Waivers & Forms', 'Parent & Player Portals'],
-      path: '/sports',
+      path: '#sports',
     },
     {
       name: 'Service Businesses',
@@ -127,7 +127,7 @@ export default function MarketingHome() {
       tagColor: 'bg-blue-100 text-blue-700',
       description: 'HVAC, plumbing, cleaning, landscaping — job scheduling, dispatching, estimates, invoicing, and customer management.',
       tags: ['Job Scheduling', 'Dispatch', 'Estimates & Invoices', 'Customer CRM', 'Service Areas'],
-      path: '/start',
+      path: '#services',
     },
   ];
 
@@ -253,9 +253,9 @@ export default function MarketingHome() {
       )}
 
       {/* ─── Navigation ─────────────────────────────────────────────────── */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/97 backdrop-blur-xl shadow-sm border-b border-slate-100' : 'bg-slate-900/80 backdrop-blur-md'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/97 backdrop-blur-xl shadow-sm border-b border-slate-100' : 'bg-slate-900/80 backdrop-blur-md'}`} style={{minHeight: '72px'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-[72px]">
             <a href="/" className="inline-flex items-center">
               <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-12 w-auto object-contain max-w-[200px]" />
             </a>
@@ -263,6 +263,7 @@ export default function MarketingHome() {
             <div className="hidden md:flex items-center gap-6">
               <a href="#platform" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Platform</a>
               <a href="#industries" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Industries</a>
+              <a href="#about" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>About</a>
               <a href="#sports" className={`transition-colors text-sm font-medium flex items-center gap-1 ${scrolled ? 'text-slate-700 hover:text-green-600' : 'text-white/90 hover:text-white'}`}>
                 <Trophy className="w-3.5 h-3.5" />Sports
               </a>
@@ -293,6 +294,7 @@ export default function MarketingHome() {
               <a href="#sports" className="block text-slate-700 hover:text-green-600 font-medium flex items-center gap-1"><Trophy className="w-4 h-4" />Sports</a>
               <a href="#compliance" className="block text-slate-700 hover:text-cyan-600 font-medium">Compliance</a>
               <a href="#pricing" className="block text-slate-700 hover:text-cyan-600 font-medium">Pricing</a>
+              <a href="#about" className="block text-slate-700 hover:text-cyan-600 font-medium">About</a>
               <div className="pt-2 border-t border-slate-100"><LanguageSwitcher /></div>
               <a href={`${APP_URL}/login`} className="block text-slate-700 hover:text-cyan-600 font-medium">Login</a>
               <a href="/start" onClick={() => saveFunnel('start')} className="block w-full text-center px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold">
@@ -432,14 +434,14 @@ export default function MarketingHome() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { label: 'Service Businesses', icon: Briefcase, path: '/start', funnel: 'service', color: 'hover:border-blue-400 hover:bg-blue-50', iconColor: 'text-blue-600 bg-blue-100' },
-              { label: 'Retail & E-Commerce', icon: Store, path: '/ecommerce', funnel: 'ecommerce', color: 'hover:border-purple-400 hover:bg-purple-50', iconColor: 'text-purple-600 bg-purple-100' },
-              { label: 'Restaurants', icon: Store, path: '/pos', funnel: 'pos', color: 'hover:border-orange-400 hover:bg-orange-50', iconColor: 'text-orange-600 bg-orange-100' },
-              { label: 'Healthcare', icon: Stethoscope, path: '/compliance', funnel: 'medical', color: 'hover:border-rose-400 hover:bg-rose-50', iconColor: 'text-rose-600 bg-rose-100' },
-              { label: 'Real Estate & Mortgage', icon: Home, path: '/real-estate', funnel: 'real_estate', color: 'hover:border-emerald-400 hover:bg-emerald-50', iconColor: 'text-emerald-600 bg-emerald-100' },
-              { label: 'Sports Organizations', icon: Trophy, path: '/sports', funnel: 'sports', color: 'hover:border-green-400 hover:bg-green-50', iconColor: 'text-green-600 bg-green-100' },
-              { label: 'Franchises & Multi-location', icon: Building2, path: '/contact', funnel: 'enterprise', color: 'hover:border-cyan-400 hover:bg-cyan-50', iconColor: 'text-cyan-600 bg-cyan-100' },
-              { label: 'Legal', icon: Scale, path: '/compliance', funnel: 'legal', color: 'hover:border-amber-400 hover:bg-amber-50', iconColor: 'text-amber-600 bg-amber-100' },
+              { label: 'Service Businesses', icon: Briefcase, path: '#services', funnel: 'service', color: 'hover:border-blue-400 hover:bg-blue-50', iconColor: 'text-blue-600 bg-blue-100' },
+              { label: 'Retail & E-Commerce', icon: Store, path: '#services', funnel: 'ecommerce', color: 'hover:border-purple-400 hover:bg-purple-50', iconColor: 'text-purple-600 bg-purple-100' },
+              { label: 'Restaurants', icon: Store, path: '#services', funnel: 'pos', color: 'hover:border-orange-400 hover:bg-orange-50', iconColor: 'text-orange-600 bg-orange-100' },
+              { label: 'Healthcare', icon: Stethoscope, path: '#healthcare', funnel: 'medical', color: 'hover:border-rose-400 hover:bg-rose-50', iconColor: 'text-rose-600 bg-rose-100' },
+              { label: 'Real Estate & Mortgage', icon: Home, path: '#real-estate', funnel: 'real_estate', color: 'hover:border-emerald-400 hover:bg-emerald-50', iconColor: 'text-emerald-600 bg-emerald-100' },
+              { label: 'Sports Organizations', icon: Trophy, path: '#sports', funnel: 'sports', color: 'hover:border-green-400 hover:bg-green-50', iconColor: 'text-green-600 bg-green-100' },
+              { label: 'Franchises & Multi-location', icon: Building2, path: '#services', funnel: 'enterprise', color: 'hover:border-cyan-400 hover:bg-cyan-50', iconColor: 'text-cyan-600 bg-cyan-100' },
+              { label: 'Legal', icon: Scale, path: '#legal', funnel: 'legal', color: 'hover:border-amber-400 hover:bg-amber-50', iconColor: 'text-amber-600 bg-amber-100' },
             ].map(({ label, icon: Icon, path, funnel, color, iconColor }) => (
               <a
                 key={label}
@@ -649,7 +651,7 @@ export default function MarketingHome() {
               <strong className="text-slate-800">Important:</strong> Operon CRM is designed to support compliance requirements for regulated industries. It is not a substitute for legal counsel or formal compliance certification. We recommend working with your compliance team to ensure all regulatory obligations are met.
             </p>
             <a
-              href="/compliance"
+              href="#healthcare"
               className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-sm transition-colors"
             >
               Learn about our compliance features <ArrowRight className="w-4 h-4" />
@@ -967,9 +969,315 @@ export default function MarketingHome() {
           </div>
 
           <div className="text-center mt-8">
-            <a href="/sports" className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold transition-colors">
+            <a href="#sports" className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold transition-colors">
               View full Sports CRM details <ArrowRight className="w-4 h-4" />
             </a>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ─── Real Estate & Mortgage Section ─── */}
+      <section id="real-estate" className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-semibold mb-5">
+              <Home className="w-4 h-4" /> Real Estate & Mortgage
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
+              Built for Real Estate, Mortgage & Title
+            </h2>
+            <p className="text-slate-500 text-lg max-w-3xl mx-auto">
+              Manage listings, leads, deals, commissions, and client relationships — all in one platform designed for brokerages, agents, title companies, and mortgage professionals.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+            {[
+              { icon: Home, title: 'Listings Management', description: 'Track active listings, status updates, and property details. Link listings to deals and contacts automatically.', color: 'from-emerald-500 to-teal-400' },
+              { icon: Kanban, title: 'Deal Pipeline', description: 'Visual pipeline from lead to close. Track every stage — prospect, showing, offer, under contract, closed.', color: 'from-blue-500 to-cyan-400' },
+              { icon: Users, title: 'Client Tracking', description: 'Full CRM for buyers, sellers, and referral partners. Notes, activities, and automated follow-ups.', color: 'from-violet-500 to-purple-400' },
+              { icon: FileSignature, title: 'Commission Tracking', description: 'Track agent splits, referral fees, and payouts. Auto-calculate commissions on closed deals.', color: 'from-amber-500 to-orange-400' },
+              { icon: FileText, title: 'Document Vault', description: 'Secure storage for contracts, disclosures, title documents, and compliance records.', color: 'from-rose-500 to-red-400' },
+              { icon: Building2, title: 'Title Company Tools', description: 'Coordinate title searches, closing schedules, and escrow documentation in one place.', color: 'from-cyan-500 to-blue-400' },
+            ].map((feat, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all">
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feat.color} mb-4`}>
+                  <feat.icon className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">{feat.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{feat.description}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <a href="/start" onClick={() => saveFunnel('real_estate')} className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+              Book Demo <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Mortgage Section ─── */}
+      <section id="mortgage" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-sm font-semibold mb-5">
+              <Building2 className="w-4 h-4" /> Mortgage
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
+              Mortgage CRM & Pipeline Management
+            </h2>
+            <p className="text-slate-500 text-lg max-w-3xl mx-auto">
+              Streamline loan pipelines, referral partner management, and compliance documentation for mortgage brokers and loan officers.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+            {[
+              { icon: Kanban, title: 'Loan Pipeline', description: 'Track every loan from application to closing. Manage stages, milestones, and deadlines in one visual board.', color: 'from-blue-500 to-indigo-400' },
+              { icon: Users, title: 'Referral Partner CRM', description: 'Manage real estate agent relationships, track referrals, and automate partner communications.', color: 'from-cyan-500 to-blue-400' },
+              { icon: FileCheck, title: 'Compliance Docs', description: 'Store and organize loan documents, disclosures, and compliance records securely.', color: 'from-violet-500 to-purple-400' },
+              { icon: Zap, title: 'Automated Follow-ups', description: 'Never miss a touchpoint. Automated emails and SMS keep borrowers and partners updated.', color: 'from-amber-500 to-orange-400' },
+              { icon: BarChart3, title: 'Production Reporting', description: 'Track volume, pull-through rates, and loan officer performance with real-time dashboards.', color: 'from-emerald-500 to-teal-400' },
+              { icon: Shield, title: 'RESPA Compliance Ready', description: 'Structure your communications and documentation to stay compliant with RESPA and TRID guidelines.', color: 'from-rose-500 to-red-400' },
+            ].map((feat, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all">
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feat.color} mb-4`}>
+                  <feat.icon className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">{feat.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{feat.description}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <a href="/start" onClick={() => saveFunnel('mortgage')} className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+              Book Demo <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Healthcare Section ─── */}
+      <section id="healthcare" className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-sm font-semibold mb-5">
+              <Stethoscope className="w-4 h-4" /> Healthcare
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
+              HIPAA-Ready CRM for Healthcare Providers
+            </h2>
+            <p className="text-slate-500 text-lg max-w-3xl mx-auto">
+              Built for medical practices, clinics, therapists, and healthcare organizations. HIPAA-ready structure, patient workflows, and compliance-aware records management.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+            {[
+              { icon: Shield, title: 'HIPAA-Ready Structure', description: 'Role-based access controls, audit trails, and data handling designed to support HIPAA compliance.', color: 'from-rose-500 to-red-400' },
+              { icon: Users, title: 'Patient Workflows', description: 'Manage patient intake, follow-ups, and care coordination with structured workflow automation.', color: 'from-blue-500 to-cyan-400' },
+              { icon: Calendar, title: 'Appointment Scheduling', description: 'Integrated scheduling with reminders, cancellation management, and provider availability.', color: 'from-emerald-500 to-teal-400' },
+              { icon: FileText, title: 'Secure Document Vault', description: 'Encrypted storage for patient records, consent forms, and clinical documentation.', color: 'from-violet-500 to-purple-400' },
+              { icon: Activity, title: 'Audit Trails', description: 'Complete audit logs for all record access and modifications — essential for compliance reviews.', color: 'from-amber-500 to-orange-400' },
+              { icon: MessageSquare, title: 'Compliant Messaging', description: 'Structured communication channels with appropriate privacy controls for patient interactions.', color: 'from-cyan-500 to-blue-400' },
+            ].map((feat, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-rose-300 hover:shadow-md transition-all">
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feat.color} mb-4`}>
+                  <feat.icon className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">{feat.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{feat.description}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <a href="/start" onClick={() => saveFunnel('medical')} className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-rose-500 to-red-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+              Book Demo <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Legal Section ─── */}
+      <section id="legal" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-sm font-semibold mb-5">
+              <Scale className="w-4 h-4" /> Legal
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
+              CRM & Case Management for Law Firms
+            </h2>
+            <p className="text-slate-500 text-lg max-w-3xl mx-auto">
+              Purpose-built for attorneys, law firms, and legal professionals. Case management, confidential document storage, time tracking, and client billing — all in one system.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+            {[
+              { icon: Scale, title: 'Case Management', description: 'Organize matters, track case stages, deadlines, and link all communications and documents to each case.', color: 'from-amber-500 to-orange-400' },
+              { icon: FileText, title: 'Confidential Document Vault', description: 'Encrypted, access-controlled storage for sensitive legal documents with full version history.', color: 'from-blue-500 to-indigo-400' },
+              { icon: Shield, title: 'Confidentiality Controls', description: 'Role-based permissions ensure only authorized team members access sensitive client information.', color: 'from-violet-500 to-purple-400' },
+              { icon: Clock, title: 'Time Tracking', description: 'Track billable hours per matter with detailed time entries, timers, and reporting.', color: 'from-emerald-500 to-teal-400' },
+              { icon: CreditCard, title: 'Client Billing', description: 'Generate invoices from time entries, track retainers, and manage trust account balances.', color: 'from-rose-500 to-red-400' },
+              { icon: FileSignature, title: 'E-Signatures', description: 'Secure, legally binding electronic signatures for engagement letters, contracts, and agreements.', color: 'from-cyan-500 to-blue-400' },
+            ].map((feat, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-300 hover:shadow-md transition-all">
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feat.color} mb-4`}>
+                  <feat.icon className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">{feat.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{feat.description}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <a href="/start" onClick={() => saveFunnel('legal')} className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+              Book Demo <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Title Companies Section ─── */}
+      <section id="title-companies" className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-teal-700 text-sm font-semibold mb-5">
+              <FileCheck className="w-4 h-4" /> Title Companies
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
+              Title & Escrow Management
+            </h2>
+            <p className="text-slate-500 text-lg max-w-3xl mx-auto">
+              Coordinate closings, manage title orders, track escrow, and communicate with all transaction parties from one streamlined platform.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+            {[
+              { icon: FileCheck, title: 'Title Order Management', description: 'Track title orders from open to close with status updates, task assignments, and deadline tracking.', color: 'from-teal-500 to-emerald-400' },
+              { icon: Building2, title: 'Closing Coordination', description: 'Manage all parties — buyers, sellers, agents, lenders — with shared access to closing documents and schedules.', color: 'from-blue-500 to-cyan-400' },
+              { icon: FileText, title: 'Escrow Documentation', description: 'Centralized storage for all escrow documents with version control and audit history.', color: 'from-violet-500 to-purple-400' },
+              { icon: MessageSquare, title: 'Transaction Communications', description: 'Keep all parties informed with automated status updates, reminders, and messaging.', color: 'from-amber-500 to-orange-400' },
+              { icon: Shield, title: 'Compliance Records', description: 'Maintain complete compliance documentation with audit trails for every transaction.', color: 'from-rose-500 to-red-400' },
+              { icon: BarChart3, title: 'Pipeline Reporting', description: 'Track open orders, projected closings, and team performance with real-time dashboards.', color: 'from-indigo-500 to-blue-400' },
+            ].map((feat, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feat.color} mb-4`}>
+                  <feat.icon className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">{feat.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{feat.description}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <a href="/start" onClick={() => saveFunnel('title')} className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+              Book Demo <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Services Section ─── */}
+      <section id="services" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-sm font-semibold mb-5">
+              <Briefcase className="w-4 h-4" /> Service Businesses
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
+              The All-in-One Platform for Service Businesses
+            </h2>
+            <p className="text-slate-500 text-lg max-w-3xl mx-auto">
+              HVAC, plumbing, cleaning, landscaping, consulting, and more. Manage jobs, dispatch crews, send estimates, invoice clients, and grow your business — from one system.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+            {[
+              { icon: Calendar, title: 'Job Scheduling', description: 'Schedule service appointments, assign technicians, and manage recurring jobs with calendar views.', color: 'from-blue-500 to-cyan-400' },
+              { icon: MapPin, title: 'Dispatch & Routing', description: 'Assign jobs to field crews with location-aware dispatching and real-time status updates.', color: 'from-emerald-500 to-teal-400' },
+              { icon: FileText, title: 'Estimates & Quotes', description: 'Professional estimates with line items, photos, and e-signature approval. Convert to invoices instantly.', color: 'from-amber-500 to-orange-400' },
+              { icon: CreditCard, title: 'Invoicing & Payments', description: 'Send invoices, collect payments in the field, and track accounts receivable all in one place.', color: 'from-violet-500 to-purple-400' },
+              { icon: Users, title: 'Customer CRM', description: 'Full customer history — jobs, communications, invoices, and notes — always at your fingertips.', color: 'from-rose-500 to-red-400' },
+              { icon: Zap, title: 'Workflow Automation', description: 'Automate follow-up messages, appointment reminders, review requests, and recurring billing.', color: 'from-cyan-500 to-blue-400' },
+            ].map((feat, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all">
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feat.color} mb-4`}>
+                  <feat.icon className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">{feat.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{feat.description}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <a href="/start" onClick={() => saveFunnel('service')} className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+              Book Demo <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── About Section ─── */}
+      <section id="about" className="py-20 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-cyan-300 text-sm font-semibold mb-5">
+              <Sparkles className="w-4 h-4" /> About Operon
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              Built to Be Your{' '}
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                Business Operating System
+              </span>
+            </h2>
+            <p className="text-slate-300 text-lg max-w-3xl mx-auto leading-relaxed">
+              Operon was built with a single conviction: every business — regardless of size or industry — deserves a complete, connected platform that replaces the chaos of managing 10 different tools.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
+            <div>
+              <h3 className="text-2xl font-bold text-white mb-4">Our Mission</h3>
+              <p className="text-slate-300 leading-relaxed mb-6">
+                We believe business owners should spend their time growing their business — not wrestling with software. Operon brings CRM, marketing, scheduling, documents, payments, AI automation, and industry-specific tools into one unified platform so you can operate smarter, faster, and with complete confidence.
+              </p>
+              <h3 className="text-2xl font-bold text-white mb-4">Who We Help</h3>
+              <p className="text-slate-300 leading-relaxed">
+                From independent real estate agents to multi-location healthcare groups, from solo attorneys to growing sports organizations — Operon is designed to adapt to your industry, your workflow, and your team's way of working. One system. Endless capability.
+              </p>
+            </div>
+            <div className="space-y-5">
+              {[
+                { icon: Globe, title: 'Any Industry', desc: 'Built with vertical-specific features for real estate, legal, healthcare, sports, mortgage, title, and service businesses.' },
+                { icon: Shield, title: 'Compliance Ready', desc: 'HIPAA-aware architecture, audit trails, and role-based access controls built in from the ground up.' },
+                { icon: Brain, title: 'AI-Powered', desc: 'Intelligent automation, AI assistant, voice commands, and smart insights that learn your business patterns.' },
+                { icon: Zap, title: 'Business Operating System', desc: 'Not just a CRM — a complete operating system replacing 10+ tools: CRM, marketing, docs, billing, scheduling, and more.' },
+              ].map((item, i) => (
+                <div key={i} className="flex gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center flex-shrink-0">
+                    <item.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white mb-1">{item.title}</h4>
+                    <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6 text-center">
+            {[
+              { number: '10+', label: 'Industries Served' },
+              { number: '50+', label: 'Platform Modules' },
+              { number: '99.9%', label: 'Uptime SLA' },
+              { number: '24/7', label: 'Support Available' },
+            ].map((stat, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                <div className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2">{stat.number}</div>
+                <div className="text-slate-400 text-sm">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -1040,9 +1348,9 @@ export default function MarketingHome() {
                 <li><a href="#platform" className="hover:text-cyan-400 transition-colors">Features</a></li>
                 <li><a href="#industries" className="hover:text-cyan-400 transition-colors">Industries</a></li>
                 <li><a href="#pricing" className="hover:text-cyan-400 transition-colors">Pricing</a></li>
-                <li><a href="/integrations" className="hover:text-cyan-400 transition-colors">Integrations</a></li>
-                <li><a href="/lead-generation" className="hover:text-cyan-400 transition-colors">Lead Generation</a></li>
-                <li><a href="/reputation-management" className="hover:text-cyan-400 transition-colors">Reputation</a></li>
+                <li><a href="#integrations" className="hover:text-cyan-400 transition-colors">Integrations</a></li>
+                <li><a href="#features" className="hover:text-cyan-400 transition-colors">Lead Generation</a></li>
+                <li><a href="#features" className="hover:text-cyan-400 transition-colors">Reputation</a></li>
                 <li><button onClick={handleStartDemo} className="hover:text-cyan-400 transition-colors">Demo</button></li>
                 <li><a href={`${APP_URL}/login`} className="hover:text-cyan-400 transition-colors">Login</a></li>
                 <li><a href="/docs" className="hover:text-cyan-400 transition-colors">API Docs</a></li>
@@ -1053,12 +1361,12 @@ export default function MarketingHome() {
             <div>
               <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wide">Industries</h4>
               <ul className="space-y-3 text-slate-400 text-sm">
-                <li><a href="/real-estate" className="hover:text-cyan-400 transition-colors">Real Estate</a></li>
-                <li><a href="/compliance" className="hover:text-cyan-400 transition-colors">Legal</a></li>
-                <li><a href="/compliance" className="hover:text-cyan-400 transition-colors">Medical</a></li>
-                <li><a href="/sports" className="hover:text-green-400 transition-colors">Sports & Athletics</a></li>
-                <li><a href="/pos" className="hover:text-cyan-400 transition-colors">POS & Retail</a></li>
-                <li><a href="/start" className="hover:text-cyan-400 transition-colors">Service Business</a></li>
+                <li><a href="#real-estate" className="hover:text-cyan-400 transition-colors">Real Estate</a></li>
+                <li><a href="#healthcare" className="hover:text-cyan-400 transition-colors">Legal</a></li>
+                <li><a href="#healthcare" className="hover:text-cyan-400 transition-colors">Medical</a></li>
+                <li><a href="#sports" className="hover:text-green-400 transition-colors">Sports & Athletics</a></li>
+                <li><a href="#services" className="hover:text-cyan-400 transition-colors">POS & Retail</a></li>
+                <li><a href="#services" className="hover:text-cyan-400 transition-colors">Service Business</a></li>
               </ul>
             </div>
 
@@ -1066,7 +1374,7 @@ export default function MarketingHome() {
             <div>
               <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wide">Company</h4>
               <ul className="space-y-3 text-slate-400 text-sm">
-                <li><a href="/about" className="hover:text-cyan-400 transition-colors">About Us</a></li>
+                <li><a href="#about" className="hover:text-cyan-400 transition-colors">About Us</a></li>
                 <li><a href="/contact" className="hover:text-cyan-400 transition-colors">Contact</a></li>
                 <li><a href="/contact" className="hover:text-cyan-400 transition-colors">Support</a></li>
                 <li><a href="/contact" className="hover:text-cyan-400 transition-colors">Partners</a></li>
@@ -1080,8 +1388,8 @@ export default function MarketingHome() {
                 <li><a href="/privacy" className="hover:text-cyan-400 transition-colors">Privacy Policy</a></li>
                 <li><a href="/terms" className="hover:text-cyan-400 transition-colors">Terms of Service</a></li>
                 <li><a href="/cookie-policy" className="hover:text-cyan-400 transition-colors">Cookie Policy</a></li>
-                <li><a href="/compliance" className="hover:text-cyan-400 transition-colors">Compliance</a></li>
-                <li><a href="/compliance" className="hover:text-cyan-400 transition-colors">Accessibility</a></li>
+                <li><a href="#healthcare" className="hover:text-cyan-400 transition-colors">Compliance</a></li>
+                <li><a href="#healthcare" className="hover:text-cyan-400 transition-colors">Accessibility</a></li>
               </ul>
             </div>
           </div>
