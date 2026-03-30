@@ -8,7 +8,7 @@ import {
   Play, Menu, X, Sparkles, Mail, User, Building, Phone,
   Trophy, Calendar, CreditCard, Star, Activity, Globe, ChevronRight,
   Linkedin, Facebook, Instagram, Twitter, MonitorSmartphone, Clock,
-  Target
+  Target, Mic, PenTool, Download, Layers
 } from 'lucide-react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
@@ -134,6 +134,7 @@ export default function MarketingHome() {
   const corePlatformModules = [
     { icon: Users, title: 'CRM', desc: 'Contacts, deals, pipelines' },
     { icon: Brain, title: 'AI Assistant', desc: 'Intelligent automation & help' },
+    { icon: Mic, title: 'Voice AI', desc: 'Speech-to-text & voice commands' },
     { icon: FolderKanban, title: 'Projects', desc: 'Tasks & project tracking' },
     { icon: FileCheck, title: 'Contracts', desc: 'E-signatures & storage' },
     { icon: FileText, title: 'Documents', desc: 'Secure document vault' },
@@ -148,6 +149,8 @@ export default function MarketingHome() {
     { icon: FileSignature, title: 'Proposals & E-Signatures', description: 'Professional proposals with built-in e-signatures. Close deals faster with smart templates.' },
     { icon: Share2, title: 'Social Media Marketing', description: 'Schedule posts, track engagement, and manage all your social accounts in one place.' },
     { icon: MessageSquare, title: 'AI-Powered Assistant', description: 'Get help with emails, proposals, follow-ups, and tasks. Your intelligent business partner.' },
+    { icon: Mic, title: 'Voice AI Integration', description: 'Speak naturally to create contacts, update deals, and control your CRM. Hands-free productivity with multiple voice personalities.' },
+    { icon: Download, title: 'Import & Export', description: 'Seamlessly import contacts and data from CSV, Excel, or JSON. Export reports and data with one click.' },
     { icon: MapPin, title: 'Geofence Marketing', description: 'Target customers in specific locations. Perfect for service area businesses.', comingSoon: true },
   ];
 
@@ -213,7 +216,7 @@ export default function MarketingHome() {
       monthly: 99, annual: 79,
       annualBilled: 948,
       desc: 'For established teams',
-      features: ['Up to 10 users', '25,000 contacts', 'Documents & contracts', 'E-signatures', 'Social media marketing', 'Priority support'],
+      features: ['Up to 10 users', '25,000 contacts', 'Documents & contracts', 'E-signatures', 'Custom fields', 'Social media marketing', 'Priority support'],
       cta: 'Start Free Trial',
       highlighted: true,
     },
@@ -222,7 +225,7 @@ export default function MarketingHome() {
       monthly: 199, annual: 159,
       annualBilled: 1908,
       desc: 'For regulated industries',
-      features: ['Unlimited users', 'Unlimited contacts', 'Full compliance suite', 'HIPAA/GDPR ready', 'Custom integrations', 'Dedicated support & SLA'],
+      features: ['Unlimited users', 'Unlimited contacts', 'Multi-business support', 'Full compliance suite', 'HIPAA/GDPR ready', 'Custom integrations', 'Dedicated support & SLA'],
       cta: 'Contact Sales',
       highlighted: false,
     },
@@ -800,6 +803,42 @@ export default function MarketingHome() {
                 <p className="text-slate-500 text-sm mb-3">Review monitoring, automated requests, and sentiment analysis.</p>
                 <div className="text-xl font-bold text-slate-900">
                   +$29<span className="text-sm font-normal text-slate-500">/month</span>
+                </div>
+              </div>
+
+              {/* Voice AI Add-on */}
+              <div className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-lg transition-all hover:border-violet-300">
+                <div className="w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center mb-3">
+                  <Mic className="w-5 h-5 text-violet-600" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-1">Voice AI</h4>
+                <p className="text-slate-500 text-sm mb-3">Speech-to-text, voice commands, and multiple AI voice personalities for hands-free CRM control.</p>
+                <div className="text-xl font-bold text-slate-900">
+                  +$49<span className="text-sm font-normal text-slate-500">/month</span>
+                </div>
+              </div>
+
+              {/* DocuSign Integration - Included Free */}
+              <div className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-lg transition-all hover:border-blue-300">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
+                  <FileSignature className="w-5 h-5 text-blue-600" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-1">DocuSign Integration</h4>
+                <p className="text-slate-500 text-sm mb-3">Secure electronic signatures and document workflows integrated directly in your CRM.</p>
+                <div className="text-xl font-bold text-emerald-600">
+                  Included<span className="text-sm font-normal text-slate-500"> at no charge</span>
+                </div>
+              </div>
+
+              {/* Multi-Business Add-on */}
+              <div className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-lg transition-all hover:border-emerald-300">
+                <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center mb-3">
+                  <Layers className="w-5 h-5 text-emerald-600" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-1">Multi-Business</h4>
+                <p className="text-slate-500 text-sm mb-3">Manage multiple businesses or brands from a single CRM account with easy switching.</p>
+                <div className="text-xl font-bold text-slate-900">
+                  +$39<span className="text-sm font-normal text-slate-500">/month</span>
                 </div>
               </div>
             </div>

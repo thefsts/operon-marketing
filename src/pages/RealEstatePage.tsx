@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Home, CheckCircle, ArrowRight, Menu, X, FileText, Users, BarChart3, Kanban, FileSignature, Shield, Sparkles, Building2, MapPin, Phone } from 'lucide-react';
+import { Home, CheckCircle, ArrowRight, Menu, X, FileText, Users, BarChart3, Kanban, FileSignature, Shield, Sparkles, Building2, MapPin, Phone, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
@@ -24,13 +24,13 @@ export default function RealEstatePage() {
 
   const features = [
     { icon: Kanban, title: 'Deal Pipeline', desc: 'Visual pipeline from lead to close. Track every deal, offer, negotiation, and closing step with drag-and-drop simplicity.', color: 'from-emerald-500 to-teal-400' },
+    { icon: Calendar, title: 'Showing Scheduler', desc: 'Built-in calendar for showings, client meetings, and closing appointments with automated reminders.', color: 'from-violet-500 to-purple-400' },
     { icon: Home, title: 'Listings Management', desc: 'Manage active listings, property details, showing schedules, and status updates in one organized place.', color: 'from-green-500 to-emerald-400' },
     { icon: Users, title: 'Client Tracking', desc: 'Complete client profiles with communication history, buyer preferences, property interests, and follow-up reminders.', color: 'from-blue-500 to-cyan-400' },
     { icon: FileSignature, title: 'Documents & E-Signatures', desc: 'Contracts, disclosures, and agreements with built-in e-signature. Everything stored and organized by transaction.', color: 'from-purple-500 to-indigo-400' },
     { icon: Shield, title: 'License & Credential Tracking', desc: 'Track agent licenses, renewal dates, E&O insurance, and credential status with automated expiration alerts.', color: 'from-rose-500 to-pink-400' },
     { icon: BarChart3, title: 'Commission & Revenue Tracking', desc: 'Track commissions per deal, split structures, and revenue summaries. Know exactly where your income stands.', color: 'from-amber-500 to-orange-400' },
-    { icon: FileText, title: 'Regulatory Disclosures', desc: 'Track required disclosures per transaction. Automated reminders ensure nothing is missed before close.', color: 'from-cyan-500 to-blue-400' },
-    { icon: MapPin, title: 'Service Area Management', desc: 'Define your market areas, track listings by location, and manage geographic territories for your team.', color: 'from-teal-500 to-green-400' },
+    { icon: Sparkles, title: 'AI Calendar Assistant', desc: 'AI helps manage your schedule, suggests optimal showing times, and reminds you of upcoming appointments.', color: 'from-cyan-500 to-blue-400' },
   ];
 
   const steps = [
@@ -239,26 +239,33 @@ export default function RealEstatePage() {
 
       {/* Pricing - Link to main */}
       <section className="py-16 bg-slate-50">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+        <div className="max-w-5xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-slate-900 mb-3">Pricing for Real Estate Teams</h2>
           <p className="text-slate-500 text-lg mb-6">Start with any Operon plan — all include the real estate CRM. Upgrade as your team grows.</p>
-          <div className="grid sm:grid-cols-3 gap-5 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
             {[
-              { name: 'Starter', price: '$29', note: '/month', desc: '2 users · Basic CRM · Listings' },
-              { name: 'Professional', price: '$49', note: '/month', desc: '4 users · Pipeline · Automation', popular: true },
-              { name: 'Business', price: '$99', note: '/month', desc: '10 users · Docs · E-Signatures' },
+              { name: 'Starter', price: '$49', note: '/month', desc: 'Small teams · Basic CRM · Listings' },
+              { name: 'Professional', price: '$69', note: '/month', desc: 'Growing teams · Pipeline · Automation' },
+              { name: 'Growth', price: '$99', note: '/month', desc: 'Scaling teams · AI insights · Reporting', popular: true },
+              { name: 'Business', price: '$150', note: '/month', desc: 'Established teams · Docs · E-Sign' },
+              { name: 'Enterprise', price: '$299', note: '/month', desc: 'Regulated industries · White-label' },
             ].map((plan, i) => (
-              <div key={i} className={`p-6 rounded-2xl border-2 text-center ${plan.popular ? 'border-emerald-400 bg-emerald-50' : 'border-slate-200 bg-white'}`}>
+              <div key={i} className={`p-5 rounded-2xl border-2 text-center ${plan.popular ? 'border-emerald-400 bg-emerald-50 ring-2 ring-emerald-400' : 'border-slate-200 bg-white'}`}>
                 {plan.popular && <div className="text-xs font-bold text-emerald-600 mb-2">Most Popular</div>}
                 <div className="text-2xl font-bold text-slate-900">{plan.price}<span className="text-slate-500 text-sm font-normal">{plan.note}</span></div>
                 <div className="font-semibold text-slate-800 mt-1">{plan.name}</div>
-                <div className="text-slate-500 text-sm mt-1">{plan.desc}</div>
+                <div className="text-slate-500 text-xs mt-1">{plan.desc}</div>
               </div>
             ))}
           </div>
-          <Link to="/#pricing" className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-semibold transition-colors">
-            View full pricing details <ArrowRight className="w-4 h-4" />
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href={`${APP_URL}/login`} onClick={() => saveFunnel('growth')} className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
+              Start Your Setup
+            </a>
+            <Link to="/contact" className="px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-100 transition-all">
+              Book Demo
+            </Link>
+          </div>
         </div>
       </section>
 

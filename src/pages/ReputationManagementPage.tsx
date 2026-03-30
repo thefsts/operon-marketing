@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, Star, MessageSquare, TrendingUp, Shield, BarChart2,
-  CheckCircle, Menu, X, Linkedin, Facebook, Instagram, Twitter
+  CheckCircle, Menu, X, Linkedin, Facebook, Instagram, Twitter,
+  Crown, Flag, FileText, Download, AlertCircle
 } from 'lucide-react';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
@@ -10,43 +11,71 @@ const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
 const features = [
   {
     icon: Star,
-    title: 'Review Monitoring',
-    description: 'Monitor reviews from Google, Facebook, Yelp, and industry-specific platforms all in one dashboard.'
+    title: 'Smart Review Filtering',
+    description: '4-5 star ratings are redirected to your public review URL (Google, Yelp, etc.). Lower ratings stay internal for improvement.',
+    tier: 'basic'
   },
   {
     icon: MessageSquare,
-    title: 'Review Requests',
-    description: 'Automated review request campaigns via email and SMS. Turn happy customers into 5-star reviews.'
+    title: 'Automated Review Requests',
+    description: 'Trigger review requests automatically when appointments complete, invoices are paid, or orders are delivered.',
+    tier: 'basic'
   },
   {
     icon: TrendingUp,
-    title: 'Sentiment Analysis',
-    description: 'AI-powered sentiment analysis helps you understand customer feedback at scale.'
+    title: 'Multi-Channel Outreach',
+    description: 'Send review requests via SMS or Email with customizable templates. Reach customers where they are.',
+    tier: 'basic'
   },
   {
     icon: Shield,
-    title: 'Review Response',
-    description: 'Respond to reviews quickly with AI-suggested responses or custom templates.'
+    title: 'Reputation Protection',
+    description: 'Smart filter keeps negative feedback private while encouraging happy customers to share publicly.',
+    tier: 'basic'
   },
   {
     icon: BarChart2,
-    title: 'Reputation Analytics',
-    description: 'Track your average rating over time, compare against competitors, and identify trends.'
+    title: 'Feedback Analytics',
+    description: 'Track average ratings, response rates, and review distribution. Understand your customer sentiment.',
+    tier: 'basic'
   },
   {
-    icon: CheckCircle,
-    title: 'Negative Review Alerts',
-    description: 'Get instant alerts for negative reviews so you can respond quickly and protect your reputation.'
+    icon: Crown,
+    title: 'Featured Testimonials',
+    description: 'Showcase your best reviews on your website with embeddable testimonial widgets and badges.',
+    tier: 'premium'
+  },
+  {
+    icon: Flag,
+    title: 'Issue Management',
+    description: 'Flag negative reviews for follow-up, assign to team members, add notes, and track resolution.',
+    tier: 'premium'
+  },
+  {
+    icon: FileText,
+    title: 'Reports & Exports',
+    description: 'Generate weekly/monthly reports, download CSV/JSON exports, and schedule email summaries.',
+    tier: 'premium'
   }
 ];
 
 const benefits = [
-  'Increase average rating by 0.5+ stars within 90 days',
-  'Generate 3x more reviews with automated requests',
-  'Respond to reviews 80% faster with AI assistance',
-  'Monitor all major review platforms in one place',
-  'Protect your brand from negative review damage',
-  'Build trust with potential customers'
+  'Automated review requests triggered by business events',
+  'Smart filtering protects your public reputation',
+  '4-5 star customers redirected to Google/Yelp',
+  'Lower ratings kept internal for improvement',
+  'SMS and Email outreach with custom templates',
+  'Complete feedback analytics and reporting'
+];
+
+const premiumBenefits = [
+  'Everything in Basic, plus:',
+  'Featured testimonial management',
+  'Issue tracking and resolution workflow',
+  'Weekly/monthly automated reports',
+  'CSV and JSON export functionality',
+  'Email summary scheduling',
+  'Priority support'
 ];
 
 const platforms = [
@@ -54,6 +83,59 @@ const platforms = [
   { name: 'Facebook', rating: 4.6, reviews: '892' },
   { name: 'Yelp', rating: 4.5, reviews: '456' },
   { name: 'Trustpilot', rating: 4.7, reviews: '324' }
+];
+
+const pricingTiers = [
+  {
+    name: 'Basic',
+    price: 'Included',
+    period: 'with Pro plan',
+    description: 'Essential reputation management for growing businesses',
+    features: [
+      'Automated review requests',
+      'Smart feedback filtering',
+      'SMS & Email outreach',
+      'Basic analytics dashboard',
+      'Manual review requests',
+      'Public review URL redirect'
+    ],
+    cta: 'Get Started',
+    popular: false
+  },
+  {
+    name: 'Premium',
+    price: '$99',
+    period: '/month',
+    description: 'Advanced reputation management with full reporting',
+    features: [
+      'Everything in Basic',
+      'Featured testimonials',
+      'Issue tracking & resolution',
+      'Weekly/monthly reports',
+      'CSV/JSON exports',
+      'Email summaries',
+      'Priority support'
+    ],
+    cta: 'Start Free Trial',
+    popular: true
+  },
+  {
+    name: 'Enterprise',
+    price: '$199',
+    period: '/month',
+    description: 'Full-featured reputation management for larger organizations',
+    features: [
+      'Everything in Premium',
+      'Multi-location support',
+      'Custom branding',
+      'API access',
+      'Dedicated account manager',
+      'Custom integrations',
+      'SLA guarantee'
+    ],
+    cta: 'Contact Sales',
+    popular: false
+  }
 ];
 
 export default function ReputationManagementPage() {
@@ -159,9 +241,17 @@ export default function ReputationManagementPage() {
               Comprehensive tools to monitor, respond, and improve your online presence across all platforms.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, idx) => (
-              <div key={idx} className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-lg hover:border-cyan-100 transition-all">
+              <div key={idx} className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-lg hover:border-cyan-100 transition-all relative">
+                {feature.tier === 'premium' && (
+                  <div className="absolute top-4 right-4">
+                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-amber-100 text-amber-700 text-xs font-medium rounded-full">
+                      <Crown className="w-3 h-3" />
+                      Premium
+                    </span>
+                  </div>
+                )}
                 <div className="w-12 h-12 bg-cyan-50 rounded-xl flex items-center justify-center mb-4">
                   <feature.icon className="w-6 h-6 text-cyan-600" />
                 </div>
@@ -225,33 +315,118 @@ export default function ReputationManagementPage() {
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0">1</div>
                   <div>
-                    <div className="font-medium text-slate-900">Connect Your Platforms</div>
-                    <div className="text-sm text-slate-600">Link Google, Facebook, Yelp, and more in minutes</div>
+                    <div className="font-medium text-slate-900">Set Your Public Review URL</div>
+                    <div className="text-sm text-slate-600">Add your Google Business, Yelp, or other review platform link</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0">2</div>
                   <div>
-                    <div className="font-medium text-slate-900">Automate Review Requests</div>
-                    <div className="text-sm text-slate-600">Send automated requests via email and SMS after transactions</div>
+                    <div className="font-medium text-slate-900">Enable Automation Triggers</div>
+                    <div className="text-sm text-slate-600">Auto-send requests when appointments complete, invoices are paid, or orders delivered</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0">3</div>
                   <div>
-                    <div className="font-medium text-slate-900">Monitor & Respond</div>
-                    <div className="text-sm text-slate-600">Track all reviews and respond quickly with AI assistance</div>
+                    <div className="font-medium text-slate-900">Smart Feedback Collection</div>
+                    <div className="text-sm text-slate-600">Happy customers (4-5 stars) are redirected to leave public reviews</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0">4</div>
                   <div>
-                    <div className="font-medium text-slate-900">Grow Your Rating</div>
-                    <div className="text-sm text-slate-600">Watch your average rating climb with data-driven insights</div>
+                    <div className="font-medium text-slate-900">Monitor & Improve</div>
+                    <div className="text-sm text-slate-600">Track ratings, review internal feedback, and watch your reputation grow</div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">
+              Choose Your Reputation Plan
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Start with basic reputation management included in your CRM plan, or unlock premium features for advanced control.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {pricingTiers.map((tier, idx) => (
+              <div 
+                key={idx} 
+                className={`rounded-2xl p-8 ${
+                  tier.popular 
+                    ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white ring-4 ring-cyan-200' 
+                    : 'bg-slate-50 border border-slate-200'
+                }`}
+              >
+                {tier.popular && (
+                  <div className="text-center mb-4">
+                    <span className="inline-block px-3 py-1 bg-white/20 rounded-full text-sm font-medium">
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+                <div className="text-center mb-6">
+                  <h3 className={`text-xl font-semibold mb-2 ${tier.popular ? 'text-white' : 'text-slate-900'}`}>
+                    {tier.name}
+                  </h3>
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className={`text-4xl font-bold ${tier.popular ? 'text-white' : 'text-slate-900'}`}>
+                      {tier.price}
+                    </span>
+                    <span className={`text-sm ${tier.popular ? 'text-white/80' : 'text-slate-500'}`}>
+                      {tier.period}
+                    </span>
+                  </div>
+                  <p className={`mt-2 text-sm ${tier.popular ? 'text-white/80' : 'text-slate-600'}`}>
+                    {tier.description}
+                  </p>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {tier.features.map((feature, fidx) => (
+                    <li key={fidx} className="flex items-start gap-2">
+                      <CheckCircle className={`w-5 h-5 mt-0.5 flex-shrink-0 ${tier.popular ? 'text-white' : 'text-green-500'}`} />
+                      <span className={`text-sm ${tier.popular ? 'text-white' : 'text-slate-700'}`}>
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <Link 
+                  to={tier.popular ? "/contact" : "/pricing"}
+                  className={`block w-full py-3 px-6 rounded-xl font-semibold text-center transition-all ${
+                    tier.popular 
+                      ? 'bg-white text-cyan-600 hover:bg-slate-100' 
+                      : 'bg-slate-900 text-white hover:bg-slate-800'
+                  }`}
+                >
+                  {tier.cta}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Disclaimer */}
+      <section className="py-8 bg-slate-50 border-t border-slate-100">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="flex items-start gap-3 text-sm text-slate-600">
+            <AlertCircle className="w-5 h-5 text-slate-400 flex-shrink-0 mt-0.5" />
+            <p>
+              <strong>Important:</strong> Operon Reputation Management helps you collect and manage customer feedback. 
+              We provide tools to request reviews and redirect happy customers to public platforms. 
+              We do not have direct control over external review sites like Google, Yelp, or Facebook — 
+              reviews must be posted by customers on those platforms directly.
+            </p>
           </div>
         </div>
       </section>

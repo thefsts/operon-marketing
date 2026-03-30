@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, Zap, Building, Users, ArrowRight, Sparkles, ShoppingCart, MonitorSmartphone, Share2, MapPin, Clock, CreditCard, Target, Star } from 'lucide-react';
+import { Check, Zap, Building, Users, ArrowRight, Sparkles, ShoppingCart, MonitorSmartphone, Share2, MapPin, Clock, CreditCard, Target, Star, Mic, FileSignature, Layers } from 'lucide-react';
 
 interface Plan {
   name: string;
@@ -333,6 +333,66 @@ const PricingPage: React.FC = () => {
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-yellow-400" /> Multi-platform sync</li>
               </ul>
               <span className="text-yellow-400 text-sm font-medium">Add to plan</span>
+            </div>
+
+            {/* Voice AI Add-on */}
+            <div className="bg-gradient-to-b from-violet-500/10 to-purple-500/5 border border-violet-500/30 rounded-2xl p-6 hover:border-violet-500/50 transition-all">
+              <div className="w-12 h-12 bg-violet-500/20 rounded-xl flex items-center justify-center mb-4">
+                <Mic className="w-6 h-6 text-violet-400" />
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">Voice AI</h3>
+              <p className="text-gray-400 text-sm mb-4">Speech-to-text, voice commands, and AI voice personalities for hands-free CRM control.</p>
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className="text-2xl font-bold text-violet-400">+$49</span>
+                <span className="text-gray-400 text-sm">/month</span>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-300 mb-4">
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Speech-to-text</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Voice commands</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Multiple AI voices</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Hands-free productivity</li>
+              </ul>
+              <span className="text-violet-400 text-sm font-medium">Add to plan</span>
+            </div>
+
+            {/* DocuSign Integration - Included Free */}
+            <div className="bg-gradient-to-b from-blue-500/10 to-indigo-500/5 border border-blue-500/30 rounded-2xl p-6 hover:border-blue-500/50 transition-all">
+              <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4">
+                <FileSignature className="w-6 h-6 text-blue-400" />
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">DocuSign Integration</h3>
+              <p className="text-gray-400 text-sm mb-4">Secure electronic signatures and document workflows integrated in your CRM.</p>
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className="text-2xl font-bold text-emerald-400">Included</span>
+                <span className="text-gray-400 text-sm"> at no charge</span>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-300 mb-4">
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-400" /> E-signatures</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-400" /> Document workflows</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-400" /> Status tracking</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-400" /> Secure & compliant</li>
+              </ul>
+              <span className="text-emerald-400 text-sm font-medium">Included in all plans</span>
+            </div>
+
+            {/* Multi-Business Add-on */}
+            <div className="bg-gradient-to-b from-emerald-500/10 to-green-500/5 border border-emerald-500/30 rounded-2xl p-6 hover:border-emerald-500/50 transition-all">
+              <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-4">
+                <Layers className="w-6 h-6 text-emerald-400" />
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">Multi-Business</h3>
+              <p className="text-gray-400 text-sm mb-4">Manage multiple businesses or brands from a single CRM account.</p>
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className="text-2xl font-bold text-emerald-400">+$39</span>
+                <span className="text-gray-400 text-sm">/month</span>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-300 mb-4">
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> Multiple businesses</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> Easy switching</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> Separate data</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> Unified billing</li>
+              </ul>
+              <span className="text-emerald-400 text-sm font-medium">Add to plan</span>
             </div>
 
             {/* Geofence Marketing Add-on - COMING SOON */}

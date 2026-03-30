@@ -10,6 +10,9 @@ import CookiePolicy from './pages/CookiePolicy';
 import CompliancePage from './pages/CompliancePage';
 import SportsPage from './pages/SportsPage';
 import RealEstatePage from './pages/RealEstatePage';
+import MortgagePage from './pages/MortgagePage';
+import HealthcarePage from './pages/HealthcarePage';
+import LegalPage from './pages/LegalPage';
 import StartPage from './pages/StartPage';
 import POSPage from './pages/POSPage';
 import EcommercePage from './pages/EcommercePage';
@@ -37,6 +40,9 @@ function App() {
         <Route path="/sports" element={<SportsPage />} />
         <Route path="/ecommerce" element={<EcommercePage />} />
         <Route path="/real-estate" element={<RealEstatePage />} />
+        <Route path="/mortgage" element={<MortgagePage />} />
+        <Route path="/healthcare" element={<HealthcarePage />} />
+        <Route path="/legal" element={<LegalPage />} />
         <Route path="/start" element={<StartPage />} />
         <Route path="/get-started" element={<StartPage />} />
         <Route path="/pos" element={<POSPage />} />
