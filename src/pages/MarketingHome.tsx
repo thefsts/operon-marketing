@@ -7,7 +7,8 @@ import {
   Share2, MapPin, MessageSquare, Shield, CheckCircle, ArrowRight,
   Play, Menu, X, Sparkles, Mail, User, Building, Phone,
   Trophy, Calendar, CreditCard, Star, Activity, Globe, ChevronRight,
-  Linkedin, Facebook, Instagram, Twitter, MonitorSmartphone, Clock
+  Linkedin, Facebook, Instagram, Twitter, MonitorSmartphone, Clock,
+  Target
 } from 'lucide-react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
@@ -777,6 +778,30 @@ export default function MarketingHome() {
                   Coming Soon
                 </div>
               </div>
+
+              {/* Lead Generation Add-on */}
+              <div className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-lg transition-all hover:border-cyan-300">
+                <div className="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center mb-3">
+                  <Target className="w-5 h-5 text-cyan-600" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-1">Lead Generation</h4>
+                <p className="text-slate-500 text-sm mb-3">Smart lead scoring, prospect tracking, and source analytics.</p>
+                <div className="text-xl font-bold text-slate-900">
+                  +$39<span className="text-sm font-normal text-slate-500">/month</span>
+                </div>
+              </div>
+
+              {/* Reputation Management Add-on */}
+              <div className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-lg transition-all hover:border-yellow-300">
+                <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mb-3">
+                  <Star className="w-5 h-5 text-yellow-600" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-1">Reputation Management</h4>
+                <p className="text-slate-500 text-sm mb-3">Review monitoring, automated requests, and sentiment analysis.</p>
+                <div className="text-xl font-bold text-slate-900">
+                  +$29<span className="text-sm font-normal text-slate-500">/month</span>
+                </div>
+              </div>
             </div>
 
             {/* Bundle Savings */}
@@ -968,6 +993,8 @@ export default function MarketingHome() {
                 <li><a href="#industries" className="hover:text-cyan-400 transition-colors">Industries</a></li>
                 <li><a href="#pricing" className="hover:text-cyan-400 transition-colors">Pricing</a></li>
                 <li><a href="/integrations" className="hover:text-cyan-400 transition-colors">Integrations</a></li>
+                <li><a href="/lead-generation" className="hover:text-cyan-400 transition-colors">Lead Generation</a></li>
+                <li><a href="/reputation-management" className="hover:text-cyan-400 transition-colors">Reputation</a></li>
                 <li><button onClick={handleStartDemo} className="hover:text-cyan-400 transition-colors">Demo</button></li>
                 <li><a href={`${APP_URL}/login`} className="hover:text-cyan-400 transition-colors">Login</a></li>
                 <li><a href="/docs" className="hover:text-cyan-400 transition-colors">API Docs</a></li>

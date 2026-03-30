@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, Zap, Building, Users, ArrowRight, Sparkles, ShoppingCart, MonitorSmartphone, Share2, MapPin, Clock, CreditCard } from 'lucide-react';
+import { Check, Zap, Building, Users, ArrowRight, Sparkles, ShoppingCart, MonitorSmartphone, Share2, MapPin, Clock, CreditCard, Target, Star } from 'lucide-react';
 
 interface Plan {
   name: string;
@@ -293,6 +293,46 @@ const PricingPage: React.FC = () => {
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-400" /> Content calendar</li>
               </ul>
               <span className="text-purple-400 text-sm font-medium">Coming soon</span>
+            </div>
+
+            {/* Lead Generation Add-on */}
+            <div className="bg-gradient-to-b from-cyan-500/10 to-blue-500/5 border border-cyan-500/30 rounded-2xl p-6 hover:border-cyan-500/50 transition-all">
+              <div className="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-4">
+                <Target className="w-6 h-6 text-cyan-400" />
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">Lead Generation</h3>
+              <p className="text-gray-400 text-sm mb-4">Smart lead scoring, prospect tracking, and source analytics.</p>
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className="text-2xl font-bold text-cyan-400">+$39</span>
+                <span className="text-gray-400 text-sm">/month</span>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-300 mb-4">
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Smart lead scoring</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Prospect management</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Source analytics</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Conversion tracking</li>
+              </ul>
+              <span className="text-cyan-400 text-sm font-medium">Add to plan</span>
+            </div>
+
+            {/* Reputation Management Add-on */}
+            <div className="bg-gradient-to-b from-yellow-500/10 to-amber-500/5 border border-yellow-500/30 rounded-2xl p-6 hover:border-yellow-500/50 transition-all">
+              <div className="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center mb-4">
+                <Star className="w-6 h-6 text-yellow-400" />
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">Reputation Management</h3>
+              <p className="text-gray-400 text-sm mb-4">Review monitoring, automated requests, and sentiment analysis.</p>
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className="text-2xl font-bold text-yellow-400">+$29</span>
+                <span className="text-gray-400 text-sm">/month</span>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-300 mb-4">
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-yellow-400" /> Review monitoring</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-yellow-400" /> Automated requests</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-yellow-400" /> Sentiment analysis</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-yellow-400" /> Multi-platform sync</li>
+              </ul>
+              <span className="text-yellow-400 text-sm font-medium">Add to plan</span>
             </div>
 
             {/* Geofence Marketing Add-on - COMING SOON */}

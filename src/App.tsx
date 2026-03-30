@@ -14,6 +14,9 @@ import StartPage from './pages/StartPage';
 import POSPage from './pages/POSPage';
 import EcommercePage from './pages/EcommercePage';
 import IntegrationsPage from './pages/IntegrationsPage';
+import LeadGenerationPage from './pages/LeadGenerationPage';
+import ClientBillingPage from './pages/ClientBillingPage';
+import ReputationManagementPage from './pages/ReputationManagementPage';
 import NotFound from './pages/NotFound';
 import CookieConsent from './components/CookieConsent';
 import AccessibilityControls from './components/AccessibilityControls';
@@ -25,6 +28,7 @@ function App() {
         <Route path="/" element={<MarketingHome />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/docs" element={<ApiDocs />} />
+        <Route path="/api-docs" element={<ApiDocs />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfService />} />
@@ -37,6 +41,9 @@ function App() {
         <Route path="/get-started" element={<StartPage />} />
         <Route path="/pos" element={<POSPage />} />
         <Route path="/integrations" element={<IntegrationsPage />} />
+        <Route path="/lead-generation" element={<LeadGenerationPage />} />
+        <Route path="/client-billing" element={<ClientBillingPage />} />
+        <Route path="/reputation-management" element={<ReputationManagementPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <CookieConsent />
