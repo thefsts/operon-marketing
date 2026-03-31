@@ -253,11 +253,11 @@ export default function MarketingHome() {
       )}
 
       {/* ─── Navigation ─────────────────────────────────────────────────── */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/97 backdrop-blur-xl shadow-sm border-b border-slate-100' : 'bg-slate-900/80 backdrop-blur-md'}`} style={{minHeight: '72px'}}>
+      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/97 backdrop-blur-xl shadow-sm border-b border-slate-100' : 'bg-slate-900/80 backdrop-blur-md'}`} style={{minHeight: '80px'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-[72px]">
+          <div className="flex items-center justify-between h-[80px]">
             <a href="/" className="inline-flex items-center">
-              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-12 w-auto object-contain max-w-[200px]" />
+              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-10 w-auto object-contain" />
             </a>
 
             <div className="hidden md:flex items-center gap-6">
@@ -859,6 +859,62 @@ export default function MarketingHome() {
               <p className="text-slate-700 text-sm">
                 <span className="font-semibold">💡 Bundle & Save:</span> Add 2 or more add-ons and save 15% on your total add-on cost!
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ───── Limited Early Access Banner ───────────────────────────────────── */}
+      <section className="py-16 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500" style={{background: 'linear-gradient(135deg, #f97316 0%, #ef4444 50%, #ec4899 100%)'}}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 text-red-700 text-sm font-bold mb-4">
+                  <Activity className="w-4 h-4 animate-pulse" />
+                  Limited Time Offer
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                  🔥 Limited Early Access — 50% Off
+                </h2>
+                <p className="text-slate-600 text-lg mb-6 leading-relaxed">
+                  We're offering a limited number of businesses access to Operon at 50% off.
+                </p>
+                <p className="text-slate-500 text-base mb-6">
+                  This is full access to the system — not a trial version.<br />
+                  Once these spots are gone, pricing returns to normal.
+                </p>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="bg-slate-100 rounded-lg px-4 py-2">
+                    <span className="text-sm text-slate-500">⏳ Spots remaining:</span>
+                    <span className="font-bold text-slate-900 ml-2">47</span>
+                  </div>
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 mb-6">
+                  <p className="text-slate-500 text-sm mb-2">Save 50% when you book your demo today</p>
+                  <div className="flex items-center justify-center gap-4 mb-4">
+                    <span className="text-4xl font-bold text-red-600 line-through opacity-50">$49</span>
+                    <span className="text-5xl font-black text-slate-900">$24.50</span>
+                  </div>
+                  <div className="bg-green-100 text-green-700 text-sm font-semibold px-4 py-2 rounded-full inline-block">
+                    50% Discount Applied
+                  </div>
+                </div>
+                <a
+                  href="/start"
+                  onClick={() => saveFunnel('early-access')}
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-orange-500/25 transition-all transform hover:scale-105"
+                >
+                  👉 Book Your Demo to Secure Your Spot
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+                <p className="text-slate-400 text-sm mt-4">
+                  No obligation • Free consultation • See Operon in action
+                </p>
+              </div>
             </div>
           </div>
         </div>
