@@ -312,46 +312,38 @@ export default function MarketingHome() {
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
-          {/* Logo */}
-          <div className="flex justify-center mb-10">
-            <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-32 w-auto object-contain" />
-          </div>
-
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight text-white">
-            Operon — The Operating System<br />
+            Run Your Business With<br />
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-              for Modern Businesses
+              One Powerful System
             </span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-slate-300 mb-4 max-w-2xl mx-auto">
-            Replace your CRM, marketing tools, storefront, accounting, and operations — all in one platform.
-          </p>
-          <p className="text-base text-cyan-400/80 mb-10 font-medium">
-            Stop using 5 different tools to run your business.
+          <p className="text-lg sm:text-xl text-slate-300 mb-6 max-w-3xl mx-auto">
+            CRM, Marketing, POS, Automation, and AI Onboarding — Built for the way your business works
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              to="/contact"
-              className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/30 transition-all flex items-center gap-2"
-            >
-              Book Demo
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <a
               href="/start"
               onClick={() => saveFunnel('start')}
+              className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/30 transition-all flex items-center gap-2"
+            >
+              Get Started
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a
+              href="/pricing"
               className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all flex items-center gap-2"
             >
-              Start Free Trial
+              View Pricing
             </a>
           </div>
 
-          <div className="mt-10 flex items-center justify-center gap-8 text-slate-400 text-sm">
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-cyan-400" />No credit card required</span>
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-cyan-400" />14-day free trial</span>
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-cyan-400" />Cancel anytime</span>
+          <div className="flex items-center justify-center gap-8 text-slate-400 text-sm">
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-cyan-400" />Set up in minutes</span>
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4 text-cyan-400" />AI-assisted onboarding</span>
+            <span className="flex items-center gap-1.5 text-orange-400 font-medium"><Clock className="w-4 h-4" />Limited onboarding spots available</span>
           </div>
         </div>
       </section>
