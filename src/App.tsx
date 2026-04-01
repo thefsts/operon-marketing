@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MarketingHome from './pages/MarketingHome';
 import PricingPage from './pages/PricingPage';
+import SmallBusinessCRMPage from './pages/SmallBusinessCRMPage';
+import RestaurantRetailCRMPage from './pages/RestaurantRetailCRMPage';
+import SocialMediaMarketingPage from './pages/SocialMediaMarketingPage';
 import ApiDocs from './pages/ApiDocs';
 import ContactPage from './pages/ContactPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -29,6 +32,9 @@ function App() {
 
         {/* Utility pages - kept as separate routes */}
         <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/small-business-crm" element={<SmallBusinessCRMPage />} />
+        <Route path="/restaurant-retail-crm" element={<RestaurantRetailCRMPage />} />
+        <Route path="/social-media-marketing" element={<SocialMediaMarketingPage />} />
         <Route path="/docs" element={<ApiDocs />} />
         <Route path="/api-docs" element={<ApiDocs />} />
         <Route path="/contact" element={<ContactPage />} />

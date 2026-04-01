@@ -5,7 +5,7 @@ import {
   Megaphone, Zap, Building2, Home, Scale, Stethoscope,
   Store, Briefcase, BarChart3, Kanban, FileSignature,
   Share2, MapPin, MessageSquare, Shield, CheckCircle, ArrowRight,
-  Play, Menu, X, Sparkles, Mail, User, Building, Phone,
+  Play, Menu, X, Sparkles, Mail, User, Building, Phone, ChevronDown,
   Trophy, Calendar, CreditCard, Star, Activity, Globe, ChevronRight,
   Linkedin, Facebook, Instagram, Twitter, MonitorSmartphone, Clock,
   Target, Mic, PenTool, Download, Layers
@@ -257,18 +257,47 @@ export default function MarketingHome() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[80px]">
             <a href="/" className="inline-flex items-center">
-              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-10 w-auto object-contain" />
+              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-14 w-auto object-contain" />
             </a>
 
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-4">
               <a href="#platform" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Platform</a>
-              <a href="#industries" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Industries</a>
-              <a href="#about" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>About</a>
-              <a href="#sports" className={`transition-colors text-sm font-medium flex items-center gap-1 ${scrolled ? 'text-slate-700 hover:text-green-600' : 'text-white/90 hover:text-white'}`}>
-                <Trophy className="w-3.5 h-3.5" />Sports
-              </a>
-              <a href="#compliance" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Compliance</a>
+              <div className="relative group">
+                <button className={`transition-colors text-sm font-medium flex items-center gap-1 ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>
+                  Solutions
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                  <div className="p-2">
+                    <a href="#services" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                      <div className="font-semibold text-slate-900">Small Business CRM</div>
+                      <div className="text-xs text-slate-500">$29/mo</div>
+                    </a>
+                    <a href="#pos" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                      <div className="font-semibold text-slate-900">Restaurant / Retail CRM</div>
+                      <div className="text-xs text-slate-500">$69/mo</div>
+                    </a>
+                    <a href="#real-estate" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                      <div className="font-semibold text-slate-900">Real Estate / Mortgage</div>
+                      <div className="text-xs text-slate-500">$49/mo</div>
+                    </a>
+                    <a href="#healthcare" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                      <div className="font-semibold text-slate-900">Medical CRM</div>
+                      <div className="text-xs text-slate-500">$49/mo</div>
+                    </a>
+                    <a href="#legal" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                      <div className="font-semibold text-slate-900">Legal CRM</div>
+                      <div className="text-xs text-slate-500">$49/mo</div>
+                    </a>
+                    <a href="#sports" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                      <div className="font-semibold text-slate-900">Sports Organizations</div>
+                      <div className="text-xs text-slate-500">View Pricing</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
               <a href="#pricing" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Pricing</a>
+              <a href="#about" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>About</a>
               <LanguageSwitcher />
               <a href={`${APP_URL}/login`} className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Login</a>
               <a
