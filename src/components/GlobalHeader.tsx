@@ -25,13 +25,14 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
   const isHome = location.pathname === '/';
   const useTransparentBg = (transparent || isHome) && !scrolled;
 
-  const industries = [
+  const solutions = [
     { name: 'Small Business', path: '/small-business-crm' },
     { name: 'Restaurant / Retail', path: '/restaurant-retail-crm' },
     { name: 'Real Estate / Mortgage / Title', path: '/real-estate' },
     { name: 'Medical', path: '/healthcare' },
     { name: 'Legal', path: '/legal' },
-    { name: 'Sports', path: '/sports' },
+    { name: 'Sports & Fitness', path: '/sports' },
+    { name: 'Gun FFL / Firearms', path: '/gun-ffl-crm' },
     { name: 'Social Media Marketing', path: '/social-media-marketing' },
   ];
 
@@ -75,25 +76,25 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
               Pricing
             </Link>
 
-            {/* Industries Dropdown */}
+            {/* Solutions Dropdown */}
             <div className="relative group">
               <button 
                 className={`text-sm font-medium flex items-center gap-1 transition-colors ${
                   useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
                 }`}
               >
-                Industries
+                Solutions
                 <ChevronDown className="w-4 h-4" />
               </button>
               <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
                 <div className="p-2">
-                  {industries.map((industry) => (
+                  {solutions.map((solution) => (
                     <Link
-                      key={industry.path}
-                      to={industry.path}
+                      key={solution.path}
+                      to={solution.path}
                       className="block px-4 py-2.5 hover:bg-slate-50 rounded-lg text-slate-700 hover:text-cyan-600"
                     >
-                      {industry.name}
+                      {solution.name}
                     </Link>
                   ))}
                 </div>
@@ -159,15 +160,15 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
             </Link>
             
             <div className="border-t border-slate-100 pt-4">
-              <div className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Industries</div>
-              {industries.map((industry) => (
+              <div className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Solutions</div>
+              {solutions.map((solution) => (
                 <Link
-                  key={industry.path}
-                  to={industry.path}
+                  key={solution.path}
+                  to={solution.path}
                   className="block py-2 text-slate-700 hover:text-cyan-600"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {industry.name}
+                  {solution.name}
                 </Link>
               ))}
             </div>

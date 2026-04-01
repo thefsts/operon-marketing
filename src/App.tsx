@@ -11,6 +11,7 @@ import MortgagePage from './pages/MortgagePage';
 import HealthcarePage from './pages/HealthcarePage';
 import LegalPage from './pages/LegalPage';
 import SportsPage from './pages/SportsPage';
+import GunFFLPage from './pages/GunFFLPage';
 import EcommercePage from './pages/EcommercePage';
 import POSPage from './pages/POSPage';
 import IntegrationsPage from './pages/IntegrationsPage';
@@ -64,6 +65,7 @@ function App() {
         <Route path="/healthcare" element={<HealthcarePage />} />
         <Route path="/legal" element={<LegalPage />} />
         <Route path="/sports" element={<SportsPage />} />
+        <Route path="/gun-ffl-crm" element={<GunFFLPage />} />
         <Route path="/ecommerce" element={<EcommercePage />} />
         <Route path="/pos" element={<POSPage />} />
         <Route path="/compliance" element={<CompliancePage />} />
