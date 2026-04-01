@@ -1,303 +1,417 @@
-import { useState, useEffect } from 'react';
-import { Scale, CheckCircle, ArrowRight, Menu, X, FileText, Users, BarChart3, Kanban, FileSignature, Shield, Sparkles, Calendar, Phone, Briefcase } from 'lucide-react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { 
+  Scale, Check, ArrowRight, Users, BarChart3, Calendar, FileText, 
+  MessageSquare, Shield, Zap, Clock, FileSignature, Briefcase,
+  Building, Landmark, Gavel, Search, DollarSign, Flame
+} from 'lucide-react';
+import GlobalHeader from '../components/GlobalHeader';
+import GlobalFooter from '../components/GlobalFooter';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
 
-function saveFunnel(plan?: string) {
-  localStorage.setItem('operon_funnel_type', 'legal');
-  localStorage.setItem('operon_last_url', window.location.href);
-  localStorage.setItem('operon_last_step', 'legal');
-  if (plan) localStorage.setItem('operon_selected_plan', plan);
-}
+// Beta discount eligible tiers for Legal
+const betaDiscountTiers = ['Growth', 'Business'];
+
+const plans = [
+  {
+    name: 'Self-Employed',
+    description: 'Solo practitioners',
+    monthlyPrice: 49,
+    annualPrice: 44,
+    priceId: 'price_legal_selfemployed',
+    features: [
+      'Case management',
+      'Client CRM',
+      'Basic calendar',
+      'Document storage (1GB)',
+      'Email support',
+    ],
+    cta: 'Get Started',
+  },
+  {
+    name: 'Small Firm',
+    description: '2-5 attorneys',
+    monthlyPrice: 79,
+    annualPrice: 71,
+    priceId: 'price_legal_smallfirm',
+    features: [
+      'Everything in Self-Employed',
+      'Team collaboration',
+      'Advanced calendar',
+      'Document storage (5GB)',
+      'Task management',
+      'Phone support',
+    ],
+    cta: 'Start Free Trial',
+  },
+  {
+    name: 'Growth',
+    description: 'Growing law firms',
+    monthlyPrice: 99,
+    annualPrice: 89,
+    priceId: 'price_legal_growth',
+    betaDiscount: true,
+    features: [
+      'Everything in Small Firm',
+      'AI-powered insights',
+      'Conflict checking',
+      'Time tracking',
+      'Document storage (20GB)',
+      'Reporting & analytics',
+      'Priority support',
+    ],
+    cta: 'Upgrade Now',
+  },
+  {
+    name: 'Business',
+    description: 'Established practices',
+    monthlyPrice: 149,
+    annualPrice: 134,
+    priceId: 'price_legal_business',
+    popular: true,
+    betaDiscount: true,
+    features: [
+      'Everything in Growth',
+      'E-Signatures included',
+      'Trust accounting',
+      'Billing & invoicing',
+      'Document storage (50GB)',
+      'API access',
+      'Dedicated support',
+    ],
+    cta: 'Get Full Access',
+  },
+  {
+    name: 'White Label',
+    description: 'Your branded CRM',
+    monthlyPrice: 299,
+    annualPrice: 269,
+    priceId: 'price_legal_whitelabel',
+    features: [
+      'Everything in Business',
+      'Full white-label branding',
+      'Unlimited documents',
+      'Includes up to 20 licenses',
+      'Additional users: $5/seat/month',
+      'Custom domain',
+      'Dedicated account manager',
+    ],
+    cta: 'Start Your Platform',
+  },
+];
+
+const industries = [
+  { icon: Building, name: 'Law Firms', desc: 'Full practice management for firms of all sizes' },
+  { icon: Briefcase, name: 'Solo Practitioners', desc: 'Everything a solo attorney needs to succeed' },
+  { icon: Landmark, name: 'Corporate Legal', desc: 'In-house counsel and legal departments' },
+  { icon: Gavel, name: 'Litigation', desc: 'Case tracking, court dates, and deadlines' },
+  { icon: FileText, name: 'Estate Planning', desc: 'Will, trust, and probate management' },
+  { icon: DollarSign, name: 'Transactional', desc: 'Deal tracking and document management' },
+  { icon: Search, name: 'IP & Patent', desc: 'Intellectual property filing and tracking' },
+  { icon: Users, name: 'Family Law', desc: 'Client management with sensitivity' },
+];
+
+const features = [
+  { icon: BarChart3, title: 'Case Pipeline', desc: 'Visual pipeline from intake to resolution with drag-and-drop simplicity.' },
+  { icon: Users, title: 'Client CRM', desc: 'Complete client profiles with matter history and communication logs.' },
+  { icon: Calendar, title: 'Court Calendar', desc: 'Track court dates, deadlines, and depositions with conflict checking.' },
+  { icon: FileSignature, title: 'E-Signatures', desc: 'Retainer agreements and legal documents signed in minutes.' },
+  { icon: Shield, title: 'Conflict Checking', desc: 'Check for conflicts before taking on new matters.' },
+  { icon: FileText, title: 'Document Management', desc: 'Organize documents by matter with secure access controls.' },
+  { icon: Clock, title: 'Time Tracking', desc: 'Track billable hours with integrated billing and invoicing.' },
+  { icon: Zap, title: 'AI Assistant', desc: 'AI helps with deadlines, document drafting, and task management.' },
+];
 
 export default function LegalPage() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    saveFunnel();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const features = [
-    { icon: Kanban, title: 'Case Pipeline', desc: 'Visual pipeline from intake to resolution. Track every case stage, deadline, and milestone with drag-and-drop simplicity.', color: 'from-amber-500 to-orange-400' },
-    { icon: Users, title: 'Client Management', desc: 'Complete client profiles with matter history, communication logs, and billing details in one place.', color: 'from-blue-500 to-cyan-400' },
-    { icon: Calendar, title: 'Court & Meeting Calendar', desc: 'Built-in calendar for court dates, depositions, client meetings, and deadlines with conflict checking.', color: 'from-violet-500 to-purple-400' },
-    { icon: FileSignature, title: 'Documents & E-Signatures', desc: 'Legal documents, retainer agreements, and contracts with integrated e-signatures included at no charge.', color: 'from-emerald-500 to-green-400' },
-    { icon: Shield, title: 'Conflict Checking', desc: 'Check for conflicts of interest before taking on new clients or matters with comprehensive search.', color: 'from-rose-500 to-pink-400' },
-    { icon: FileText, title: 'Matter Management', desc: 'Organize documents, notes, and tasks by matter with matter-specific access controls.', color: 'from-cyan-500 to-blue-400' },
-    { icon: BarChart3, title: 'Time & Billing', desc: 'Track billable hours, generate invoices, and manage trust accounting with integrated billing.', color: 'from-indigo-500 to-blue-400' },
-    { icon: Briefcase, title: 'Practice Analytics', desc: 'Track case outcomes, revenue by practice area, and firm performance with detailed reporting.', color: 'from-teal-500 to-emerald-400' },
-  ];
-
-  const steps = [
-    { n: '01', title: 'Add your clients', desc: 'Import or create client and matter profiles.' },
-    { n: '02', title: 'Set up your pipeline', desc: 'Configure case stages to match your practice.' },
-    { n: '03', title: 'Configure calendar', desc: 'Add court dates, deadlines, and meetings.' },
-    { n: '04', title: 'AI optimizes workflow', desc: 'AI suggests tasks and tracks deadlines.' },
-  ];
-
-  const pricingPlans = [
-    { name: 'Self-Employed', price: '$49', note: '/month', desc: 'Solo practitioners · Basic CRM · Case Pipeline' },
-    { name: 'Small Business', price: '$69', note: '/month', desc: 'Small firms · Documents · Automation' },
-    { name: 'Growth', price: '$99', note: '/month', desc: 'Growing firms · AI insights · Reporting' },
-    { name: 'Business', price: '$149', note: '/month', desc: 'Established teams · E-Sign · Billing', popular: true },
-    { name: 'White Label', price: '$299', note: '/month', desc: 'Includes up to 20 licenses · $5/seat after' },
-  ];
+  const handlePlanSelect = (planName: string, priceId: string) => {
+    localStorage.setItem('operon_selected_plan', planName);
+    localStorage.setItem('operon_selected_price_id', priceId);
+    localStorage.setItem('operon_funnel_type', 'legal');
+    window.location.href = `${APP_URL}/auth/signup?plan=${planName}&category=legal`;
+  };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-white">
+      <GlobalHeader />
 
-      {/* Nav */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-xl shadow-sm border-b border-slate-100' : 'bg-white/90 backdrop-blur-sm'}`}>
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 bg-gradient-to-br from-amber-600 via-orange-600 to-amber-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link to="/" className="inline-flex">
-              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-9 w-auto object-contain" />
-            </Link>
-            <div className="hidden md:flex items-center gap-6">
-              <a href="#features" className="text-slate-600 hover:text-amber-600 transition-colors text-sm font-medium">Features</a>
-              <a href="#how-it-works" className="text-slate-600 hover:text-amber-600 transition-colors text-sm font-medium">How It Works</a>
-              <Link to="/#pricing" className="text-slate-600 hover:text-amber-600 transition-colors text-sm font-medium">Pricing</Link>
-              <a href={`${APP_URL}/login`} className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Login</a>
-              <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-amber-500/25 transition-all">
-                Start Your Legal Setup
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium mb-6">
+              <Scale className="w-4 h-4" />
+              Legal CRM
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              The CRM Built for<br />Law Firms & Attorneys
+            </h1>
+            <p className="text-xl text-amber-100 max-w-3xl mx-auto mb-8">
+              Manage cases, clients, court dates, and documents in one unified system. Built specifically for legal professionals with AI-powered deadline tracking.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/start"
+                className="px-8 py-4 bg-white text-amber-700 rounded-xl font-semibold hover:shadow-xl transition-all inline-flex items-center justify-center gap-2"
+              >
+                Start Free Trial
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <a
+                href="#pricing"
+                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+              >
+                View Pricing
               </a>
             </div>
-            <button className="md:hidden text-slate-700" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-b border-slate-100 px-4 py-5 space-y-4">
-            <a href="#features" className="block text-slate-700 font-medium">Features</a>
-            <Link to="/#pricing" className="block text-slate-700 font-medium">Pricing</Link>
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="block w-full text-center px-4 py-3 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-semibold">Start Setup</a>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero */}
-      <section className="relative pt-24 pb-20 bg-gradient-to-br from-slate-900 via-amber-950 to-orange-950 overflow-hidden">
-        <div className="absolute top-1/4 left-1/3 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-900/50 border border-amber-700 text-amber-300 text-sm font-semibold mb-6">
-            <Scale className="w-4 h-4" /> Legal CRM
-          </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-5 leading-tight">
-            Manage Cases, Clients, Documents, and Deadlines<br />
-            <span className="bg-gradient-to-r from-amber-400 to-orange-300 bg-clip-text text-transparent">
-              in One Unified System
-            </span>
-          </h1>
-          <p className="text-slate-300 text-xl mb-4 max-w-2xl mx-auto">
-            Case pipeline, client management, court calendar, and billing — everything your law firm needs in a single platform.
-          </p>
-          <p className="text-amber-400/80 text-sm mb-10 flex items-center justify-center gap-2">
-            <Sparkles className="w-4 h-4" /> AI will help you configure your system and never miss a deadline.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="group px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-amber-500/30 transition-all flex items-center gap-2">
-              Start Your Legal Setup
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <Link to="/contact" className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all">
-              Book a Demo
-            </Link>
+            <p className="text-amber-200 mt-4 text-sm">No credit card required • Set up in minutes</p>
           </div>
         </div>
       </section>
 
-      {/* Quick capabilities bar */}
-      <section className="py-12 bg-white border-b border-slate-100">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4 text-center">
-            {['Cases','Clients','Calendar','Documents','Billing'].map((label, i) => (
-              <div key={i} className="flex flex-col items-center gap-2 p-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center">
-                  <CheckCircle className="w-5 h-5 text-amber-600" />
-                </div>
-                <span className="text-sm font-semibold text-slate-700">{label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section id="features" className="py-20 bg-slate-50">
+      {/* Who It's For Section */}
+      <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Built for Law Firms</h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">Every tool your practice needs — configured for legal workflows.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Built for Legal Professionals
+            </h2>
+            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
+              Operon CRM is designed for the unique needs of law firms and legal departments. From solo practitioners to large firms.
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {features.map((feat, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-amber-300 hover:shadow-md transition-all">
-                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feat.color} mb-4`}>
-                  <feat.icon className="w-5 h-5 text-white" />
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {industries.map((industry, i) => (
+              <div key={i} className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-lg hover:border-amber-300 transition-all">
+                <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-4">
+                  <industry.icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">{feat.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{feat.desc}</p>
+                <h3 className="font-bold text-slate-900 mb-1">{industry.name}</h3>
+                <p className="text-slate-500 text-sm">{industry.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Case + Client detail */}
+      {/* Features Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-10 items-start">
-            <div className="p-8 rounded-2xl bg-amber-50 border border-amber-200">
-              <Kanban className="w-10 h-10 text-amber-600 mb-5" />
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Case Pipeline Management</h3>
-              <p className="text-slate-600 mb-5">Track every case from intake through resolution — with a visual pipeline that mirrors your practice areas.</p>
-              <ul className="space-y-3">
-                {['Visual drag-and-drop pipeline','Case stage tracking','Deadline management','Court date calendar','Document organization'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-700 text-sm">
-                    <CheckCircle className="w-4 h-4 text-amber-500 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="p-8 rounded-2xl bg-blue-50 border border-blue-200">
-              <Users className="w-10 h-10 text-blue-600 mb-5" />
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Client & Contact Management</h3>
-              <p className="text-slate-600 mb-5">Build lasting relationships with a CRM designed for law firm client management.</p>
-              <ul className="space-y-3">
-                {['Client profiles & history','Matter assignments','Communication logs','Conflict checking','Billing integration'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-700 text-sm">
-                    <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Everything Your Practice Needs
+            </h2>
+            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
+              Purpose-built for legal workflows with AI-powered assistance throughout.
+            </p>
           </div>
-        </div>
-      </section>
 
-      {/* Calendar & AI */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-5">Court Calendar & Deadline Management</h2>
-              <p className="text-slate-600 text-lg mb-6">Never miss a court date or filing deadline with an integrated calendar built for legal practices.</p>
-              <div className="space-y-4">
-                {[
-                  { title: 'Court Dates', desc: 'Schedule and track all court appearances and hearings.' },
-                  { title: 'Filing Deadlines', desc: 'Automated reminders for statutory and court-ordered deadlines.' },
-                  { title: 'Client Meetings', desc: 'Coordinate consultations and case strategy sessions.' },
-                  { title: 'AI Deadline Assistant', desc: 'AI tracks deadlines and suggests optimal scheduling.' },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-semibold text-slate-900">{item.title} — </span>
-                      <span className="text-slate-600 text-sm">{item.desc}</span>
-                    </div>
-                  </div>
-                ))}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((feature, i) => (
+              <div key={i} className="p-6 rounded-xl border border-slate-200 bg-white hover:shadow-md transition-all">
+                <div className="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center mb-3">
+                  <feature.icon className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-1">{feature.title}</h3>
+                <p className="text-slate-500 text-sm">{feature.desc}</p>
               </div>
-            </div>
-            <div className="p-8 rounded-2xl bg-gradient-to-br from-amber-600 to-orange-700 text-white">
-              <Calendar className="w-10 h-10 mb-4 text-amber-200" />
-              <h3 className="text-2xl font-bold mb-3">AI-Powered Calendar Assistant</h3>
-              <p className="text-amber-100 mb-5">Your AI assistant helps manage your calendar, reminds you of deadlines, and ensures you never miss a court date.</p>
-              <ul className="space-y-2.5">
-                {['"What deadlines do I have this week?"','"Schedule a consultation for..."','"Remind me about filing deadlines"','"Show all court dates for case..."'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-amber-100 text-sm">
-                    <Sparkles className="w-4 h-4 text-white flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* How it works */}
-      <section id="how-it-works" className="py-20 bg-white">
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Pricing for Law Firms
+            </h2>
+            <p className="text-slate-500 text-lg max-w-2xl mx-auto mb-8">
+              Premium vertical with advanced legal workflows. Start with any plan — upgrade as your firm grows.
+            </p>
+
+            {/* Billing Toggle */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <button
+                onClick={() => setBillingPeriod('monthly')}
+                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-slate-900' : 'text-slate-500'}`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}
+                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-amber-600' : 'bg-slate-300'}`}
+              >
+                <div className={`w-6 h-6 bg-white rounded-full transition-transform ${billingPeriod === 'annual' ? 'translate-x-7' : 'translate-x-1'}`} />
+              </button>
+              <button
+                onClick={() => setBillingPeriod('annual')}
+                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-slate-900' : 'text-slate-500'}`}
+              >
+                Annual
+                <span className="text-amber-600 text-sm font-medium ml-1">(Save 10%)</span>
+              </button>
+            </div>
+
+            {/* Beta Discount Banner */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 border border-orange-200 text-orange-700 text-sm font-medium mb-8">
+              <Flame className="w-4 h-4" />
+              50% OFF Beta Access on Growth & Business tiers!
+            </div>
+          </div>
+
+          {/* Pricing Cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            {plans.map((plan, index) => {
+              const hasBetaDiscount = plan.betaDiscount;
+              const discountedPrice = hasBetaDiscount
+                ? (billingPeriod === 'monthly' ? plan.monthlyPrice * 0.5 : plan.annualPrice * 0.5).toFixed(2)
+                : null;
+
+              return (
+                <div
+                  key={index}
+                  className={`relative bg-white rounded-2xl p-6 ${
+                    plan.popular ? 'ring-2 ring-amber-600 shadow-xl' : 'shadow-lg hover:shadow-xl'
+                  } transition`}
+                >
+                  {/* Beta Discount Badge */}
+                  {hasBetaDiscount && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1 whitespace-nowrap">
+                      <Flame className="w-4 h-4" />
+                      50% OFF
+                    </div>
+                  )}
+                  {/* Most Popular Badge */}
+                  {plan.popular && !hasBetaDiscount && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                      Most Popular
+                    </div>
+                  )}
+                  <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
+                  <p className="text-slate-600 text-sm mt-1 mb-4">{plan.description}</p>
+                  <div className="mb-6">
+                    {hasBetaDiscount ? (
+                      <div>
+                        <div className="text-slate-400 line-through text-lg">
+                          ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}/mo
+                        </div>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-4xl font-bold text-orange-600">${discountedPrice}</span>
+                          <span className="text-slate-500">/mo</span>
+                        </div>
+                        <div className="text-orange-600 text-sm font-medium mt-1">Beta Price</div>
+                      </div>
+                    ) : (
+                      <div>
+                        <span className="text-4xl font-bold text-slate-900">
+                          ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
+                        </span>
+                        <span className="text-slate-500">/month</span>
+                      </div>
+                    )}
+                  </div>
+                  <ul className="space-y-2 mb-6">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex items-start text-sm">
+                        <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-slate-600">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={() => handlePlanSelect(plan.name.toLowerCase().replace(' ', '_'), plan.priceId)}
+                    className={`w-full py-3 rounded-lg font-semibold transition ${
+                      hasBetaDiscount
+                        ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg'
+                        : plan.popular
+                          ? 'bg-amber-600 text-white hover:bg-amber-700'
+                          : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
+                    }`}
+                  >
+                    {plan.cta}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Add-ons Note */}
+          <div className="mt-12 text-center">
+            <p className="text-slate-500 text-sm">
+              <strong>Add-ons:</strong> Additional Users $5/seat • E-Signature Included • Trust Accounting Available
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-slate-900 mb-3">How It Works</h2>
-            <p className="text-slate-500 text-lg">Set up your CRM in a few simple steps. AI does the heavy lifting.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              How It Works
+            </h2>
+            <p className="text-slate-500 text-lg">
+              Get your legal CRM running in minutes. AI helps configure everything.
+            </p>
           </div>
-          <div className="grid md:grid-cols-4 gap-6">
-            {steps.map((step, i) => (
-              <div key={i} className="text-center">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-200">
-                  <span className="text-white font-bold text-lg">{step.n}</span>
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">{step.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Pricing */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-3">Pricing for Law Firms</h2>
-          <p className="text-slate-500 text-lg mb-6">Premium vertical with advanced legal workflows. Start with any plan — upgrade as your firm grows.</p>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-            {pricingPlans.map((plan, i) => (
-              <div key={i} className={`p-5 rounded-2xl border-2 text-center ${plan.popular ? 'border-amber-400 bg-amber-50 ring-2 ring-amber-400' : 'border-slate-200 bg-white'}`}>
-                {plan.popular && <div className="text-xs font-bold text-amber-600 mb-2">Most Popular</div>}
-                <div className="text-2xl font-bold text-slate-900">{plan.price}<span className="text-slate-500 text-sm font-normal">{plan.note}</span></div>
-                <div className="font-semibold text-slate-800 mt-1">{plan.name}</div>
-                <div className="text-slate-500 text-xs mt-1">{plan.desc}</div>
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              { step: '1', title: 'Add Clients', desc: 'Import or create client and matter profiles.' },
+              { step: '2', title: 'Set Up Pipeline', desc: 'Configure case stages to match your practice.' },
+              { step: '3', title: 'Add Calendar', desc: 'Enter court dates, deadlines, and meetings.' },
+              { step: '4', title: 'AI Optimizes', desc: 'AI tracks deadlines and suggests tasks.' },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                  {item.step}
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
+                <p className="text-slate-500">{item.desc}</p>
               </div>
             ))}
-          </div>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel('growth')} className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-amber-500/25 transition-all">
-              Start Your Setup
-            </a>
-            <Link to="/contact" className="px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-100 transition-all">
-              Book Demo
-            </Link>
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-br from-slate-900 via-amber-950 to-orange-950">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <Scale className="w-12 h-12 text-amber-400 mx-auto mb-5" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-5">Ready to Run Your Legal CRM?</h2>
-          <p className="text-slate-300 text-lg mb-8">Set up your case pipeline, configure your calendar, and let AI help you manage deadlines.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="group px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-amber-500/30 transition-all flex items-center gap-2">
-              Start Your Legal CRM <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <Link to="/contact" className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/10 transition-all flex items-center gap-2">
-              <Phone className="w-5 h-5" /> Book a Demo
+      <section className="py-20 bg-slate-900">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Scale className="w-12 h-12 text-amber-400 mx-auto mb-6" />
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            Ready to Transform Your Legal Practice?
+          </h2>
+          <p className="text-slate-300 text-lg mb-8">
+            Set up your case pipeline, configure your calendar, and let AI help you never miss a deadline.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/start"
+              className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-amber-500/25 transition-all inline-flex items-center justify-center gap-2"
+            >
+              Start Free Trial
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link
+              to="/contact"
+              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+            >
+              Book a Demo
             </Link>
           </div>
+          <p className="text-slate-400 mt-4 text-sm">
+            Questions? Call us at (888) 555-0123
+          </p>
         </div>
       </section>
 
-      <footer className="bg-slate-950 text-slate-500 py-8 text-sm">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Operon CRM. All rights reserved. Created by <a href="https://fullstacktechsolutions.com" target="_blank" rel="noopener noreferrer" className="text-cyan-500 hover:text-cyan-400">Full Stack Tech & Solutions</a></p>
-          <div className="flex gap-5">
-            <Link to="/privacy" className="hover:text-slate-300 transition-colors">Privacy</Link>
-            <Link to="/terms" className="hover:text-slate-300 transition-colors">Terms</Link>
-            <Link to="/" className="hover:text-slate-300 transition-colors">Home</Link>
-          </div>
-        </div>
-      </footer>
+      <GlobalFooter />
     </div>
   );
 }

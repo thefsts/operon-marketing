@@ -1,303 +1,368 @@
-import { useState, useEffect } from 'react';
-import { Stethoscope, CheckCircle, ArrowRight, Menu, X, FileText, Users, BarChart3, Kanban, FileSignature, Shield, Sparkles, Calendar, Phone, Heart } from 'lucide-react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { 
+  Check, ArrowRight, Users, BarChart3, Calendar, FileText, Shield, 
+  Flame, Stethoscope, Heart, Brain, Activity, Clock, Zap
+} from 'lucide-react';
+import GlobalHeader from '../components/GlobalHeader';
+import GlobalFooter from '../components/GlobalFooter';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
 
-function saveFunnel(plan?: string) {
-  localStorage.setItem('operon_funnel_type', 'healthcare');
-  localStorage.setItem('operon_last_url', window.location.href);
-  localStorage.setItem('operon_last_step', 'healthcare');
-  if (plan) localStorage.setItem('operon_selected_plan', plan);
-}
+const plans = [
+  {
+    name: 'Self-Employed',
+    description: 'Individual practitioners',
+    monthlyPrice: 49,
+    annualPrice: 44,
+    priceId: 'price_professional_selfemployed',
+    features: [
+      'CRM & client management',
+      'Document workflows',
+      'Basic compliance tools',
+      'E-signatures included',
+      'Email support',
+      '500 contacts',
+    ],
+    cta: 'Get Started',
+  },
+  {
+    name: 'Small Business',
+    description: 'Small practices',
+    monthlyPrice: 69,
+    annualPrice: 62,
+    priceId: 'price_professional_smallbusiness',
+    features: [
+      'Everything in Self-Employed',
+      'Client pipelines',
+      'Automation workflows',
+      '1,500 contacts',
+      '3 users',
+      'Priority support',
+    ],
+    cta: 'Upgrade Now',
+  },
+  {
+    name: 'Growth',
+    description: 'Growing practices',
+    monthlyPrice: 99,
+    annualPrice: 89,
+    priceId: 'price_professional_growth',
+    betaDiscount: true,
+    features: [
+      'Everything in Small Business',
+      'Advanced document automation',
+      'Compliance suite',
+      '3,000 contacts',
+      '7 users',
+      'Advanced reporting',
+    ],
+    cta: 'Grow Your Practice',
+  },
+  {
+    name: 'Business',
+    description: 'Established practices',
+    monthlyPrice: 149,
+    annualPrice: 134,
+    priceId: 'price_professional_business',
+    popular: true,
+    betaDiscount: true,
+    features: [
+      'Everything in Growth',
+      'Multi-business support',
+      'Advanced workflows',
+      '7,000 contacts',
+      '15 users',
+      'Premium support',
+      'HIPAA-ready tools',
+    ],
+    cta: 'Take Full Control',
+  },
+  {
+    name: 'White Label',
+    description: 'For healthcare organizations',
+    monthlyPrice: 299,
+    annualPrice: 269,
+    priceId: 'price_professional_whitelabel',
+    features: [
+      'Everything in Business',
+      'Unlimited contacts',
+      'Brand the system as your own',
+      'Industry-specific compliance',
+      'Includes up to 20 licenses',
+      'Additional users: $5/seat/month',
+      'Branded mobile app coming soon',
+      'Dedicated support',
+    ],
+    cta: 'Launch Your Platform',
+  },
+];
+
+const specialties = [
+  { icon: Stethoscope, name: 'Primary Care', desc: 'Family medicine, internal medicine' },
+  { icon: Heart, name: 'Cardiology', desc: 'Heart health specialists' },
+  { icon: Brain, name: 'Mental Health', desc: 'Psychiatrists, psychologists, therapists' },
+  { icon: Activity, name: 'Physical Therapy', desc: 'Rehabilitation and physical therapy' },
+  { icon: Users, name: 'Dentists', desc: 'Dental practices and oral surgery' },
+  { icon: Zap, name: 'Urgent Care', desc: 'Walk-in clinics and urgent care centers' },
+  { icon: Shield, name: 'Specialty Clinics', desc: 'Dermatology, orthopedics, and more' },
+  { icon: BarChart3, name: 'Medical Groups', desc: 'Multi-provider practices' },
+];
+
+const features = [
+  { icon: Users, title: 'Patient CRM', desc: 'Complete patient records, history, and communication tracking.' },
+  { icon: Calendar, title: 'Appointment Scheduling', desc: 'Online booking, reminders, and calendar management.' },
+  { icon: FileText, title: 'Document Management', desc: 'Secure storage for patient files and forms.' },
+  { icon: Shield, title: 'HIPAA-Ready', desc: 'Built with compliance in mind for healthcare providers.' },
+  { icon: BarChart3, title: 'Reporting', desc: 'Practice analytics and performance tracking.' },
+  { icon: Zap, title: 'Automation', desc: 'Automated appointment reminders and follow-ups.' },
+];
 
 export default function HealthcarePage() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    saveFunnel();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const features = [
-    { icon: Users, title: 'Patient Management', desc: 'Complete patient profiles with medical history, communication logs, and care coordination notes.', color: 'from-rose-500 to-pink-400' },
-    { icon: Calendar, title: 'Appointment Scheduling', desc: 'Built-in calendar for patient visits, follow-ups, and consultations with automated reminders.', color: 'from-blue-500 to-cyan-400' },
-    { icon: Kanban, title: 'Care Pipeline', desc: 'Track patient journeys from intake through treatment with visual pipeline management.', color: 'from-emerald-500 to-green-400' },
-    { icon: FileSignature, title: 'Forms & E-Signatures', desc: 'Patient intake forms, consent documents, and agreements with integrated e-signatures.', color: 'from-violet-500 to-purple-400' },
-    { icon: Shield, title: 'HIPAA Compliance', desc: 'Built-in compliance tools, audit logs, and secure data handling for healthcare requirements.', color: 'from-amber-500 to-orange-400' },
-    { icon: FileText, title: 'Document Management', desc: 'Secure storage for patient records, referrals, and clinical documents with access controls.', color: 'from-cyan-500 to-blue-400' },
-    { icon: BarChart3, title: 'Practice Analytics', desc: 'Track patient volume, appointment trends, revenue, and practice performance metrics.', color: 'from-indigo-500 to-blue-400' },
-    { icon: Heart, title: 'Care Coordination', desc: 'Coordinate care across providers with shared notes, referral tracking, and follow-up management.', color: 'from-rose-500 to-red-400' },
-  ];
-
-  const steps = [
-    { n: '01', title: 'Add your patients', desc: 'Import or create patient profiles and records.' },
-    { n: '02', title: 'Set up scheduling', desc: 'Configure appointment types and availability.' },
-    { n: '03', title: 'Add your team', desc: 'Add providers, staff, and assign roles.' },
-    { n: '04', title: 'AI optimizes workflow', desc: 'AI suggests follow-ups and automates reminders.' },
-  ];
-
-  const pricingPlans = [
-    { name: 'Self-Employed', price: '$49', note: '/month', desc: 'Individual practitioners · Basic CRM · Scheduling' },
-    { name: 'Small Business', price: '$69', note: '/month', desc: 'Small teams · Documents · Automation' },
-    { name: 'Growth', price: '$99', note: '/month', desc: 'Growing practices · AI insights · Reporting' },
-    { name: 'Business', price: '$149', note: '/month', desc: 'Established teams · E-Sign · HIPAA tools', popular: true },
-    { name: 'White Label', price: '$299', note: '/month', desc: 'Includes up to 20 licenses · $5/seat after' },
-  ];
+  const handlePlanSelect = (planName: string, priceId: string) => {
+    localStorage.setItem('operon_selected_plan', planName);
+    localStorage.setItem('operon_selected_price_id', priceId);
+    localStorage.setItem('operon_funnel_type', 'healthcare');
+    window.location.href = `${APP_URL}/auth/signup?plan=${planName}&category=professional`;
+  };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-white">
+      <GlobalHeader />
 
-      {/* Nav */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-xl shadow-sm border-b border-slate-100' : 'bg-white/90 backdrop-blur-sm'}`}>
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 bg-gradient-to-br from-rose-600 via-rose-700 to-red-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link to="/" className="inline-flex">
-              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-9 w-auto object-contain" />
-            </Link>
-            <div className="hidden md:flex items-center gap-6">
-              <a href="#features" className="text-slate-600 hover:text-rose-600 transition-colors text-sm font-medium">Features</a>
-              <a href="#how-it-works" className="text-slate-600 hover:text-rose-600 transition-colors text-sm font-medium">How It Works</a>
-              <Link to="/#pricing" className="text-slate-600 hover:text-rose-600 transition-colors text-sm font-medium">Pricing</Link>
-              <a href={`${APP_URL}/login`} className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Login</a>
-              <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="px-5 py-2.5 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-rose-500/25 transition-all">
-                Start Your Healthcare Setup
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium mb-6">
+              <Stethoscope className="w-4 h-4" />
+              Medical CRM
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              The CRM Built for<br />Healthcare Providers
+            </h1>
+            <p className="text-xl text-rose-100 max-w-3xl mx-auto mb-8">
+              Manage patients, appointments, documents, and compliance in one HIPAA-ready system. Built for clinics, dentists, specialists, and medical practices.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/start"
+                className="px-8 py-4 bg-white text-rose-600 rounded-xl font-semibold hover:shadow-xl transition-all inline-flex items-center justify-center gap-2"
+              >
+                Start Free Trial
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <a
+                href="#pricing"
+                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+              >
+                View Pricing
               </a>
             </div>
-            <button className="md:hidden text-slate-700" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-b border-slate-100 px-4 py-5 space-y-4">
-            <a href="#features" className="block text-slate-700 font-medium">Features</a>
-            <Link to="/#pricing" className="block text-slate-700 font-medium">Pricing</Link>
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="block w-full text-center px-4 py-3 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-xl font-semibold">Start Setup</a>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero */}
-      <section className="relative pt-24 pb-20 bg-gradient-to-br from-slate-900 via-rose-950 to-pink-950 overflow-hidden">
-        <div className="absolute top-1/4 left-1/3 w-80 h-80 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-900/50 border border-rose-700 text-rose-300 text-sm font-semibold mb-6">
-            <Stethoscope className="w-4 h-4" /> Healthcare CRM
-          </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-5 leading-tight">
-            Manage Patients, Appointments, and Care<br />
-            <span className="bg-gradient-to-r from-rose-400 to-pink-300 bg-clip-text text-transparent">
-              in One Unified System
-            </span>
-          </h1>
-          <p className="text-slate-300 text-xl mb-4 max-w-2xl mx-auto">
-            Patient management, scheduling, documents, and compliance — everything your practice needs in a HIPAA-ready platform.
-          </p>
-          <p className="text-rose-400/80 text-sm mb-10 flex items-center justify-center gap-2">
-            <Sparkles className="w-4 h-4" /> AI will help you configure your system and optimize patient care workflows.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="group px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-rose-500/30 transition-all flex items-center gap-2">
-              Start Your Healthcare Setup
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <Link to="/contact" className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all">
-              Book a Demo
-            </Link>
+            <p className="text-rose-200 mt-4 text-sm">No credit card required • HIPAA-ready</p>
           </div>
         </div>
       </section>
 
-      {/* Quick capabilities bar */}
-      <section className="py-12 bg-white border-b border-slate-100">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4 text-center">
-            {['Patients','Scheduling','Documents','Compliance','Analytics'].map((label, i) => (
-              <div key={i} className="flex flex-col items-center gap-2 p-3">
-                <div className="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center">
-                  <CheckCircle className="w-5 h-5 text-rose-600" />
-                </div>
-                <span className="text-sm font-semibold text-slate-700">{label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section id="features" className="py-20 bg-slate-50">
+      {/* Who It's For Section */}
+      <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Built for Healthcare Practices</h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">Every tool your practice needs — configured for healthcare workflows.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Built for Medical Practices
+            </h2>
+            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
+              Operon CRM is designed for healthcare providers who need better patient management and practice operations.
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {features.map((feat, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-rose-300 hover:shadow-md transition-all">
-                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feat.color} mb-4`}>
-                  <feat.icon className="w-5 h-5 text-white" />
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {specialties.map((specialty, i) => (
+              <div key={i} className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-lg hover:border-rose-300 transition-all">
+                <div className="w-12 h-12 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center mb-4">
+                  <specialty.icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">{feat.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{feat.desc}</p>
+                <h3 className="font-bold text-slate-900 mb-1">{specialty.name}</h3>
+                <p className="text-slate-500 text-sm">{specialty.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Patient + Scheduling detail */}
+      {/* Features Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-10 items-start">
-            <div className="p-8 rounded-2xl bg-rose-50 border border-rose-200">
-              <Users className="w-10 h-10 text-rose-600 mb-5" />
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Patient Management</h3>
-              <p className="text-slate-600 mb-5">Comprehensive patient profiles with everything you need to provide excellent care.</p>
-              <ul className="space-y-3">
-                {['Complete patient profiles','Medical history tracking','Communication logs','Care team coordination','Follow-up reminders'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-700 text-sm">
-                    <CheckCircle className="w-4 h-4 text-rose-500 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="p-8 rounded-2xl bg-blue-50 border border-blue-200">
-              <Calendar className="w-10 h-10 text-blue-600 mb-5" />
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Appointment Scheduling</h3>
-              <p className="text-slate-600 mb-5">Built-in calendar system designed for healthcare scheduling needs.</p>
-              <ul className="space-y-3">
-                {['Day/week/month views','Patient visit scheduling','Follow-up appointments','Automated reminders','No-show tracking'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-700 text-sm">
-                    <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Compliance & AI Calendar */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-5">HIPAA-Ready Compliance</h2>
-              <p className="text-slate-600 text-lg mb-6">Built-in compliance tools designed for healthcare practices handling patient data.</p>
-              <div className="space-y-4">
-                {[
-                  { title: 'Audit Logs', desc: 'Track all access to patient records with detailed audit trails.' },
-                  { title: 'Access Controls', desc: 'Role-based permissions ensure only authorized staff access sensitive data.' },
-                  { title: 'Secure Data Storage', desc: 'Encrypted storage and transmission of all patient information.' },
-                  { title: 'BAA Available', desc: 'Business Associate Agreement available for covered entities.' },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-semibold text-slate-900">{item.title} — </span>
-                      <span className="text-slate-600 text-sm">{item.desc}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="p-8 rounded-2xl bg-gradient-to-br from-rose-600 to-pink-700 text-white">
-              <Shield className="w-10 h-10 mb-4 text-rose-200" />
-              <h3 className="text-2xl font-bold mb-3">AI-Powered Calendar Assistant</h3>
-              <p className="text-rose-100 mb-5">Your AI assistant helps manage your schedule, reminds you of patient appointments, and suggests follow-up care.</p>
-              <ul className="space-y-2.5">
-                {['"What\'s my schedule today?"','"Remind me about patient follow-ups"','"Schedule a check-in for..."','"Show missed appointments"'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-rose-100 text-sm">
-                    <Sparkles className="w-4 h-4 text-white flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section id="how-it-works" className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-slate-900 mb-3">How It Works</h2>
-            <p className="text-slate-500 text-lg">Set up your CRM in a few simple steps. AI does the heavy lifting.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Everything You Need to Run Your Practice
+            </h2>
+            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
+              One system for patient management, scheduling, and compliance.
+            </p>
           </div>
-          <div className="grid md:grid-cols-4 gap-6">
-            {steps.map((step, i) => (
-              <div key={i} className="text-center">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-rose-200">
-                  <span className="text-white font-bold text-lg">{step.n}</span>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, i) => (
+              <div key={i} className="p-6 rounded-xl border border-slate-200 bg-white hover:shadow-md transition-all">
+                <div className="w-10 h-10 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center mb-3">
+                  <feature.icon className="w-5 h-5" />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">{step.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
+                <h3 className="font-bold text-slate-900 mb-1">{feature.title}</h3>
+                <p className="text-slate-500 text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Pricing */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-3">Pricing for Healthcare Practices</h2>
-          <p className="text-slate-500 text-lg mb-6">Premium vertical with HIPAA compliance. Start with any plan — upgrade as your practice grows.</p>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-            {pricingPlans.map((plan, i) => (
-              <div key={i} className={`p-5 rounded-2xl border-2 text-center ${plan.popular ? 'border-rose-400 bg-rose-50 ring-2 ring-rose-400' : 'border-slate-200 bg-white'}`}>
-                {plan.popular && <div className="text-xs font-bold text-rose-600 mb-2">Most Popular</div>}
-                <div className="text-2xl font-bold text-slate-900">{plan.price}<span className="text-slate-500 text-sm font-normal">{plan.note}</span></div>
-                <div className="font-semibold text-slate-800 mt-1">{plan.name}</div>
-                <div className="text-slate-500 text-xs mt-1">{plan.desc}</div>
-              </div>
-            ))}
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Pricing for Medical Practices
+            </h2>
+            <p className="text-slate-500 text-lg max-w-2xl mx-auto mb-8">
+              Start small and scale as your practice grows.
+            </p>
+
+            {/* Billing Toggle */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <button
+                onClick={() => setBillingPeriod('monthly')}
+                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-slate-900' : 'text-slate-500'}`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}
+                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-rose-600' : 'bg-slate-300'}`}
+              >
+                <div className={`w-6 h-6 bg-white rounded-full transition-transform ${billingPeriod === 'annual' ? 'translate-x-7' : 'translate-x-1'}`} />
+              </button>
+              <button
+                onClick={() => setBillingPeriod('annual')}
+                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-slate-900' : 'text-slate-500'}`}
+              >
+                Annual
+                <span className="text-rose-600 text-sm font-medium ml-1">(Save 10-20%)</span>
+              </button>
+            </div>
+
+            {/* Beta Discount Banner */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 border border-orange-200 text-orange-700 text-sm font-medium mb-8">
+              <Flame className="w-4 h-4" />
+              50% OFF Beta Access on Growth & Business tiers!
+            </div>
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel('growth')} className="px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-rose-500/25 transition-all">
-              Start Your Setup
-            </a>
-            <Link to="/contact" className="px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-100 transition-all">
-              Book Demo
-            </Link>
+
+          {/* Pricing Cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            {plans.map((plan, index) => {
+              const hasBetaDiscount = plan.betaDiscount;
+              const discountedPrice = hasBetaDiscount
+                ? (billingPeriod === 'monthly' ? plan.monthlyPrice * 0.5 : plan.annualPrice * 0.5).toFixed(2)
+                : null;
+
+              return (
+                <div
+                  key={index}
+                  className={`relative bg-white rounded-2xl p-6 ${
+                    plan.popular ? 'ring-2 ring-rose-600 shadow-xl' : 'shadow-lg hover:shadow-xl'
+                  } transition`}
+                >
+                  {hasBetaDiscount && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1 whitespace-nowrap">
+                      <Flame className="w-4 h-4" />
+                      50% OFF
+                    </div>
+                  )}
+                  {plan.popular && !hasBetaDiscount && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-rose-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                      Most Popular
+                    </div>
+                  )}
+                  <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
+                  <p className="text-slate-600 text-sm mt-1 mb-4">{plan.description}</p>
+                  <div className="mb-6">
+                    {hasBetaDiscount ? (
+                      <div>
+                        <div className="text-slate-400 line-through text-lg">
+                          ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}/mo
+                        </div>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-4xl font-bold text-orange-600">${discountedPrice}</span>
+                          <span className="text-slate-500">/mo</span>
+                        </div>
+                        <div className="text-orange-600 text-sm font-medium mt-1">Beta Price</div>
+                      </div>
+                    ) : (
+                      <div>
+                        <span className="text-4xl font-bold text-slate-900">
+                          ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
+                        </span>
+                        <span className="text-slate-500">/month</span>
+                      </div>
+                    )}
+                  </div>
+                  <ul className="space-y-2 mb-6">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex items-start text-sm">
+                        <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-slate-600">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={() => handlePlanSelect(plan.name.toLowerCase().replace(' ', '_'), plan.priceId)}
+                    className={`w-full py-3 rounded-lg font-semibold transition ${
+                      hasBetaDiscount
+                        ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg'
+                        : plan.popular
+                          ? 'bg-rose-600 text-white hover:bg-rose-700'
+                          : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
+                    }`}
+                  >
+                    {plan.cta}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-br from-slate-900 via-rose-950 to-pink-950">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <Stethoscope className="w-12 h-12 text-rose-400 mx-auto mb-5" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-5">Ready to Run Your Healthcare CRM?</h2>
-          <p className="text-slate-300 text-lg mb-8">Set up your patient management, configure scheduling, and let AI help you optimize care workflows.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="group px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-rose-500/30 transition-all flex items-center gap-2">
-              Start Your Healthcare CRM <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <Link to="/contact" className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/10 transition-all flex items-center gap-2">
-              <Phone className="w-5 h-5" /> Book a Demo
+      <section className="py-20 bg-slate-900">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            Ready to Streamline Your Practice?
+          </h2>
+          <p className="text-slate-300 text-lg mb-8">
+            Join healthcare providers using Operon CRM for better patient management.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/start"
+              className="px-8 py-4 bg-gradient-to-r from-rose-500 to-red-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all inline-flex items-center justify-center gap-2"
+            >
+              Start Free Trial
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link
+              to="/contact"
+              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+            >
+              Contact Sales
             </Link>
           </div>
         </div>
       </section>
 
-      <footer className="bg-slate-950 text-slate-500 py-8 text-sm">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Operon CRM. All rights reserved. Created by <a href="https://fullstacktechsolutions.com" target="_blank" rel="noopener noreferrer" className="text-cyan-500 hover:text-cyan-400">Full Stack Tech & Solutions</a></p>
-          <div className="flex gap-5">
-            <Link to="/privacy" className="hover:text-slate-300 transition-colors">Privacy</Link>
-            <Link to="/terms" className="hover:text-slate-300 transition-colors">Terms</Link>
-            <Link to="/" className="hover:text-slate-300 transition-colors">Home</Link>
-          </div>
-        </div>
-      </footer>
+      <GlobalFooter />
     </div>
   );
 }
