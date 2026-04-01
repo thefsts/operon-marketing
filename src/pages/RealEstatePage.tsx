@@ -244,11 +244,11 @@ export default function RealEstatePage() {
           <p className="text-slate-500 text-lg mb-6">Start with any Operon plan — all include the real estate CRM. Upgrade as your team grows.</p>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
             {[
-              { name: 'Starter', price: '$49', note: '/month', desc: 'Small teams · Basic CRM · Listings' },
-              { name: 'Professional', price: '$69', note: '/month', desc: 'Growing teams · Pipeline · Automation' },
-              { name: 'Growth', price: '$99', note: '/month', desc: 'Scaling teams · AI insights · Reporting', popular: true },
-              { name: 'Business', price: '$150', note: '/month', desc: 'Established teams · Docs · E-Sign' },
-              { name: 'Enterprise', price: '$299', note: '/month', desc: 'Regulated industries · White-label' },
+              { name: 'Self-Employed', price: '$49', note: '/month', desc: 'Solo agents · Basic CRM · Listings' },
+              { name: 'Small Business', price: '$69', note: '/month', desc: 'Small teams · Pipeline · Automation' },
+              { name: 'Growth', price: '$99', note: '/month', desc: 'Growing teams · AI insights · Reporting' },
+              { name: 'Business', price: '$149', note: '/month', desc: 'Established teams · Docs · E-Sign', popular: true },
+              { name: 'White Label', price: '$299', note: '/month', desc: 'Up to 20 licenses · $5/seat after' },
             ].map((plan, i) => (
               <div key={i} className={`p-5 rounded-2xl border-2 text-center ${plan.popular ? 'border-emerald-400 bg-emerald-50 ring-2 ring-emerald-400' : 'border-slate-200 bg-white'}`}>
                 {plan.popular && <div className="text-xs font-bold text-emerald-600 mb-2">Most Popular</div>}

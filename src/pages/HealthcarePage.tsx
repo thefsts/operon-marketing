@@ -41,11 +41,11 @@ export default function HealthcarePage() {
   ];
 
   const pricingPlans = [
-    { name: 'Starter', price: '$49', note: '/month', desc: 'Small teams · Basic CRM · Scheduling' },
-    { name: 'Professional', price: '$69', note: '/month', desc: 'Growing teams · Documents · Automation' },
-    { name: 'Growth', price: '$99', note: '/month', desc: 'Scaling teams · AI insights · Reporting', popular: true },
-    { name: 'Business', price: '$150', note: '/month', desc: 'Established teams · E-Sign · HIPAA' },
-    { name: 'Enterprise', price: '$299', note: '/month', desc: 'Regulated practices · White-label' },
+    { name: 'Self-Employed', price: '$49', note: '/month', desc: 'Individual practitioners · Basic CRM · Scheduling' },
+    { name: 'Small Business', price: '$69', note: '/month', desc: 'Small teams · Documents · Automation' },
+    { name: 'Growth', price: '$99', note: '/month', desc: 'Growing practices · AI insights · Reporting' },
+    { name: 'Business', price: '$149', note: '/month', desc: 'Established teams · E-Sign · HIPAA tools', popular: true },
+    { name: 'White Label', price: '$299', note: '/month', desc: 'Includes up to 20 licenses · $5/seat after' },
   ];
 
   return (

@@ -1,189 +1,224 @@
 import React, { useState } from 'react';
-import { Check, ArrowRight, Clock, HeadphonesIcon, PhoneCall, Zap, Users, Building2, ShoppingCart, Stethoscope, Home, Scale, Share2 } from 'lucide-react';
+import { Check, ArrowRight, PhoneCall, Zap, Users, Building2, ShoppingCart, Stethoscope, Home, Scale, Share2, Briefcase } from 'lucide-react';
 
-// Pricing categories and plans
+// Pricing categories and plans - FINAL VERSION
 const pricingCategories = [
   {
     id: 'small_business',
     name: 'Small Business CRM',
+    title: 'Simple CRM for Service Businesses',
     icon: Briefcase,
     color: 'from-blue-500 to-cyan-500',
     description: 'CRM & Lead management for service businesses',
+    popularPlan: 'Pro',
     plans: [
       {
         name: 'Starter',
         description: 'Perfect for solo service providers',
         monthlyPrice: 29,
-        annualPrice: 29,
-        priceId: 'price_1THAT76YOBWSVWEpL7ryaAnO',
+        annualPrice: 26,
+        priceId: 'price_small_starter',
         features: [
           'CRM & Lead management',
-          'Job tracking & scheduling',
-          'Basic invoicing',
+          '1,000 contacts',
+          'Email marketing (500/mo)',
+          'Basic calendar sync',
+          'Simple lead forms',
           'Email support',
-          'Mobile app',
-          '500 contacts',
         ],
-        cta: 'Start Now',
+        cta: 'Get Started',
       },
       {
         name: 'Growth',
-        description: 'For growing service businesses',
+        description: 'For growing small businesses',
         monthlyPrice: 49,
-        annualPrice: 49,
-        priceId: 'price_1THAT86YOBWSVWEpcdEBsggY',
-        popular: true,
+        annualPrice: 44,
+        priceId: 'price_small_growth',
         features: [
           'Everything in Starter',
-          'Marketing automation',
-          'AI Assistant (basic)',
-          'SMS notifications',
-          '2,000 contacts',
-          'Priority support',
+          '5,000 contacts',
+          'Email marketing (2,000/mo)',
+          'Task management',
+          'Basic reporting',
+          'Automated follow-ups',
+          'Priority email support',
         ],
-        cta: 'Upgrade Your Plan',
+        cta: 'Upgrade Now',
       },
       {
         name: 'Pro',
-        description: 'For established businesses',
+        description: 'For established small businesses',
         monthlyPrice: 79,
-        annualPrice: 79,
-        priceId: 'price_1THAT86YOBWSVWEpGAAAwjnc',
+        annualPrice: 71,
+        priceId: 'price_small_pro',
+        popular: true,
         features: [
           'Everything in Growth',
-          'Advanced automation',
-          'E-signatures included',
-          'API access',
-          '5,000 contacts',
-          '10 users',
+          '15,000 contacts',
+          'Unlimited pipelines',
+          'Email marketing (10,000/mo)',
+          'Advanced reporting & analytics',
+          'SMS included (500/mo)',
+          'Phone & email support',
         ],
-        cta: 'Start Free Trial',
+        cta: 'Get Full Access',
       },
       {
         name: 'Elite',
-        description: 'Best value for scaling',
+        description: 'For scaling operations',
         monthlyPrice: 99,
-        annualPrice: 99,
-        priceId: 'price_1THAT96YOBWSVWEpydzMsxUv',
-        highlighted: true,
+        annualPrice: 89,
+        priceId: 'price_small_elite',
         features: [
           'Everything in Pro',
-          'Unlimited contacts',
-          'Advanced reporting',
-          'White-label branding',
-          '15 users',
+          '25,000 contacts',
+          'Email marketing (25,000/mo)',
+          'Advanced automation',
+          'Team collaboration (5 seats)',
+          'White-label reporting',
           'Priority support',
         ],
-        cta: 'Get Started Now',
+        cta: 'Scale Your Business',
       },
       {
         name: 'White Label',
-        description: 'For business owners and resellers',
+        description: 'Build your own CRM brand',
         monthlyPrice: 199,
-        annualPrice: 199,
-        priceId: 'price_1THAT96YOBWSVWEp0WlM1I2A',
+        annualPrice: 179,
+        priceId: 'price_small_whitelabel',
         licenseLimit: 20,
         features: [
           'Everything in Elite',
-          'Brand the system as your own',
-          'Up to 20 licenses included',
-          'Reseller dashboard',
-          'Custom branding',
-          'Priority dedicated support',
+          'Unlimited contacts',
+          'Full white-label branding',
+          'Email marketing (50,000/mo)',
+          'Includes up to 20 licenses',
+          'Additional users: $5/seat/month',
+          'Custom domain & API access',
+          'Branded mobile app coming soon',
+          'Dedicated account manager',
         ],
-        cta: 'Start Scaling Your Business',
+        cta: 'Start Your Own Platform',
       },
     ],
   },
   {
     id: 'restaurant_retail',
     name: 'Restaurant / Retail CRM',
+    title: 'Complete Business System with POS Built-In',
     icon: ShoppingCart,
     color: 'from-orange-500 to-red-500',
     description: 'POS system included for restaurants & retail',
+    popularPlan: 'Pro',
     plans: [
       {
         name: 'Starter',
-        description: 'Perfect for new or small locations',
+        description: 'Single location restaurant or shop',
         monthlyPrice: 69,
-        annualPrice: 69,
-        priceId: 'price_1THATA6YOBWSVWEpHb9iqA2h',
+        annualPrice: 62,
+        priceId: 'price_restaurant_starter',
         features: [
           'POS system included',
-          'Order management',
+          '5,000 contacts',
+          'Online ordering management',
+          'Basic customer loyalty',
+          'Review monitoring',
+          'Email marketing (2,000/mo)',
           'Basic reporting',
-          'Staff tracking',
-          'Inventory (basic)',
-          '1,000 contacts',
+          'Email support',
         ],
-        cta: 'Start Your System Today',
+        cta: 'Get Started',
       },
       {
         name: 'Growth',
-        description: 'For growing businesses',
+        description: 'Growing single-location business',
         monthlyPrice: 99,
-        annualPrice: 99,
-        priceId: 'price_1THATA6YOBWSVWEpfhY3WFkc',
-        popular: true,
+        annualPrice: 89,
+        priceId: 'price_restaurant_growth',
         features: [
           'Everything in Starter',
-          'Inventory management',
-          'Customer tracking & loyalty',
-          'Advanced reporting',
-          'Online ordering',
-          '3,000 contacts',
+          '15,000 contacts',
+          'Full POS integration',
+          'Online ordering & delivery',
+          'Advanced loyalty program',
+          'Review management & response',
+          'Email marketing (10,000/mo)',
+          'SMS included (1,000/mo)',
+          'Priority support',
         ],
-        cta: 'Upgrade Your System',
+        cta: 'Upgrade Now',
       },
       {
         name: 'Pro',
-        description: 'For serious operations',
+        description: 'High-volume single location',
         monthlyPrice: 150,
-        annualPrice: 150,
-        priceId: 'price_1THATB6YOBWSVWEplxXy0X8k',
-        highlighted: true,
+        annualPrice: 135,
+        priceId: 'price_restaurant_pro',
+        popular: true,
         features: [
           'Everything in Growth',
+          '50,000 contacts',
+          'Multi-channel marketing',
           'Delivery integrations (DoorDash, Uber Eats)',
-          'Advanced automation',
-          'Multi-location support (2 locations)',
-          'AI-powered insights',
-          '5,000 contacts',
+          'Advanced loyalty & rewards',
+          'Reputation management suite',
+          'Email marketing (25,000/mo)',
+          'SMS included (2,500/mo)',
+          'Dedicated support',
         ],
-        cta: 'Get Full Control',
+        cta: 'Run Your Business Smarter',
       },
       {
         name: 'White Label',
-        description: 'For business owners and resellers',
+        description: 'Create your own branded system',
         monthlyPrice: 199,
-        annualPrice: 199,
-        priceId: 'price_1THATC6YOBWSVWEpPqGTcmoO',
+        annualPrice: 179,
+        priceId: 'price_restaurant_whitelabel',
         licenseLimit: 20,
         features: [
           'Everything in Pro',
-          'Brand the system as your own',
-          'Up to 20 licenses included',
-          'Multi-location (3 locations)',
-          'Reseller dashboard',
-          'Custom branding',
+          'Unlimited contacts',
+          'Full white-label solution',
+          'Email marketing (50,000/mo)',
+          'SMS included (5,000/mo)',
+          'Includes up to 20 licenses',
+          'Additional users: $5/seat/month',
+          'Custom domain & API access',
+          'Branded mobile app coming soon',
+          'Account manager',
         ],
-        cta: 'Start Scaling Your Business',
+        cta: 'Start Scaling',
       },
     ],
+    customTier: {
+      name: 'Multi-Location & Enterprise',
+      description: 'Manage multiple locations from one dashboard with centralized control and local flexibility.',
+      features: [
+        'Custom integrations',
+        'Dedicated support',
+        'Enterprise-grade features',
+        'Volume pricing available',
+      ],
+      cta: 'Contact Us',
+      ctaAlt: 'Call Us for Enterprise Solutions',
+    },
   },
   {
     id: 'professional',
     name: 'Professional CRM',
+    title: 'For Licensed Industries',
     icon: Home,
     color: 'from-emerald-500 to-green-500',
     description: 'For Real Estate, Legal, Medical & Licensed Industries',
+    popularPlan: 'Business',
+    industries: ['Real Estate', 'Mortgage', 'Title', 'Legal', 'Medical'],
     plans: [
       {
         name: 'Self-Employed',
         description: 'For solo licensed professionals',
         monthlyPrice: 49,
-        annualPrice: 49,
-        priceId: 'price_1THATC6YOBWSVWEpj3ixLjzZ',
+        annualPrice: 44,
+        priceId: 'price_professional_selfemployed',
         features: [
           'CRM & client management',
           'Document workflows',
@@ -192,14 +227,14 @@ const pricingCategories = [
           'Email support',
           '500 contacts',
         ],
-        cta: 'Start Now',
+        cta: 'Get Started',
       },
       {
         name: 'Small Business',
         description: 'For small practices',
         monthlyPrice: 69,
-        annualPrice: 69,
-        priceId: 'price_1THATD6YOBWSVWEpWC5B8qwZ',
+        annualPrice: 62,
+        priceId: 'price_professional_smallbusiness',
         features: [
           'Everything in Self-Employed',
           'Client pipelines',
@@ -208,16 +243,14 @@ const pricingCategories = [
           '3 users',
           'Priority support',
         ],
-        cta: 'Upgrade Your Plan',
+        cta: 'Upgrade Now',
       },
       {
         name: 'Growth',
         description: 'For growing professional practices',
         monthlyPrice: 99,
-        annualPrice: 99,
-        priceId: 'price_1THATE6YOBWSVWEpgBbefTAv',
-        popular: true,
-        highlighted: true,
+        annualPrice: 89,
+        priceId: 'price_professional_growth',
         features: [
           'Everything in Small Business',
           'Advanced document automation',
@@ -226,14 +259,15 @@ const pricingCategories = [
           '7 users',
           'Advanced reporting',
         ],
-        cta: 'Get Started Now',
+        cta: 'Grow Your Business',
       },
       {
         name: 'Business',
         description: 'For established professional firms',
         monthlyPrice: 149,
-        annualPrice: 149,
-        priceId: 'price_1THATE6YOBWSVWEpjA8ysqTa',
+        annualPrice: 134,
+        priceId: 'price_professional_business',
+        popular: true,
         features: [
           'Everything in Growth',
           'Multi-business support',
@@ -242,284 +276,312 @@ const pricingCategories = [
           '15 users',
           'Premium support',
         ],
-        cta: 'Start Free Trial',
+        cta: 'Take Full Control',
       },
       {
         name: 'White Label',
         description: 'For professional firms and resellers',
         monthlyPrice: 299,
-        annualPrice: 299,
-        priceId: 'price_1THATE6YOBWSVWEpRlw3R3pK',
+        annualPrice: 269,
+        priceId: 'price_professional_whitelabel',
         licenseLimit: 20,
         features: [
           'Everything in Business',
+          'Unlimited contacts',
           'Brand the system as your own',
-          'Up to 20 licenses included',
           'Industry-specific compliance',
+          'Includes up to 20 licenses',
+          'Additional users: $5/seat/month',
           'Reseller dashboard',
           'Custom branding',
+          'Branded mobile app coming soon',
+          'Dedicated support',
         ],
-        cta: 'Scale Your Practice',
+        cta: 'Launch Your Platform',
+      },
+    ],
+    customTiers: [
+      {
+        name: 'Multi-Location',
+        description: 'Manage multiple practice locations.',
+        cta: 'Contact Us',
+      },
+      {
+        name: 'Enterprise',
+        description: 'Enterprise-grade features for large organizations.',
+        cta: 'Call Us for Enterprise Solutions',
       },
     ],
   },
   {
     id: 'social_media',
     name: 'Social Media Marketing',
+    title: 'Grow Your Brand Automatically',
     icon: Share2,
     color: 'from-purple-500 to-pink-500',
-    description: 'Multi-platform scheduling & analytics',
+    description: 'Multi-platform scheduling, analytics & AI-powered marketing',
+    popularPlan: 'Pro',
     plans: [
       {
         name: 'Starter',
-        description: 'For small social media teams',
-        monthlyPrice: 29,
-        annualPrice: 29,
-        priceId: 'price_1THATF6YOBWSVWEprUeU4Ctp',
+        description: 'For individual marketers',
+        monthlyPrice: 49,
+        annualPrice: 44,
+        priceId: 'price_social_starter',
         features: [
-          'Social scheduling',
-          'Basic analytics',
           '3 social profiles',
+          '2,500 contacts',
+          'Basic scheduling',
           'Content calendar',
+          'Basic analytics',
           'Email support',
         ],
-        cta: 'Start Now',
+        cta: 'Get Started',
       },
       {
         name: 'Growth',
-        description: 'For growing social media presence',
-        monthlyPrice: 49,
-        annualPrice: 49,
-        priceId: 'price_1THATF6YOBWSVWEpApInFYks',
-        popular: true,
-        highlighted: true,
+        description: 'For growing marketing teams',
+        monthlyPrice: 99,
+        annualPrice: 89,
+        priceId: 'price_social_growth',
         features: [
           'Everything in Starter',
           '10 social profiles',
-          'Advanced analytics',
+          '15,000 contacts',
+          'Advanced scheduling',
           'AI content suggestions',
-          'Team collaboration',
+          'Team collaboration (5 users)',
+          'Social listening',
+          'Lead capture funnels',
+          'Email & SMS support',
         ],
-        cta: 'Get Started Now',
+        cta: 'Grow Faster',
       },
       {
         name: 'Pro',
-        description: 'For agencies and large teams',
-        monthlyPrice: 99,
-        annualPrice: 99,
-        priceId: 'price_1THATG6YOBWSVWEplMCvO9Jj',
+        description: 'For established agencies',
+        monthlyPrice: 149,
+        annualPrice: 134,
+        priceId: 'price_social_pro',
+        popular: true,
         features: [
           'Everything in Growth',
-          'Unlimited social profiles',
-          'Custom branding',
-          'White-label reports',
+          '25 social profiles',
+          '50,000 contacts',
+          'FULL AI assistant included',
+          'AI content generation',
+          'Lead capture funnels',
+          'Advanced analytics',
+          'Team collaboration (10 users)',
+          'Mobile app coming soon',
           'Priority support',
         ],
-        cta: 'Start Free Trial',
+        cta: 'Automate Your Marketing',
       },
       {
         name: 'White Label',
-        description: 'For agencies and resellers',
-        monthlyPrice: 199,
-        annualPrice: 199,
-        priceId: 'price_1THATG6YOBWSVWEpeAk1Wwvk',
+        description: 'Build your own SMM platform',
+        monthlyPrice: 249,
+        annualPrice: 224,
+        priceId: 'price_social_whitelabel',
         licenseLimit: 20,
         features: [
           'Everything in Pro',
-          'Brand the system as your own',
-          'Up to 20 licenses included',
-          'Agency dashboard',
-          'Client management',
+          'Unlimited profiles',
+          '100,000 contacts',
+          'FULL AI assistant included',
+          'Full white-label branding',
+          'Custom domain & API access',
+          'Includes up to 20 licenses',
+          'Additional users: $5/seat/month',
+          'Branded mobile app coming soon',
+          'Dedicated account manager',
         ],
-        cta: 'Scale Your Agency',
+        cta: 'Start Your Agency',
       },
     ],
   },
 ];
 
-// Add-ons
+// Add-ons - FINAL VERSION
 const addOns = [
   {
     name: 'Multi-Business',
     price: 10,
-    description: 'Manage multiple businesses from one account ($10/month per additional business)',
+    description: 'Manage multiple businesses from one account',
+    priceNote: '$10/month per additional business',
   },
   {
-    name: 'Advanced Automation',
-    price: 29,
-    description: 'Advanced workflow automation and AI features',
+    name: 'Additional Users',
+    price: 5,
+    description: 'Add more team members to your account',
+    priceNote: '$5/month per seat after included limits',
+  },
+  {
+    name: 'eSignature',
+    price: 0,
+    description: 'Electronic signature integrations included',
+    priceNote: 'Included at no extra cost',
+    included: true,
   },
 ];
 
-const PricingPage: React.FC = () => {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
-  const [selectedCategory, setSelectedCategory] = useState(pricingCategories[0].id);
+export default function PricingPage() {
+  const [activeCategory, setActiveCategory] = useState('small_business');
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
 
-  const handleSubscribe = (plan: any) => {
-    if (plan.name.includes('White Label') || plan.name.includes('Enterprise')) {
-      window.location.href = '/contact';
-      return;
-    }
-    
+  const currentCategory = pricingCategories.find(c => c.id === activeCategory);
+
+  const handlePlanSelect = (planName: string, priceId: string) => {
     const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
-    window.location.href = `${APP_URL}/register?plan=${plan.priceId}&billing=${billingCycle}`;
+    localStorage.setItem('operon_selected_plan', planName);
+    localStorage.setItem('operon_selected_price_id', priceId);
+    localStorage.setItem('operon_funnel_type', activeCategory);
+    window.location.href = `${APP_URL}/auth/signup?plan=${planName}&category=${activeCategory}`;
   };
 
-  const selectedCategoryData = pricingCategories.find(cat => cat.id === selectedCategory);
+  const handleContactSales = (category: string, tier: string) => {
+    window.location.href = `/contact?interest=${category}&tier=${encodeURIComponent(tier)}`;
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <a href="/" className="flex items-center gap-3">
-              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-10 w-auto" />
-              <span className="text-xl font-bold text-slate-900">Operon</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <a href="/" className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
+                <span className="text-white font-bold text-xl">O</span>
+              </div>
+              <span className="text-xl font-bold text-slate-900">OperonCRM</span>
             </a>
-            <div className="flex items-center gap-4">
-              <a href={`${import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com'}/login`} className="text-slate-600 hover:text-slate-900">
+            <div className="hidden md:flex items-center space-x-6">
+              <a href="/" className="text-slate-600 hover:text-blue-600 transition">Home</a>
+              <a href="/pricing" className="text-blue-600 font-medium">Pricing</a>
+              <a href="/contact" className="text-slate-600 hover:text-blue-600 transition">Contact</a>
+              <a
+                href={import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com'}
+                className="text-slate-600 hover:text-blue-600 transition"
+              >
                 Login
               </a>
-              <a href="/start" className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all">
+              <button
+                onClick={() => handlePlanSelect('starter', 'default')}
+                className="bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition"
+              >
                 Get Started
-              </a>
+              </button>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Hero */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            Simple pricing. Powerful platform.
-          </h1>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-8">
-            Replace multiple tools with one system. Built for your industry.
-          </p>
+      {/* Hero */}
+      <section className="pt-16 pb-12 px-4 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          Simple, Transparent Pricing
+        </h1>
+        <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
+          Choose the system built for your business. All plans include CRM, marketing, automation, and AI-powered features.
+        </p>
 
-          {/* Billing Toggle */}
-          <div className="inline-flex items-center gap-4 bg-white rounded-full p-1.5 shadow-sm border border-slate-200">
-            <button
-              onClick={() => setBillingCycle('monthly')}
-              className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all ${
-                billingCycle === 'monthly'
-                  ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setBillingCycle('annual')}
-              className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all flex items-center gap-2 ${
-                billingCycle === 'annual'
-                  ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              Annual
-              <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">
-                Billed Annually
-              </span>
-            </button>
-          </div>
+        {/* Billing Toggle */}
+        <div className="flex items-center justify-center space-x-4 mb-8">
+          <button
+            onClick={() => setBillingPeriod('monthly')}
+            className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-slate-900' : 'text-slate-500'}`}
+          >
+            Monthly
+          </button>
+          <button
+            onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}
+            className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-blue-600' : 'bg-slate-300'}`}
+          >
+            <div className={`w-6 h-6 bg-white rounded-full transition-transform ${billingPeriod === 'annual' ? 'translate-x-7' : 'translate-x-1'}`} />
+          </button>
+          <button
+            onClick={() => setBillingPeriod('annual')}
+            className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-slate-900' : 'text-slate-500'}`}
+          >
+            Annual
+            <span className="text-blue-600 text-sm font-medium ml-1">(Save 10-20%)</span>
+          </button>
         </div>
 
         {/* Category Tabs */}
-        <div className="mb-12">
-          <div className="flex flex-wrap gap-3 justify-center">
-            {pricingCategories.map((category) => (
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {pricingCategories.map((category) => {
+            const IconComponent = category.icon;
+            return (
               <button
                 key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold transition-all ${
-                  selectedCategory === category.id
+                onClick={() => setActiveCategory(category.id)}
+                className={`flex items-center gap-2 px-5 py-3 rounded-xl font-medium transition-all ${
+                  activeCategory === category.id
                     ? `bg-gradient-to-r ${category.color} text-white shadow-lg`
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                    : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
                 }`}
               >
-                <category.icon className="w-5 h-5" />
+                <IconComponent className="w-5 h-5" />
                 {category.name}
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
+      </section>
 
-        {/* Pricing Cards */}
-        {selectedCategoryData && (
-          <div className="mb-16">
-            <div className="text-center mb-8">
-              <p className="text-slate-600 text-lg">{selectedCategoryData.description}</p>
-            </div>
-            
-            <div className={`grid gap-6 ${
-              selectedCategoryData.plans.length === 4 ? 'md:grid-cols-4' : 
-              selectedCategoryData.plans.length === 5 ? 'lg:grid-cols-5' : 'md:grid-cols-3'
-            }`}>
-              {selectedCategoryData.plans.map((plan) => (
+      {/* Current Category Title */}
+      {currentCategory && (
+        <div className="text-center mb-8 px-4">
+          <h2 className="text-2xl font-bold text-slate-900">{currentCategory.title}</h2>
+          {currentCategory.industries && (
+            <p className="text-slate-600 mt-2">
+              For: {currentCategory.industries.join(' • ')}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Pricing Cards */}
+      <section className="px-4 pb-12">
+        <div className="max-w-7xl mx-auto">
+          {currentCategory && (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+              {currentCategory.plans.map((plan, index) => (
                 <div
-                  key={plan.name}
-                  className={`relative rounded-2xl p-6 transition-all ${
-                    plan.highlighted
-                      ? `bg-gradient-to-b ${selectedCategoryData.color} text-white scale-105 shadow-2xl`
-                      : plan.popular
-                      ? 'bg-white border-2 border-cyan-500 shadow-xl'
-                      : 'bg-white border border-slate-200 shadow-sm hover:shadow-md'
-                  }`}
+                  key={index}
+                  className={`relative bg-white rounded-2xl p-6 ${
+                    plan.popular ? 'ring-2 ring-blue-600 shadow-xl' : 'shadow-lg hover:shadow-xl'
+                  } transition`}
                 >
-                  {plan.highlighted && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-white text-slate-900 rounded-full text-xs font-bold shadow-lg">
-                      MOST POPULAR
+                  {plan.popular && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                      Most Popular
                     </div>
                   )}
-                  
-                  <h3 className={`text-xl font-bold mb-2 ${plan.highlighted ? 'text-white' : 'text-slate-900'}`}>
-                    {plan.name}
-                  </h3>
-                  <p className={`text-sm mb-4 ${plan.highlighted ? 'text-white/80' : 'text-slate-600'}`}>
-                    {plan.description}
-                  </p>
-                  
+                  <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
+                  <p className="text-slate-600 text-sm mt-1 mb-4">{plan.description}</p>
                   <div className="mb-6">
-                    <div className={`text-4xl font-black ${plan.highlighted ? 'text-white' : 'text-slate-900'}`}>
-                      ${billingCycle === 'annual' ? plan.annualPrice : plan.monthlyPrice}
-                    </div>
-                    <div className={`text-sm ${plan.highlighted ? 'text-white/70' : 'text-slate-500'}`}>
-                      per month, {billingCycle === 'annual' ? 'billed annually' : 'billed monthly'}
-                    </div>
+                    <span className="text-4xl font-bold text-slate-900">
+                      ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
+                    </span>
+                    <span className="text-slate-500">/month</span>
                   </div>
-
-                  <ul className="space-y-3 mb-6">
-                    {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
-                          plan.highlighted ? 'text-white' : 'text-cyan-500'
-                        }`} />
-                        <span className={`text-sm ${plan.highlighted ? 'text-white/90' : 'text-slate-700'}`}>
-                          {feature}
-                        </span>
+                  <ul className="space-y-2 mb-6">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex items-start text-sm">
+                        <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-slate-600">{feature}</span>
                       </li>
                     ))}
                   </ul>
-
-                  {plan.licenseLimit && (
-                    <div className={`mb-4 p-3 rounded-lg ${
-                      plan.highlighted ? 'bg-white/10' : 'bg-slate-50'
-                    }`}>
-                      <div className="text-xs font-semibold">
-                        ⚠️ White Label: Up to {plan.licenseLimit} licenses included
-                      </div>
-                    </div>
-                  )}
-
                   <button
-                    onClick={() => handleSubscribe(plan)}
-                    className={`w-full py-3 rounded-xl font-semibold transition-all ${
-                      plan.highlighted
-                        ? 'bg-white text-slate-900 hover:bg-slate-100'
-                        : `bg-gradient-to-r ${selectedCategoryData.color} text-white hover:shadow-lg`
+                    onClick={() => handlePlanSelect(plan.name.toLowerCase().replace(' ', '_'), plan.priceId)}
+                    className={`w-full py-3 rounded-lg font-semibold transition ${
+                      plan.popular
+                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                        : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
                     }`}
                   >
                     {plan.cta}
@@ -527,99 +589,150 @@ const PricingPage: React.FC = () => {
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Multi-Location & Enterprise */}
-        <div className="grid md:grid-cols-2 gap-6 mb-16">
-          <div className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-cyan-400 transition-all">
-            <div className="flex items-center gap-3 mb-4">
-              <Building2 className="w-8 h-8 text-cyan-600" />
-              <h3 className="text-2xl font-bold text-slate-900">Multi-Location</h3>
+          {/* Custom Tiers for Restaurant/Retail */}
+          {currentCategory?.customTier && (
+            <div className="mt-12">
+              <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-10 text-center max-w-3xl mx-auto">
+                <h3 className="text-3xl font-bold text-white mb-3">{currentCategory.customTier.name}</h3>
+                <p className="text-slate-300 mb-4">{currentCategory.customTier.description}</p>
+                <ul className="flex flex-wrap justify-center gap-4 mb-6">
+                  {currentCategory.customTier.features.map((feature, i) => (
+                    <li key={i} className="flex items-center text-slate-300">
+                      <Check className="w-4 h-4 text-green-400 mr-2" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <button
+                    onClick={() => handleContactSales(currentCategory.id, 'multi_location_enterprise')}
+                    className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition"
+                  >
+                    {currentCategory.customTier.cta}
+                  </button>
+                  <a
+                    href="tel:+1-888-555-0123"
+                    className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition"
+                  >
+                    {currentCategory.customTier.ctaAlt}
+                  </a>
+                </div>
+              </div>
             </div>
-            <p className="text-slate-600 mb-4">
-              For businesses with multiple locations. Centralized control, multi-location reporting, team management across locations.
-            </p>
-            <a href="/contact" className="inline-flex items-center gap-2 text-cyan-600 font-semibold hover:text-cyan-700">
-              Contact Us <ArrowRight className="w-5 h-5" />
-            </a>
-          </div>
+          )}
 
-          <div className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-cyan-400 transition-all">
-            <div className="flex items-center gap-3 mb-4">
-              <Users className="w-8 h-8 text-cyan-600" />
-              <h3 className="text-2xl font-bold text-slate-900">Enterprise</h3>
+          {/* Custom Tiers for Professional */}
+          {currentCategory?.customTiers && (
+            <div className="mt-12 grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              {currentCategory.customTiers.map((tier, index) => (
+                <div
+                  key={index}
+                  className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-center"
+                >
+                  <h3 className="text-2xl font-bold text-white mb-2">{tier.name}</h3>
+                  <p className="text-slate-300 mb-4">{tier.description}</p>
+                  <button
+                    onClick={() => handleContactSales(currentCategory.id, tier.name.toLowerCase().replace(' ', '_'))}
+                    className="bg-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition"
+                  >
+                    {tier.cta}
+                  </button>
+                </div>
+              ))}
             </div>
-            <p className="text-slate-600 mb-4">
-              For large organizations, high-volume businesses, and custom needs. Dedicated support, custom integrations, SLA guarantees.
-            </p>
-            <div className="flex items-center gap-3">
-              <a href="/contact" className="inline-flex items-center gap-2 text-cyan-600 font-semibold hover:text-cyan-700">
-                Contact Us <ArrowRight className="w-5 h-5" />
-              </a>
-              <span className="text-sm text-slate-500">or</span>
-              <a href="tel:+18005551234" className="inline-flex items-center gap-2 text-cyan-600 font-semibold hover:text-cyan-700">
-                <PhoneCall className="w-5 h-5" /> Call Us
-              </a>
-            </div>
-          </div>
+          )}
         </div>
+      </section>
 
-        {/* Add-ons */}
-        <div className="bg-white rounded-2xl p-8 border border-slate-200 mb-16">
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">Add More Power When You Need It</h2>
-          <p className="text-slate-600 mb-6">
-            Enhance your plan with these additional features. eSignature integrations are included at no extra cost.
-          </p>
-          <div className="grid md:grid-cols-2 gap-4">
-            {addOns.map((addOn) => (
-              <div key={addOn.name} className="flex items-start gap-4 p-4 bg-slate-50 rounded-xl">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center flex-shrink-0">
-                  <Zap className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <div className="font-semibold text-slate-900 mb-1">
-                    {addOn.name} - ${addOn.price}/month
-                  </div>
-                  <div className="text-sm text-slate-600">
-                    {addOn.description}
-                  </div>
-                </div>
+      {/* Add-ons Section */}
+      <section className="py-16 px-4 bg-slate-100">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-900 text-center mb-8">Add-ons</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {addOns.map((addon, index) => (
+              <div key={index} className={`bg-white rounded-xl p-6 ${addon.included ? 'ring-2 ring-green-500' : 'shadow'}`}>
+                <h3 className="text-xl font-bold text-slate-900">{addon.name}</h3>
+                <p className="text-slate-600 text-sm mt-1 mb-3">{addon.description}</p>
+                <p className={`font-semibold ${addon.included ? 'text-green-600' : 'text-blue-600'}`}>
+                  {addon.priceNote}
+                </p>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Trust & Support */}
-        <div className="text-center">
-          <div className="flex items-center justify-center gap-8 mb-8">
-            <div className="flex items-center gap-2 text-slate-600">
-              <Clock className="w-5 h-5 text-cyan-600" />
-              Set up in minutes
-            </div>
-            <div className="flex items-center gap-2 text-slate-600">
-              <HeadphonesIcon className="w-5 h-5 text-cyan-600" />
-              Priority support
-            </div>
-            <div className="flex items-center gap-2 text-slate-600">
-              <Check className="w-5 h-5 text-cyan-600" />
-              No credit card required
-            </div>
+      {/* Final CTA */}
+      <section className="py-16 px-4 text-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">Ready to Get Started?</h2>
+          <p className="text-xl text-slate-600 mb-8">
+            Start your free trial today. No credit card required. Set up in minutes.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => handlePlanSelect('starter', 'default')}
+              className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition inline-flex items-center justify-center"
+            >
+              Start Free Trial
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </button>
+            <a
+              href="/contact"
+              className="border-2 border-slate-300 text-slate-700 px-8 py-4 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition"
+            >
+              Contact Sales
+            </a>
           </div>
-          <p className="text-slate-500 text-sm">
-            Questions? <a href="/contact" className="text-cyan-600 font-semibold hover:underline">Contact our sales team</a>
+          <p className="text-slate-500 mt-4 text-sm">
+            Limited onboarding spots available • No contracts • Cancel anytime
           </p>
         </div>
-      </main>
+      </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-slate-200 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
-          © 2025 Operon CRM. All rights reserved.
+      <footer className="bg-slate-900 text-slate-300 py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h4 className="text-white font-semibold mb-4">Product</h4>
+              <ul className="space-y-2">
+                <li><a href="/pricing" className="hover:text-white transition">Pricing</a></li>
+                <li><a href="/#features" className="hover:text-white transition">Features</a></li>
+                <li><a href="/#integrations" className="hover:text-white transition">Integrations</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Industries</h4>
+              <ul className="space-y-2">
+                <li><a href="/small-business-crm" className="hover:text-white transition">Small Business</a></li>
+                <li><a href="/restaurant-retail-crm" className="hover:text-white transition">Restaurant & Retail</a></li>
+                <li><a href="/healthcare" className="hover:text-white transition">Medical</a></li>
+                <li><a href="/legal" className="hover:text-white transition">Legal</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Support</h4>
+              <ul className="space-y-2">
+                <li><a href="/contact" className="hover:text-white transition">Contact</a></li>
+                <li><a href="/contact" className="hover:text-white transition">Help Center</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2">
+                <li><a href="/privacy" className="hover:text-white transition">Privacy Policy</a></li>
+                <li><a href="/terms" className="hover:text-white transition">Terms of Service</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-slate-800 pt-8 text-center">
+            <p>&copy; 2024 OperonCRM. All rights reserved.</p>
+          </div>
         </div>
       </footer>
     </div>
   );
-};
-
-export default PricingPage;
+}

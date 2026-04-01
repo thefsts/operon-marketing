@@ -35,7 +35,7 @@ export default function SmallBusinessCRMPage() {
       name: 'Starter',
       description: 'Perfect for solo service providers',
       monthlyPrice: 29,
-      annualPrice: 29,
+      annualPrice: 26,
       features: [
         '1,000 contacts',
         '1 pipeline (up to 100 deals)',
@@ -58,14 +58,13 @@ export default function SmallBusinessCRMPage() {
         'Basic reporting',
         'Automated follow-ups',
         'Priority email support',
-      ],
-      popular: true
+      ]
     },
     {
-      name: 'Professional',
+      name: 'Pro',
       description: 'For established small businesses',
       monthlyPrice: 79,
-      annualPrice: 69,
+      annualPrice: 71,
       features: [
         '15,000 contacts',
         'Unlimited pipelines',
@@ -74,16 +73,17 @@ export default function SmallBusinessCRMPage() {
         'Custom workflows',
         'SMS included (500 texts/mo)',
         'Phone & email support',
-      ]
+      ],
+      popular: true
     },
     {
-      name: 'Business',
+      name: 'Elite',
       description: 'For scaling operations',
       monthlyPrice: 99,
       annualPrice: 89,
       features: [
         '25,000 contacts',
-        'Everything in Professional',
+        'Everything in Pro',
         'Email marketing (up to 25,000 emails/mo)',
         'Advanced automation',
         'Team collaboration (5 seats)',
@@ -98,12 +98,14 @@ export default function SmallBusinessCRMPage() {
       annualPrice: 179,
       features: [
         'Unlimited contacts',
-        'Everything in Business',
+        'Everything in Elite',
         'Full white-label branding',
         'Email marketing (up to 50,000 emails/mo)',
-        'Team collaboration (10 seats)',
+        'Includes up to 20 licenses',
+        'Additional users: $5/seat/month',
         'Custom domain',
         'API access',
+        'Branded mobile app coming soon',
         'Dedicated account manager',
       ]
     },

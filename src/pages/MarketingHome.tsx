@@ -269,30 +269,30 @@ export default function MarketingHome() {
                 </button>
                 <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
                   <div className="p-2">
-                    <a href="#services" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                    <Link to="/small-business-crm" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
                       <div className="font-semibold text-slate-900">Small Business CRM</div>
-                      <div className="text-xs text-slate-500">$29/mo</div>
-                    </a>
-                    <a href="#pos" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                      <div className="text-xs text-slate-500">From $29/mo</div>
+                    </Link>
+                    <Link to="/restaurant-retail-crm" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
                       <div className="font-semibold text-slate-900">Restaurant / Retail CRM</div>
-                      <div className="text-xs text-slate-500">$69/mo</div>
-                    </a>
-                    <a href="#real-estate" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                      <div className="text-xs text-slate-500">From $69/mo</div>
+                    </Link>
+                    <Link to="/real-estate" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
                       <div className="font-semibold text-slate-900">Real Estate / Mortgage</div>
-                      <div className="text-xs text-slate-500">$49/mo</div>
-                    </a>
-                    <a href="#healthcare" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                      <div className="text-xs text-slate-500">From $49/mo</div>
+                    </Link>
+                    <Link to="/healthcare" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
                       <div className="font-semibold text-slate-900">Medical CRM</div>
-                      <div className="text-xs text-slate-500">$49/mo</div>
-                    </a>
-                    <a href="#legal" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                      <div className="text-xs text-slate-500">From $49/mo</div>
+                    </Link>
+                    <Link to="/legal" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
                       <div className="font-semibold text-slate-900">Legal CRM</div>
-                      <div className="text-xs text-slate-500">$49/mo</div>
-                    </a>
-                    <a href="#sports" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
-                      <div className="font-semibold text-slate-900">Sports Organizations</div>
-                      <div className="text-xs text-slate-500">View Pricing</div>
-                    </a>
+                      <div className="text-xs text-slate-500">From $49/mo</div>
+                    </Link>
+                    <Link to="/social-media-marketing" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
+                      <div className="font-semibold text-slate-900">Social Media Marketing</div>
+                      <div className="text-xs text-slate-500">From $49/mo</div>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -319,9 +319,15 @@ export default function MarketingHome() {
           <div className="md:hidden bg-white/98 backdrop-blur-xl border-b border-slate-100 shadow-lg">
             <div className="px-4 py-5 space-y-4">
               <a href="#platform" className="block text-slate-700 hover:text-cyan-600 font-medium">Platform</a>
-              <a href="#industries" className="block text-slate-700 hover:text-cyan-600 font-medium">Industries</a>
-              <a href="#sports" className="block text-slate-700 hover:text-green-600 font-medium flex items-center gap-1"><Trophy className="w-4 h-4" />Sports</a>
-              <a href="#compliance" className="block text-slate-700 hover:text-cyan-600 font-medium">Compliance</a>
+              <div className="border-t border-slate-100 pt-4">
+                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Solutions</div>
+                <Link to="/small-business-crm" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Small Business CRM</Link>
+                <Link to="/restaurant-retail-crm" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Restaurant / Retail CRM</Link>
+                <Link to="/real-estate" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Real Estate / Mortgage</Link>
+                <Link to="/healthcare" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Medical CRM</Link>
+                <Link to="/legal" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Legal CRM</Link>
+                <Link to="/social-media-marketing" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Social Media Marketing</Link>
+              </div>
               <a href="#pricing" className="block text-slate-700 hover:text-cyan-600 font-medium">Pricing</a>
               <a href="#about" className="block text-slate-700 hover:text-cyan-600 font-medium">About</a>
               <div className="pt-2 border-t border-slate-100"><LanguageSwitcher /></div>
@@ -444,38 +450,90 @@ export default function MarketingHome() {
       </section>
 
       {/* ───────────────────────────────────────────────────────────────────────────────────────────── INDUSTRIES ───────────────────────────────────────────────────────────────────────────────────────────── */}
+      {/* ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── INDUSTRY SELECTOR ── */}
       <section id="industries" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Built for every type of business
+              Choose the System Built for Your Business
             </h2>
-            <p className="text-slate-500 text-lg">Choose your industry to see how Operon works for you.</p>
+            <p className="text-slate-500 text-lg">Select your industry to see pricing and features tailored for you.</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { label: 'Service Businesses', icon: Briefcase, path: '#services', funnel: 'service', color: 'hover:border-blue-400 hover:bg-blue-50', iconColor: 'text-blue-600 bg-blue-100' },
-              { label: 'Retail & E-Commerce', icon: Store, path: '#ecommerce', funnel: 'ecommerce', color: 'hover:border-purple-400 hover:bg-purple-50', iconColor: 'text-purple-600 bg-purple-100' },
-              { label: 'Restaurants', icon: Store, path: '#services', funnel: 'pos', color: 'hover:border-orange-400 hover:bg-orange-50', iconColor: 'text-orange-600 bg-orange-100' },
-              { label: 'Healthcare', icon: Stethoscope, path: '#healthcare', funnel: 'medical', color: 'hover:border-rose-400 hover:bg-rose-50', iconColor: 'text-rose-600 bg-rose-100' },
-              { label: 'Real Estate & Mortgage', icon: Home, path: '#real-estate', funnel: 'real_estate', color: 'hover:border-emerald-400 hover:bg-emerald-50', iconColor: 'text-emerald-600 bg-emerald-100' },
-              { label: 'Sports Organizations', icon: Trophy, path: '#sports', funnel: 'sports', color: 'hover:border-green-400 hover:bg-green-50', iconColor: 'text-green-600 bg-green-100' },
-              { label: 'Franchises & Multi-location', icon: Building2, path: '#services', funnel: 'enterprise', color: 'hover:border-cyan-400 hover:bg-cyan-50', iconColor: 'text-cyan-600 bg-cyan-100' },
-              { label: 'Legal', icon: Scale, path: '#legal', funnel: 'legal', color: 'hover:border-amber-400 hover:bg-amber-50', iconColor: 'text-amber-600 bg-amber-100' },
-            ].map(({ label, icon: Icon, path, funnel, color, iconColor }) => (
-              <a
+              { 
+                label: 'Small Business CRM', 
+                subtext: 'Service businesses, contractors, consultants',
+                price: 'Starts at $29/month',
+                icon: Briefcase, 
+                path: '/small-business-crm', 
+                color: 'hover:border-blue-500 hover:bg-blue-50', 
+                iconColor: 'text-blue-600 bg-blue-100' 
+              },
+              { 
+                label: 'Restaurant / Retail CRM', 
+                subtext: 'Restaurants, cafes, retail stores with POS',
+                price: 'Starts at $69/month',
+                icon: Store, 
+                path: '/restaurant-retail-crm', 
+                color: 'hover:border-orange-500 hover:bg-orange-50', 
+                iconColor: 'text-orange-600 bg-orange-100' 
+              },
+              { 
+                label: 'Real Estate / Mortgage / Title', 
+                subtext: 'Agents, brokers, loan officers, title companies',
+                price: 'Starts at $49/month',
+                icon: Home, 
+                path: '/real-estate', 
+                color: 'hover:border-emerald-500 hover:bg-emerald-50', 
+                iconColor: 'text-emerald-600 bg-emerald-100' 
+              },
+              { 
+                label: 'Medical CRM', 
+                subtext: 'Healthcare providers, clinics, medical practices',
+                price: 'Starts at $49/month',
+                icon: Stethoscope, 
+                path: '/healthcare', 
+                color: 'hover:border-rose-500 hover:bg-rose-50', 
+                iconColor: 'text-rose-600 bg-rose-100' 
+              },
+              { 
+                label: 'Legal CRM', 
+                subtext: 'Law firms, attorneys, legal professionals',
+                price: 'Starts at $49/month',
+                icon: Scale, 
+                path: '/legal', 
+                color: 'hover:border-amber-500 hover:bg-amber-50', 
+                iconColor: 'text-amber-600 bg-amber-100' 
+              },
+              { 
+                label: 'Social Media Marketing', 
+                subtext: 'Automated social media management & growth',
+                price: 'Starts at $49/month',
+                icon: Share2, 
+                path: '/social-media-marketing', 
+                color: 'hover:border-purple-500 hover:bg-purple-50', 
+                iconColor: 'text-purple-600 bg-purple-100' 
+              },
+            ].map(({ label, subtext, price, icon: Icon, path, color, iconColor }) => (
+              <Link
                 key={label}
-                href={path}
-                onClick={() => saveFunnel(funnel)}
-                className={`group flex items-center gap-4 p-5 rounded-2xl border-2 border-slate-200 bg-white transition-all cursor-pointer ${color} hover:shadow-md`}
+                to={path}
+                className={`group flex flex-col p-6 rounded-2xl border-2 border-slate-200 bg-white transition-all cursor-pointer ${color} hover:shadow-lg`}
               >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${iconColor}`}>
-                  <Icon className="w-6 h-6" />
+                <div className="flex items-center gap-4 mb-3">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${iconColor}`}>
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <span className="font-bold text-slate-800 text-lg group-hover:text-slate-900">{label}</span>
                 </div>
-                <span className="font-semibold text-slate-800 text-lg group-hover:text-slate-900">{label}</span>
-                <ChevronRight className="w-5 h-5 text-slate-400 ml-auto group-hover:translate-x-1 transition-transform" />
-              </a>
+                <p className="text-slate-500 text-sm mb-3">{subtext}</p>
+                <div className="mt-auto flex items-center justify-between">
+                  <span className="text-cyan-600 font-semibold">{price}</span>
+                  <ChevronRight className="w-5 h-5 text-slate-400 group-hover:translate-x-1 group-hover:text-cyan-600 transition-all" />
+                </div>
+              </Link>
             ))}
           </div>
         </div>

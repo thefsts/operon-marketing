@@ -5,6 +5,18 @@ import PricingPage from './pages/PricingPage';
 import SmallBusinessCRMPage from './pages/SmallBusinessCRMPage';
 import RestaurantRetailCRMPage from './pages/RestaurantRetailCRMPage';
 import SocialMediaMarketingPage from './pages/SocialMediaMarketingPage';
+import RealEstatePage from './pages/RealEstatePage';
+import MortgagePage from './pages/MortgagePage';
+import HealthcarePage from './pages/HealthcarePage';
+import LegalPage from './pages/LegalPage';
+import SportsPage from './pages/SportsPage';
+import EcommercePage from './pages/EcommercePage';
+import POSPage from './pages/POSPage';
+import IntegrationsPage from './pages/IntegrationsPage';
+import ReputationManagementPage from './pages/ReputationManagementPage';
+import LeadGenerationPage from './pages/LeadGenerationPage';
+import ClientBillingPage from './pages/ClientBillingPage';
+import CompliancePage from './pages/CompliancePage';
 import ApiDocs from './pages/ApiDocs';
 import ContactPage from './pages/ContactPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -44,20 +56,20 @@ function App() {
         <Route path="/start" element={<StartPage />} />
         <Route path="/get-started" element={<StartPage />} />
 
-        {/* Redirect old industry/feature routes to # anchors on homepage */}
-        <Route path="/real-estate" element={<AnchorRedirect anchor="real-estate" />} />
-        <Route path="/mortgage" element={<AnchorRedirect anchor="mortgage" />} />
-        <Route path="/healthcare" element={<AnchorRedirect anchor="healthcare" />} />
-        <Route path="/legal" element={<AnchorRedirect anchor="legal" />} />
-        <Route path="/sports" element={<AnchorRedirect anchor="sports" />} />
-        <Route path="/ecommerce" element={<AnchorRedirect anchor="ecommerce" />} />
-        <Route path="/pos" element={<AnchorRedirect anchor="ecommerce" />} />
-        <Route path="/compliance" element={<AnchorRedirect anchor="healthcare" />} />
-        <Route path="/integrations" element={<AnchorRedirect anchor="integrations" />} />
-        <Route path="/lead-generation" element={<AnchorRedirect anchor="features" />} />
-        <Route path="/client-billing" element={<AnchorRedirect anchor="features" />} />
-        <Route path="/reputation-management" element={<AnchorRedirect anchor="reputation" />} />
-        <Route path="/reputation" element={<AnchorRedirect anchor="reputation" />} />
+        {/* Industry/Feature dedicated pages */}
+        <Route path="/real-estate" element={<RealEstatePage />} />
+        <Route path="/mortgage" element={<MortgagePage />} />
+        <Route path="/healthcare" element={<HealthcarePage />} />
+        <Route path="/legal" element={<LegalPage />} />
+        <Route path="/sports" element={<SportsPage />} />
+        <Route path="/ecommerce" element={<EcommercePage />} />
+        <Route path="/pos" element={<POSPage />} />
+        <Route path="/compliance" element={<CompliancePage />} />
+        <Route path="/integrations" element={<IntegrationsPage />} />
+        <Route path="/lead-generation" element={<LeadGenerationPage />} />
+        <Route path="/client-billing" element={<ClientBillingPage />} />
+        <Route path="/reputation-management" element={<ReputationManagementPage />} />
+        <Route path="/reputation" element={<ReputationManagementPage />} />
         <Route path="/about" element={<AnchorRedirect anchor="about" />} />
 
         <Route path="*" element={<NotFound />} />

@@ -95,8 +95,9 @@ export default function RestaurantRetailCRMPage() {
         'SMS included (5,000/mo)',
         'Custom domain',
         'API access',
-        'Multi-location support',
-        'White-label app',
+        'Includes up to 20 licenses',
+        'Additional users: $5/seat/month',
+        'Branded mobile app coming soon',
         'Account manager',
       ]
     },
@@ -311,30 +312,29 @@ export default function RestaurantRetailCRMPage() {
           </div>
 
           {/* Multi-Location & Enterprise */}
-          <div className="mt-12 grid md:grid-cols-2 gap-6">
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-center">
-              <h3 className="text-2xl font-bold text-white mb-2">Multi-Location Teams</h3>
-              <p className="text-slate-300 mb-4">
-                Manage multiple locations from one dashboard. Centralized control with local flexibility.
+          <div className="mt-12">
+            <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-10 text-center">
+              <h3 className="text-3xl font-bold text-white mb-3">Multi-Location & Enterprise</h3>
+              <p className="text-slate-300 mb-2 text-lg">
+                Manage multiple locations from one dashboard with centralized control and local flexibility.
               </p>
-              <a
-                href="/contact"
-                className="inline-block bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition"
-              >
-                Contact Sales
-              </a>
-            </div>
-            <div className="bg-gradient-to-br from-orange-600 to-red-600 rounded-2xl p-8 text-center">
-              <h3 className="text-2xl font-bold text-white mb-2">Enterprise Solutions</h3>
-              <p className="text-orange-50 mb-4">
-                Custom integrations, dedicated support, and enterprise-grade features for large chains.
+              <p className="text-slate-400 mb-6">
+                Custom integrations, dedicated support, and enterprise-grade features for growing chains.
               </p>
-              <a
-                href="/contact"
-                className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition"
-              >
-                Contact Sales
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="/contact"
+                  className="inline-block bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition"
+                >
+                  Contact Sales
+                </a>
+                <a
+                  href="tel:+1-888-555-0123"
+                  className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition"
+                >
+                  Call Us for Enterprise Solutions
+                </a>
+              </div>
             </div>
           </div>
         </div>
