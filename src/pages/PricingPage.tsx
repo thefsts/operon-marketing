@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
-import { Check, ArrowRight, PhoneCall, Zap, Users, Building2, ShoppingCart, Stethoscope, Home, Scale, Share2, Briefcase } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Check, ArrowRight, PhoneCall, Zap, Users, Building2, ShoppingCart, Stethoscope, Home, Scale, Share2, Briefcase, Flame } from 'lucide-react';
+import GlobalHeader from '../components/GlobalHeader';
+import GlobalFooter from '../components/GlobalFooter';
 
-// Pricing categories and plans - FINAL VERSION
+// Beta discount configuration
+const betaDiscounts: Record<string, { tiers: string[]; percentage: number }> = {
+  'small_business': { tiers: ['Growth', 'Pro'], percentage: 50 },
+  'professional': { tiers: ['Growth', 'Business'], percentage: 50 },
+  'social_media': { tiers: ['Growth'], percentage: 50 },
+};
+
+// Pricing categories and plans - FINAL VERSION WITH BETA DISCOUNTS
 const pricingCategories = [
   {
     id: 'small_business',
@@ -34,6 +44,7 @@ const pricingCategories = [
         monthlyPrice: 49,
         annualPrice: 44,
         priceId: 'price_small_growth',
+        betaDiscount: true,
         features: [
           'Everything in Starter',
           '5,000 contacts',
@@ -52,6 +63,7 @@ const pricingCategories = [
         annualPrice: 71,
         priceId: 'price_small_pro',
         popular: true,
+        betaDiscount: true,
         features: [
           'Everything in Growth',
           '15,000 contacts',
@@ -251,6 +263,7 @@ const pricingCategories = [
         monthlyPrice: 99,
         annualPrice: 89,
         priceId: 'price_professional_growth',
+        betaDiscount: true,
         features: [
           'Everything in Small Business',
           'Advanced document automation',
@@ -268,6 +281,7 @@ const pricingCategories = [
         annualPrice: 134,
         priceId: 'price_professional_business',
         popular: true,
+        betaDiscount: true,
         features: [
           'Everything in Growth',
           'Multi-business support',
@@ -344,6 +358,7 @@ const pricingCategories = [
         monthlyPrice: 99,
         annualPrice: 89,
         priceId: 'price_social_growth',
+        betaDiscount: true,
         features: [
           'Everything in Starter',
           '10 social profiles',
@@ -446,36 +461,7 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <a href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-xl">O</span>
-              </div>
-              <span className="text-xl font-bold text-slate-900">OperonCRM</span>
-            </a>
-            <div className="hidden md:flex items-center space-x-6">
-              <a href="/" className="text-slate-600 hover:text-blue-600 transition">Home</a>
-              <a href="/pricing" className="text-blue-600 font-medium">Pricing</a>
-              <a href="/contact" className="text-slate-600 hover:text-blue-600 transition">Contact</a>
-              <a
-                href={import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com'}
-                className="text-slate-600 hover:text-blue-600 transition"
-              >
-                Login
-              </a>
-              <button
-                onClick={() => handlePlanSelect('starter', 'default')}
-                className="bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition"
-              >
-                Get Started
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <GlobalHeader />
 
       {/* Hero */}
       <section className="pt-16 pb-12 px-4 text-center">
@@ -548,46 +534,78 @@ export default function PricingPage() {
         <div className="max-w-7xl mx-auto">
           {currentCategory && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-              {currentCategory.plans.map((plan, index) => (
-                <div
-                  key={index}
-                  className={`relative bg-white rounded-2xl p-6 ${
-                    plan.popular ? 'ring-2 ring-blue-600 shadow-xl' : 'shadow-lg hover:shadow-xl'
-                  } transition`}
-                >
-                  {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">
-                      Most Popular
-                    </div>
-                  )}
-                  <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
-                  <p className="text-slate-600 text-sm mt-1 mb-4">{plan.description}</p>
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold text-slate-900">
-                      ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
-                    </span>
-                    <span className="text-slate-500">/month</span>
-                  </div>
-                  <ul className="space-y-2 mb-6">
-                    {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-start text-sm">
-                        <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-slate-600">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    onClick={() => handlePlanSelect(plan.name.toLowerCase().replace(' ', '_'), plan.priceId)}
-                    className={`w-full py-3 rounded-lg font-semibold transition ${
-                      plan.popular
-                        ? 'bg-blue-600 text-white hover:bg-blue-700'
-                        : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
-                    }`}
+              {currentCategory.plans.map((plan, index) => {
+                const hasBetaDiscount = plan.betaDiscount && betaDiscounts[currentCategory.id]?.tiers.includes(plan.name);
+                const discountedPrice = hasBetaDiscount 
+                  ? (billingPeriod === 'monthly' ? plan.monthlyPrice * 0.5 : plan.annualPrice * 0.5).toFixed(2)
+                  : null;
+                
+                return (
+                  <div
+                    key={index}
+                    className={`relative bg-white rounded-2xl p-6 ${
+                      plan.popular ? 'ring-2 ring-blue-600 shadow-xl' : 'shadow-lg hover:shadow-xl'
+                    } transition`}
                   >
-                    {plan.cta}
-                  </button>
-                </div>
-              ))}
+                    {/* Beta Discount Badge */}
+                    {hasBetaDiscount && (
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1 whitespace-nowrap">
+                        <Flame className="w-4 h-4" />
+                        50% OFF Beta Access
+                      </div>
+                    )}
+                    {/* Most Popular Badge (only if no beta discount) */}
+                    {plan.popular && !hasBetaDiscount && (
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                        Most Popular
+                      </div>
+                    )}
+                    <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
+                    <p className="text-slate-600 text-sm mt-1 mb-4">{plan.description}</p>
+                    <div className="mb-6">
+                      {hasBetaDiscount ? (
+                        <div>
+                          <div className="text-slate-400 line-through text-lg">
+                            ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}/month
+                          </div>
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-4xl font-bold text-orange-600">${discountedPrice}</span>
+                            <span className="text-slate-500">/month</span>
+                          </div>
+                          <div className="text-orange-600 text-sm font-medium mt-1">Beta Price</div>
+                        </div>
+                      ) : (
+                        <div>
+                          <span className="text-4xl font-bold text-slate-900">
+                            ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
+                          </span>
+                          <span className="text-slate-500">/month</span>
+                        </div>
+                      )}
+                    </div>
+                    <ul className="space-y-2 mb-6">
+                      {plan.features.map((feature, i) => (
+                        <li key={i} className="flex items-start text-sm">
+                          <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-slate-600">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => handlePlanSelect(plan.name.toLowerCase().replace(' ', '_'), plan.priceId)}
+                      className={`w-full py-3 rounded-lg font-semibold transition ${
+                        hasBetaDiscount
+                          ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg'
+                          : plan.popular
+                            ? 'bg-blue-600 text-white hover:bg-blue-700'
+                            : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
+                      }`}
+                    >
+                      {plan.cta}
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           )}
 
@@ -693,46 +711,7 @@ export default function PricingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-300 py-12 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h4 className="text-white font-semibold mb-4">Product</h4>
-              <ul className="space-y-2">
-                <li><a href="/pricing" className="hover:text-white transition">Pricing</a></li>
-                <li><a href="/#features" className="hover:text-white transition">Features</a></li>
-                <li><a href="/#integrations" className="hover:text-white transition">Integrations</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Industries</h4>
-              <ul className="space-y-2">
-                <li><a href="/small-business-crm" className="hover:text-white transition">Small Business</a></li>
-                <li><a href="/restaurant-retail-crm" className="hover:text-white transition">Restaurant & Retail</a></li>
-                <li><a href="/healthcare" className="hover:text-white transition">Medical</a></li>
-                <li><a href="/legal" className="hover:text-white transition">Legal</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Support</h4>
-              <ul className="space-y-2">
-                <li><a href="/contact" className="hover:text-white transition">Contact</a></li>
-                <li><a href="/contact" className="hover:text-white transition">Help Center</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2">
-                <li><a href="/privacy" className="hover:text-white transition">Privacy Policy</a></li>
-                <li><a href="/terms" className="hover:text-white transition">Terms of Service</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-slate-800 pt-8 text-center">
-            <p>&copy; 2024 OperonCRM. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <GlobalFooter />
     </div>
   );
 }

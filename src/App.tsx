@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MarketingHome from './pages/MarketingHome';
 import PricingPage from './pages/PricingPage';
+import PlatformPage from './pages/PlatformPage';
 import SmallBusinessCRMPage from './pages/SmallBusinessCRMPage';
 import RestaurantRetailCRMPage from './pages/RestaurantRetailCRMPage';
 import SocialMediaMarketingPage from './pages/SocialMediaMarketingPage';
@@ -44,6 +45,7 @@ function App() {
 
         {/* Utility pages - kept as separate routes */}
         <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/platform" element={<PlatformPage />} />
         <Route path="/small-business-crm" element={<SmallBusinessCRMPage />} />
         <Route path="/restaurant-retail-crm" element={<RestaurantRetailCRMPage />} />
         <Route path="/social-media-marketing" element={<SocialMediaMarketingPage />} />
