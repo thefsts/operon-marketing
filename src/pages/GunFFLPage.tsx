@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Shield, Users, FileCheck, Check, ArrowRight, CreditCard,
   Star, Activity, Zap, Clock, Target, Award, Crosshair, 
-  AlertTriangle, Database, Flame, Settings
+  AlertTriangle, Database, Flame, Settings, Brain, MessageSquare
 } from 'lucide-react';
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
 
-// Beta discount eligible tiers for Gun FFL - Growth & Pro (Small Business pricing)
+// Beta discount eligible tiers for Gun FFL - Growth & Pro
 const betaDiscountTiers = ['Growth', 'Pro'];
 
 const plans = [
@@ -111,7 +111,7 @@ const businessTypes = [
   { icon: Users, name: 'Collectors (C&R)', desc: 'Curio & relic collectors' },
   { icon: Database, name: 'Pawn Shops', desc: 'FFL pawn operations' },
   { icon: Settings, name: 'Manufacturers', desc: 'Firearm manufacturing' },
-  { icon: Star, name: 'Importers/Exportors', desc: 'International trade' },
+  { icon: Star, name: 'Importers/Exporters', desc: 'International trade' },
 ];
 
 const features = [
@@ -127,6 +127,13 @@ const features = [
 
 export default function GunFFLPage() {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handlePlanSelect = (planName: string, priceId: string) => {
     localStorage.setItem('operon_selected_plan', planName);
@@ -136,12 +143,17 @@ export default function GunFFLPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <GlobalHeader />
+    <div className="min-h-screen bg-slate-950 text-white">
+      <GlobalHeader transparent={!isScrolled} />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 via-slate-950 to-orange-900/20"></div>
+        <div className="absolute top-20 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-sm font-medium mb-6">
               <Shield className="w-4 h-4" />
@@ -149,7 +161,7 @@ export default function GunFFLPage() {
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               The Complete CRM for<br />
-              <span className="text-amber-400">FFL Dealers & Gun Shops</span>
+              <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">FFL Dealers & Gun Shops</span>
             </h1>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-8">
               Manage inventory, customers, compliance, and sales in one system. 
@@ -178,23 +190,23 @@ export default function GunFFLPage() {
       </section>
 
       {/* Trust Indicators */}
-      <section className="py-8 bg-slate-100 border-b border-slate-200">
+      <section className="py-8 bg-slate-900/50 border-y border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-8 text-slate-600">
+          <div className="flex flex-wrap items-center justify-center gap-8 text-slate-300">
             <div className="flex items-center gap-2">
-              <Shield className="w-5 h-5 text-amber-600" />
+              <Shield className="w-5 h-5 text-amber-400" />
               <span className="font-medium">ATF Compliant</span>
             </div>
             <div className="flex items-center gap-2">
-              <FileCheck className="w-5 h-5 text-amber-600" />
+              <FileCheck className="w-5 h-5 text-amber-400" />
               <span className="font-medium">Digital Form 4473</span>
             </div>
             <div className="flex items-center gap-2">
-              <Database className="w-5 h-5 text-amber-600" />
+              <Database className="w-5 h-5 text-amber-400" />
               <span className="font-medium">A&D Bound Book</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="w-5 h-5 text-amber-600" />
+              <Clock className="w-5 h-5 text-amber-400" />
               <span className="font-medium">License Alerts</span>
             </div>
           </div>
@@ -202,25 +214,25 @@ export default function GunFFLPage() {
       </section>
 
       {/* Business Types */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Built for All FFL Types
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Built for All <span className="text-amber-400">FFL Types</span>
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
               From small gun shops to multi-location ranges, Operon scales with your business.
             </p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {businessTypes.map((type, index) => (
-              <div key={index} className="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition text-center">
-                <div className="w-14 h-14 rounded-lg bg-amber-100 flex items-center justify-center mx-auto mb-4">
-                  <type.icon className="w-7 h-7 text-amber-600" />
+              <div key={index} className="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50 hover:border-amber-500/50 transition text-center">
+                <div className="w-14 h-14 rounded-lg bg-amber-500/20 flex items-center justify-center mx-auto mb-4">
+                  <type.icon className="w-7 h-7 text-amber-400" />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-1">{type.name}</h3>
-                <p className="text-slate-500 text-sm">{type.desc}</p>
+                <h3 className="font-bold text-white mb-1">{type.name}</h3>
+                <p className="text-slate-400 text-sm">{type.desc}</p>
               </div>
             ))}
           </div>
@@ -228,25 +240,25 @@ export default function GunFFLPage() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-20 bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Everything You Need to Run Your FFL
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Everything You Need to Run Your <span className="text-amber-400">FFL</span>
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
               Compliance, inventory, customers, and sales—all in one integrated system.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition">
-                <div className="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-amber-600" />
+              <div key={index} className="bg-slate-900/50 backdrop-blur rounded-xl p-6 border border-slate-700/50 hover:border-amber-500/50 transition">
+                <div className="w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center mb-4">
+                  <feature.icon className="w-6 h-6 text-amber-400" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{feature.title}</h3>
-                <p className="text-slate-600 text-sm">{feature.desc}</p>
+                <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+                <p className="text-slate-400 text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -254,7 +266,7 @@ export default function GunFFLPage() {
       </section>
 
       {/* Compliance Highlight */}
-      <section className="py-20 bg-slate-900">
+      <section className="py-20 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -283,7 +295,7 @@ export default function GunFFLPage() {
                 ))}
               </ul>
             </div>
-            <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700">
+            <div className="bg-slate-800/50 backdrop-blur rounded-2xl p-8 border border-slate-700/50">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center">
                   <AlertTriangle className="w-6 h-6 text-amber-400" />
@@ -312,14 +324,74 @@ export default function GunFFLPage() {
         </div>
       </section>
 
+      {/* AI Assistant Section */}
+      <section className="py-20 bg-slate-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="bg-slate-900/50 backdrop-blur rounded-2xl p-6 border border-slate-700/50">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
+                  <Brain className="w-5 h-5 text-purple-400" />
+                </div>
+                <div>
+                  <h3 className="text-white font-bold">AI Assistant</h3>
+                  <p className="text-slate-400 text-sm">FFL Operations Helper</p>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div className="bg-slate-800/50 rounded-lg p-3">
+                  <p className="text-slate-300 text-sm">"Check my inventory for any firearms approaching the 90-day acquisition threshold for ATF reporting."</p>
+                </div>
+                <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3">
+                  <p className="text-purple-300 text-sm">"Found 3 firearms acquired 85+ days ago. I've prepared the acquisition report for your review. One requires immediate attention."</p>
+                </div>
+              </div>
+              <div className="mt-4 flex items-center gap-2">
+                <input 
+                  type="text" 
+                  placeholder="Ask about compliance, inventory, customers..."
+                  className="flex-1 bg-slate-800/50 border border-slate-700/50 rounded-lg px-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500/50"
+                />
+                <button className="p-2 bg-purple-500/20 rounded-lg hover:bg-purple-500/30 transition">
+                  <MessageSquare className="w-5 h-5 text-purple-400" />
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                Your <span className="text-purple-400">AI-Powered</span> FFL Assistant
+              </h2>
+              <p className="text-slate-300 text-lg mb-6">
+                Get instant help with compliance questions, inventory checks, and customer management. 
+                The AI assistant understands FFL regulations and helps keep your business running smoothly.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  'Compliance deadline reminders and ATF regulation guidance',
+                  'Inventory alerts for acquisition thresholds',
+                  'Customer lookup and purchase history summaries',
+                  'Automated report generation for inspections',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center text-slate-300">
+                    <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-slate-50">
+      <section id="pricing" className="py-20 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              FFL Dealer Pricing
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              FFL Dealer <span className="text-amber-400">Pricing</span>
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto mb-8">
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-8">
               Start small and scale as your shop grows.
             </p>
 
@@ -327,27 +399,27 @@ export default function GunFFLPage() {
             <div className="flex items-center justify-center gap-4 mb-8">
               <button
                 onClick={() => setBillingPeriod('monthly')}
-                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-slate-900' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-white' : 'text-slate-500'}`}
               >
                 Monthly
               </button>
               <button
                 onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}
-                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-amber-500' : 'bg-slate-300'}`}
+                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-amber-500' : 'bg-slate-700'}`}
               >
                 <div className={`w-6 h-6 bg-white rounded-full transition-transform ${billingPeriod === 'annual' ? 'translate-x-7' : 'translate-x-1'}`} />
               </button>
               <button
                 onClick={() => setBillingPeriod('annual')}
-                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-slate-900' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-white' : 'text-slate-500'}`}
               >
                 Annual
-                <span className="text-amber-600 text-sm font-medium ml-1">(Save 10%)</span>
+                <span className="text-amber-400 text-sm font-medium ml-1">(Save 10%)</span>
               </button>
             </div>
 
             {/* Beta Discount Banner */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 border border-orange-200 text-orange-700 text-sm font-medium mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/20 border border-orange-500/30 text-orange-300 text-sm font-medium mb-8">
               <Flame className="w-4 h-4" />
               50% OFF Beta Access on Growth & Pro tiers!
             </div>
@@ -364,9 +436,9 @@ export default function GunFFLPage() {
               return (
                 <div
                   key={index}
-                  className={`relative bg-white rounded-2xl p-6 ${
-                    plan.popular ? 'ring-2 ring-amber-500 shadow-xl' : 'shadow-lg hover:shadow-xl'
-                  } transition`}
+                  className={`relative bg-slate-800/50 backdrop-blur rounded-2xl p-6 border ${
+                    plan.popular ? 'border-amber-500' : 'border-slate-700/50'
+                  } hover:border-amber-500/50 transition`}
                 >
                   {/* Beta Discount Badge */}
                   {hasBetaDiscount && (
@@ -381,34 +453,34 @@ export default function GunFFLPage() {
                       Most Popular
                     </div>
                   )}
-                  <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
-                  <p className="text-slate-600 text-sm mt-1 mb-4">{plan.description}</p>
+                  <h3 className="text-xl font-bold text-white">{plan.name}</h3>
+                  <p className="text-slate-400 text-sm mt-1 mb-4">{plan.description}</p>
                   <div className="mb-6">
                     {hasBetaDiscount ? (
                       <div>
-                        <div className="text-slate-400 line-through text-lg">
+                        <div className="text-slate-500 line-through text-lg">
                           ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}/mo
                         </div>
                         <div className="flex items-baseline gap-1">
-                          <span className="text-4xl font-bold text-orange-600">${discountedPrice}</span>
-                          <span className="text-slate-500">/mo</span>
+                          <span className="text-4xl font-bold text-amber-400">${discountedPrice}</span>
+                          <span className="text-slate-400">/mo</span>
                         </div>
-                        <div className="text-orange-600 text-sm font-medium mt-1">Beta Price</div>
+                        <div className="text-amber-400 text-sm font-medium mt-1">Beta Price</div>
                       </div>
                     ) : (
                       <div>
-                        <span className="text-4xl font-bold text-slate-900">
+                        <span className="text-4xl font-bold text-white">
                           ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
                         </span>
-                        <span className="text-slate-500">/month</span>
+                        <span className="text-slate-400">/month</span>
                       </div>
                     )}
                   </div>
                   <ul className="space-y-2 mb-6">
                     {plan.features.map((feature, i) => (
                       <li key={i} className="flex items-start text-sm">
-                        <Check className="w-4 h-4 text-amber-500 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-slate-600">{feature}</span>
+                        <Check className="w-4 h-4 text-amber-400 mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-slate-300">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -419,7 +491,7 @@ export default function GunFFLPage() {
                         ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg'
                         : plan.popular
                           ? 'bg-amber-500 text-white hover:bg-amber-600'
-                          : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
+                          : 'bg-slate-700 text-white hover:bg-slate-600'
                     }`}
                   >
                     {plan.cta}
@@ -431,21 +503,21 @@ export default function GunFFLPage() {
 
           {/* Add-ons Note */}
           <div className="mt-12 text-center">
-            <p className="text-slate-500 text-sm">
-              <strong>Add-ons:</strong> Multi-Location $20/mo • Additional Users $5/seat • Range Module $15/mo
+            <p className="text-slate-400 text-sm">
+              <strong className="text-white">Add-ons:</strong> Multi-Location $20/mo • Additional Users $5/seat • Range Module $15/mo
             </p>
           </div>
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-slate-950">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              How It Works
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              How It <span className="text-amber-400">Works</span>
             </h2>
-            <p className="text-slate-500 text-lg">
+            <p className="text-slate-400 text-lg">
               Get set up quickly. AI helps configure your FFL operations.
             </p>
           </div>
@@ -458,11 +530,11 @@ export default function GunFFLPage() {
               { step: '4', title: 'Go Live', desc: 'Start using the full system.' },
             ].map((item, i) => (
               <div key={i} className="text-center">
-                <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl font-bold mx-auto mb-4 border border-amber-500/30">
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                <p className="text-slate-500">{item.desc}</p>
+                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                <p className="text-slate-400">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -470,7 +542,7 @@ export default function GunFFLPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-slate-900">
+      <section className="py-20 bg-gradient-to-br from-amber-900/20 via-slate-950 to-orange-900/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Shield className="w-12 h-12 text-amber-400 mx-auto mb-6" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">

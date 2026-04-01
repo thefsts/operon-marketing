@@ -17,7 +17,11 @@ const languages: Language[] = [
   { code: 'ja', name: '日本語', flag: '🇯🇵' },
 ];
 
-export default function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  transparent?: boolean;
+}
+
+export default function LanguageSwitcher({ transparent = false }: LanguageSwitcherProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<Language>(languages[0]);
 
@@ -32,7 +36,11 @@ export default function LanguageSwitcher() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-cyan-600 transition-colors rounded-lg hover:bg-slate-100"
+        className={`flex items-center gap-2 px-3 py-2 transition-colors rounded-lg ${
+          transparent 
+            ? 'text-white/90 hover:text-white hover:bg-white/10' 
+            : 'text-slate-600 hover:text-cyan-600 hover:bg-slate-100'
+        }`}
         aria-label="Select language"
         aria-expanded={isOpen}
       >

@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Scale, Check, ArrowRight, Users, BarChart3, Calendar, FileText, 
+  Scale, Check, ArrowRight, Users, BarChart3, Calendar, FileText,
   MessageSquare, Shield, Zap, Clock, FileSignature, Briefcase,
-  Building, Landmark, Gavel, Search, DollarSign, Flame
+  Building, Landmark, Gavel, Search, DollarSign, Flame, Sparkles
 } from 'lucide-react';
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
-
-// Beta discount eligible tiers for Legal
-const betaDiscountTiers = ['Growth', 'Business'];
 
 const plans = [
   {
@@ -120,11 +117,25 @@ const features = [
   { icon: Shield, title: 'Conflict Checking', desc: 'Check for conflicts before taking on new matters.' },
   { icon: FileText, title: 'Document Management', desc: 'Organize documents by matter with secure access controls.' },
   { icon: Clock, title: 'Time Tracking', desc: 'Track billable hours with integrated billing and invoicing.' },
-  { icon: Zap, title: 'AI Assistant', desc: 'AI helps with deadlines, document drafting, and task management.' },
+  { icon: Sparkles, title: 'AI Assistant', desc: 'AI helps with deadlines, document drafting, and task management.' },
+];
+
+const aiFeatures = [
+  { title: 'Deadline Intelligence', desc: 'AI automatically calculates deadlines based on court rules and sends advance warnings.' },
+  { title: 'Document Analysis', desc: 'AI summarizes documents, extracts key dates, and highlights important clauses.' },
+  { title: 'Task Prioritization', desc: 'AI suggests optimal task ordering based on deadlines and importance.' },
+  { title: 'Client Communication', desc: 'AI helps draft client updates and follow-ups based on case progress.' },
 ];
 
 export default function LegalPage() {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handlePlanSelect = (planName: string, priceId: string) => {
     localStorage.setItem('operon_selected_plan', planName);
@@ -134,63 +145,91 @@ export default function LegalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <GlobalHeader />
+    <div className="min-h-screen bg-slate-950 text-white">
+      {/* Header */}
+      <GlobalHeader transparent={!isScrolled} />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-amber-600 via-orange-600 to-amber-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-amber-950/50 to-slate-950"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium mb-6">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-400 text-sm font-medium mb-8">
               <Scale className="w-4 h-4" />
               Legal CRM
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              The CRM Built for<br />Law Firms & Attorneys
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
+                The CRM Built for
+              </span>
+              <br />
+              <span className="text-white">Law Firms & Attorneys</span>
             </h1>
-            <p className="text-xl text-amber-100 max-w-3xl mx-auto mb-8">
-              Manage cases, clients, court dates, and documents in one unified system. Built specifically for legal professionals with AI-powered deadline tracking.
+            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto mb-8">
+              Manage cases, clients, court dates, and documents in one unified system. 
+              Built specifically for legal professionals with AI-powered deadline tracking.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link
                 to="/start"
-                className="px-8 py-4 bg-white text-amber-700 rounded-xl font-semibold hover:shadow-xl transition-all inline-flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-amber-500/25 transition-all inline-flex items-center justify-center gap-2"
               >
                 Start Free Trial
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
                 href="#pricing"
-                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 inline-flex items-center justify-center gap-2"
               >
                 View Pricing
               </a>
             </div>
-            <p className="text-amber-200 mt-4 text-sm">No credit card required • Set up in minutes</p>
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap justify-center gap-8 text-slate-400 text-sm">
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-amber-400" />
+                E-signatures included
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-amber-400" />
+                Conflict checking
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-amber-400" />
+                No credit card required
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Who It's For Section */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-20 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Built for Legal Professionals
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-              Operon CRM is designed for the unique needs of law firms and legal departments. From solo practitioners to large firms.
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              From solo practitioners to large firms, Operon adapts to your practice area.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {industries.map((industry, i) => (
-              <div key={i} className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-lg hover:border-amber-300 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-4">
-                  <industry.icon className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-1">{industry.name}</h3>
-                <p className="text-slate-500 text-sm">{industry.desc}</p>
+              <div key={i} className="bg-slate-800/50 backdrop-blur rounded-xl p-4 border border-slate-700/50 hover:border-amber-500/50 transition-all text-center group">
+                <industry.icon className="w-8 h-8 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                <h3 className="font-semibold text-sm mb-1">{industry.name}</h3>
+                <p className="text-slate-400 text-xs">{industry.desc}</p>
               </div>
             ))}
           </div>
@@ -198,69 +237,125 @@ export default function LegalPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Everything Your Practice Needs
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Everything You Need to Run Your Practice
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-              Purpose-built for legal workflows with AI-powered assistance throughout.
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              One platform for case management, client communication, and deadline tracking.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, i) => (
-              <div key={i} className="p-6 rounded-xl border border-slate-200 bg-white hover:shadow-md transition-all">
-                <div className="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center mb-3">
-                  <feature.icon className="w-5 h-5" />
+              <div key={i} className="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <feature.icon className="w-6 h-6 text-amber-400" />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-1">{feature.title}</h3>
-                <p className="text-slate-500 text-sm">{feature.desc}</p>
+                <h3 className="font-bold mb-2">{feature.title}</h3>
+                <p className="text-slate-400 text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* AI Assistant Section */}
+      <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-400 text-sm font-medium mb-6">
+                <Sparkles className="w-4 h-4" />
+                AI-Powered
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Your AI Legal Assistant
+              </h2>
+              <p className="text-slate-400 text-lg mb-8">
+                Let Operon's AI help manage deadlines, analyze documents, 
+                and keep your practice running smoothly.
+              </p>
+              <div className="space-y-4">
+                {aiFeatures.map((feature, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-purple-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">{feature.title}</h4>
+                      <p className="text-slate-400 text-sm">{feature.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-slate-800/50 backdrop-blur rounded-2xl p-8 border border-slate-700/50">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <div className="font-semibold">Operon AI</div>
+                  <div className="text-xs text-slate-400">Legal Intelligence</div>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-amber-400">Deadline Alert:</span> Motion filing due in 5 days for Smith v. Jones. AI suggests starting draft today.
+                </div>
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-green-400">Conflict Check:</span> New client "Acme Corp" - No conflicts found in database of 500+ matters.
+                </div>
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-cyan-400">Time Entry:</span> 3.5 billable hours logged today. Don't forget to enter your time.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-slate-50">
+      <section id="pricing" className="py-20 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Pricing for Law Firms
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto mb-8">
-              Premium vertical with advanced legal workflows. Start with any plan — upgrade as your firm grows.
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-8">
+              Choose the plan that fits your practice. All plans include case management and calendar.
             </p>
 
             {/* Billing Toggle */}
             <div className="flex items-center justify-center gap-4 mb-8">
               <button
                 onClick={() => setBillingPeriod('monthly')}
-                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-slate-900' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-white' : 'text-slate-500'}`}
               >
                 Monthly
               </button>
               <button
                 onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}
-                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-amber-600' : 'bg-slate-300'}`}
+                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-amber-500' : 'bg-slate-700'}`}
               >
                 <div className={`w-6 h-6 bg-white rounded-full transition-transform ${billingPeriod === 'annual' ? 'translate-x-7' : 'translate-x-1'}`} />
               </button>
               <button
                 onClick={() => setBillingPeriod('annual')}
-                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-slate-900' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-white' : 'text-slate-500'}`}
               >
                 Annual
-                <span className="text-amber-600 text-sm font-medium ml-1">(Save 10%)</span>
+                <span className="text-amber-400 text-sm font-medium ml-1">(Save 10-20%)</span>
               </button>
             </div>
 
             {/* Beta Discount Banner */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 border border-orange-200 text-orange-700 text-sm font-medium mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 text-orange-400 text-sm font-medium mb-8">
               <Flame className="w-4 h-4" />
-              50% OFF Beta Access on Growth & Business tiers!
+              50% OFF Beta Access on Growth & Business Plans!
             </div>
           </div>
 
@@ -275,62 +370,62 @@ export default function LegalPage() {
               return (
                 <div
                   key={index}
-                  className={`relative bg-white rounded-2xl p-6 ${
-                    plan.popular ? 'ring-2 ring-amber-600 shadow-xl' : 'shadow-lg hover:shadow-xl'
-                  } transition`}
+                  className={`relative bg-slate-800/50 backdrop-blur rounded-2xl p-6 border ${
+                    plan.popular ? 'border-amber-500 shadow-lg shadow-amber-500/20' : 'border-slate-700/50 hover:border-slate-600'
+                  } transition-all`}
                 >
                   {/* Beta Discount Badge */}
                   {hasBetaDiscount && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1 whitespace-nowrap">
-                      <Flame className="w-4 h-4" />
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 whitespace-nowrap">
+                      <Flame className="w-3 h-3" />
                       50% OFF
                     </div>
                   )}
                   {/* Most Popular Badge */}
                   {plan.popular && !hasBetaDiscount && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap">
                       Most Popular
                     </div>
                   )}
-                  <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
-                  <p className="text-slate-600 text-sm mt-1 mb-4">{plan.description}</p>
+                  <h3 className="text-lg font-bold">{plan.name}</h3>
+                  <p className="text-slate-400 text-sm mt-1 mb-4">{plan.description}</p>
                   <div className="mb-6">
                     {hasBetaDiscount ? (
                       <div>
-                        <div className="text-slate-400 line-through text-lg">
+                        <div className="text-slate-500 line-through text-lg">
                           ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}/mo
                         </div>
                         <div className="flex items-baseline gap-1">
-                          <span className="text-4xl font-bold text-orange-600">${discountedPrice}</span>
-                          <span className="text-slate-500">/mo</span>
+                          <span className="text-3xl font-bold text-orange-400">${discountedPrice}</span>
+                          <span className="text-slate-400">/mo</span>
                         </div>
-                        <div className="text-orange-600 text-sm font-medium mt-1">Beta Price</div>
+                        <div className="text-orange-400 text-xs font-medium mt-1">Beta Price</div>
                       </div>
                     ) : (
                       <div>
-                        <span className="text-4xl font-bold text-slate-900">
+                        <span className="text-3xl font-bold">
                           ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
                         </span>
-                        <span className="text-slate-500">/month</span>
+                        <span className="text-slate-400">/month</span>
                       </div>
                     )}
                   </div>
                   <ul className="space-y-2 mb-6">
                     {plan.features.map((feature, i) => (
                       <li key={i} className="flex items-start text-sm">
-                        <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-slate-600">{feature}</span>
+                        <Check className="w-4 h-4 text-amber-400 mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-slate-300">{feature}</span>
                       </li>
                     ))}
                   </ul>
                   <button
                     onClick={() => handlePlanSelect(plan.name.toLowerCase().replace(' ', '_'), plan.priceId)}
-                    className={`w-full py-3 rounded-lg font-semibold transition ${
+                    className={`w-full py-3 rounded-lg font-semibold transition text-sm ${
                       hasBetaDiscount
-                        ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg'
+                        ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:shadow-orange-500/25'
                         : plan.popular
-                          ? 'bg-amber-600 text-white hover:bg-amber-700'
-                          : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
+                          ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:shadow-lg hover:shadow-amber-500/25'
+                          : 'bg-slate-700 text-white hover:bg-slate-600'
                     }`}
                   >
                     {plan.cta}
@@ -342,21 +437,21 @@ export default function LegalPage() {
 
           {/* Add-ons Note */}
           <div className="mt-12 text-center">
-            <p className="text-slate-500 text-sm">
-              <strong>Add-ons:</strong> Additional Users $5/seat • E-Signature Included • Trust Accounting Available
+            <p className="text-slate-400 text-sm">
+              <strong className="text-white">Add-ons:</strong> Additional Users $5/seat • E-Signature Included • Trust Accounting Available
             </p>
           </div>
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               How It Works
             </h2>
-            <p className="text-slate-500 text-lg">
+            <p className="text-slate-400 text-lg">
               Get your legal CRM running in minutes. AI helps configure everything.
             </p>
           </div>
@@ -369,11 +464,11 @@ export default function LegalPage() {
               { step: '4', title: 'AI Optimizes', desc: 'AI tracks deadlines and suggests tasks.' },
             ].map((item, i) => (
               <div key={i} className="text-center">
-                <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/30 flex items-center justify-center text-2xl font-bold mx-auto mb-4 text-amber-400">
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                <p className="text-slate-500">{item.desc}</p>
+                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                <p className="text-slate-400">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -381,13 +476,13 @@ export default function LegalPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-slate-900">
+      <section className="py-20 bg-gradient-to-r from-amber-500/10 to-orange-500/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Scale className="w-12 h-12 text-amber-400 mx-auto mb-6" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Transform Your Legal Practice?
           </h2>
-          <p className="text-slate-300 text-lg mb-8">
+          <p className="text-slate-400 text-lg mb-8">
             Set up your case pipeline, configure your calendar, and let AI help you never miss a deadline.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -400,14 +495,11 @@ export default function LegalPage() {
             </Link>
             <Link
               to="/contact"
-              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 inline-flex items-center justify-center"
             >
               Book a Demo
             </Link>
           </div>
-          <p className="text-slate-400 mt-4 text-sm">
-            Questions? Call us at (888) 555-0123
-          </p>
         </div>
       </section>
 

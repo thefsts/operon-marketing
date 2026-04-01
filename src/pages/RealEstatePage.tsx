@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Home, CheckCircle, ArrowRight, FileText, Users, BarChart3, Kanban, FileSignature, Shield, Sparkles, Building2, Phone, Calendar } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Home, CheckCircle, ArrowRight, FileText, Users, BarChart3, Kanban, FileSignature, Shield, Sparkles, Building2, Phone, Calendar, Check, Flame } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
@@ -13,101 +13,231 @@ function saveFunnel(plan?: string) {
   if (plan) localStorage.setItem('operon_selected_plan', plan);
 }
 
+const features = [
+  { icon: Kanban, title: 'Deal Pipeline', desc: 'Visual pipeline from lead to close with drag-and-drop simplicity.', color: 'from-emerald-500 to-teal-400' },
+  { icon: Calendar, title: 'Showing Scheduler', desc: 'Built-in calendar for showings, meetings, and closings.', color: 'from-violet-500 to-purple-400' },
+  { icon: Home, title: 'Listings Management', desc: 'Manage active listings, details, and showing schedules.', color: 'from-green-500 to-emerald-400' },
+  { icon: Users, title: 'Client Tracking', desc: 'Complete client profiles with communication history.', color: 'from-blue-500 to-cyan-400' },
+  { icon: FileSignature, title: 'E-Signatures', desc: 'Contracts and agreements with built-in e-signature.', color: 'from-purple-500 to-indigo-400' },
+  { icon: Shield, title: 'License Tracking', desc: 'Track agent licenses and renewal dates with alerts.', color: 'from-rose-500 to-pink-400' },
+  { icon: BarChart3, title: 'Commission Tracking', desc: 'Track commissions, splits, and revenue summaries.', color: 'from-amber-500 to-orange-400' },
+  { icon: Sparkles, title: 'AI Assistant', desc: 'AI helps manage your schedule and suggests actions.', color: 'from-cyan-500 to-blue-400' },
+];
+
+const aiFeatures = [
+  { title: 'Smart Follow-Up Reminders', desc: 'AI analyzes client interactions and prompts you to reach out at the perfect time to stay top-of-mind.' },
+  { title: 'Pipeline Predictions', desc: 'AI predicts which deals are most likely to close and suggests actions to move stuck deals forward.' },
+  { title: 'Showing Optimization', desc: 'AI suggests optimal showing times based on client preferences and your schedule.' },
+  { title: 'Document Organization', desc: 'AI automatically organizes documents by transaction and flags missing disclosures.' },
+];
+
+const plans = [
+  {
+    name: 'Self-Employed',
+    description: 'Solo agents',
+    monthlyPrice: 49,
+    annualPrice: 44,
+    priceId: 'price_realestate_self',
+    features: [
+      'CRM & client database',
+      '1,000 contacts',
+      'Deal pipeline',
+      'Basic listings',
+      'Email marketing (1,000/mo)',
+      'Calendar sync',
+      'Email support',
+    ],
+    cta: 'Get Started',
+  },
+  {
+    name: 'Small Business',
+    description: 'Small teams',
+    monthlyPrice: 69,
+    annualPrice: 62,
+    priceId: 'price_realestate_small',
+    features: [
+      'Everything in Self-Employed',
+      '5,000 contacts',
+      'Advanced pipeline',
+      'Automation workflows',
+      'Email marketing (5,000/mo)',
+      'SMS (500/mo)',
+      'Priority support',
+    ],
+    cta: 'Upgrade Now',
+  },
+  {
+    name: 'Growth',
+    description: 'Growing teams',
+    monthlyPrice: 99,
+    annualPrice: 89,
+    priceId: 'price_realestate_growth',
+    popular: true,
+    betaDiscount: true,
+    features: [
+      'Everything in Small Business',
+      '15,000 contacts',
+      'AI-powered insights',
+      'Advanced reporting',
+      'Email marketing (10,000/mo)',
+      'SMS (1,000/mo)',
+      'E-signatures included',
+      'Phone & email support',
+    ],
+    cta: 'Get Full Access',
+  },
+  {
+    name: 'Business',
+    description: 'Established teams',
+    monthlyPrice: 149,
+    annualPrice: 134,
+    priceId: 'price_realestate_business',
+    features: [
+      'Everything in Growth',
+      '25,000 contacts',
+      'Team collaboration (5 seats)',
+      'Commission tracking',
+      'Email marketing (25,000/mo)',
+      'SMS (2,500/mo)',
+      'Custom integrations',
+      'Dedicated support',
+    ],
+    cta: 'Scale Up',
+  },
+  {
+    name: 'White Label',
+    description: 'Brokerages & teams',
+    monthlyPrice: 299,
+    annualPrice: 269,
+    priceId: 'price_realestate_whitelabel',
+    features: [
+      'Everything in Business',
+      'Unlimited contacts',
+      'Full white-label branding',
+      'Email marketing (50,000/mo)',
+      'Includes up to 20 licenses',
+      'Additional users: $5/seat/month',
+      'Custom domain & API access',
+      'Priority support',
+    ],
+    cta: 'Go White Label',
+  },
+];
+
 export default function RealEstatePage() {
-  const [billingPeriod] = useState<'monthly' | 'annual'>('monthly');
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const features = [
-    { icon: Kanban, title: 'Deal Pipeline', desc: 'Visual pipeline from lead to close. Track every deal, offer, negotiation, and closing step with drag-and-drop simplicity.', color: 'from-emerald-500 to-teal-400' },
-    { icon: Calendar, title: 'Showing Scheduler', desc: 'Built-in calendar for showings, client meetings, and closing appointments with automated reminders.', color: 'from-violet-500 to-purple-400' },
-    { icon: Home, title: 'Listings Management', desc: 'Manage active listings, property details, showing schedules, and status updates in one organized place.', color: 'from-green-500 to-emerald-400' },
-    { icon: Users, title: 'Client Tracking', desc: 'Complete client profiles with communication history, buyer preferences, property interests, and follow-up reminders.', color: 'from-blue-500 to-cyan-400' },
-    { icon: FileSignature, title: 'Documents & E-Signatures', desc: 'Contracts, disclosures, and agreements with built-in e-signature. Everything stored and organized by transaction.', color: 'from-purple-500 to-indigo-400' },
-    { icon: Shield, title: 'License & Credential Tracking', desc: 'Track agent licenses, renewal dates, E&O insurance, and credential status with automated expiration alerts.', color: 'from-rose-500 to-pink-400' },
-    { icon: BarChart3, title: 'Commission & Revenue Tracking', desc: 'Track commissions per deal, split structures, and revenue summaries. Know exactly where your income stands.', color: 'from-amber-500 to-orange-400' },
-    { icon: Sparkles, title: 'AI Calendar Assistant', desc: 'AI helps manage your schedule, suggests optimal showing times, and reminds you of upcoming appointments.', color: 'from-cyan-500 to-blue-400' },
-  ];
-
-  const steps = [
-    { n: '01', title: 'Add your listings', desc: 'Import or create your active listings and current pipeline.' },
-    { n: '02', title: 'Set up your pipeline', desc: 'Configure deal stages to match your sales process — from inquiry to close.' },
-    { n: '03', title: 'Add clients & contacts', desc: 'Build your client database with buyer/seller profiles and history.' },
-    { n: '04', title: 'AI optimizes your workflow', desc: 'Our AI suggests next steps, follow-ups, and pipeline improvements.' },
-  ];
-
-  const plans = [
-    { name: 'Self-Employed', price: 49, desc: 'Solo agents · Basic CRM · Listings' },
-    { name: 'Small Business', price: 69, desc: 'Small teams · Pipeline · Automation' },
-    { name: 'Growth', price: 99, desc: 'Growing teams · AI insights · Reporting', popular: true },
-    { name: 'Business', price: 149, desc: 'Established teams · Docs · E-Sign' },
-    { name: 'White Label', price: 299, desc: 'Up to 20 licenses · $5/seat after' },
-  ];
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <GlobalHeader />
+    <div className="min-h-screen bg-slate-950 text-white">
+      {/* Header */}
+      <GlobalHeader transparent={!isScrolled} />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-950 overflow-hidden">
-        <div className="absolute top-1/4 left-1/3 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/50 border border-emerald-700 text-emerald-300 text-sm font-semibold mb-6">
-            <Home className="w-4 h-4" /> Real Estate CRM
-          </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-5 leading-tight">
-            Close More Deals and Manage<br />
-            <span className="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
-              Your Pipeline in One Place
-            </span>
-          </h1>
-          <p className="text-slate-300 text-xl mb-4 max-w-2xl mx-auto">
-            Listings, clients, deals, documents, commissions, and compliance — everything your brokerage or agency needs in a single platform.
-          </p>
-          <p className="text-emerald-400/80 text-sm mb-10 flex items-center justify-center gap-2">
-            <Sparkles className="w-4 h-4" /> AI will help you configure your system and optimize your workflow.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/auth/signup?category=real_estate`} onClick={() => saveFunnel()} className="group px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-emerald-500/30 transition-all flex items-center gap-2">
-              Start Your Real Estate Setup
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <Link to="/contact" className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all">
-              Book a Demo
-            </Link>
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-emerald-950/50 to-slate-950"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 text-emerald-400 text-sm font-medium mb-8">
+              <Home className="w-4 h-4" />
+              Real Estate CRM
+            </div>
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+                Close More Deals
+              </span>
+              <br />
+              <span className="text-white">Manage Your Pipeline in One Place</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto mb-8">
+              Listings, clients, deals, documents, commissions, and compliance — 
+              everything your brokerage needs in a single platform.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Link
+                to="/start"
+                className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all inline-flex items-center justify-center gap-2"
+              >
+                Start Your Setup
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <a
+                href="#pricing"
+                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 inline-flex items-center justify-center gap-2"
+              >
+                View Pricing
+              </a>
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap justify-center gap-8 text-slate-400 text-sm">
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-emerald-400" />
+                E-signatures included
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-emerald-400" />
+                AI-powered insights
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-emerald-400" />
+                No contracts
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Quick capabilities bar */}
-      <section className="py-12 bg-white border-b border-slate-100">
+      {/* Quick Capabilities Bar */}
+      <section className="py-12 bg-slate-900/50">
         <div className="max-w-5xl mx-auto px-4">
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4 text-center">
-            {['Listings','Pipeline','Client Tracking','Marketing','Documents'].map((label, i) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-center">
+            {['Listings', 'Pipeline', 'Client Tracking', 'Marketing', 'Documents'].map((label, i) => (
               <div key={i} className="flex flex-col items-center gap-2 p-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
-                  <CheckCircle className="w-5 h-5 text-emerald-600" />
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
+                  <CheckCircle className="w-5 h-5 text-emerald-400" />
                 </div>
-                <span className="text-sm font-semibold text-slate-700">{label}</span>
+                <span className="text-sm font-medium text-slate-300">{label}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" className="py-20 bg-slate-50">
+      {/* Features Section */}
+      <section id="features" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Built for Real Estate Professionals</h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">Every tool your brokerage or agency needs — configured for real estate workflows.</p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Built for Real Estate Professionals
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Every tool your brokerage or agency needs — configured for real estate workflows.
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feat, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all">
-                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feat.color} mb-4`}>
-                  <feat.icon className="w-5 h-5 text-white" />
+              <div key={i} className="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50 hover:border-emerald-500/50 transition-all group">
+                <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${feat.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                  <feat.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">{feat.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{feat.desc}</p>
+                <h3 className="font-bold mb-2">{feat.title}</h3>
+                <p className="text-slate-400 text-sm">{feat.desc}</p>
               </div>
             ))}
           </div>
@@ -115,30 +245,30 @@ export default function RealEstatePage() {
       </section>
 
       {/* Deal + Client detail */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-slate-900/50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-10 items-start">
-            <div className="p-8 rounded-2xl bg-emerald-50 border border-emerald-200">
-              <Kanban className="w-10 h-10 text-emerald-600 mb-5" />
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Deal Pipeline & Listings</h3>
-              <p className="text-slate-600 mb-5">Track every transaction from first contact through closing — with a visual pipeline that mirrors your process.</p>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-slate-800/50 backdrop-blur rounded-2xl p-8 border border-emerald-500/30">
+              <Kanban className="w-10 h-10 text-emerald-400 mb-5" />
+              <h3 className="text-2xl font-bold mb-4">Deal Pipeline & Listings</h3>
+              <p className="text-slate-400 mb-5">Track every transaction from first contact through closing — with a visual pipeline that mirrors your process.</p>
               <ul className="space-y-3">
-                {['Visual drag-and-drop pipeline','Listing status management','Offer tracking & negotiation log','Showing scheduler','Close date reminders & alerts'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-700 text-sm">
-                    <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                {['Visual drag-and-drop pipeline', 'Listing status management', 'Offer tracking & negotiation log', 'Showing scheduler', 'Close date reminders & alerts'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-slate-300 text-sm">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="p-8 rounded-2xl bg-blue-50 border border-blue-200">
-              <Users className="w-10 h-10 text-blue-600 mb-5" />
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Client & Contact Management</h3>
-              <p className="text-slate-600 mb-5">Build lasting relationships with a CRM designed around how real estate professionals work with buyers and sellers.</p>
+            <div className="bg-slate-800/50 backdrop-blur rounded-2xl p-8 border border-blue-500/30">
+              <Users className="w-10 h-10 text-blue-400 mb-5" />
+              <h3 className="text-2xl font-bold mb-4">Client & Contact Management</h3>
+              <p className="text-slate-400 mb-5">Build lasting relationships with a CRM designed for how real estate professionals work with buyers and sellers.</p>
               <ul className="space-y-3">
-                {['Buyer & seller profiles','Communication history','Property interest tracking','Automated follow-up reminders','Referral source tracking'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-700 text-sm">
-                    <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                {['Buyer & seller profiles', 'Communication history', 'Property interest tracking', 'Automated follow-up reminders', 'Referral source tracking'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-slate-300 text-sm">
+                    <CheckCircle className="w-4 h-4 text-blue-400 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -148,106 +278,212 @@ export default function RealEstatePage() {
         </div>
       </section>
 
-      {/* Marketing + Automation */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
+      {/* AI Assistant Section */}
+      <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-5">Marketing & Automation</h2>
-              <p className="text-slate-600 text-lg mb-6">Stay in front of clients automatically — without spending hours managing campaigns.</p>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-400 text-sm font-medium mb-6">
+                <Sparkles className="w-4 h-4" />
+                AI-Powered
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Your AI Real Estate Assistant
+              </h2>
+              <p className="text-slate-400 text-lg mb-8">
+                Let Operon's AI help manage your workflow, predict deal outcomes, 
+                and keep you focused on closing deals.
+              </p>
               <div className="space-y-4">
-                {[
-                  { title: 'Email Campaigns', desc: 'Send market updates, new listings, and nurture sequences to segmented client lists.' },
-                  { title: 'Social Media Scheduling', desc: 'Schedule listing posts, market updates, and brand content across your social accounts.' },
-                  { title: 'Automated Follow-Ups', desc: 'Set triggers to automatically reach out to leads, check in with past clients, and follow up after showings.' },
-                  { title: 'AI-Powered Suggestions', desc: 'Let AI recommend the best next action for each client and deal based on activity history.' },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                {aiFeatures.map((feature, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-purple-400" />
+                    </div>
                     <div>
-                      <span className="font-semibold text-slate-900">{item.title} — </span>
-                      <span className="text-slate-600 text-sm">{item.desc}</span>
+                      <h4 className="font-semibold mb-1">{feature.title}</h4>
+                      <p className="text-slate-400 text-sm">{feature.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="p-8 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white">
-              <Building2 className="w-10 h-10 mb-4 text-emerald-200" />
-              <h3 className="text-2xl font-bold mb-3">Compliance & Document Management</h3>
-              <p className="text-emerald-100 mb-5">Keep transactions compliant and documentation organized — from disclosure tracking to final closing docs.</p>
-              <ul className="space-y-2.5">
-                {['License & credential tracking','Regulatory disclosure management','Transaction document storage','E-signature on contracts & agreements','Audit-friendly activity history'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-2 text-emerald-100 text-sm">
-                    <CheckCircle className="w-4 h-4 text-white flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            <div className="bg-slate-800/50 backdrop-blur rounded-2xl p-8 border border-slate-700/50">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <div className="font-semibold">Operon AI</div>
+                  <div className="text-xs text-slate-400">Real Estate Intelligence</div>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-emerald-400">Follow-up:</span> The Johnsons viewed 3 properties last week. Best time to call: 6-8pm today.
+                </div>
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-cyan-400">Pipeline:</span> 4 deals likely to close this month. Projected volume: $1.2M.
+                </div>
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-purple-400">Suggestion:</span> 15 clients haven't been contacted in 30+ days. Schedule touch-base calls.
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How it works */}
-      <section id="how-it-works" className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-slate-900 mb-3">How It Works</h2>
-            <p className="text-slate-500 text-lg">Set up your CRM in a few simple steps. AI does the heavy lifting.</p>
-          </div>
-          <div className="grid md:grid-cols-4 gap-6">
-            {steps.map((step, i) => (
-              <div key={i} className="text-center">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-200">
-                  <span className="text-white font-bold text-lg">{step.n}</span>
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">{step.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 bg-slate-900/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Pricing for Real Estate Teams
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-8">
+              Start with any plan — all include real estate CRM features. Upgrade as your team grows.
+            </p>
 
-      {/* Pricing */}
-      <section id="pricing" className="py-16 bg-slate-50">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-3">Pricing for Real Estate Teams</h2>
-          <p className="text-slate-500 text-lg mb-6">Start with any Operon plan — all include the real estate CRM. Upgrade as your team grows.</p>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-            {plans.map((plan, i) => (
-              <div key={i} className={`p-5 rounded-2xl border-2 text-center ${plan.popular ? 'border-emerald-400 bg-emerald-50 ring-2 ring-emerald-400' : 'border-slate-200 bg-white'}`}>
-                {plan.popular && <div className="text-xs font-bold text-emerald-600 mb-2">Most Popular</div>}
-                <div className="text-2xl font-bold text-slate-900">${billingPeriod === 'annual' ? Math.round(plan.price * 0.85) : plan.price}<span className="text-slate-500 text-sm font-normal">/month</span></div>
-                <div className="font-semibold text-slate-800 mt-1">{plan.name}</div>
-                <div className="text-slate-500 text-xs mt-1">{plan.desc}</div>
-              </div>
-            ))}
+            {/* Billing Toggle */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <button
+                onClick={() => setBillingPeriod('monthly')}
+                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-white' : 'text-slate-500'}`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}
+                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-emerald-500' : 'bg-slate-700'}`}
+              >
+                <div className={`w-6 h-6 bg-white rounded-full transition-transform ${billingPeriod === 'annual' ? 'translate-x-7' : 'translate-x-1'}`} />
+              </button>
+              <button
+                onClick={() => setBillingPeriod('annual')}
+                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-white' : 'text-slate-500'}`}
+              >
+                Annual
+                <span className="text-emerald-400 text-sm font-medium ml-1">(Save 10-20%)</span>
+              </button>
+            </div>
+
+            {/* Beta Discount Banner */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 text-orange-400 text-sm font-medium mb-8">
+              <Flame className="w-4 h-4" />
+              50% OFF Beta Access on Growth Plan!
+            </div>
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/auth/signup?category=real_estate`} onClick={() => saveFunnel('growth')} className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
-              Start Your Setup
-            </a>
-            <Link to="/contact" className="px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-100 transition-all">
-              Book Demo
-            </Link>
+
+          {/* Pricing Cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            {plans.map((plan, index) => {
+              const hasBetaDiscount = plan.betaDiscount;
+              const discountedPrice = hasBetaDiscount
+                ? (billingPeriod === 'monthly' ? plan.monthlyPrice * 0.5 : plan.annualPrice * 0.5).toFixed(2)
+                : null;
+
+              return (
+                <div
+                  key={index}
+                  className={`relative bg-slate-800/50 backdrop-blur rounded-2xl p-6 border ${
+                    plan.popular ? 'border-emerald-500 shadow-lg shadow-emerald-500/20' : 'border-slate-700/50 hover:border-slate-600'
+                  } transition-all`}
+                >
+                  {/* Beta Discount Badge */}
+                  {hasBetaDiscount && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 whitespace-nowrap">
+                      <Flame className="w-3 h-3" />
+                      50% OFF
+                    </div>
+                  )}
+                  {/* Most Popular Badge */}
+                  {plan.popular && !hasBetaDiscount && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap">
+                      Most Popular
+                    </div>
+                  )}
+                  <h3 className="text-lg font-bold">{plan.name}</h3>
+                  <p className="text-slate-400 text-sm mt-1 mb-4">{plan.description}</p>
+                  <div className="mb-6">
+                    {hasBetaDiscount ? (
+                      <div>
+                        <div className="text-slate-500 line-through text-lg">
+                          ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}/mo
+                        </div>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-3xl font-bold text-orange-400">${discountedPrice}</span>
+                          <span className="text-slate-400">/mo</span>
+                        </div>
+                        <div className="text-orange-400 text-xs font-medium mt-1">Beta Price</div>
+                      </div>
+                    ) : (
+                      <div>
+                        <span className="text-3xl font-bold">
+                          ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
+                        </span>
+                        <span className="text-slate-400">/month</span>
+                      </div>
+                    )}
+                  </div>
+                  <ul className="space-y-2 mb-6">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex items-start text-sm">
+                        <Check className="w-4 h-4 text-emerald-400 mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-slate-300">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={() => saveFunnel(plan.name.toLowerCase().replace(' ', '_'))}
+                    className={`w-full py-3 rounded-lg font-semibold transition text-sm ${
+                      hasBetaDiscount
+                        ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:shadow-orange-500/25'
+                        : plan.popular
+                          ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:shadow-lg hover:shadow-emerald-500/25'
+                          : 'bg-slate-700 text-white hover:bg-slate-600'
+                    }`}
+                  >
+                    {plan.cta}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Add-ons Note */}
+          <div className="mt-12 text-center">
+            <p className="text-slate-400 text-sm">
+              <strong className="text-white">Add-ons:</strong> Multi-Business $10/mo • Additional Users $5/seat • E-signatures included in Growth+
+            </p>
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-950">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <Home className="w-12 h-12 text-emerald-400 mx-auto mb-5" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-5">Ready to Run Your Real Estate CRM?</h2>
-          <p className="text-slate-300 text-lg mb-8">Set up your pipeline, add your listings, and let AI help you optimize your workflow.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/auth/signup?category=real_estate`} onClick={() => saveFunnel()} className="group px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-emerald-500/30 transition-all flex items-center gap-2">
-              Start Your Real Estate CRM <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <Link to="/contact" className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/10 transition-all flex items-center gap-2">
-              <Phone className="w-5 h-5" /> Book a Demo
+      <section className="py-20 bg-gradient-to-r from-emerald-500/10 to-teal-500/10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Home className="w-12 h-12 text-emerald-400 mx-auto mb-6" />
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Ready to Run Your Real Estate CRM?
+          </h2>
+          <p className="text-slate-400 text-lg mb-8">
+            Set up your pipeline, add your listings, and let AI help you optimize your workflow.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/start"
+              className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all inline-flex items-center justify-center gap-2"
+            >
+              Start Your Real Estate CRM
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link
+              to="/contact"
+              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 inline-flex items-center justify-center gap-2"
+            >
+              <Phone className="w-5 h-5" />
+              Book a Demo
             </Link>
           </div>
         </div>

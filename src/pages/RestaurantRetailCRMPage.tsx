@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Check, ArrowRight, Users, Utensils, Store, Clock, Shield, BarChart3, Zap,
-  Star, ChefHat, Coffee, ShoppingBag, Wine, Pizza, IceCream
+  Star, ChefHat, Coffee, ShoppingBag, Wine, Pizza, IceCream, Sparkles, 
+  TrendingUp, MessageSquare, Calendar, Target, Award
 } from 'lucide-react';
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
 
-// NO BETA DISCOUNT for Restaurant/Retail
 const plans = [
   {
     name: 'Starter',
@@ -79,108 +79,149 @@ const plans = [
       'Everything in Pro',
       'Full white-label solution',
       'Email marketing (50,000/mo)',
-      'SMS included (5,000/mo)',
-      'Custom domain',
-      'API access',
       'Includes up to 20 licenses',
-      'Additional users: $5/seat/month',
-      'Branded mobile app coming soon',
-      'Account manager',
+      'Custom domain & branding',
+      'API access',
+      'Priority support',
     ],
-    cta: 'Start Your Platform',
+    cta: 'Go White Label',
   },
 ];
 
-const industries = [
-  { icon: Utensils, name: 'Restaurants', desc: 'Full-service dining establishments' },
-  { icon: Coffee, name: 'Cafes & Coffee Shops', desc: 'Quick service and beverage focused' },
-  { icon: Pizza, name: 'Pizzerias', desc: 'Delivery and takeout optimized' },
-  { icon: Wine, name: 'Bars & Breweries', desc: 'Nightlife and beverage service' },
-  { icon: ShoppingBag, name: 'Retail Stores', desc: 'Brick and mortar retail' },
-  { icon: IceCream, name: 'Dessert Shops', desc: 'Sweet treats and ice cream' },
-  { icon: ChefHat, name: 'Ghost Kitchens', desc: 'Delivery-only concepts' },
-  { icon: Store, name: 'Multi-Location', desc: 'Chains and franchises' },
+const businessTypes = [
+  { icon: Utensils, name: 'Restaurants', desc: 'Full-service dining' },
+  { icon: Coffee, name: 'Cafes & Coffee Shops', desc: 'Quick service beverages' },
+  { icon: Pizza, name: 'Pizzerias', desc: 'Delivery & takeout focused' },
+  { icon: Wine, name: 'Bars & Nightlife', desc: 'Entertainment venues' },
+  { icon: IceCream, name: 'Dessert Shops', desc: 'Sweet treats & ice cream' },
+  { icon: ShoppingBag, name: 'Retail Stores', desc: 'Brick & mortar shops' },
 ];
 
 const features = [
-  { icon: Store, title: 'POS Integration', desc: 'Connect with your POS to capture customer data automatically.' },
-  { icon: Users, title: 'Customer Loyalty', desc: 'Build rewards programs that drive repeat business.' },
-  { icon: Star, title: 'Review Management', desc: 'Monitor and respond to reviews from Google, Yelp, and Facebook.' },
-  { icon: BarChart3, title: 'Analytics', desc: 'Track visits, spending patterns, and campaign performance.' },
-  { icon: Zap, title: 'Automation', desc: 'Automated campaigns for birthdays, re-engagement, and promos.' },
-  { icon: Clock, title: 'Online Ordering', desc: 'Manage orders and delivery from one dashboard.' },
-  { icon: Shield, title: 'Reputation', desc: 'Protect and grow your online reputation proactively.' },
-  { icon: Users, title: 'Team Management', desc: 'Multiple users with role-based permissions.' },
+  { icon: Store, title: 'POS Integration', desc: 'Connect with Square, Toast, Clover, and more' },
+  { icon: Users, title: 'Customer Database', desc: 'Auto-capture every customer interaction' },
+  { icon: Star, title: 'Loyalty Program', desc: 'Points, rewards, and VIP tiers built-in' },
+  { icon: BarChart3, title: 'Sales Analytics', desc: 'Track trends, peak times, and top items' },
+  { icon: MessageSquare, title: 'SMS Marketing', desc: 'Targeted campaigns that drive visits' },
+  { icon: TrendingUp, title: 'Online Ordering', desc: 'Commission-free ordering & delivery' },
+  { icon: Shield, title: 'Review Management', desc: 'Monitor and respond to all reviews' },
+  { icon: Sparkles, title: 'AI Assistant', desc: 'Smart promotions and predictions' },
 ];
+
+const aiFeatures = [
+  { title: 'Smart Promotion Engine', desc: 'AI analyzes sales patterns and automatically suggests promotions for slow periods to boost revenue.' },
+  { title: 'Customer Segmentation', desc: 'Automatically group customers by behavior - VIPs, at-risk, lapsed - for targeted marketing.' },
+  { title: 'Demand Forecasting', desc: 'Predict busy periods and staffing needs based on historical data and local events.' },
+  { title: 'Review Response AI', desc: 'Generate thoughtful, on-brand responses to customer reviews in seconds.' },
+];
+
+function saveFunnel(type: string) {
+  localStorage.setItem('operon_funnel_type', type);
+  localStorage.setItem('operon_last_url', window.location.href);
+  localStorage.setItem('operon_last_step', 'restaurant-retail');
+}
+
+function handlePlanSelect(planKey: string, priceId: string) {
+  saveFunnel('restaurant_retail');
+  const selectedPlan = { plan: planKey, priceId };
+  localStorage.setItem('operon_selected_plan', JSON.stringify(selectedPlan));
+  window.location.href = `${APP_URL}/signup?plan=${planKey}`;
+}
 
 export default function RestaurantRetailCRMPage() {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const handlePlanSelect = (planName: string, priceId: string) => {
-    localStorage.setItem('operon_selected_plan', planName);
-    localStorage.setItem('operon_selected_price_id', priceId);
-    localStorage.setItem('operon_funnel_type', 'restaurant_retail_crm');
-    window.location.href = `${APP_URL}/auth/signup?plan=${planName}&category=restaurant_retail`;
-  };
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-white">
-      <GlobalHeader />
+    <div className="min-h-screen bg-slate-950 text-white">
+      {/* Header */}
+      <GlobalHeader transparent={!isScrolled} />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-orange-500 via-red-500 to-orange-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-red-500/20 rounded-full blur-3xl"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium mb-6">
-              <Utensils className="w-4 h-4" />
-              Restaurant & Retail CRM
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 text-orange-400 text-sm font-medium mb-8">
+              <ChefHat className="w-4 h-4" />
+              Built for Food & Retail
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Turn Customers Into<br />Loyal Fans
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-orange-400 via-red-400 to-pink-400 bg-clip-text text-transparent">
+                Restaurant & Retail CRM
+              </span>
             </h1>
-            <p className="text-xl text-orange-100 max-w-3xl mx-auto mb-8">
-              The complete CRM and marketing system for restaurants and retail. Manage customers, reviews, loyalty, and marketing in one powerful platform.
+            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto mb-8">
+              POS integration, customer loyalty, and automated marketing for restaurants 
+              and retail stores. Turn every transaction into a relationship.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link
                 to="/start"
-                className="px-8 py-4 bg-white text-orange-600 rounded-xl font-semibold hover:shadow-xl transition-all inline-flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-orange-500/25 transition-all inline-flex items-center justify-center gap-2"
               >
                 Start Free Trial
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
                 href="#pricing"
-                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 inline-flex items-center justify-center gap-2"
               >
                 View Pricing
               </a>
             </div>
-            <p className="text-orange-200 mt-4 text-sm">No credit card required • Set up in minutes</p>
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap justify-center gap-8 text-slate-400 text-sm">
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-green-400" />
+                Works with your POS
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-green-400" />
+                No contracts
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-green-400" />
+                Cancel anytime
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Who It's For Section */}
-      <section className="py-20 bg-slate-50">
+      {/* Business Types Section */}
+      <section className="py-20 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Built for Food & Retail Businesses
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Built for Every Food & Retail Business
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-              Whether you run a single location or multiple stores, Operon helps you grow.
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              From food trucks to fine dining, we adapt to your unique workflow.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {industries.map((industry, i) => (
-              <div key={i} className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-lg hover:border-orange-300 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center mb-4">
-                  <industry.icon className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-1">{industry.name}</h3>
-                <p className="text-slate-500 text-sm">{industry.desc}</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {businessTypes.map((type, i) => (
+              <div key={i} className="bg-slate-800/50 backdrop-blur rounded-xl p-4 border border-slate-700/50 hover:border-orange-500/50 transition-all text-center group">
+                <type.icon className="w-8 h-8 text-orange-400 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                <h3 className="font-semibold text-sm mb-1">{type.name}</h3>
+                <p className="text-slate-400 text-xs">{type.desc}</p>
               </div>
             ))}
           </div>
@@ -188,39 +229,95 @@ export default function RestaurantRetailCRMPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Everything You Need to Grow
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-              Purpose-built for the restaurant and retail industry.
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              One platform connects your POS, customers, and marketing.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, i) => (
-              <div key={i} className="p-6 rounded-xl border border-slate-200 bg-white hover:shadow-md transition-all">
-                <div className="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center mb-3">
-                  <feature.icon className="w-5 h-5" />
+              <div key={i} className="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50 hover:border-orange-500/50 transition-all group">
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <feature.icon className="w-6 h-6 text-orange-400" />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-1">{feature.title}</h3>
-                <p className="text-slate-500 text-sm">{feature.desc}</p>
+                <h3 className="font-bold mb-2">{feature.title}</h3>
+                <p className="text-slate-400 text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* AI Assistant Section */}
+      <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-400 text-sm font-medium mb-6">
+                <Sparkles className="w-4 h-4" />
+                AI-Powered
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                AI That Understands Your Business
+              </h2>
+              <p className="text-slate-400 text-lg mb-8">
+                Let Operon's AI analyze your sales patterns, predict customer behavior, 
+                and automate marketing that drives repeat visits.
+              </p>
+              <div className="space-y-4">
+                {aiFeatures.map((feature, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-purple-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">{feature.title}</h4>
+                      <p className="text-slate-400 text-sm">{feature.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-slate-800/50 backdrop-blur rounded-2xl p-8 border border-slate-700/50">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <div className="font-semibold">Operon AI</div>
+                  <div className="text-xs text-slate-400">Restaurant Intelligence</div>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-orange-400">Insight:</span> Your Tuesday lunch traffic is down 15%. Consider a "Taste of Tuesday" promotion to boost visits.
+                </div>
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-green-400">Automated:</span> Sent loyalty rewards to 47 VIP customers. Expected return rate: 68%.
+                </div>
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-cyan-400">Prediction:</span> Based on weather forecast, expect 25% more delivery orders this weekend. Prep staffed accordingly.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-slate-50">
+      <section id="pricing" className="py-20 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Pricing That Fits Your Business
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto mb-8">
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-8">
               Choose the plan for your restaurant or retail operation.
             </p>
 
@@ -228,22 +325,22 @@ export default function RestaurantRetailCRMPage() {
             <div className="flex items-center justify-center gap-4 mb-8">
               <button
                 onClick={() => setBillingPeriod('monthly')}
-                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-slate-900' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-white' : 'text-slate-500'}`}
               >
                 Monthly
               </button>
               <button
                 onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}
-                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-orange-600' : 'bg-slate-300'}`}
+                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-orange-500' : 'bg-slate-700'}`}
               >
                 <div className={`w-6 h-6 bg-white rounded-full transition-transform ${billingPeriod === 'annual' ? 'translate-x-7' : 'translate-x-1'}`} />
               </button>
               <button
                 onClick={() => setBillingPeriod('annual')}
-                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-slate-900' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-white' : 'text-slate-500'}`}
               >
                 Annual
-                <span className="text-orange-600 text-sm font-medium ml-1">(Save 10%)</span>
+                <span className="text-orange-400 text-sm font-medium ml-1">(Save 10%)</span>
               </button>
             </div>
           </div>
@@ -253,38 +350,38 @@ export default function RestaurantRetailCRMPage() {
             {plans.map((plan, index) => (
               <div
                 key={index}
-                className={`relative bg-white rounded-2xl p-6 ${
-                  plan.popular ? 'ring-2 ring-orange-600 shadow-xl' : 'shadow-lg hover:shadow-xl'
-                } transition`}
+                className={`relative bg-slate-800/50 backdrop-blur rounded-2xl p-6 border ${
+                  plan.popular ? 'border-orange-500 shadow-lg shadow-orange-500/20' : 'border-slate-700/50 hover:border-slate-600'
+                } transition-all`}
               >
                 {/* Most Popular Badge */}
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap">
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
-                <p className="text-slate-600 text-sm mt-1 mb-4">{plan.description}</p>
+                <h3 className="text-lg font-bold">{plan.name}</h3>
+                <p className="text-slate-400 text-sm mt-1 mb-4">{plan.description}</p>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-slate-900">
+                  <span className="text-3xl font-bold">
                     ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
                   </span>
-                  <span className="text-slate-500">/month</span>
+                  <span className="text-slate-400">/month</span>
                 </div>
                 <ul className="space-y-2 mb-6">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start text-sm">
-                      <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                      <span className="text-slate-600">{feature}</span>
+                      <Check className="w-4 h-4 text-orange-400 mr-2 flex-shrink-0 mt-0.5" />
+                      <span className="text-slate-300">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <button
                   onClick={() => handlePlanSelect(plan.name.toLowerCase().replace(' ', '_'), plan.priceId)}
-                  className={`w-full py-3 rounded-lg font-semibold transition ${
+                  className={`w-full py-3 rounded-lg font-semibold transition text-sm ${
                     plan.popular
-                      ? 'bg-orange-600 text-white hover:bg-orange-700'
-                      : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
+                      ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:shadow-orange-500/25'
+                      : 'bg-slate-700 text-white hover:bg-slate-600'
                   }`}
                 >
                   {plan.cta}
@@ -295,21 +392,21 @@ export default function RestaurantRetailCRMPage() {
 
           {/* Multi-Location Note */}
           <div className="mt-12 text-center">
-            <p className="text-slate-500 text-sm">
-              <strong>Multi-Location:</strong> Add additional locations for $10/mo each • <strong>Add-ons:</strong> Additional Users $5/seat
+            <p className="text-slate-400 text-sm">
+              <strong className="text-white">Multi-Location:</strong> Add additional locations for $10/mo each • <strong className="text-white">Add-ons:</strong> Additional Users $5/seat
             </p>
           </div>
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               How It Works
             </h2>
-            <p className="text-slate-500 text-lg">
+            <p className="text-slate-400 text-lg">
               Get started quickly and see results in your first month.
             </p>
           </div>
@@ -322,11 +419,11 @@ export default function RestaurantRetailCRMPage() {
               { step: '4', title: 'Watch It Grow', desc: 'Automated marketing drives repeat visits.' },
             ].map((item, i) => (
               <div key={i} className="text-center">
-                <div className="w-16 h-16 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-orange-500/20 to-red-500/20 border border-orange-500/30 flex items-center justify-center text-2xl font-bold mx-auto mb-4 text-orange-400">
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                <p className="text-slate-500">{item.desc}</p>
+                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                <p className="text-slate-400">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -334,13 +431,13 @@ export default function RestaurantRetailCRMPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-slate-900">
+      <section className="py-20 bg-gradient-to-r from-orange-500/10 to-red-500/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Utensils className="w-12 h-12 text-orange-400 mx-auto mb-6" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Grow Your Restaurant or Retail Business?
           </h2>
-          <p className="text-slate-300 text-lg mb-8">
+          <p className="text-slate-400 text-lg mb-8">
             Start your free trial today. No credit card required. See results in your first month.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -353,12 +450,12 @@ export default function RestaurantRetailCRMPage() {
             </Link>
             <Link
               to="/contact"
-              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 inline-flex items-center justify-center"
             >
               Contact Sales
             </Link>
           </div>
-          <p className="text-slate-400 mt-4 text-sm">
+          <p className="text-slate-500 mt-6 text-sm">
             Join 500+ restaurants and retail locations using Operon
           </p>
         </div>

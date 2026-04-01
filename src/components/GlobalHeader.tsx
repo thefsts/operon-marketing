@@ -26,14 +26,16 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
   const useTransparentBg = (transparent || isHome) && !scrolled;
 
   const solutions = [
-    { name: 'Small Business CRM', path: '/small-business-crm', price: 'From $29/mo' },
-    { name: 'Restaurant / Retail CRM', path: '/restaurant-retail-crm', price: 'From $69/mo' },
-    { name: 'Real Estate / Mortgage', path: '/real-estate', price: 'From $49/mo' },
-    { name: 'Medical CRM', path: '/healthcare', price: 'From $49/mo' },
-    { name: 'Legal CRM', path: '/legal', price: 'From $49/mo' },
-    { name: 'Sports & Fitness', path: '/sports', price: 'From $29/mo' },
-    { name: 'Social Media Marketing', path: '/social-media-marketing', price: 'From $49/mo' },
-    { name: 'Gun FFL / Firearms', path: '/gun-ffl-crm', price: 'From $29/mo' },
+    { name: 'Small Business CRM', path: '/small-business-crm', desc: 'Service businesses & contractors' },
+    { name: 'Restaurant / Retail CRM', path: '/restaurant-retail-crm', desc: 'POS & inventory management' },
+    { name: 'Real Estate / Mortgage', path: '/real-estate', desc: 'Listings, deals & compliance' },
+    { name: 'Medical CRM', path: '/healthcare', desc: 'HIPAA-compliant patient management' },
+    { name: 'Legal CRM', path: '/legal', desc: 'Case management & time tracking' },
+    { name: 'Sports & Fitness', path: '/sports', desc: 'Teams, leagues & facilities' },
+    { name: 'Social Media Marketing', path: '/social-media-marketing', desc: 'Content & campaign management' },
+    { name: 'Gun FFL / Firearms', path: '/gun-ffl-crm', desc: 'ATF-compliant firearm sales' },
+    { name: 'E-Commerce', path: '/e-commerce', desc: 'Online store integration' },
+    { name: 'Reputation Management', path: '/reputation-management', desc: 'Reviews & brand monitoring' },
   ];
 
   return (
@@ -58,13 +60,22 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-4">
-            <Link 
-              to="/platform" 
+            <Link
+              to="/"
               className={`text-sm font-medium transition-colors ${
                 useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
               }`}
             >
-              Platform
+              Operon
+            </Link>
+
+            <Link
+              to="/platform"
+              className={`text-sm font-medium transition-colors ${
+                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
+              }`}
+            >
+              About Operon
             </Link>
 
             {/* Solutions Dropdown */}
@@ -77,7 +88,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
                 Solutions
                 <ChevronDown className="w-4 h-4" />
               </button>
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+              <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
                 <div className="p-2">
                   {solutions.map((solution) => (
                     <Link
@@ -86,7 +97,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
                       className="block px-4 py-3 hover:bg-slate-50 rounded-lg"
                     >
                       <div className="font-semibold text-slate-900">{solution.name}</div>
-                      <div className="text-xs text-slate-500">{solution.price}</div>
+                      <div className="text-xs text-slate-500">{solution.desc}</div>
                     </Link>
                   ))}
                 </div>
@@ -111,7 +122,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
               Contact
             </Link>
 
-            <LanguageSwitcher />
+            <LanguageSwitcher transparent={useTransparentBg} />
 
             <a 
               href={`${APP_URL}/login`}
@@ -144,8 +155,11 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-white/98 backdrop-blur-xl border-b border-slate-100 shadow-lg">
           <div className="px-4 py-5 space-y-4">
+            <Link to="/" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
+              Operon
+            </Link>
             <Link to="/platform" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
-              Platform
+              About Operon
             </Link>
             
             <div className="border-t border-slate-100 pt-4">

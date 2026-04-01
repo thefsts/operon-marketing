@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Check, ArrowRight, Zap, Users, BarChart3, Clock, Phone, Mail, Calendar, 
   FileText, MessageSquare, TrendingUp, Settings, Shield, Flame, Briefcase,
-  Wrench, Home as HomeIcon, Droplets, Leaf, Truck, Sparkles
+  Wrench, Home as HomeIcon, Droplets, Leaf, Truck, Sparkles, Star, ChevronRight,
+  Building2, Target, Award
 } from 'lucide-react';
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
@@ -98,103 +99,145 @@ const plans = [
       'Includes up to 20 licenses',
       'Additional users: $5/seat/month',
       'Custom domain & API access',
-      'Branded mobile app coming soon',
-      'Dedicated account manager',
     ],
-    cta: 'Start Your Own Platform',
+    cta: 'Go White Label',
   },
 ];
 
 const industries = [
-  { icon: Wrench, name: 'General Contractors', desc: 'Manage projects, clients, and billing' },
-  { icon: HomeIcon, name: 'HVAC', desc: 'Service calls, maintenance contracts, dispatch' },
-  { icon: Droplets, name: 'Plumbing', desc: 'Job scheduling, estimates, invoicing' },
-  { icon: Sparkles, name: 'Cleaning Services', desc: 'Recurring jobs, team routing, customer CRM' },
-  { icon: Leaf, name: 'Lawn Care & Landscaping', desc: 'Route optimization, seasonal contracts' },
-  { icon: Truck, name: 'Moving & Delivery', desc: 'Quotes, scheduling, customer management' },
-  { icon: Briefcase, name: 'Consultants', desc: 'Client pipeline, projects, invoicing' },
-  { icon: Settings, name: 'Other Service Businesses', desc: 'Any local service business' },
+  { icon: Wrench, name: 'Contractors', desc: 'Plumbers, electricians, HVAC, general contractors' },
+  { icon: HomeIcon, name: 'Home Services', desc: 'Cleaning, landscaping, pest control' },
+  { icon: Truck, name: 'Mobile Services', desc: 'Detailing, repairs, delivery services' },
+  { icon: Droplets, name: 'Cleaning & Maintenance', desc: 'Janitorial, pool service, carpet cleaning' },
+  { icon: Leaf, name: 'Landscaping & Lawn', desc: 'Lawn care, tree services, irrigation' },
+  { icon: Briefcase, name: 'Professional Services', desc: 'Consultants, freelancers, agencies' },
 ];
 
 const features = [
-  { icon: Users, title: 'Client CRM', desc: 'Store all client info, history, and communications in one place.' },
-  { icon: BarChart3, title: 'Pipeline Management', desc: 'Visual deal tracking from lead to close.' },
-  { icon: Calendar, title: 'Scheduling', desc: 'Book appointments and send automatic reminders.' },
-  { icon: FileText, title: 'Estimates & Invoices', desc: 'Create and send professional documents in seconds.' },
-  { icon: MessageSquare, title: 'SMS & Email', desc: 'Communicate with clients directly from the platform.' },
-  { icon: TrendingUp, title: 'Reporting', desc: 'Track revenue, jobs, and team performance.' },
-  { icon: Zap, title: 'Automation', desc: 'Automate follow-ups, reminders, and workflows.' },
-  { icon: Shield, title: 'Secure Data', desc: 'Bank-level encryption for your business data.' },
+  { icon: Users, title: 'Client Management', desc: 'Complete contact history, notes, and preferences' },
+  { icon: Calendar, title: 'Job Scheduling', desc: 'Drag-and-drop calendar with reminders' },
+  { icon: FileText, title: 'Estimates & Invoices', desc: 'Create and send in seconds, get paid faster' },
+  { icon: MessageSquare, title: 'SMS & Email', desc: 'Reach clients their way, all tracked' },
+  { icon: BarChart3, title: 'Pipeline Tracking', desc: 'Visual job board from lead to completion' },
+  { icon: Sparkles, title: 'AI Assistant', desc: 'Smart suggestions and task automation' },
+  { icon: TrendingUp, title: 'Reporting', desc: 'Revenue, job completion, client retention' },
+  { icon: Shield, title: 'Secure & Cloud-Based', desc: 'Access from anywhere, data always safe' },
 ];
+
+const aiFeatures = [
+  { title: 'Smart Lead Scoring', desc: 'AI analyzes incoming leads and prioritizes the hottest opportunities so you focus on what matters most.' },
+  { title: 'Automated Follow-ups', desc: 'Never miss a follow-up again. AI schedules and sends personalized messages at the perfect time.' },
+  { title: 'Job Recommendations', desc: 'Get intelligent suggestions for scheduling, pricing, and resource allocation based on historical data.' },
+  { title: 'Client Insights', desc: 'AI analyzes client patterns to help you upsell services and improve customer satisfaction.' },
+];
+
+function saveFunnel(type: string) {
+  localStorage.setItem('operon_funnel_type', type);
+  localStorage.setItem('operon_last_url', window.location.href);
+  localStorage.setItem('operon_last_step', 'small-business');
+}
+
+function handlePlanSelect(planKey: string, priceId: string) {
+  saveFunnel('small_business');
+  const selectedPlan = { plan: planKey, priceId };
+  localStorage.setItem('operon_selected_plan', JSON.stringify(selectedPlan));
+  window.location.href = `${APP_URL}/signup?plan=${planKey}`;
+}
 
 export default function SmallBusinessCRMPage() {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const handlePlanSelect = (planName: string, priceId: string) => {
-    localStorage.setItem('operon_selected_plan', planName);
-    localStorage.setItem('operon_selected_price_id', priceId);
-    localStorage.setItem('operon_funnel_type', 'small_business');
-    window.location.href = `${APP_URL}/auth/signup?plan=${planName}&category=small_business`;
-  };
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-white">
-      <GlobalHeader />
+    <div className="min-h-screen bg-slate-950 text-white">
+      {/* Header */}
+      <GlobalHeader transparent={!isScrolled} />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium mb-6">
-              <Briefcase className="w-4 h-4" />
-              Small Business CRM
+            {/* Beta Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 text-orange-400 text-sm font-medium mb-8">
+              <Flame className="w-4 h-4" />
+              Limited Beta Sale - 50% OFF Growth & Pro Plans
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              The CRM Built for<br />Service Businesses
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                Small Business CRM
+              </span>
             </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-8">
-              Manage clients, jobs, scheduling, and invoicing in one simple system. Built specifically for contractors, HVAC, plumbing, cleaning, and local service businesses.
+            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto mb-8">
+              Built for service businesses, contractors, and local pros. 
+              Manage clients, jobs, and payments in one powerful platform.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link
                 to="/start"
-                className="px-8 py-4 bg-white text-blue-600 rounded-xl font-semibold hover:shadow-xl transition-all inline-flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all inline-flex items-center justify-center gap-2"
               >
                 Start Free Trial
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
                 href="#pricing"
-                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 inline-flex items-center justify-center gap-2"
               >
                 View Pricing
               </a>
             </div>
-            <p className="text-blue-200 mt-4 text-sm">No credit card required • Set up in minutes</p>
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap justify-center gap-8 text-slate-400 text-sm">
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-green-400" />
+                No credit card required
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-green-400" />
+                Set up in minutes
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-5 h-5 text-green-400" />
+                Cancel anytime
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Who It's For Section */}
-      <section className="py-20 bg-slate-50">
+      {/* Industries Section */}
+      <section className="py-20 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Built for These Industries
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Built for Service Businesses
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-              Operon CRM is designed specifically for local service businesses. If you serve clients, manage jobs, and need better organization — this is for you.
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Whether you're a solo contractor or managing a team, Operon adapts to your workflow.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {industries.map((industry, i) => (
-              <div key={i} className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-lg hover:border-blue-300 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
-                  <industry.icon className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-1">{industry.name}</h3>
-                <p className="text-slate-500 text-sm">{industry.desc}</p>
+              <div key={i} className="bg-slate-800/50 backdrop-blur rounded-xl p-4 border border-slate-700/50 hover:border-cyan-500/50 transition-all text-center group">
+                <industry.icon className="w-8 h-8 text-cyan-400 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                <h3 className="font-semibold text-sm mb-1">{industry.name}</h3>
+                <p className="text-slate-400 text-xs">{industry.desc}</p>
               </div>
             ))}
           </div>
@@ -202,39 +245,95 @@ export default function SmallBusinessCRMPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Everything You Need to Run Your Business
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-              No more juggling multiple apps. Operon gives you all the tools in one place.
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              One platform to manage clients, jobs, and payments. No more juggling multiple apps.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, i) => (
-              <div key={i} className="p-6 rounded-xl border border-slate-200 bg-white hover:shadow-md transition-all">
-                <div className="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
-                  <feature.icon className="w-5 h-5" />
+              <div key={i} className="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50 hover:border-cyan-500/50 transition-all group">
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <feature.icon className="w-6 h-6 text-cyan-400" />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-1">{feature.title}</h3>
-                <p className="text-slate-500 text-sm">{feature.desc}</p>
+                <h3 className="font-bold mb-2">{feature.title}</h3>
+                <p className="text-slate-400 text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* AI Assistant Section */}
+      <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-400 text-sm font-medium mb-6">
+                <Sparkles className="w-4 h-4" />
+                AI-Powered
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Your AI Assistant Works Behind the Scenes
+              </h2>
+              <p className="text-slate-400 text-lg mb-8">
+                Let Operon's AI handle the repetitive tasks while you focus on growing your business. 
+                Smart automation that learns from your workflow.
+              </p>
+              <div className="space-y-4">
+                {aiFeatures.map((feature, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-purple-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">{feature.title}</h4>
+                      <p className="text-slate-400 text-sm">{feature.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-slate-800/50 backdrop-blur rounded-2xl p-8 border border-slate-700/50">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <div className="font-semibold">Operon AI</div>
+                  <div className="text-xs text-slate-400">Always learning</div>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-purple-400">Suggestion:</span> Follow up with John Smith about the kitchen remodel quote. Best time to call: 2-4pm.
+                </div>
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-green-400">Automated:</span> Sent appointment reminder to 5 clients for tomorrow's jobs.
+                </div>
+                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                  <span className="text-cyan-400">Insight:</span> Your email open rate increased 23% this month. Best performing subject: "Your estimate is ready"
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-slate-50">
+      <section id="pricing" className="py-20 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Simple, Transparent Pricing
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto mb-8">
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-8">
               Start small and scale as you grow. All plans include the core features you need.
             </p>
 
@@ -242,27 +341,27 @@ export default function SmallBusinessCRMPage() {
             <div className="flex items-center justify-center gap-4 mb-8">
               <button
                 onClick={() => setBillingPeriod('monthly')}
-                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-slate-900' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-white' : 'text-slate-500'}`}
               >
                 Monthly
               </button>
               <button
                 onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}
-                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-blue-600' : 'bg-slate-300'}`}
+                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-cyan-500' : 'bg-slate-700'}`}
               >
                 <div className={`w-6 h-6 bg-white rounded-full transition-transform ${billingPeriod === 'annual' ? 'translate-x-7' : 'translate-x-1'}`} />
               </button>
               <button
                 onClick={() => setBillingPeriod('annual')}
-                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-slate-900' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-white' : 'text-slate-500'}`}
               >
                 Annual
-                <span className="text-blue-600 text-sm font-medium ml-1">(Save 10-20%)</span>
+                <span className="text-cyan-400 text-sm font-medium ml-1">(Save 10-20%)</span>
               </button>
             </div>
 
             {/* Beta Discount Banner */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 border border-orange-200 text-orange-700 text-sm font-medium mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 text-orange-400 text-sm font-medium mb-8">
               <Flame className="w-4 h-4" />
               50% OFF Beta Access on Growth & Pro tiers!
             </div>
@@ -279,62 +378,62 @@ export default function SmallBusinessCRMPage() {
               return (
                 <div
                   key={index}
-                  className={`relative bg-white rounded-2xl p-6 ${
-                    plan.popular ? 'ring-2 ring-blue-600 shadow-xl' : 'shadow-lg hover:shadow-xl'
-                  } transition`}
+                  className={`relative bg-slate-800/50 backdrop-blur rounded-2xl p-6 border ${
+                    plan.popular ? 'border-cyan-500 shadow-lg shadow-cyan-500/20' : 'border-slate-700/50 hover:border-slate-600'
+                  } transition-all`}
                 >
                   {/* Beta Discount Badge */}
                   {hasBetaDiscount && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1 whitespace-nowrap">
-                      <Flame className="w-4 h-4" />
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 whitespace-nowrap">
+                      <Flame className="w-3 h-3" />
                       50% OFF
                     </div>
                   )}
                   {/* Most Popular Badge */}
                   {plan.popular && !hasBetaDiscount && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap">
                       Most Popular
                     </div>
                   )}
-                  <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
-                  <p className="text-slate-600 text-sm mt-1 mb-4">{plan.description}</p>
+                  <h3 className="text-lg font-bold">{plan.name}</h3>
+                  <p className="text-slate-400 text-sm mt-1 mb-4">{plan.description}</p>
                   <div className="mb-6">
                     {hasBetaDiscount ? (
                       <div>
-                        <div className="text-slate-400 line-through text-lg">
+                        <div className="text-slate-500 line-through text-lg">
                           ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}/mo
                         </div>
                         <div className="flex items-baseline gap-1">
-                          <span className="text-4xl font-bold text-orange-600">${discountedPrice}</span>
-                          <span className="text-slate-500">/mo</span>
+                          <span className="text-3xl font-bold text-orange-400">${discountedPrice}</span>
+                          <span className="text-slate-400">/mo</span>
                         </div>
-                        <div className="text-orange-600 text-sm font-medium mt-1">Beta Price</div>
+                        <div className="text-orange-400 text-xs font-medium mt-1">Beta Price</div>
                       </div>
                     ) : (
                       <div>
-                        <span className="text-4xl font-bold text-slate-900">
+                        <span className="text-3xl font-bold">
                           ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
                         </span>
-                        <span className="text-slate-500">/month</span>
+                        <span className="text-slate-400">/month</span>
                       </div>
                     )}
                   </div>
                   <ul className="space-y-2 mb-6">
                     {plan.features.map((feature, i) => (
                       <li key={i} className="flex items-start text-sm">
-                        <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-slate-600">{feature}</span>
+                        <Check className="w-4 h-4 text-cyan-400 mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-slate-300">{feature}</span>
                       </li>
                     ))}
                   </ul>
                   <button
                     onClick={() => handlePlanSelect(plan.name.toLowerCase().replace(' ', '_'), plan.priceId)}
-                    className={`w-full py-3 rounded-lg font-semibold transition ${
+                    className={`w-full py-3 rounded-lg font-semibold transition text-sm ${
                       hasBetaDiscount
-                        ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg'
+                        ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:shadow-orange-500/25'
                         : plan.popular
-                          ? 'bg-blue-600 text-white hover:bg-blue-700'
-                          : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
+                          ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:shadow-lg hover:shadow-cyan-500/25'
+                          : 'bg-slate-700 text-white hover:bg-slate-600'
                     }`}
                   >
                     {plan.cta}
@@ -346,21 +445,21 @@ export default function SmallBusinessCRMPage() {
 
           {/* Add-ons Note */}
           <div className="mt-12 text-center">
-            <p className="text-slate-500 text-sm">
-              <strong>Add-ons:</strong> Multi-Business $10/mo • Additional Users $5/seat • eSignature Included
+            <p className="text-slate-400 text-sm">
+              <strong className="text-white">Add-ons:</strong> Multi-Business $10/mo • Additional Users $5/seat • eSignature Included
             </p>
           </div>
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               How It Works
             </h2>
-            <p className="text-slate-500 text-lg">
+            <p className="text-slate-400 text-lg">
               Get started in minutes, not days.
             </p>
           </div>
@@ -372,11 +471,11 @@ export default function SmallBusinessCRMPage() {
               { step: '3', title: 'Start Managing', desc: 'Track clients, jobs, and payments all in one place.' },
             ].map((item, i) => (
               <div key={i} className="text-center">
-                <div className="w-16 h-16 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 flex items-center justify-center text-2xl font-bold mx-auto mb-4 text-cyan-400">
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                <p className="text-slate-500">{item.desc}</p>
+                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                <p className="text-slate-400">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -384,12 +483,12 @@ export default function SmallBusinessCRMPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-slate-900">
+      <section className="py-20 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Grow Your Service Business?
           </h2>
-          <p className="text-slate-300 text-lg mb-8">
+          <p className="text-slate-400 text-lg mb-8">
             Join thousands of service businesses using Operon CRM to manage clients, jobs, and payments.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -402,12 +501,12 @@ export default function SmallBusinessCRMPage() {
             </Link>
             <Link
               to="/contact"
-              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 inline-flex items-center justify-center"
             >
               Contact Sales
             </Link>
           </div>
-          <p className="text-slate-400 mt-4 text-sm">
+          <p className="text-slate-500 mt-6 text-sm">
             Questions? Call us at (888) 555-0123
           </p>
         </div>
