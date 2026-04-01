@@ -5,12 +5,13 @@ import {
   Megaphone, Zap, Building2, Home, Scale, Stethoscope,
   Store, Briefcase, BarChart3, Kanban, FileSignature,
   Share2, MapPin, MessageSquare, Shield, CheckCircle, ArrowRight,
-  Play, Menu, X, Sparkles, Mail, User, Building, Phone, ChevronDown,
+  Play, Sparkles, Mail, User, Building, Phone,
   Trophy, Calendar, CreditCard, Star, Activity, Globe, ChevronRight,
   Linkedin, Facebook, Instagram, Twitter, MonitorSmartphone, Clock,
   Target, Mic, PenTool, Download, Layers
 } from 'lucide-react';
-import LanguageSwitcher from '../components/LanguageSwitcher';
+import GlobalHeader from '../components/GlobalHeader';
+import GlobalFooter from '../components/GlobalFooter';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
 
@@ -28,8 +29,6 @@ function clearFunnel() {
 
 export default function MarketingHome() {
   const navigate = useNavigate();
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeIndustry, setActiveIndustry] = useState(0);
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
   const [sportsBilling, setSportsBilling] = useState<'monthly' | 'annual'>('monthly');
@@ -41,14 +40,11 @@ export default function MarketingHome() {
   const [continueBanner, setContinueBanner] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
     // Check for saved funnel progress
     const saved = localStorage.getItem('operon_funnel_type');
     if (saved && localStorage.getItem('operon_last_step')) {
       setContinueBanner(true);
     }
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleContinueFunnel = useCallback(() => {
@@ -250,95 +246,8 @@ export default function MarketingHome() {
           <button onClick={handleContinueFunnel} className="px-4 py-1.5 bg-cyan-500 hover:bg-cyan-400 rounded-full text-white font-semibold transition-colors text-xs">Continue</button>
           <button onClick={handleStartOver} className="px-3 py-1.5 text-slate-400 hover:text-white transition-colors text-xs">Start Over</button>
         </div>
-      )}
-
-      {/* ─── Navigation ─────────────────────────────────────────────────── */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/97 backdrop-blur-xl shadow-sm border-b border-slate-100' : 'bg-slate-900/80 backdrop-blur-md'}`} style={{minHeight: '80px'}}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-[80px]">
-            <a href="/" className="inline-flex items-center">
-              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-14 w-auto object-contain" />
-            </a>
-
-            <div className="hidden md:flex items-center gap-4">
-              <a href="#platform" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Platform</a>
-              <div className="relative group">
-                <button className={`transition-colors text-sm font-medium flex items-center gap-1 ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>
-                  Solutions
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-                <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-                  <div className="p-2">
-                    <Link to="/small-business-crm" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
-                      <div className="font-semibold text-slate-900">Small Business CRM</div>
-                      <div className="text-xs text-slate-500">From $29/mo</div>
-                    </Link>
-                    <Link to="/restaurant-retail-crm" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
-                      <div className="font-semibold text-slate-900">Restaurant / Retail CRM</div>
-                      <div className="text-xs text-slate-500">From $69/mo</div>
-                    </Link>
-                    <Link to="/real-estate" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
-                      <div className="font-semibold text-slate-900">Real Estate / Mortgage</div>
-                      <div className="text-xs text-slate-500">From $49/mo</div>
-                    </Link>
-                    <Link to="/healthcare" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
-                      <div className="font-semibold text-slate-900">Medical CRM</div>
-                      <div className="text-xs text-slate-500">From $49/mo</div>
-                    </Link>
-                    <Link to="/legal" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
-                      <div className="font-semibold text-slate-900">Legal CRM</div>
-                      <div className="text-xs text-slate-500">From $49/mo</div>
-                    </Link>
-                    <Link to="/social-media-marketing" className="block px-4 py-3 hover:bg-slate-50 rounded-lg">
-                      <div className="font-semibold text-slate-900">Social Media Marketing</div>
-                      <div className="text-xs text-slate-500">From $49/mo</div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <a href="#pricing" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Pricing</a>
-              <a href="#about" className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>About</a>
-              <LanguageSwitcher />
-              <a href={`${APP_URL}/login`} className={`transition-colors text-sm font-medium ${scrolled ? 'text-slate-700 hover:text-cyan-600' : 'text-white/90 hover:text-white'}`}>Login</a>
-              <a
-                href="/start"
-                onClick={() => saveFunnel('start')}
-                className="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
-              >
-                Get Started
-              </a>
-            </div>
-
-            <button className={`md:hidden ${scrolled ? 'text-slate-700' : 'text-white'}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white/98 backdrop-blur-xl border-b border-slate-100 shadow-lg">
-            <div className="px-4 py-5 space-y-4">
-              <a href="#platform" className="block text-slate-700 hover:text-cyan-600 font-medium">Platform</a>
-              <div className="border-t border-slate-100 pt-4">
-                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Solutions</div>
-                <Link to="/small-business-crm" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Small Business CRM</Link>
-                <Link to="/restaurant-retail-crm" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Restaurant / Retail CRM</Link>
-                <Link to="/real-estate" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Real Estate / Mortgage</Link>
-                <Link to="/healthcare" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Medical CRM</Link>
-                <Link to="/legal" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Legal CRM</Link>
-                <Link to="/social-media-marketing" className="block py-2 text-slate-700 hover:text-cyan-600 font-medium">Social Media Marketing</Link>
-              </div>
-              <a href="#pricing" className="block text-slate-700 hover:text-cyan-600 font-medium">Pricing</a>
-              <a href="#about" className="block text-slate-700 hover:text-cyan-600 font-medium">About</a>
-              <div className="pt-2 border-t border-slate-100"><LanguageSwitcher /></div>
-              <a href={`${APP_URL}/login`} className="block text-slate-700 hover:text-cyan-600 font-medium">Login</a>
-              <a href="/start" onClick={() => saveFunnel('start')} className="block w-full text-center px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold">
-                Get Started
-              </a>
-            </div>
-          </div>
-        )}
-      </nav>
+      )}      {/* Global Header */}
+      <GlobalHeader />
 
       {/* ─── Hero ────────────────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center justify-center pt-16 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 overflow-hidden">
@@ -1931,6 +1840,9 @@ export default function MarketingHome() {
           </div>
         </div>
       )}
+
+      {/* Global Footer */}
+      <GlobalFooter />
     </div>
   );
 }

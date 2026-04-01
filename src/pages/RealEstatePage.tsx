@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Home, CheckCircle, ArrowRight, Menu, X, FileText, Users, BarChart3, Kanban, FileSignature, Shield, Sparkles, Building2, MapPin, Phone, Calendar } from 'lucide-react';
+import { useState } from 'react';
+import { Home, CheckCircle, ArrowRight, FileText, Users, BarChart3, Kanban, FileSignature, Shield, Sparkles, Building2, Phone, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import GlobalHeader from '../components/GlobalHeader';
+import GlobalFooter from '../components/GlobalFooter';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
 
@@ -12,15 +14,7 @@ function saveFunnel(plan?: string) {
 }
 
 export default function RealEstatePage() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    saveFunnel();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [billingPeriod] = useState<'monthly' | 'annual'>('monthly');
 
   const features = [
     { icon: Kanban, title: 'Deal Pipeline', desc: 'Visual pipeline from lead to close. Track every deal, offer, negotiation, and closing step with drag-and-drop simplicity.', color: 'from-emerald-500 to-teal-400' },
@@ -40,41 +34,20 @@ export default function RealEstatePage() {
     { n: '04', title: 'AI optimizes your workflow', desc: 'Our AI suggests next steps, follow-ups, and pipeline improvements.' },
   ];
 
+  const plans = [
+    { name: 'Self-Employed', price: 49, desc: 'Solo agents · Basic CRM · Listings' },
+    { name: 'Small Business', price: 69, desc: 'Small teams · Pipeline · Automation' },
+    { name: 'Growth', price: 99, desc: 'Growing teams · AI insights · Reporting', popular: true },
+    { name: 'Business', price: 149, desc: 'Established teams · Docs · E-Sign' },
+    { name: 'White Label', price: 299, desc: 'Up to 20 licenses · $5/seat after' },
+  ];
+
   return (
     <div className="min-h-screen bg-white text-slate-900">
+      <GlobalHeader />
 
-      {/* Nav */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-xl shadow-sm border-b border-slate-100' : 'bg-white/90 backdrop-blur-sm'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link to="/" className="inline-flex">
-              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-9 w-auto object-contain" />
-            </Link>
-            <div className="hidden md:flex items-center gap-6">
-              <a href="#features" className="text-slate-600 hover:text-emerald-600 transition-colors text-sm font-medium">Features</a>
-              <a href="#how-it-works" className="text-slate-600 hover:text-emerald-600 transition-colors text-sm font-medium">How It Works</a>
-              <Link to="/#pricing" className="text-slate-600 hover:text-emerald-600 transition-colors text-sm font-medium">Pricing</Link>
-              <a href={`${APP_URL}/login`} className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Login</a>
-              <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
-                Start Your Real Estate Setup
-              </a>
-            </div>
-            <button className="md:hidden text-slate-700" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-b border-slate-100 px-4 py-5 space-y-4">
-            <a href="#features" className="block text-slate-700 font-medium">Features</a>
-            <Link to="/#pricing" className="block text-slate-700 font-medium">Pricing</Link>
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="block w-full text-center px-4 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold">Start Setup</a>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero */}
-      <section className="relative pt-24 pb-20 bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-950 overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-950 overflow-hidden">
         <div className="absolute top-1/4 left-1/3 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative max-w-5xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/50 border border-emerald-700 text-emerald-300 text-sm font-semibold mb-6">
@@ -93,7 +66,7 @@ export default function RealEstatePage() {
             <Sparkles className="w-4 h-4" /> AI will help you configure your system and optimize your workflow.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="group px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-emerald-500/30 transition-all flex items-center gap-2">
+            <a href={`${APP_URL}/auth/signup?category=real_estate`} onClick={() => saveFunnel()} className="group px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-emerald-500/30 transition-all flex items-center gap-2">
               Start Your Real Estate Setup
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
@@ -237,29 +210,23 @@ export default function RealEstatePage() {
         </div>
       </section>
 
-      {/* Pricing - Link to main */}
-      <section className="py-16 bg-slate-50">
+      {/* Pricing */}
+      <section id="pricing" className="py-16 bg-slate-50">
         <div className="max-w-5xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-slate-900 mb-3">Pricing for Real Estate Teams</h2>
           <p className="text-slate-500 text-lg mb-6">Start with any Operon plan — all include the real estate CRM. Upgrade as your team grows.</p>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-            {[
-              { name: 'Self-Employed', price: '$49', note: '/month', desc: 'Solo agents · Basic CRM · Listings' },
-              { name: 'Small Business', price: '$69', note: '/month', desc: 'Small teams · Pipeline · Automation' },
-              { name: 'Growth', price: '$99', note: '/month', desc: 'Growing teams · AI insights · Reporting' },
-              { name: 'Business', price: '$149', note: '/month', desc: 'Established teams · Docs · E-Sign', popular: true },
-              { name: 'White Label', price: '$299', note: '/month', desc: 'Up to 20 licenses · $5/seat after' },
-            ].map((plan, i) => (
+            {plans.map((plan, i) => (
               <div key={i} className={`p-5 rounded-2xl border-2 text-center ${plan.popular ? 'border-emerald-400 bg-emerald-50 ring-2 ring-emerald-400' : 'border-slate-200 bg-white'}`}>
                 {plan.popular && <div className="text-xs font-bold text-emerald-600 mb-2">Most Popular</div>}
-                <div className="text-2xl font-bold text-slate-900">{plan.price}<span className="text-slate-500 text-sm font-normal">{plan.note}</span></div>
+                <div className="text-2xl font-bold text-slate-900">${billingPeriod === 'annual' ? Math.round(plan.price * 0.85) : plan.price}<span className="text-slate-500 text-sm font-normal">/month</span></div>
                 <div className="font-semibold text-slate-800 mt-1">{plan.name}</div>
                 <div className="text-slate-500 text-xs mt-1">{plan.desc}</div>
               </div>
             ))}
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel('growth')} className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
+            <a href={`${APP_URL}/auth/signup?category=real_estate`} onClick={() => saveFunnel('growth')} className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
               Start Your Setup
             </a>
             <Link to="/contact" className="px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-100 transition-all">
@@ -276,7 +243,7 @@ export default function RealEstatePage() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-5">Ready to Run Your Real Estate CRM?</h2>
           <p className="text-slate-300 text-lg mb-8">Set up your pipeline, add your listings, and let AI help you optimize your workflow.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={`${APP_URL}/login`} onClick={() => saveFunnel()} className="group px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-emerald-500/30 transition-all flex items-center gap-2">
+            <a href={`${APP_URL}/auth/signup?category=real_estate`} onClick={() => saveFunnel()} className="group px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-emerald-500/30 transition-all flex items-center gap-2">
               Start Your Real Estate CRM <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <Link to="/contact" className="px-8 py-4 border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/10 transition-all flex items-center gap-2">
@@ -286,16 +253,7 @@ export default function RealEstatePage() {
         </div>
       </section>
 
-      <footer className="bg-slate-950 text-slate-500 py-8 text-sm">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Operon CRM. All rights reserved. Created by <a href="https://fullstacktechsolutions.com" target="_blank" rel="noopener noreferrer" className="text-cyan-500 hover:text-cyan-400">Full Stack Tech & Solutions</a></p>
-          <div className="flex gap-5">
-            <Link to="/privacy" className="hover:text-slate-300 transition-colors">Privacy</Link>
-            <Link to="/terms" className="hover:text-slate-300 transition-colors">Terms</Link>
-            <Link to="/" className="hover:text-slate-300 transition-colors">Home</Link>
-          </div>
-        </div>
-      </footer>
+      <GlobalFooter />
     </div>
   );
 }

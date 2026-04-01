@@ -26,14 +26,14 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
   const useTransparentBg = (transparent || isHome) && !scrolled;
 
   const solutions = [
-    { name: 'Small Business', path: '/small-business-crm' },
-    { name: 'Restaurant / Retail', path: '/restaurant-retail-crm' },
-    { name: 'Real Estate / Mortgage / Title', path: '/real-estate' },
-    { name: 'Medical', path: '/healthcare' },
-    { name: 'Legal', path: '/legal' },
-    { name: 'Sports & Fitness', path: '/sports' },
-    { name: 'Gun FFL / Firearms', path: '/gun-ffl-crm' },
-    { name: 'Social Media Marketing', path: '/social-media-marketing' },
+    { name: 'Small Business CRM', path: '/small-business-crm', price: 'From $29/mo' },
+    { name: 'Restaurant / Retail CRM', path: '/restaurant-retail-crm', price: 'From $69/mo' },
+    { name: 'Real Estate / Mortgage', path: '/real-estate', price: 'From $49/mo' },
+    { name: 'Medical CRM', path: '/healthcare', price: 'From $49/mo' },
+    { name: 'Legal CRM', path: '/legal', price: 'From $49/mo' },
+    { name: 'Sports & Fitness', path: '/sports', price: 'From $29/mo' },
+    { name: 'Social Media Marketing', path: '/social-media-marketing', price: 'From $49/mo' },
+    { name: 'Gun FFL / Firearms', path: '/gun-ffl-crm', price: 'From $29/mo' },
   ];
 
   return (
@@ -43,37 +43,28 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
           ? 'bg-slate-900/80 backdrop-blur-md' 
           : 'bg-white/97 backdrop-blur-xl shadow-sm border-b border-slate-100'
       }`}
-      style={{ minHeight: '72px' }}
+      style={{ minHeight: '80px' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[72px]">
+        <div className="flex items-center justify-between h-[80px]">
           {/* Logo */}
           <Link to="/" className="inline-flex items-center">
             <img 
               src="/operon-logo-transparent.png" 
               alt="Operon CRM" 
-              className="h-10 w-auto object-contain" 
+              className="h-14 w-auto object-contain" 
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-4">
             <Link 
-              to="/" 
+              to="/platform" 
               className={`text-sm font-medium transition-colors ${
                 useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
               }`}
             >
-              Home
-            </Link>
-
-            <Link 
-              to="/pricing" 
-              className={`text-sm font-medium transition-colors ${
-                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
-              }`}
-            >
-              Pricing
+              Platform
             </Link>
 
             {/* Solutions Dropdown */}
@@ -86,15 +77,16 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
                 Solutions
                 <ChevronDown className="w-4 h-4" />
               </button>
-              <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
                 <div className="p-2">
                   {solutions.map((solution) => (
                     <Link
                       key={solution.path}
                       to={solution.path}
-                      className="block px-4 py-2.5 hover:bg-slate-50 rounded-lg text-slate-700 hover:text-cyan-600"
+                      className="block px-4 py-3 hover:bg-slate-50 rounded-lg"
                     >
-                      {solution.name}
+                      <div className="font-semibold text-slate-900">{solution.name}</div>
+                      <div className="text-xs text-slate-500">{solution.price}</div>
                     </Link>
                   ))}
                 </div>
@@ -102,12 +94,12 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
             </div>
 
             <Link 
-              to="/platform" 
+              to="/pricing" 
               className={`text-sm font-medium transition-colors ${
                 useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
               }`}
             >
-              Platform
+              Pricing
             </Link>
 
             <Link 
@@ -140,7 +132,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
 
           {/* Mobile Menu Button */}
           <button 
-            className={`lg:hidden ${useTransparentBg ? 'text-white' : 'text-slate-700'}`}
+            className={`md:hidden ${useTransparentBg ? 'text-white' : 'text-slate-700'}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -150,13 +142,10 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white/98 backdrop-blur-xl border-b border-slate-100 shadow-lg">
+        <div className="md:hidden bg-white/98 backdrop-blur-xl border-b border-slate-100 shadow-lg">
           <div className="px-4 py-5 space-y-4">
-            <Link to="/" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
-              Home
-            </Link>
-            <Link to="/pricing" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
-              Pricing
+            <Link to="/platform" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
+              Platform
             </Link>
             
             <div className="border-t border-slate-100 pt-4">
@@ -173,8 +162,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
               ))}
             </div>
 
-            <Link to="/platform" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
-              Platform
+            <Link to="/pricing" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
+              Pricing
             </Link>
             <Link to="/contact" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
               Contact

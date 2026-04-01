@@ -13,14 +13,15 @@ const GlobalFooter: React.FC = () => {
       { name: 'Integrations', path: '/integrations' },
       { name: 'API Docs', path: '/docs' },
     ],
-    industries: [
+    solutions: [
       { name: 'Small Business', path: '/small-business-crm' },
       { name: 'Restaurant / Retail', path: '/restaurant-retail-crm' },
       { name: 'Real Estate', path: '/real-estate' },
       { name: 'Medical', path: '/healthcare' },
       { name: 'Legal', path: '/legal' },
-      { name: 'Sports', path: '/sports' },
+      { name: 'Sports & Fitness', path: '/sports' },
       { name: 'Social Media Marketing', path: '/social-media-marketing' },
+      { name: 'Gun FFL / Firearms', path: '/gun-ffl-crm' },
     ],
     company: [
       { name: 'About', path: '/platform' },
@@ -70,11 +71,11 @@ const GlobalFooter: React.FC = () => {
             </ul>
           </div>
 
-          {/* Industries Links */}
+          {/* Solutions Links */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Industries</h4>
+            <h4 className="font-semibold text-white mb-4">Solutions</h4>
             <ul className="space-y-2">
-              {footerLinks.industries.map((link) => (
+              {footerLinks.solutions.map((link) => (
                 <li key={link.path}>
                   <Link to={link.path} className="text-slate-400 hover:text-white text-sm transition-colors">
                     {link.name}
