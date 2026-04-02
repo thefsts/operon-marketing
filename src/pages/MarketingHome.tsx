@@ -123,14 +123,16 @@ const platformFeatures = [
   { icon: Sparkles, title: 'AI Assistant', desc: 'Intelligent suggestions and task automation' },
 ];
 
-// Integration logos
+// Integration logos - Professional brand colors
 const integrations = [
-  { name: 'Stripe', logo: '💳' },
-  { name: 'Google', logo: '🔍' },
-  { name: 'QuickBooks', logo: '📊' },
-  { name: 'Zapier', logo: '⚡' },
-  { name: 'DoorDash', logo: '🚪' },
-  { name: 'Uber Eats', logo: '🍔' },
+  { name: 'Stripe', color: '#635BFF' },
+  { name: 'Google', color: '#4285F4' },
+  { name: 'QuickBooks', color: '#2CA01C' },
+  { name: 'Zapier', color: '#FF4A00' },
+  { name: 'DoorDash', color: '#FF3008' },
+  { name: 'Uber Eats', color: '#06C167' },
+  { name: 'Slack', color: '#4A154B' },
+  { name: 'Mailchimp', color: '#FFE01B' },
 ];
 
 // Competitor comparison data
@@ -260,36 +262,113 @@ export default function MarketingHome() {
             </p>
           </div>
 
-          {/* Dashboard preview */}
+          {/* Dashboard preview - Realistic CRM Mockup */}
           <div className="mt-16 relative animate-fade-in-up">
-          
-          {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-scroll-indicator">
-            <span className="text-gray-500 text-xs">Scroll to explore</span>
-            <div className="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center pt-2">
-              <div className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce" />
+            {/* Scroll indicator */}
+            <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-scroll-indicator z-20">
+              <span className="text-gray-500 text-xs">Scroll to explore</span>
+              <div className="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center pt-2">
+                <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" />
+              </div>
             </div>
-          </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10 pointer-events-none" />
-            <div className="relative rounded-2xl overflow-hidden border border-gray-700/50 shadow-2xl shadow-purple-500/10">
-              <div className="bg-gray-800 p-4">
-                <div className="flex items-center gap-2 mb-4">
+            
+            <div className="relative rounded-2xl overflow-hidden border border-gray-700/50 shadow-2xl shadow-purple-500/20 hover-lift">
+              {/* Window chrome */}
+              <div className="bg-gray-800 px-4 py-3 flex items-center justify-between border-b border-gray-700/50">
+                <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-red-500" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500" />
                   <div className="w-3 h-3 rounded-full bg-green-500" />
                 </div>
-                <div className="bg-gray-700 rounded-lg p-6">
-                  <div className="grid grid-cols-4 gap-4 mb-6">
-                    {['Revenue', 'Leads', 'Deals', 'Tasks'].map((label, i) => (
-                      <div key={label} className="bg-gray-600/50 rounded-lg p-4">
-                        <div className="text-gray-400 text-xs mb-1">{label}</div>
-                        <div className="text-2xl font-bold text-white">{['$24.5K', '127', '43', '18'][i]}</div>
-                        <div className="text-green-400 text-xs">+12% vs last month</div>
-                      </div>
-                    ))}
+                <div className="flex items-center gap-4">
+                  <div className="text-gray-400 text-sm">Operon CRM</div>
+                </div>
+                <div className="w-16" />
+              </div>
+              
+              {/* Dashboard content */}
+              <div className="bg-gray-900 p-6">
+                {/* Top stats row */}
+                <div className="grid grid-cols-4 gap-4 mb-6">
+                  <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-xl p-4 border border-cyan-500/20">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-gray-400 text-xs">Revenue</span>
+                      <TrendingUp className="w-4 h-4 text-green-400" />
+                    </div>
+                    <div className="text-2xl font-bold text-white">$24,580</div>
+                    <div className="text-green-400 text-xs mt-1">+12.5% this month</div>
                   </div>
-                  <div className="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg flex items-center justify-center">
-                    <BarChart3 className="w-16 h-16 text-white/20" />
+                  <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-4 border border-purple-500/20">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-gray-400 text-xs">Leads</span>
+                      <Users className="w-4 h-4 text-purple-400" />
+                    </div>
+                    <div className="text-2xl font-bold text-white">127</div>
+                    <div className="text-green-400 text-xs mt-1">+23 new this week</div>
+                  </div>
+                  <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-xl p-4 border border-emerald-500/20">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-gray-400 text-xs">Active Deals</span>
+                      <BarChart3 className="w-4 h-4 text-emerald-400" />
+                    </div>
+                    <div className="text-2xl font-bold text-white">43</div>
+                    <div className="text-green-400 text-xs mt-1">$156K pipeline</div>
+                  </div>
+                  <div className="bg-gradient-to-br from-orange-500/10 to-amber-500/10 rounded-xl p-4 border border-orange-500/20">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-gray-400 text-xs">Tasks</span>
+                      <CheckCircle className="w-4 h-4 text-orange-400" />
+                    </div>
+                    <div className="text-2xl font-bold text-white">18</div>
+                    <div className="text-gray-400 text-xs mt-1">5 due today</div>
+                  </div>
+                </div>
+                
+                {/* Main content area */}
+                <div className="grid grid-cols-3 gap-4">
+                  {/* Pipeline view */}
+                  <div className="col-span-2 bg-gray-800 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-white font-semibold">Pipeline</h4>
+                      <span className="text-xs text-gray-400">4 stages</span>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2">
+                      {['New', 'Qualified', 'Proposal', 'Won'].map((stage, i) => (
+                        <div key={stage} className="bg-gray-700/50 rounded-lg p-3">
+                          <div className="text-xs text-gray-400 mb-2">{stage}</div>
+                          <div className="space-y-2">
+                            {[1, 2].slice(0, i === 3 ? 1 : 2).map((_, j) => (
+                              <div key={j} className="bg-gray-600/50 rounded p-2 text-xs text-white truncate">
+                                Deal #{i}{j + 1}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Activity feed */}
+                  <div className="bg-gray-800 rounded-xl p-4">
+                    <h4 className="text-white font-semibold mb-4">Recent Activity</h4>
+                    <div className="space-y-3">
+                      {[
+                        { action: 'New lead captured', time: '2m ago', icon: Users },
+                        { action: 'Meeting scheduled', time: '15m ago', icon: Calendar },
+                        { action: 'Deal closed - $2,400', time: '1h ago', icon: CheckCircle },
+                        { action: 'Email sent', time: '2h ago', icon: MessageSquare },
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center">
+                            <item.icon className="w-4 h-4 text-cyan-400" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-xs text-white truncate">{item.action}</div>
+                            <div className="text-xs text-gray-500">{item.time}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -410,12 +489,21 @@ export default function MarketingHome() {
             <h3 className="text-xl font-semibold text-white mb-2">
               Connect with the Tools You Already Use
             </h3>
+            <p className="text-gray-400 text-sm">Seamless integrations with 100+ popular business tools</p>
           </div>
-          <div className="flex flex-wrap justify-center items-center gap-8">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
             {integrations.map((int, i) => (
-              <div key={i} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
-                <span className="text-2xl">{int.logo}</span>
-                <span className="font-medium">{int.name}</span>
+              <div 
+                key={i} 
+                className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-700/30 hover:bg-gray-700/50 border border-gray-700/50 hover:border-gray-600/50 transition-all cursor-pointer"
+              >
+                <div 
+                  className="w-6 h-6 rounded flex items-center justify-center text-white text-xs font-bold"
+                  style={{ backgroundColor: int.color }}
+                >
+                  {int.name.charAt(0)}
+                </div>
+                <span className="font-medium text-gray-300 group-hover:text-white transition-colors">{int.name}</span>
               </div>
             ))}
           </div>

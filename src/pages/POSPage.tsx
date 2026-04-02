@@ -197,6 +197,83 @@ export default function POSPage() {
         </div>
       </section>
 
+      {/* Dashboard Preview */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-2xl shadow-purple-500/10 hover-lift">
+            <div className="bg-slate-800 px-4 py-3 flex items-center justify-between border-b border-slate-700/50">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                <div className="w-3 h-3 rounded-full bg-green-500" />
+              </div>
+              <div className="text-slate-400 text-sm">Operon CRM - POS Dashboard</div>
+            </div>
+            <div className="bg-slate-900 p-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-slate-400 text-sm">Today's Sales</span>
+                    <ShoppingCart className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-white">$4,287</div>
+                  <div className="text-green-400 text-xs mt-1">+12% vs yesterday</div>
+                </div>
+                <div className="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-slate-400 text-sm">Transactions</span>
+                    <CreditCard className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-white">156</div>
+                  <div className="text-purple-400 text-xs mt-1">Avg: $27.49</div>
+                </div>
+                <div className="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-slate-400 text-sm">Top Seller</span>
+                    <Package className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-white">89 units</div>
+                  <div className="text-amber-400 text-xs mt-1">Restock needed</div>
+                </div>
+              </div>
+              <div className="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
+                <div className="text-slate-400 text-sm mb-3">Recent Transactions</div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between p-2 bg-slate-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-green-400"></div>
+                      <span className="text-white text-sm">Order #2847 - Card</span>
+                    </div>
+                    <span className="text-green-400 text-xs">$47.50</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-slate-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-blue-400"></div>
+                      <span className="text-white text-sm">Order #2846 - Cash</span>
+                    </div>
+                    <span className="text-blue-400 text-xs">$23.00</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-slate-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-purple-400"></div>
+                      <span className="text-white text-sm">Order #2845 - Digital</span>
+                    </div>
+                    <span className="text-purple-400 text-xs">$89.99</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-slate-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-amber-400"></div>
+                      <span className="text-white text-sm">VIP Customer - Sarah M.</span>
+                    </div>
+                    <span className="text-amber-400 text-xs">Loyalty: Gold</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features */}
       <section id="features" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

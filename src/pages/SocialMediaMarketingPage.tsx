@@ -183,7 +183,7 @@ export default function SocialMediaMarketingPage() {
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center gap-8 text-gray-400 text-sm">
+            <div className="flex flex-wrap justify-center gap-8 text-gray-400 text-sm mb-12">
               <div className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-purple-400" />
                 No credit card required
@@ -195,6 +195,55 @@ export default function SocialMediaMarketingPage() {
               <div className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-purple-400" />
                 Cancel anytime
+              </div>
+            </div>
+            
+            {/* Dashboard Preview */}
+            <div className="relative max-w-5xl mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10 pointer-events-none" />
+              <div className="relative rounded-2xl overflow-hidden border border-gray-700/50 shadow-2xl shadow-purple-500/10 hover-lift">
+                <div className="bg-gray-800 px-4 py-3 flex items-center justify-between border-b border-gray-700/50">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                    <div className="w-3 h-3 rounded-full bg-green-500" />
+                  </div>
+                  <div className="text-gray-400 text-sm">Operon CRM - Social Media</div>
+                  <div className="w-16" />
+                </div>
+                <div className="bg-gray-900 p-6">
+                  <div className="grid grid-cols-3 gap-4 mb-6">
+                    <div className="bg-gradient-to-br from-purple-500/10 to-violet-500/10 rounded-xl p-4 border border-purple-500/20">
+                      <div className="text-gray-400 text-xs mb-1">Scheduled Posts</div>
+                      <div className="text-2xl font-bold text-white">47</div>
+                      <div className="text-gray-400 text-xs">Across 6 platforms</div>
+                    </div>
+                    <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-xl p-4 border border-cyan-500/20">
+                      <div className="text-gray-400 text-xs mb-1">Engagement Rate</div>
+                      <div className="text-2xl font-bold text-white">4.2%</div>
+                      <div className="text-green-400 text-xs">+0.8% this week</div>
+                    </div>
+                    <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-xl p-4 border border-emerald-500/20">
+                      <div className="text-gray-400 text-xs mb-1">Followers</div>
+                      <div className="text-2xl font-bold text-white">12.4K</div>
+                      <div className="text-green-400 text-xs">+340 this month</div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2">
+                    {['Draft', 'Scheduled', 'Published', 'Analyzing'].map((stage, i) => (
+                      <div key={stage} className="bg-gray-800/50 rounded-lg p-3">
+                        <div className="text-xs text-gray-400 mb-2">{stage}</div>
+                        <div className="space-y-2">
+                          {[1, 2].slice(0, i === 3 ? 1 : 2).map((_, j) => (
+                            <div key={j} className="bg-gray-700/50 rounded p-2 text-xs text-gray-300 truncate">
+                              Post #{i}{j + 1}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

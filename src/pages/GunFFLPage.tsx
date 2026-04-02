@@ -213,6 +213,83 @@ export default function GunFFLPage() {
         </div>
       </section>
 
+      {/* Dashboard Preview */}
+      <section className="py-16 bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-2xl overflow-hidden border border-gray-700/50 shadow-2xl shadow-amber-500/10 hover-lift">
+            <div className="bg-gray-800 px-4 py-3 flex items-center justify-between border-b border-gray-700/50">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                <div className="w-3 h-3 rounded-full bg-green-500" />
+              </div>
+              <div className="text-gray-400 text-sm">Operon CRM - FFL Dashboard</div>
+            </div>
+            <div className="bg-gray-900 p-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-gray-400 text-sm">Firearms in Stock</span>
+                    <Shield className="w-4 h-4 text-amber-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-white">847</div>
+                  <div className="text-green-400 text-xs mt-1">+12% this month</div>
+                </div>
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-gray-400 text-sm">Pending 4473 Forms</span>
+                    <FileCheck className="w-4 h-4 text-amber-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-white">23</div>
+                  <div className="text-amber-400 text-xs mt-1">5 due today</div>
+                </div>
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-gray-400 text-sm">Compliance Status</span>
+                    <Check className="w-4 h-4 text-green-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-green-400">98.7%</div>
+                  <div className="text-gray-400 text-xs mt-1">All systems operational</div>
+                </div>
+              </div>
+              <div className="bg-gray-800 rounded-lg p-4 border border-gray-700/50">
+                <div className="text-gray-400 text-sm mb-3">Recent A&D Transactions</div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between p-2 bg-gray-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-green-400"></div>
+                      <span className="text-white text-sm">Glock 19 Gen 5 - Acquisition</span>
+                    </div>
+                    <span className="text-gray-400 text-xs">2 min ago</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-gray-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-amber-400"></div>
+                      <span className="text-white text-sm">Smith & Wesson M&P - Disposition</span>
+                    </div>
+                    <span className="text-gray-400 text-xs">15 min ago</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-gray-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-green-400"></div>
+                      <span className="text-white text-sm">Form 4473 #2847 - Completed</span>
+                    </div>
+                    <span className="text-gray-400 text-xs">1 hour ago</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-gray-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-blue-400"></div>
+                      <span className="text-white text-sm">License Renewal Alert - 30 days</span>
+                    </div>
+                    <span className="text-gray-400 text-xs">2 hours ago</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Business Types */}
       <section className="py-20 bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

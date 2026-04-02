@@ -128,6 +128,60 @@ export default function MortgagePage() {
         </div>
       </section>
 
+      {/* Dashboard Preview */}
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-2xl shadow-indigo-500/10 hover-lift">
+            <div className="bg-slate-800 px-4 py-3 flex items-center justify-between border-b border-slate-700/50">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                <div className="w-3 h-3 rounded-full bg-green-500" />
+              </div>
+              <div className="text-slate-400 text-sm">Operon CRM - Mortgage Dashboard</div>
+            </div>
+            <div className="bg-slate-900 p-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-slate-400 text-sm">Active Loans</span>
+                    <FileText className="w-4 h-4 text-indigo-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-white">47</div>
+                  <div className="text-green-400 text-xs mt-1">$12.4M in pipeline</div>
+                </div>
+                <div className="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-slate-400 text-sm">Closings This Month</span>
+                    <CheckCircle className="w-4 h-4 text-indigo-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-white">12</div>
+                  <div className="text-indigo-400 text-xs mt-1">3 this week</div>
+                </div>
+                <div className="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-slate-400 text-sm">Avg Days to Close</span>
+                    <BarChart3 className="w-4 h-4 text-indigo-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-white">28</div>
+                  <div className="text-amber-400 text-xs mt-1">Industry avg: 45</div>
+                </div>
+              </div>
+              <div className="bg-slate-800 rounded-lg p-4 border border-slate-700/50">
+                <div className="text-slate-400 text-sm mb-3">Loan Pipeline</div>
+                <div className="flex gap-2 flex-wrap">
+                  <div className="px-3 py-1.5 bg-blue-500/20 rounded-full text-blue-400 text-xs font-medium">Application (8)</div>
+                  <div className="px-3 py-1.5 bg-purple-500/20 rounded-full text-purple-400 text-xs font-medium">Processing (14)</div>
+                  <div className="px-3 py-1.5 bg-amber-500/20 rounded-full text-amber-400 text-xs font-medium">Underwriting (12)</div>
+                  <div className="px-3 py-1.5 bg-green-500/20 rounded-full text-green-400 text-xs font-medium">Clear to Close (8)</div>
+                  <div className="px-3 py-1.5 bg-indigo-500/20 rounded-full text-indigo-400 text-xs font-medium">Closing (5)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features */}
       <section id="features" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

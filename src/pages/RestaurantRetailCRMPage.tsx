@@ -204,6 +204,83 @@ export default function RestaurantRetailCRMPage() {
         </div>
       </section>
 
+      {/* Dashboard Preview */}
+      <section className="py-16 bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-2xl overflow-hidden border border-gray-700/50 shadow-2xl shadow-orange-500/10 hover-lift">
+            <div className="bg-gray-800 px-4 py-3 flex items-center justify-between border-b border-gray-700/50">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                <div className="w-3 h-3 rounded-full bg-green-500" />
+              </div>
+              <div className="text-gray-400 text-sm">Operon CRM - Restaurant Dashboard</div>
+            </div>
+            <div className="bg-gray-900 p-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-gray-400 text-sm">Today's Orders</span>
+                    <ShoppingBag className="w-4 h-4 text-orange-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-white">127</div>
+                  <div className="text-green-400 text-xs mt-1">+18% vs yesterday</div>
+                </div>
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-gray-400 text-sm">Revenue Today</span>
+                    <TrendingUp className="w-4 h-4 text-orange-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-white">$3,847</div>
+                  <div className="text-green-400 text-xs mt-1">On track for goal</div>
+                </div>
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-gray-400 text-sm">Loyalty Members</span>
+                    <Star className="w-4 h-4 text-orange-400" />
+                  </div>
+                  <div className="text-2xl font-bold text-white">2,340</div>
+                  <div className="text-amber-400 text-xs mt-1">+45 this week</div>
+                </div>
+              </div>
+              <div className="bg-gray-800 rounded-lg p-4 border border-gray-700/50">
+                <div className="text-gray-400 text-sm mb-3">Recent Orders</div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between p-2 bg-gray-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-green-400"></div>
+                      <span className="text-white text-sm">Order #2847 - Table 12</span>
+                    </div>
+                    <span className="text-green-400 text-xs">Completed</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-gray-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-amber-400"></div>
+                      <span className="text-white text-sm">Order #2846 - Delivery</span>
+                    </div>
+                    <span className="text-amber-400 text-xs">In Transit</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-gray-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-blue-400"></div>
+                      <span className="text-white text-sm">Order #2845 - Pickup</span>
+                    </div>
+                    <span className="text-blue-400 text-xs">Preparing</span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-gray-700/30 rounded">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-purple-400"></div>
+                      <span className="text-white text-sm">5-star review from Sarah M.</span>
+                    </div>
+                    <span className="text-purple-400 text-xs">Just now</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Business Types Section */}
       <section className="py-20 bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
