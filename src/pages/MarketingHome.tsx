@@ -17,7 +17,7 @@ function saveFunnel(type: string) {
   localStorage.setItem('operon_last_step', 'home');
 }
 
-// Industry solutions data
+// Industry solutions data with images
 const industries = [
   { 
     icon: Briefcase, 
@@ -25,7 +25,8 @@ const industries = [
     desc: 'Complete CRM for service businesses, contractors, and local pros.',
     path: '/small-business-crm',
     color: 'from-blue-500 to-cyan-400',
-    price: '$29'
+    price: '$29',
+    image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=300&fit=crop'
   },
   { 
     icon: ShoppingCart, 
@@ -33,7 +34,8 @@ const industries = [
     desc: 'POS, inventory, and customer management in one system.',
     path: '/restaurant-retail-crm',
     color: 'from-orange-500 to-red-400',
-    price: '$69'
+    price: '$69',
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop'
   },
   { 
     icon: Home, 
@@ -41,7 +43,8 @@ const industries = [
     desc: 'Listings, deals, commissions, and compliance for agents.',
     path: '/real-estate',
     color: 'from-emerald-500 to-teal-400',
-    price: '$49'
+    price: '$49',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop'
   },
   { 
     icon: Stethoscope, 
@@ -49,7 +52,8 @@ const industries = [
     desc: 'HIPAA-compliant patient management and scheduling.',
     path: '/healthcare',
     color: 'from-rose-500 to-pink-400',
-    price: '$49'
+    price: '$49',
+    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop'
   },
   { 
     icon: Scale, 
@@ -57,7 +61,8 @@ const industries = [
     desc: 'Case management, time tracking, and client communications.',
     path: '/legal',
     color: 'from-amber-500 to-orange-400',
-    price: '$49'
+    price: '$49',
+    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop'
   },
   { 
     icon: Trophy, 
@@ -65,7 +70,8 @@ const industries = [
     desc: 'Teams, leagues, facilities, and school athletic programs.',
     path: '/sports',
     color: 'from-green-500 to-emerald-400',
-    price: '$29'
+    price: '$29',
+    image: 'https://images.unsplash.com/photo-1461896836934-eea8ea3d6d8e?w=400&h=300&fit=crop'
   },
   { 
     icon: Globe, 
@@ -73,7 +79,8 @@ const industries = [
     desc: 'Content scheduling, campaigns, and analytics.',
     path: '/social-media-marketing',
     color: 'from-purple-500 to-violet-400',
-    price: '$49'
+    price: '$49',
+    image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop'
   },
   { 
     icon: Shield, 
@@ -81,7 +88,8 @@ const industries = [
     desc: 'ATF-compliant sales, inventory, and compliance tracking.',
     path: '/gun-ffl-crm',
     color: 'from-slate-500 to-slate-400',
-    price: '$29'
+    price: '$29',
+    image: 'https://images.unsplash.com/photo-1585310988534-1e67e5a6c6e8?w=400&h=300&fit=crop'
   },
   { 
     icon: BarChart3, 
@@ -89,7 +97,8 @@ const industries = [
     desc: 'Online store integration with full order management.',
     path: '/e-commerce',
     color: 'from-indigo-500 to-blue-400',
-    price: '$49'
+    price: '$49',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop'
   },
   { 
     icon: Star, 
@@ -97,7 +106,8 @@ const industries = [
     desc: 'Reviews, brand monitoring, and online presence.',
     path: '/reputation-management',
     color: 'from-yellow-500 to-amber-400',
-    price: '$99'
+    price: '$99',
+    image: 'https://images.unsplash.com/photo-1560472354-b33d0a0e1f6b?w=400&h=300&fit=crop'
   },
 ];
 
@@ -195,9 +205,16 @@ export default function MarketingHome() {
       <section className={`relative min-h-screen flex items-center justify-center pt-32 bg-gradient-to-br from-slate-950 via-purple-950/50 to-blue-950 overflow-hidden ${continueBanner ? 'mt-8' : ''}`}>
         {/* Animated background effects */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-float-delayed" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-3xl animate-pulse-glow" />
+          
+          {/* Floating particles */}
+          <div className="absolute top-20 left-10 w-2 h-2 bg-cyan-400 rounded-full animate-float opacity-60" />
+          <div className="absolute top-40 right-20 w-3 h-3 bg-purple-400 rounded-full animate-float-delayed opacity-60" />
+          <div className="absolute bottom-40 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-float opacity-60" />
+          <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-pink-400 rounded-full animate-float-delayed opacity-60" />
+          <div className="absolute bottom-20 right-10 w-2 h-2 bg-green-400 rounded-full animate-float opacity-60" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -211,7 +228,7 @@ export default function MarketingHome() {
             {/* Main headline */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
               Run Your Entire Business<br />
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="gradient-text-animate bg-clip-text text-transparent">
                 From One System
               </span>
             </h1>
@@ -244,7 +261,15 @@ export default function MarketingHome() {
           </div>
 
           {/* Dashboard preview */}
-          <div className="mt-16 relative">
+          <div className="mt-16 relative animate-fade-in-up">
+          
+          {/* Scroll indicator */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-scroll-indicator">
+            <span className="text-slate-500 text-xs">Scroll to explore</span>
+            <div className="w-6 h-10 border-2 border-slate-600 rounded-full flex justify-center pt-2">
+              <div className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce" />
+            </div>
+          </div>
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-10 pointer-events-none" />
             <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-purple-500/10">
               <div className="bg-slate-900 p-4">
@@ -279,7 +304,7 @@ export default function MarketingHome() {
       <section className="py-20 bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 animate-fade-in-up">
               Choose the System Built for Your Business
             </h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
@@ -293,17 +318,30 @@ export default function MarketingHome() {
                 key={i}
                 to={industry.path}
                 onClick={() => saveFunnel(industry.name.toLowerCase().replace(/[^a-z]/g, '_'))}
-                className="group relative bg-slate-900/50 border border-white/10 rounded-2xl p-6 hover:border-white/20 hover:bg-slate-800/50 transition-all overflow-hidden"
+                className="group relative bg-slate-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 hover:bg-slate-800/50 transition-all hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${industry.color} opacity-0 group-hover:opacity-10 transition-opacity`} />
-                <div className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${industry.color} flex items-center justify-center mb-4`}>
-                  <industry.icon className="w-6 h-6 text-white" />
+                {/* Image with gradient overlay */}
+                <div className="relative h-32 overflow-hidden">
+                  <img 
+                    src={industry.image} 
+                    alt={industry.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className={`absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent`} />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${industry.color} opacity-20 group-hover:opacity-30 transition-opacity`} />
                 </div>
-                <h3 className="font-bold text-white mb-2">{industry.name}</h3>
-                <p className="text-slate-400 text-sm mb-4">{industry.desc}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-cyan-400 text-sm font-medium">From {industry.price}/mo</span>
-                  <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                
+                {/* Content */}
+                <div className="relative p-5">
+                  <div className={`absolute -top-6 left-4 w-10 h-10 rounded-lg bg-gradient-to-br ${industry.color} flex items-center justify-center shadow-lg`}>
+                    <industry.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="font-bold text-white mb-1 mt-2">{industry.name}</h3>
+                  <p className="text-slate-400 text-xs mb-3 line-clamp-2">{industry.desc}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-cyan-400 text-xs font-medium">From {industry.price}/mo</span>
+                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  </div>
                 </div>
               </Link>
             ))}

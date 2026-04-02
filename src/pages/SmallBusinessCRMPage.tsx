@@ -371,8 +371,9 @@ export default function SmallBusinessCRMPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {plans.map((plan, index) => {
               const hasBetaDiscount = plan.betaDiscount;
+              // Beta discount applies to base monthly price, no additional annual savings
               const discountedPrice = hasBetaDiscount
-                ? (billingPeriod === 'monthly' ? plan.monthlyPrice * 0.5 : plan.annualPrice * 0.5).toFixed(2)
+                ? (plan.monthlyPrice * 0.5).toFixed(2)
                 : null;
 
               return (
@@ -401,13 +402,14 @@ export default function SmallBusinessCRMPage() {
                     {hasBetaDiscount ? (
                       <div>
                         <div className="text-slate-500 line-through text-lg">
-                          ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}/mo
+                          ${plan.monthlyPrice}/month
                         </div>
                         <div className="flex items-baseline gap-1">
                           <span className="text-3xl font-bold text-orange-400">${discountedPrice}</span>
-                          <span className="text-slate-400">/mo</span>
+                          <span className="text-slate-400">/month</span>
                         </div>
                         <div className="text-orange-400 text-xs font-medium mt-1">Beta Price</div>
+                        <div className="text-slate-500 text-xs mt-1">Same price for monthly & annual billing</div>
                       </div>
                     ) : (
                       <div>

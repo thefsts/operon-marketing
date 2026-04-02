@@ -430,7 +430,7 @@ export default function GunFFLPage() {
             {plans.map((plan, index) => {
               const hasBetaDiscount = plan.betaDiscount;
               const discountedPrice = hasBetaDiscount
-                ? (billingPeriod === 'monthly' ? plan.monthlyPrice * 0.5 : plan.annualPrice * 0.5).toFixed(2)
+                ? (plan.monthlyPrice * 0.5).toFixed(2)
                 : null;
 
               return (
@@ -459,7 +459,7 @@ export default function GunFFLPage() {
                     {hasBetaDiscount ? (
                       <div>
                         <div className="text-slate-500 line-through text-lg">
-                          ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}/mo
+                          ${plan.monthlyPrice}/month
                         </div>
                         <div className="flex items-baseline gap-1">
                           <span className="text-4xl font-bold text-amber-400">${discountedPrice}</span>

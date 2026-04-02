@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';
+import './styles/animations.css';
 import { initGA, initPostHog } from './lib/analytics';
 
 // Initialize analytics (only if consent was previously given or on first load)
