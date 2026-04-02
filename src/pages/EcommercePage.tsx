@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { ShoppingBag, CreditCard, Store, Users, BarChart, Globe, Shield, Truck, CheckCircle, ArrowRight, Menu, X, Sparkles, ChevronRight, Zap, Smartphone, Package, TrendingUp } from 'lucide-react';
+import { ShoppingBag, CreditCard, Store, Users, BarChart, Globe, Shield, Truck, CheckCircle, ArrowRight, Sparkles, ChevronRight, Zap, Smartphone, Package, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import GlobalHeader from '../components/GlobalHeader';
+import GlobalFooter from '../components/GlobalFooter';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
 
@@ -12,15 +14,10 @@ function saveFunnel(plan?: string) {
 }
 
 export default function EcommercePage() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
     saveFunnel();
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const features = [
@@ -130,51 +127,7 @@ export default function EcommercePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">O</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">Operon CRM</span>
-            </Link>
-            
-            <div className="hidden md:flex items-center space-x-8">
-              <Link to="/sports" className="text-gray-600 hover:text-blue-600 transition font-medium">Sports</Link>
-              <Link to="/ecommerce" className="text-blue-600 font-semibold">E-commerce</Link>
-              <Link to="/real-estate" className="text-gray-600 hover:text-blue-600 transition font-medium">Real Estate</Link>
-              <Link to="/pricing" className="text-gray-600 hover:text-blue-600 transition font-medium">Pricing</Link>
-              <Link to="/contact" className="text-gray-600 hover:text-blue-600 transition font-medium">Contact</Link>
-              <Link to="/start" className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition">
-                Get Started
-              </Link>
-            </div>
-
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-3">
-            <Link to="/sports" className="block text-gray-600 hover:text-blue-600 py-2">Sports</Link>
-            <Link to="/ecommerce" className="block text-blue-600 font-semibold py-2">E-commerce</Link>
-            <Link to="/real-estate" className="block text-gray-600 hover:text-blue-600 py-2">Real Estate</Link>
-            <Link to="/pricing" className="block text-gray-600 hover:text-blue-600 py-2">Pricing</Link>
-            <Link to="/contact" className="block text-gray-600 hover:text-blue-600 py-2">Contact</Link>
-            <Link to="/start" className="block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg font-semibold text-center">
-              Get Started
-            </Link>
-          </div>
-        )}
-      </nav>
+      <GlobalHeader />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-blue-50 via-white to-purple-50">
@@ -387,50 +340,7 @@ export default function EcommercePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">O</span>
-                </div>
-                <span className="text-xl font-bold">Operon CRM</span>
-              </div>
-              <p className="text-gray-400">Complete CRM platform for e-commerce and business management.</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link to="/ecommerce" className="hover:text-white transition">E-commerce</Link></li>
-                <li><Link to="/sports" className="hover:text-white transition">Sports</Link></li>
-                <li><Link to="/real-estate" className="hover:text-white transition">Real Estate</Link></li>
-                <li><Link to="/pricing" className="hover:text-white transition">Pricing</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link to="/docs" className="hover:text-white transition">Documentation</Link></li>
-                <li><Link to="/contact" className="hover:text-white transition">Support</Link></li>
-                <li><Link to="/compliance" className="hover:text-white transition">Compliance</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link to="/contact" className="hover:text-white transition">Contact</Link></li>
-                <li><Link to="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
-                <li><Link to="/terms" className="hover:text-white transition">Terms of Service</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Operon CRM. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <GlobalFooter />
     </div>
   );
 }

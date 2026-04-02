@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Shield, Stethoscope, Scale, Home, CheckCircle, ArrowRight, Menu, X, Lock, FileText, Users, Eye, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { Shield, Stethoscope, Scale, Home, CheckCircle, ArrowRight, Lock, FileText, Users, Eye, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import GlobalHeader from '../components/GlobalHeader';
+import GlobalFooter from '../components/GlobalFooter';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
 
@@ -11,19 +13,14 @@ function saveFunnel(type: string) {
 }
 
 export default function CompliancePage() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'medical' | 'legal' | 'realestate'>('medical');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
     const savedFunnel = localStorage.getItem('operon_funnel_type');
     if (savedFunnel === 'medical') setActiveTab('medical');
     else if (savedFunnel === 'legal') setActiveTab('legal');
     else if (savedFunnel === 'real_estate') setActiveTab('realestate');
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const industries = {
@@ -102,35 +99,7 @@ export default function CompliancePage() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
-
-      {/* Nav */}
-      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-xl shadow-sm border-b border-slate-100' : 'bg-white/90 backdrop-blur-sm'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link to="/" className="inline-flex">
-              <img src="/operon-logo-transparent.png" alt="Operon CRM" className="h-9 w-auto object-contain" />
-            </Link>
-            <div className="hidden md:flex items-center gap-6">
-              <Link to="/#features" className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Platform</Link>
-              <Link to="/#industries" className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Industries</Link>
-              <Link to="/#pricing" className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Pricing</Link>
-              <a href={`${APP_URL}/login`} className="text-slate-600 hover:text-cyan-600 transition-colors text-sm font-medium">Login</a>
-              <a href="/start" className="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg transition-all">Get Started</a>
-            </div>
-            <button className="md:hidden text-slate-700" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-b border-slate-100 px-4 py-5 space-y-4">
-            <Link to="/" className="block text-slate-700 font-medium">Home</Link>
-            <Link to="/#pricing" className="block text-slate-700 font-medium">Pricing</Link>
-            <a href={`${APP_URL}/login`} className="block text-slate-700 font-medium">Login</a>
-            <a href="/start" className="block w-full text-center px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold">Get Started</a>
-          </div>
-        )}
-      </nav>
+      <GlobalHeader />
 
       {/* Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-slate-900 to-blue-950">
@@ -289,17 +258,7 @@ export default function CompliancePage() {
         </div>
       </section>
 
-      {/* Footer bottom */}
-      <footer className="bg-slate-950 text-slate-500 py-8 text-sm">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Operon CRM. All rights reserved. Created by <a href="https://fullstacktechsolutions.com" target="_blank" rel="noopener noreferrer" className="text-cyan-500 hover:text-cyan-400">Full Stack Tech & Solutions</a></p>
-          <div className="flex gap-5">
-            <Link to="/privacy" className="hover:text-slate-300 transition-colors">Privacy</Link>
-            <Link to="/terms" className="hover:text-slate-300 transition-colors">Terms</Link>
-            <Link to="/" className="hover:text-slate-300 transition-colors">Home</Link>
-          </div>
-        </div>
-      </footer>
+      <GlobalFooter />
     </div>
   );
 }
