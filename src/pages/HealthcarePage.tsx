@@ -150,14 +150,14 @@ export default function HealthcarePage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-gray-900 text-white">
       {/* Header */}
       <GlobalHeader transparent={!isScrolled} />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-rose-950/50 to-slate-950"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-rose-950/50 to-gray-900"></div>
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-rose-500/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl"></div>
         
@@ -176,7 +176,7 @@ export default function HealthcarePage() {
               <br />
               <span className="text-white">Healthcare Providers</span>
             </h1>
-            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto mb-8">
+            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8">
               Manage patients, appointments, documents, and compliance in one HIPAA-ready system. 
               Built for clinics, dentists, specialists, and medical practices.
             </p>
@@ -192,14 +192,14 @@ export default function HealthcarePage() {
               </Link>
               <a
                 href="#pricing"
-                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 inline-flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-gray-700/30 text-white rounded-xl font-semibold hover:bg-gray-600/30 transition-all border border-gray-600/50 inline-flex items-center justify-center gap-2"
               >
                 View Pricing
               </a>
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center gap-8 text-slate-400 text-sm">
+            <div className="flex flex-wrap justify-center gap-8 text-gray-400 text-sm">
               <div className="flex items-center gap-2">
                 <Lock className="w-5 h-5 text-rose-400" />
                 HIPAA-ready
@@ -218,23 +218,23 @@ export default function HealthcarePage() {
       </section>
 
       {/* Who It's For Section */}
-      <section className="py-20 bg-slate-900/50">
+      <section className="py-20 bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Built for Medical Practices
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Operon CRM is designed for healthcare providers who need better patient management.
             </p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {specialties.map((specialty, i) => (
-              <div key={i} className="bg-slate-800/50 backdrop-blur rounded-xl p-4 border border-slate-700/50 hover:border-rose-500/50 transition-all text-center group">
+              <div key={i} className="bg-gray-700/50 backdrop-blur rounded-xl p-4 border border-gray-700/50 hover:border-rose-500/50 transition-all text-center group">
                 <specialty.icon className="w-8 h-8 text-rose-400 mx-auto mb-3 group-hover:scale-110 transition-transform" />
                 <h3 className="font-semibold text-sm mb-1">{specialty.name}</h3>
-                <p className="text-slate-400 text-xs">{specialty.desc}</p>
+                <p className="text-gray-400 text-xs">{specialty.desc}</p>
               </div>
             ))}
           </div>
@@ -248,19 +248,19 @@ export default function HealthcarePage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Everything You Need to Run Your Practice
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               One platform for patient management, scheduling, and compliance.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, i) => (
-              <div key={i} className="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700/50 hover:border-rose-500/50 transition-all group">
+              <div key={i} className="bg-gray-700/50 backdrop-blur rounded-xl p-6 border border-gray-700/50 hover:border-rose-500/50 transition-all group">
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-rose-500/20 to-pink-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <feature.icon className="w-6 h-6 text-rose-400" />
                 </div>
                 <h3 className="font-bold mb-2">{feature.title}</h3>
-                <p className="text-slate-400 text-sm">{feature.desc}</p>
+                <p className="text-gray-400 text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -268,7 +268,7 @@ export default function HealthcarePage() {
       </section>
 
       {/* AI Assistant Section */}
-      <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-950">
+      <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -279,7 +279,7 @@ export default function HealthcarePage() {
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 Your AI Healthcare Assistant
               </h2>
-              <p className="text-slate-400 text-lg mb-8">
+              <p className="text-gray-400 text-lg mb-8">
                 Let Operon's AI help manage your practice, optimize scheduling, 
                 and ensure compliance while you focus on patient care.
               </p>
@@ -291,30 +291,30 @@ export default function HealthcarePage() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">{feature.title}</h4>
-                      <p className="text-slate-400 text-sm">{feature.desc}</p>
+                      <p className="text-gray-400 text-sm">{feature.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-slate-800/50 backdrop-blur rounded-2xl p-8 border border-slate-700/50">
+            <div className="bg-gray-700/50 backdrop-blur rounded-2xl p-8 border border-gray-700/50">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center">
                   <Sparkles className="w-5 h-5 text-white" />
                 </div>
                 <div>
                   <div className="font-semibold">Operon AI</div>
-                  <div className="text-xs text-slate-400">Healthcare Intelligence</div>
+                  <div className="text-xs text-gray-400">Healthcare Intelligence</div>
                 </div>
               </div>
               <div className="space-y-4">
-                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                <div className="bg-gray-600/50 rounded-lg p-4 text-sm">
                   <span className="text-rose-400">Reminder:</span> 3 patients due for annual checkups this week. AI can send automated reminders.
                 </div>
-                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                <div className="bg-gray-600/50 rounded-lg p-4 text-sm">
                   <span className="text-green-400">Optimized:</span> Schedule suggestion: Move 2 afternoon appointments to morning to reduce gaps.
                 </div>
-                <div className="bg-slate-700/50 rounded-lg p-4 text-sm">
+                <div className="bg-gray-600/50 rounded-lg p-4 text-sm">
                   <span className="text-cyan-400">Compliance:</span> 2 consent forms expiring this month. Action required for continued care.
                 </div>
               </div>
@@ -324,7 +324,7 @@ export default function HealthcarePage() {
       </section>
 
       {/* HIPAA Compliance Section */}
-      <section className="py-20 bg-slate-900/50">
+      <section className="py-20 bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-medium mb-6">
@@ -334,19 +334,19 @@ export default function HealthcarePage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Built with Healthcare Compliance in Mind
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Operon CRM includes built-in safeguards to help healthcare providers protect patient information.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {complianceFeatures.map((feature, i) => (
-              <div key={i} className="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-green-500/20 hover:border-green-500/50 transition-all text-center">
+              <div key={i} className="bg-gray-700/50 backdrop-blur rounded-xl p-6 border border-green-500/20 hover:border-green-500/50 transition-all text-center">
                 <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
                   <Check className="w-6 h-6 text-green-400" />
                 </div>
                 <h3 className="font-bold mb-2">{feature.title}</h3>
-                <p className="text-slate-400 text-sm">{feature.desc}</p>
+                <p className="text-gray-400 text-sm">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -360,7 +360,7 @@ export default function HealthcarePage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Pricing for Healthcare Practices
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-8">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-8">
               Choose the plan that fits your practice size. All plans include HIPAA-ready features.
             </p>
 
@@ -368,19 +368,19 @@ export default function HealthcarePage() {
             <div className="flex items-center justify-center gap-4 mb-8">
               <button
                 onClick={() => setBillingPeriod('monthly')}
-                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-white' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-white' : 'text-gray-500'}`}
               >
                 Monthly
               </button>
               <button
                 onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}
-                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-rose-500' : 'bg-slate-700'}`}
+                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-rose-500' : 'bg-gray-600'}`}
               >
                 <div className={`w-6 h-6 bg-white rounded-full transition-transform ${billingPeriod === 'annual' ? 'translate-x-7' : 'translate-x-1'}`} />
               </button>
               <button
                 onClick={() => setBillingPeriod('annual')}
-                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-white' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-white' : 'text-gray-500'}`}
               >
                 Annual
                 <span className="text-rose-400 text-sm font-medium ml-1">(Save 10-20%)</span>
@@ -405,8 +405,8 @@ export default function HealthcarePage() {
               return (
                 <div
                   key={index}
-                  className={`relative bg-slate-800/50 backdrop-blur rounded-2xl p-6 border ${
-                    plan.popular ? 'border-rose-500 shadow-lg shadow-rose-500/20' : 'border-slate-700/50 hover:border-slate-600'
+                  className={`relative bg-gray-700/50 backdrop-blur rounded-2xl p-6 border ${
+                    plan.popular ? 'border-rose-500 shadow-lg shadow-rose-500/20' : 'border-gray-700/50 hover:border-gray-600'
                   } transition-all`}
                 >
                   {/* Beta Discount Badge */}
@@ -423,26 +423,26 @@ export default function HealthcarePage() {
                     </div>
                   )}
                   <h3 className="text-lg font-bold">{plan.name}</h3>
-                  <p className="text-slate-400 text-sm mt-1 mb-4">{plan.description}</p>
+                  <p className="text-gray-400 text-sm mt-1 mb-4">{plan.description}</p>
                   <div className="mb-6">
                     {hasBetaDiscount ? (
                       <div>
-                        <div className="text-slate-500 line-through text-lg">
+                        <div className="text-gray-500 line-through text-lg">
                           ${plan.monthlyPrice}/month
                         </div>
                         <div className="flex items-baseline gap-1">
                           <span className="text-3xl font-bold text-orange-400">${discountedPrice}</span>
-                          <span className="text-slate-400">/mo</span>
+                          <span className="text-gray-400">/mo</span>
                         </div>
                         <div className="text-orange-400 text-xs font-medium mt-1">Beta Price</div>
-                        <div className="text-slate-500 text-xs mt-1">Same price for monthly & annual billing</div>
+                        <div className="text-gray-500 text-xs mt-1">Same price for monthly & annual billing</div>
                       </div>
                     ) : (
                       <div>
                         <span className="text-3xl font-bold">
                           ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
                         </span>
-                        <span className="text-slate-400">/month</span>
+                        <span className="text-gray-400">/month</span>
                       </div>
                     )}
                   </div>
@@ -450,7 +450,7 @@ export default function HealthcarePage() {
                     {plan.features.map((feature, i) => (
                       <li key={i} className="flex items-start text-sm">
                         <Check className="w-4 h-4 text-rose-400 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-slate-300">{feature}</span>
+                        <span className="text-gray-300">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -461,7 +461,7 @@ export default function HealthcarePage() {
                         ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:shadow-orange-500/25'
                         : plan.popular
                           ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white hover:shadow-lg hover:shadow-rose-500/25'
-                          : 'bg-slate-700 text-white hover:bg-slate-600'
+                          : 'bg-gray-600 text-white hover:bg-slate-600'
                     }`}
                   >
                     {plan.cta}
@@ -473,7 +473,7 @@ export default function HealthcarePage() {
 
           {/* Add-ons Note */}
           <div className="mt-12 text-center">
-            <p className="text-slate-400 text-sm">
+            <p className="text-gray-400 text-sm">
               <strong className="text-white">Add-ons:</strong> Multi-Business $10/mo • Additional Users $5/seat • E-signatures included
             </p>
           </div>
@@ -487,7 +487,7 @@ export default function HealthcarePage() {
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Streamline Your Practice?
           </h2>
-          <p className="text-slate-400 text-lg mb-8">
+          <p className="text-gray-400 text-lg mb-8">
             Join healthcare providers using Operon CRM for better patient management.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -500,7 +500,7 @@ export default function HealthcarePage() {
             </Link>
             <Link
               to="/contact"
-              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 inline-flex items-center justify-center"
+              className="px-8 py-4 bg-gray-700/30 text-white rounded-xl font-semibold hover:bg-gray-600/30 transition-all border border-gray-600/50 inline-flex items-center justify-center"
             >
               Contact Sales
             </Link>

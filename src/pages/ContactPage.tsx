@@ -37,13 +37,13 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-gray-900 text-white">
       <GlobalHeader transparent={!isScrolled} />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-slate-950 to-purple-900/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-gray-900 to-purple-900/20"></div>
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
         
@@ -56,7 +56,7 @@ const ContactPage: React.FC = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Get in <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Touch</span>
             </h1>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Have questions about Operon CRM? Our team is here to help you transform your business.
             </p>
           </div>
@@ -70,14 +70,14 @@ const ContactPage: React.FC = () => {
             {/* Contact Info Cards */}
             <div className="lg:col-span-1 space-y-6">
               {/* Email Card */}
-              <div className="bg-slate-900/50 backdrop-blur border border-slate-700/50 rounded-xl p-6 hover:border-cyan-500/50 transition">
+              <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-xl p-6 hover:border-cyan-500/50 transition">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
                     <Mail className="w-6 h-6 text-cyan-400" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-white">Email Us</h3>
-                    <p className="text-slate-400 text-sm">We'll respond within 24 hours</p>
+                    <p className="text-gray-400 text-sm">We'll respond within 24 hours</p>
                   </div>
                 </div>
                 <a href="mailto:hello@operoncrm.com" className="text-cyan-400 hover:text-cyan-300 transition-colors">
@@ -86,14 +86,14 @@ const ContactPage: React.FC = () => {
               </div>
 
               {/* Live Chat Card */}
-              <div className="bg-slate-900/50 backdrop-blur border border-slate-700/50 rounded-xl p-6 hover:border-purple-500/50 transition">
+              <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-xl p-6 hover:border-purple-500/50 transition">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
                     <MessageSquare className="w-6 h-6 text-purple-400" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-white">Live Chat</h3>
-                    <p className="text-slate-400 text-sm">Chat with our support team</p>
+                    <p className="text-gray-400 text-sm">Chat with our support team</p>
                   </div>
                 </div>
                 <button className="text-purple-400 hover:text-purple-300 transition-colors">
@@ -102,14 +102,14 @@ const ContactPage: React.FC = () => {
               </div>
 
               {/* Phone Card */}
-              <div className="bg-slate-900/50 backdrop-blur border border-slate-700/50 rounded-xl p-6 hover:border-green-500/50 transition">
+              <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-xl p-6 hover:border-green-500/50 transition">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
                     <Phone className="w-6 h-6 text-green-400" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-white">Phone</h3>
-                    <p className="text-slate-400 text-sm">Mon-Fri, 9am-6pm EST</p>
+                    <p className="text-gray-400 text-sm">Mon-Fri, 9am-6pm EST</p>
                   </div>
                 </div>
                 <a href="tel:+1-888-555-0123" className="text-green-400 hover:text-green-300 transition-colors">
@@ -118,17 +118,17 @@ const ContactPage: React.FC = () => {
               </div>
 
               {/* Office Card */}
-              <div className="bg-slate-900/50 backdrop-blur border border-slate-700/50 rounded-xl p-6 hover:border-amber-500/50 transition">
+              <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-xl p-6 hover:border-amber-500/50 transition">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-amber-500/20 rounded-lg flex items-center justify-center">
                     <MapPin className="w-6 h-6 text-amber-400" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-white">Office</h3>
-                    <p className="text-slate-400 text-sm">Visit our headquarters</p>
+                    <p className="text-gray-400 text-sm">Visit our headquarters</p>
                   </div>
                 </div>
-                <address className="text-slate-300 text-sm not-italic">
+                <address className="text-gray-300 text-sm not-italic">
                   123 Innovation Drive<br />
                   San Francisco, CA 94107<br />
                   United States
@@ -136,23 +136,23 @@ const ContactPage: React.FC = () => {
               </div>
 
               {/* Business Hours */}
-              <div className="bg-slate-900/50 backdrop-blur border border-slate-700/50 rounded-xl p-6">
+              <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-xl p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <Clock className="w-5 h-5 text-cyan-400" />
                   <h3 className="font-semibold text-white">Business Hours</h3>
                 </div>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Monday - Friday</span>
+                    <span className="text-gray-400">Monday - Friday</span>
                     <span className="text-white">9:00 AM - 6:00 PM EST</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Saturday</span>
+                    <span className="text-gray-400">Saturday</span>
                     <span className="text-white">10:00 AM - 2:00 PM EST</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Sunday</span>
-                    <span className="text-slate-500">Closed</span>
+                    <span className="text-gray-400">Sunday</span>
+                    <span className="text-gray-500">Closed</span>
                   </div>
                 </div>
               </div>
@@ -160,14 +160,14 @@ const ContactPage: React.FC = () => {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <div className="bg-slate-900/50 backdrop-blur border border-slate-700/50 rounded-xl p-8">
+              <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-xl p-8">
                 {submitted ? (
                   <div className="text-center py-12">
                     <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/30">
                       <Check className="w-8 h-8 text-green-400" />
                     </div>
                     <h2 className="text-2xl font-bold text-white mb-2">Message Sent!</h2>
-                    <p className="text-slate-400 mb-6">
+                    <p className="text-gray-400 mb-6">
                       Thank you for reaching out. We'll get back to you within 24 hours.
                     </p>
                     <button
@@ -186,24 +186,24 @@ const ContactPage: React.FC = () => {
                     
                     <div className="grid md:grid-cols-2 gap-6 mb-6">
                       <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">Your Name *</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Your Name *</label>
                         <input
                           type="text"
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors text-white placeholder-slate-500"
+                          className="w-full px-4 py-3 bg-gray-700/50 border border-gray-700/50 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors text-white placeholder-slate-500"
                           placeholder="John Doe"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">Email Address *</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Email Address *</label>
                         <input
                           type="email"
                           required
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors text-white placeholder-slate-500"
+                          className="w-full px-4 py-3 bg-gray-700/50 border border-gray-700/50 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors text-white placeholder-slate-500"
                           placeholder="john@company.com"
                         />
                       </div>
@@ -211,22 +211,22 @@ const ContactPage: React.FC = () => {
 
                     <div className="grid md:grid-cols-2 gap-6 mb-6">
                       <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">Company</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Company</label>
                         <input
                           type="text"
                           value={formData.company}
                           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors text-white placeholder-slate-500"
+                          className="w-full px-4 py-3 bg-gray-700/50 border border-gray-700/50 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors text-white placeholder-slate-500"
                           placeholder="Acme Inc"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">Subject *</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Subject *</label>
                         <select
                           required
                           value={formData.subject}
                           onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                          className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors text-white appearance-none"
+                          className="w-full px-4 py-3 bg-gray-700/50 border border-gray-700/50 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors text-white appearance-none"
                         >
                           <option value="general">General Inquiry</option>
                           <option value="sales">Sales & Pricing</option>
@@ -239,13 +239,13 @@ const ContactPage: React.FC = () => {
                     </div>
 
                     <div className="mb-6">
-                      <label className="block text-sm font-medium text-slate-300 mb-2">Message *</label>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Message *</label>
                       <textarea
                         required
                         rows={6}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors resize-none text-white placeholder-slate-500"
+                        className="w-full px-4 py-3 bg-gray-700/50 border border-gray-700/50 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors resize-none text-white placeholder-slate-500"
                         placeholder="Tell us how we can help..."
                       />
                     </div>
@@ -276,13 +276,13 @@ const ContactPage: React.FC = () => {
       </section>
 
       {/* Department Cards */}
-      <section className="py-16 bg-slate-900/50">
+      <section className="py-16 bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Contact the <span className="text-cyan-400">Right Team</span>
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Get direct access to the team that can help you best.
             </p>
           </div>
@@ -311,7 +311,7 @@ const ContactPage: React.FC = () => {
                 color: 'amber',
               },
             ].map((dept, i) => (
-              <div key={i} className="bg-slate-800/50 backdrop-blur border border-slate-700/50 rounded-xl p-6 text-center hover:border-slate-600 transition">
+              <div key={i} className="bg-gray-700/50 backdrop-blur border border-gray-700/50 rounded-xl p-6 text-center hover:border-gray-600 transition">
                 <div className={`w-16 h-16 mx-auto mb-4 rounded-lg flex items-center justify-center ${
                   dept.color === 'cyan' ? 'bg-cyan-500/20' : 
                   dept.color === 'purple' ? 'bg-purple-500/20' : 'bg-amber-500/20'
@@ -322,7 +322,7 @@ const ContactPage: React.FC = () => {
                   }`} />
                 </div>
                 <h3 className="font-semibold text-white mb-2">{dept.title}</h3>
-                <p className="text-slate-400 text-sm mb-4">{dept.description}</p>
+                <p className="text-gray-400 text-sm mb-4">{dept.description}</p>
                 <a href={`mailto:${dept.email}`} className="text-cyan-400 hover:text-cyan-300 transition-colors text-sm">
                   {dept.email}
                 </a>
@@ -333,14 +333,14 @@ const ContactPage: React.FC = () => {
       </section>
 
       {/* Book a Demo CTA */}
-      <section className="py-16 bg-slate-950">
+      <section className="py-16 bg-gray-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-cyan-900/30 via-slate-900 to-purple-900/30 rounded-2xl p-8 md:p-12 border border-slate-700/50 text-center">
+          <div className="bg-gradient-to-br from-cyan-900/30 via-gray-800 to-purple-900/30 rounded-2xl p-8 md:p-12 border border-gray-700/50 text-center">
             <Calendar className="w-12 h-12 text-cyan-400 mx-auto mb-6" />
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Schedule a <span className="text-cyan-400">Personalized Demo</span>
             </h2>
-            <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
+            <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
               See Operon CRM in action with a one-on-one demo tailored to your business needs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -353,7 +353,7 @@ const ContactPage: React.FC = () => {
               </Link>
               <Link
                 to="/pricing"
-                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+                className="px-8 py-4 bg-gray-700/30 text-white rounded-xl font-semibold hover:bg-gray-600/30 transition-all border border-gray-600/50"
               >
                 View Pricing
               </Link>
@@ -363,7 +363,7 @@ const ContactPage: React.FC = () => {
       </section>
 
       {/* FAQ Preview */}
-      <section className="py-16 bg-slate-900/50">
+      <section className="py-16 bg-gray-800/50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">
@@ -390,9 +390,9 @@ const ContactPage: React.FC = () => {
                 a: 'All plans include email support. Pro and Enterprise plans include priority support with faster response times and dedicated account managers.',
               },
             ].map((faq, i) => (
-              <div key={i} className="bg-slate-800/50 backdrop-blur border border-slate-700/50 rounded-xl p-6">
+              <div key={i} className="bg-gray-700/50 backdrop-blur border border-gray-700/50 rounded-xl p-6">
                 <h3 className="font-semibold text-white mb-2">{faq.q}</h3>
-                <p className="text-slate-400">{faq.a}</p>
+                <p className="text-gray-400">{faq.a}</p>
               </div>
             ))}
           </div>

@@ -885,13 +885,13 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-gray-900 text-white">
       <GlobalHeader transparent={!isScrolled} />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-slate-950 to-purple-900/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-gray-900 to-purple-900/20"></div>
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
         <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float-delayed"></div>
         
@@ -909,7 +909,7 @@ export default function PricingPage() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Simple, <span className="gradient-text-animate bg-clip-text text-transparent">Transparent</span> Pricing
             </h1>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-8">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
               Choose the system built for your business. All plans include CRM, marketing, automation, and AI-powered features.
             </p>
 
@@ -917,19 +917,19 @@ export default function PricingPage() {
             <div className="flex items-center justify-center gap-4 mb-8">
               <button
                 onClick={() => setBillingPeriod('monthly')}
-                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-white' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'monthly' ? 'text-white' : 'text-gray-500'}`}
               >
                 Monthly
               </button>
               <button
                 onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}
-                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-blue-500' : 'bg-slate-700'}`}
+                className={`w-14 h-8 rounded-full transition-colors ${billingPeriod === 'annual' ? 'bg-blue-500' : 'bg-gray-600'}`}
               >
                 <div className={`w-6 h-6 bg-white rounded-full transition-transform ${billingPeriod === 'annual' ? 'translate-x-7' : 'translate-x-1'}`} />
               </button>
               <button
                 onClick={() => setBillingPeriod('annual')}
-                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-white' : 'text-slate-500'}`}
+                className={`text-lg font-medium ${billingPeriod === 'annual' ? 'text-white' : 'text-gray-500'}`}
               >
                 Annual
                 <span className="text-blue-400 text-sm font-medium ml-1">(Save 10-20%)</span>
@@ -946,7 +946,7 @@ export default function PricingPage() {
       </section>
 
       {/* Category Tabs */}
-      <section className="py-8 bg-slate-900/50">
+      <section className="py-8 bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-3">
             {pricingCategories.map((category) => {
@@ -958,7 +958,7 @@ export default function PricingPage() {
                   className={`flex items-center gap-2 px-5 py-3 rounded-xl font-medium transition-all ${
                     activeCategory === category.id
                       ? `bg-gradient-to-r ${category.color} text-white shadow-lg shadow-${category.color.split('-')[1]}-500/25`
-                      : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/50 border border-slate-700/50'
+                      : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 border border-gray-700/50'
                   }`}
                 >
                   <IconComponent className="w-5 h-5" />
@@ -976,7 +976,7 @@ export default function PricingPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">{currentCategory.title}</h2>
             {currentCategory.industries && (
-              <p className="text-slate-400">
+              <p className="text-gray-400">
                 For: {currentCategory.industries.join(' • ')}
               </p>
             )}
@@ -999,8 +999,8 @@ export default function PricingPage() {
                 return (
                   <div
                     key={index}
-                    className={`relative bg-slate-900/50 backdrop-blur rounded-2xl p-6 border ${
-                      plan.popular ? 'border-blue-500' : 'border-slate-700/50'
+                    className={`relative bg-gray-800/50 backdrop-blur rounded-2xl p-6 border ${
+                      plan.popular ? 'border-blue-500' : 'border-gray-700/50'
                     } hover:border-blue-500/50 transition`}
                   >
                     {/* Beta Discount Badge */}
@@ -1017,26 +1017,26 @@ export default function PricingPage() {
                       </div>
                     )}
                     <h3 className="text-xl font-bold text-white">{plan.name}</h3>
-                    <p className="text-slate-400 text-sm mt-1 mb-4">{plan.description}</p>
+                    <p className="text-gray-400 text-sm mt-1 mb-4">{plan.description}</p>
                     <div className="mb-6">
                       {hasBetaDiscount ? (
                         <div>
-                          <div className="text-slate-500 line-through text-lg">
+                          <div className="text-gray-500 line-through text-lg">
                             ${plan.monthlyPrice}/month
                           </div>
                           <div className="flex items-baseline gap-1">
                             <span className="text-4xl font-bold text-orange-400">${discountedPrice}</span>
-                            <span className="text-slate-400">/month</span>
+                            <span className="text-gray-400">/month</span>
                           </div>
                           <div className="text-orange-400 text-sm font-medium mt-1">Beta Price</div>
-                          <div className="text-slate-500 text-xs mt-1">Same price for monthly & annual billing</div>
+                          <div className="text-gray-500 text-xs mt-1">Same price for monthly & annual billing</div>
                         </div>
                       ) : (
                         <div>
                           <span className="text-4xl font-bold text-white">
                             ${billingPeriod === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
                           </span>
-                          <span className="text-slate-400">/month</span>
+                          <span className="text-gray-400">/month</span>
                           {billingPeriod === 'annual' && (
                             <div className="text-green-400 text-sm font-medium mt-1">
                               Save {Math.round((1 - plan.annualPrice / plan.monthlyPrice) * 100)}%
@@ -1049,7 +1049,7 @@ export default function PricingPage() {
                       {plan.features.map((feature, i) => (
                         <li key={i} className="flex items-start text-sm">
                           <Check className="w-4 h-4 text-blue-400 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="text-slate-300">{feature}</span>
+                          <span className="text-gray-300">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -1060,7 +1060,7 @@ export default function PricingPage() {
                           ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg'
                           : plan.popular
                             ? 'bg-blue-500 text-white hover:bg-blue-600'
-                            : 'bg-slate-700 text-white hover:bg-slate-600'
+                            : 'bg-gray-600 text-white hover:bg-slate-600'
                       }`}
                     >
                       {plan.cta}
@@ -1074,12 +1074,12 @@ export default function PricingPage() {
           {/* Custom Tiers for Restaurant/Retail */}
           {currentCategory?.customTier && (
             <div className="mt-12">
-              <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur rounded-2xl p-10 text-center max-w-3xl mx-auto border border-slate-700/50">
+              <div className="bg-gradient-to-br from-slate-800/50 to-gray-800/50 backdrop-blur rounded-2xl p-10 text-center max-w-3xl mx-auto border border-gray-700/50">
                 <h3 className="text-3xl font-bold text-white mb-3">{currentCategory.customTier.name}</h3>
-                <p className="text-slate-300 mb-4">{currentCategory.customTier.description}</p>
+                <p className="text-gray-300 mb-4">{currentCategory.customTier.description}</p>
                 <ul className="flex flex-wrap justify-center gap-4 mb-6">
                   {currentCategory.customTier.features.map((feature, i) => (
-                    <li key={i} className="flex items-center text-slate-300">
+                    <li key={i} className="flex items-center text-gray-300">
                       <Check className="w-4 h-4 text-green-400 mr-2" />
                       {feature}
                     </li>
@@ -1094,7 +1094,7 @@ export default function PricingPage() {
                   </button>
                   <a
                     href="tel:+1-888-555-0123"
-                    className="border-2 border-slate-600 text-white px-8 py-3 rounded-lg font-semibold hover:border-white hover:bg-white hover:text-slate-900 transition"
+                    className="border-2 border-gray-600 text-white px-8 py-3 rounded-lg font-semibold hover:border-white hover:bg-white hover:text-gray-900 transition"
                   >
                     {currentCategory.customTier.ctaAlt}
                   </a>
@@ -1109,10 +1109,10 @@ export default function PricingPage() {
               {currentCategory.customTiers.map((tier, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur rounded-2xl p-8 text-center border border-slate-700/50"
+                  className="bg-gradient-to-br from-slate-800/50 to-gray-800/50 backdrop-blur rounded-2xl p-8 text-center border border-gray-700/50"
                 >
                   <h3 className="text-2xl font-bold text-white mb-2">{tier.name}</h3>
-                  <p className="text-slate-300 mb-4">{tier.description}</p>
+                  <p className="text-gray-300 mb-4">{tier.description}</p>
                   <button
                     onClick={() => handleContactSales(currentCategory.id, tier.name.toLowerCase().replace(' ', '_'))}
                     className="bg-emerald-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-600 transition"
@@ -1127,13 +1127,13 @@ export default function PricingPage() {
       </section>
 
       {/* Add-ons Section */}
-      <section className="py-16 bg-slate-900/50">
+      <section className="py-16 bg-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Power Up with <span className="text-blue-400">Add-ons</span>
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Customize your plan with powerful add-ons to fit your specific needs.
             </p>
           </div>
@@ -1150,9 +1150,9 @@ export default function PricingPage() {
                   return (
                     <div
                       key={index}
-                      className={`bg-slate-800/50 backdrop-blur rounded-xl p-6 border ${
-                        addon.included ? 'border-green-500/50' : 'border-slate-700/50'
-                      } hover:border-slate-600 transition`}
+                      className={`bg-gray-700/50 backdrop-blur rounded-xl p-6 border ${
+                        addon.included ? 'border-green-500/50' : 'border-gray-700/50'
+                      } hover:border-gray-600 transition`}
                     >
                       <div className="flex items-start gap-4">
                         <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
@@ -1164,14 +1164,14 @@ export default function PricingPage() {
                         </div>
                         <div className="flex-1">
                           <h4 className="text-lg font-bold text-white mb-1">{addon.name}</h4>
-                          <p className="text-slate-400 text-sm mb-3">{addon.description}</p>
+                          <p className="text-gray-400 text-sm mb-3">{addon.description}</p>
                           <p className={`font-semibold ${
                             addon.included ? 'text-green-400' : 'text-blue-400'
                           }`}>
                             {addon.priceNote}
                           </p>
                           {addon.applicableTo && (
-                            <p className="text-slate-500 text-xs mt-2">
+                            <p className="text-gray-500 text-xs mt-2">
                               Applies to: {addon.applicableTo.map(id => {
                                 const cat = pricingCategories.find(c => c.id === id);
                                 return cat?.name || id;
@@ -1190,12 +1190,12 @@ export default function PricingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 bg-slate-950">
+      <section className="py-16 bg-gray-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Get <span className="text-blue-400">Started</span>?
           </h2>
-          <p className="text-xl text-slate-300 mb-8">
+          <p className="text-xl text-gray-300 mb-8">
             Start your free trial today. No credit card required. Set up in minutes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -1208,12 +1208,12 @@ export default function PricingPage() {
             </button>
             <Link
               to="/contact"
-              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20"
+              className="px-8 py-4 bg-gray-700/30 text-white rounded-xl font-semibold hover:bg-gray-600/30 transition-all border border-gray-600/50"
             >
               Contact Sales
             </Link>
           </div>
-          <p className="text-slate-400 mt-4 text-sm">
+          <p className="text-gray-400 mt-4 text-sm">
             Limited onboarding spots available • No contracts • Cancel anytime
           </p>
         </div>

@@ -46,7 +46,7 @@ const GlobalFooter: React.FC = () => {
   };
 
   return (
-    <footer className="bg-slate-950 text-white">
+    <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand Column */}
@@ -58,17 +58,17 @@ const GlobalFooter: React.FC = () => {
                 className="h-10 w-auto brightness-0 invert"
               />
             </Link>
-            <p className="text-slate-400 text-sm mb-6">
+            <p className="text-gray-400 text-sm mb-6">
               The operating system for modern businesses. Any industry. Complete compliance.
             </p>
             <div className="flex gap-4">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
             </div>
@@ -138,8 +138,8 @@ const GlobalFooter: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-400 text-sm">
+        <div className="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-gray-400 text-sm">
             © {currentYear} Operon CRM. All rights reserved. Created by{' '}
             <a 
               href="https://fstacktsolutions.com/" 
@@ -151,13 +151,13 @@ const GlobalFooter: React.FC = () => {
             </a>
           </p>
           <div className="flex gap-6">
-            <Link to="/privacy" className="text-slate-400 hover:text-white text-sm transition-colors">
+            <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
               Privacy
             </Link>
-            <Link to="/terms" className="text-slate-400 hover:text-white text-sm transition-colors">
+            <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">
               Terms
             </Link>
-            <Link to="/cookie-policy" className="text-slate-400 hover:text-white text-sm transition-colors">
+            <Link to="/cookie-policy" className="text-gray-400 hover:text-white text-sm transition-colors">
               Cookies
             </Link>
           </div>

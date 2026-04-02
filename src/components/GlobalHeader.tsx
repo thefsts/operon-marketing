@@ -42,8 +42,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         useTransparentBg 
-          ? 'bg-slate-900/80 backdrop-blur-md' 
-          : 'bg-white/97 backdrop-blur-xl shadow-sm border-b border-slate-100'
+          ? 'bg-gray-900/80 backdrop-blur-md' 
+          : 'bg-white/97 backdrop-blur-xl shadow-sm border-b border-gray-200'
       }`}
       style={{ minHeight: '80px' }}
     >
@@ -63,7 +63,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
             <Link
               to="/"
               className={`text-sm font-medium transition-colors ${
-                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
+                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
               }`}
             >
               Operon
@@ -72,7 +72,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
             <Link
               to="/platform"
               className={`text-sm font-medium transition-colors ${
-                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
+                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
               }`}
             >
               About Operon
@@ -82,22 +82,22 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
             <div className="relative group">
               <button 
                 className={`text-sm font-medium flex items-center gap-1 transition-colors ${
-                  useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
+                  useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
                 }`}
               >
                 Solutions
                 <ChevronDown className="w-4 h-4" />
               </button>
-              <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+              <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
                 <div className="p-2">
                   {solutions.map((solution) => (
                     <Link
                       key={solution.path}
                       to={solution.path}
-                      className="block px-4 py-3 hover:bg-slate-50 rounded-lg"
+                      className="block px-4 py-3 hover:bg-gray-50 rounded-lg"
                     >
-                      <div className="font-semibold text-slate-900">{solution.name}</div>
-                      <div className="text-xs text-slate-500">{solution.desc}</div>
+                      <div className="font-semibold text-gray-900">{solution.name}</div>
+                      <div className="text-xs text-gray-500">{solution.desc}</div>
                     </Link>
                   ))}
                 </div>
@@ -107,7 +107,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
             <Link 
               to="/pricing" 
               className={`text-sm font-medium transition-colors ${
-                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
+                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
               }`}
             >
               Pricing
@@ -116,7 +116,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
             <Link 
               to="/contact" 
               className={`text-sm font-medium transition-colors ${
-                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
+                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
               }`}
             >
               Contact
@@ -127,7 +127,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
             <a 
               href={`${APP_URL}/login`}
               className={`text-sm font-medium transition-colors ${
-                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-slate-700 hover:text-cyan-600'
+                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
               }`}
             >
               Login
@@ -143,7 +143,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
 
           {/* Mobile Menu Button */}
           <button 
-            className={`md:hidden ${useTransparentBg ? 'text-white' : 'text-slate-700'}`}
+            className={`md:hidden ${useTransparentBg ? 'text-white' : 'text-gray-700'}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -153,22 +153,22 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white/98 backdrop-blur-xl border-b border-slate-100 shadow-lg">
+        <div className="md:hidden bg-white/98 backdrop-blur-xl border-b border-gray-200 shadow-lg">
           <div className="px-4 py-5 space-y-4">
-            <Link to="/" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
+            <Link to="/" className="block text-gray-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
               Operon
             </Link>
-            <Link to="/platform" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
+            <Link to="/platform" className="block text-gray-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
               About Operon
             </Link>
             
-            <div className="border-t border-slate-100 pt-4">
-              <div className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Solutions</div>
+            <div className="border-t border-gray-200 pt-4">
+              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Solutions</div>
               {solutions.map((solution) => (
                 <Link
                   key={solution.path}
                   to={solution.path}
-                  className="block py-2 text-slate-700 hover:text-cyan-600"
+                  className="block py-2 text-gray-700 hover:text-cyan-600"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {solution.name}
@@ -176,18 +176,18 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
               ))}
             </div>
 
-            <Link to="/pricing" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
+            <Link to="/pricing" className="block text-gray-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
               Pricing
             </Link>
-            <Link to="/contact" className="block text-slate-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
+            <Link to="/contact" className="block text-gray-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
               Contact
             </Link>
             
-            <div className="pt-2 border-t border-slate-100">
+            <div className="pt-2 border-t border-gray-200">
               <LanguageSwitcher />
             </div>
             
-            <a href={`${APP_URL}/login`} className="block text-slate-700 hover:text-cyan-600 font-medium">
+            <a href={`${APP_URL}/login`} className="block text-gray-700 hover:text-cyan-600 font-medium">
               Login
             </a>
             

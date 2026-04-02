@@ -177,7 +177,7 @@ export default function MarketingHome() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-gray-900 text-white">
       <GlobalHeader />
 
       {/* Top Announcement Bar */}
@@ -202,7 +202,7 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* HERO SECTION */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className={`relative min-h-screen flex items-center justify-center pt-32 bg-gradient-to-br from-slate-950 via-purple-950/50 to-blue-950 overflow-hidden ${continueBanner ? 'mt-8' : ''}`}>
+      <section className={`relative min-h-screen flex items-center justify-center pt-32 bg-gradient-to-br from-gray-900 via-purple-900/50 to-blue-900 overflow-hidden ${continueBanner ? 'mt-8' : ''}`}>
         {/* Animated background effects */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-float" />
@@ -233,7 +233,7 @@ export default function MarketingHome() {
               </span>
             </h1>
 
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-10">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
               CRM, POS, Marketing, Scheduling, Documents, and AI Assistant — all in one powerful platform designed for your industry.
             </p>
 
@@ -249,13 +249,13 @@ export default function MarketingHome() {
               </Link>
               <Link
                 to="/pricing"
-                className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold text-lg hover:bg-white/20 transition-all border border-white/20"
+                className="px-8 py-4 bg-gray-700/30 text-white rounded-xl font-semibold text-lg hover:bg-gray-600/30 transition-all border border-gray-600/50"
               >
                 View Pricing
               </Link>
             </div>
 
-            <p className="text-slate-400 text-sm">
+            <p className="text-gray-400 text-sm">
               No credit card required • Set up in 5 minutes
             </p>
           </div>
@@ -265,24 +265,24 @@ export default function MarketingHome() {
           
           {/* Scroll indicator */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-scroll-indicator">
-            <span className="text-slate-500 text-xs">Scroll to explore</span>
-            <div className="w-6 h-10 border-2 border-slate-600 rounded-full flex justify-center pt-2">
+            <span className="text-gray-500 text-xs">Scroll to explore</span>
+            <div className="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center pt-2">
               <div className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce" />
             </div>
           </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-10 pointer-events-none" />
-            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-purple-500/10">
-              <div className="bg-slate-900 p-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10 pointer-events-none" />
+            <div className="relative rounded-2xl overflow-hidden border border-gray-700/50 shadow-2xl shadow-purple-500/10">
+              <div className="bg-gray-800 p-4">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-3 h-3 rounded-full bg-red-500" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500" />
                   <div className="w-3 h-3 rounded-full bg-green-500" />
                 </div>
-                <div className="bg-slate-800 rounded-lg p-6">
+                <div className="bg-gray-700 rounded-lg p-6">
                   <div className="grid grid-cols-4 gap-4 mb-6">
                     {['Revenue', 'Leads', 'Deals', 'Tasks'].map((label, i) => (
-                      <div key={label} className="bg-slate-700/50 rounded-lg p-4">
-                        <div className="text-slate-400 text-xs mb-1">{label}</div>
+                      <div key={label} className="bg-gray-600/50 rounded-lg p-4">
+                        <div className="text-gray-400 text-xs mb-1">{label}</div>
                         <div className="text-2xl font-bold text-white">{['$24.5K', '127', '43', '18'][i]}</div>
                         <div className="text-green-400 text-xs">+12% vs last month</div>
                       </div>
@@ -301,13 +301,13 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* INDUSTRY SOLUTIONS GRID */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-slate-950">
+      <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 animate-fade-in-up">
               Choose the System Built for Your Business
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Industry-specific solutions with features designed for how you work.
             </p>
           </div>
@@ -318,7 +318,7 @@ export default function MarketingHome() {
                 key={i}
                 to={industry.path}
                 onClick={() => saveFunnel(industry.name.toLowerCase().replace(/[^a-z]/g, '_'))}
-                className="group relative bg-slate-900/50 border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 hover:bg-slate-800/50 transition-all hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1"
+                className="group relative bg-gray-800/50 border border-gray-700/50 rounded-2xl overflow-hidden hover:border-gray-600/50 hover:bg-gray-700/50 transition-all hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1"
               >
                 {/* Image with gradient overlay */}
                 <div className="relative h-32 overflow-hidden">
@@ -327,7 +327,7 @@ export default function MarketingHome() {
                     alt={industry.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className={`absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent`} />
+                  <div className={`absolute inset-0 bg-gradient-to-t from-gray-800 via-gray-800/60 to-transparent`} />
                   <div className={`absolute inset-0 bg-gradient-to-br ${industry.color} opacity-20 group-hover:opacity-30 transition-opacity`} />
                 </div>
                 
@@ -337,10 +337,10 @@ export default function MarketingHome() {
                     <industry.icon className="w-5 h-5 text-white" />
                   </div>
                   <h3 className="font-bold text-white mb-1 mt-2">{industry.name}</h3>
-                  <p className="text-slate-400 text-xs mb-3 line-clamp-2">{industry.desc}</p>
+                  <p className="text-gray-400 text-xs mb-3 line-clamp-2">{industry.desc}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-cyan-400 text-xs font-medium">From {industry.price}/mo</span>
-                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
                   </div>
                 </div>
               </Link>
@@ -352,26 +352,26 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* PLATFORM FEATURES */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                 Replace Your Entire Tech Stack
               </h2>
-              <p className="text-slate-400 text-lg mb-8">
+              <p className="text-gray-400 text-lg mb-8">
                 Stop paying for 10 different tools. Operon gives you everything in one platform, working together seamlessly.
               </p>
 
               <div className="grid sm:grid-cols-2 gap-4">
                 {platformFeatures.map((feature, i) => (
-                  <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/10">
+                  <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-gray-700/50">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center flex-shrink-0">
                       <feature.icon className="w-4 h-4 text-white" />
                     </div>
                     <div>
                       <div className="font-semibold text-white text-sm">{feature.title}</div>
-                      <div className="text-slate-400 text-xs">{feature.desc}</div>
+                      <div className="text-gray-400 text-xs">{feature.desc}</div>
                     </div>
                   </div>
                 ))}
@@ -380,10 +380,10 @@ export default function MarketingHome() {
 
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 blur-3xl" />
-              <div className="relative bg-slate-800/80 rounded-2xl border border-white/10 p-6">
-                <div className="text-sm text-slate-400 mb-4">AI Assistant</div>
+              <div className="relative bg-gray-700/80 rounded-2xl border border-gray-700/50 p-6">
+                <div className="text-sm text-gray-400 mb-4">AI Assistant</div>
                 <div className="space-y-4">
-                  <div className="bg-slate-700/50 rounded-lg p-4">
+                  <div className="bg-gray-600/50 rounded-lg p-4">
                     <p className="text-white text-sm">I've scheduled 3 appointments for tomorrow and sent follow-up emails to 12 leads. Your conversion rate is up 15% this week!</p>
                   </div>
                   <div className="flex justify-end">
@@ -391,7 +391,7 @@ export default function MarketingHome() {
                       <p className="text-white text-sm">Show me my top 5 leads this month</p>
                     </div>
                   </div>
-                  <div className="bg-slate-700/50 rounded-lg p-4">
+                  <div className="bg-gray-600/50 rounded-lg p-4">
                     <p className="text-white text-sm">Here are your top leads based on engagement. Would you like me to prioritize outreach?</p>
                   </div>
                 </div>
@@ -404,7 +404,7 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* INTEGRATIONS */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-16 bg-slate-900 border-y border-white/10">
+      <section className="py-16 bg-gray-800 border-y border-gray-700/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h3 className="text-xl font-semibold text-white mb-2">
@@ -413,7 +413,7 @@ export default function MarketingHome() {
           </div>
           <div className="flex flex-wrap justify-center items-center gap-8">
             {integrations.map((int, i) => (
-              <div key={i} className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+              <div key={i} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
                 <span className="text-2xl">{int.logo}</span>
                 <span className="font-medium">{int.name}</span>
               </div>
@@ -425,13 +425,13 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* CRM COMPARISON */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-slate-950">
+      <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Why Operon Wins
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               See how Operon compares to the leading CRM platforms on the market.
             </p>
           </div>
@@ -439,13 +439,13 @@ export default function MarketingHome() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-white/10">
-                  <th className="text-left py-4 px-4 text-slate-400 font-medium">Feature</th>
+                <tr className="border-b border-gray-700/50">
+                  <th className="text-left py-4 px-4 text-gray-400 font-medium">Feature</th>
                   <th className="text-center py-4 px-4 text-cyan-400 font-bold">Operon</th>
-                  <th className="text-center py-4 px-4 text-slate-400">Salesforce</th>
-                  <th className="text-center py-4 px-4 text-slate-400">HubSpot</th>
-                  <th className="text-center py-4 px-4 text-slate-400">Zoho</th>
-                  <th className="text-center py-4 px-4 text-slate-400">Pipedrive</th>
+                  <th className="text-center py-4 px-4 text-gray-400">Salesforce</th>
+                  <th className="text-center py-4 px-4 text-gray-400">HubSpot</th>
+                  <th className="text-center py-4 px-4 text-gray-400">Zoho</th>
+                  <th className="text-center py-4 px-4 text-gray-400">Pipedrive</th>
                 </tr>
               </thead>
               <tbody>
@@ -463,28 +463,28 @@ export default function MarketingHome() {
                       {typeof row.salesforce === 'boolean' ? (
                         <CheckCircle className={`w-5 h-5 mx-auto ${row.salesforce ? 'text-green-400' : 'text-red-400/50'}`} />
                       ) : (
-                        <span className="text-slate-400">{row.salesforce}</span>
+                        <span className="text-gray-400">{row.salesforce}</span>
                       )}
                     </td>
                     <td className="py-4 px-4 text-center">
                       {typeof row.hubspot === 'boolean' ? (
                         <CheckCircle className={`w-5 h-5 mx-auto ${row.hubspot ? 'text-green-400' : 'text-red-400/50'}`} />
                       ) : (
-                        <span className="text-slate-400">{row.hubspot}</span>
+                        <span className="text-gray-400">{row.hubspot}</span>
                       )}
                     </td>
                     <td className="py-4 px-4 text-center">
                       {typeof row.zoho === 'boolean' ? (
                         <CheckCircle className={`w-5 h-5 mx-auto ${row.zoho ? 'text-green-400' : 'text-red-400/50'}`} />
                       ) : (
-                        <span className="text-slate-400">{row.zoho}</span>
+                        <span className="text-gray-400">{row.zoho}</span>
                       )}
                     </td>
                     <td className="py-4 px-4 text-center">
                       {typeof row.pipedrive === 'boolean' ? (
                         <CheckCircle className={`w-5 h-5 mx-auto ${row.pipedrive ? 'text-green-400' : 'text-red-400/50'}`} />
                       ) : (
-                        <span className="text-slate-400">{row.pipedrive}</span>
+                        <span className="text-gray-400">{row.pipedrive}</span>
                       )}
                     </td>
                   </tr>
@@ -498,25 +498,25 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* COMPLIANCE */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Compliance-Aware by Design
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Built-in compliance tools for regulated industries.
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {complianceItems.map((item, i) => (
-              <div key={i} className="bg-slate-800/50 border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all">
+              <div key={i} className="bg-gray-700/50 border border-gray-700/50 rounded-2xl p-6 hover:border-gray-600/50 transition-all">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-4">
                   <item.icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-slate-400 text-sm">{item.desc}</p>
+                <p className="text-gray-400 text-sm">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -526,7 +526,7 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* SPORTS CRM SECTION */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-slate-950">
+      <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -537,7 +537,7 @@ export default function MarketingHome() {
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                 Built for Sports Organizations
               </h2>
-              <p className="text-slate-400 text-lg mb-8">
+              <p className="text-gray-400 text-lg mb-8">
                 Manage teams, leagues, facilities, and school athletic programs with purpose-built tools.
               </p>
 
@@ -548,7 +548,7 @@ export default function MarketingHome() {
                   { label: 'Schools', icon: FileText },
                   { label: 'Compliance', icon: Shield },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/10">
+                  <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-gray-700/50">
                     <item.icon className="w-5 h-5 text-green-400" />
                     <span className="text-white font-medium">{item.label}</span>
                   </div>
@@ -567,7 +567,7 @@ export default function MarketingHome() {
             <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl border border-green-500/20 p-8">
               <div className="grid grid-cols-2 gap-4">
                 {['Player Management', 'Schedule Games', 'Track Stats', 'Team Communication'].map((item, i) => (
-                  <div key={i} className="bg-slate-800/50 rounded-lg p-4">
+                  <div key={i} className="bg-gray-700/50 rounded-lg p-4">
                     <CheckCircle className="w-5 h-5 text-green-400 mb-2" />
                     <span className="text-white text-sm font-medium">{item}</span>
                   </div>
@@ -581,14 +581,14 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* E-COMMERCE SECTION */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <div className="bg-gradient-to-br from-indigo-500/10 to-blue-500/10 rounded-2xl border border-indigo-500/20 p-8">
                 <div className="grid grid-cols-2 gap-4">
                   {['Product Catalog', 'Order Management', 'Payment Processing', 'Shipping Integration'].map((item, i) => (
-                    <div key={i} className="bg-slate-800/50 rounded-lg p-4">
+                    <div key={i} className="bg-gray-700/50 rounded-lg p-4">
                       <CheckCircle className="w-5 h-5 text-indigo-400 mb-2" />
                       <span className="text-white text-sm font-medium">{item}</span>
                     </div>
@@ -605,7 +605,7 @@ export default function MarketingHome() {
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                 Run Your Online Store Inside Your CRM
               </h2>
-              <p className="text-slate-400 text-lg mb-8">
+              <p className="text-gray-400 text-lg mb-8">
                 Full e-commerce integration with inventory, orders, payments, and customer management in one place.
               </p>
 
@@ -624,7 +624,7 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* REPUTATION MANAGEMENT */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-slate-950">
+      <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-sm font-medium mb-6">
@@ -634,7 +634,7 @@ export default function MarketingHome() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Honest, Ethical Reputation Management
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Monitor reviews, manage your online presence, and build trust with customers. No fake reviews — just honest reputation building.
             </p>
           </div>
@@ -645,16 +645,16 @@ export default function MarketingHome() {
               { name: 'Professional', price: '199', desc: 'Multi-location businesses', features: ['Everything in Starter', 'Multiple locations', 'Competitor analysis', 'Response templates'] },
               { name: 'Enterprise', price: '399', desc: 'Up to 2 businesses', features: ['Everything in Professional', '2 businesses included', 'Dedicated manager', 'Priority support'], note: 'No white labeling' },
             ].map((plan, i) => (
-              <div key={i} className={`bg-slate-800/50 border rounded-2xl p-6 ${i === 2 ? 'border-yellow-500/50 ring-2 ring-yellow-500/20' : 'border-white/10'}`}>
+              <div key={i} className={`bg-gray-700/50 border rounded-2xl p-6 ${i === 2 ? 'border-yellow-500/50 ring-2 ring-yellow-500/20' : 'border-gray-700/50'}`}>
                 <h3 className="font-bold text-white text-lg mb-1">{plan.name}</h3>
-                <p className="text-slate-400 text-sm mb-4">{plan.desc}</p>
+                <p className="text-gray-400 text-sm mb-4">{plan.desc}</p>
                 <div className="mb-6">
                   <span className="text-3xl font-bold text-white">Starting at ${plan.price}</span>
-                  <span className="text-slate-400">/month</span>
+                  <span className="text-gray-400">/month</span>
                 </div>
                 <ul className="space-y-2 mb-6">
                   {plan.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-2 text-sm text-slate-300">
+                    <li key={j} className="flex items-center gap-2 text-sm text-gray-300">
                       <Check className="w-4 h-4 text-yellow-400" />
                       {f}
                     </li>
@@ -678,32 +678,32 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* ADD-ONS */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Add-Ons
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Extend your platform with powerful add-ons.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
             {addOns.map((addon, i) => (
-              <div key={i} className="bg-slate-800/50 border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all">
+              <div key={i} className="bg-gray-700/50 border border-gray-700/50 rounded-2xl p-6 hover:border-gray-600/50 transition-all">
                 <h3 className="font-bold text-white text-lg mb-1">{addon.name}</h3>
-                <p className="text-slate-400 text-sm mb-4">{addon.desc}</p>
+                <p className="text-gray-400 text-sm mb-4">{addon.desc}</p>
                 <div className="mb-4">
                   <span className="text-2xl font-bold text-white">Starting at ${addon.price}</span>
-                  <span className="text-slate-400"> {addon.unit}</span>
+                  <span className="text-gray-400"> {addon.unit}</span>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="text-center mb-12">
-            <p className="text-slate-300 mb-4">
+            <p className="text-gray-300 mb-4">
               Need something specific? <a href="mailto:support@operoncrm.com" className="text-cyan-400 hover:underline">Email us</a> for custom add-on development.
             </p>
           </div>
@@ -713,13 +713,13 @@ export default function MarketingHome() {
             <h3 className="text-lg font-semibold text-white text-center mb-6">Coming Soon</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               {comingSoon.map((item, i) => (
-                <div key={i} className="bg-slate-800/30 border border-white/5 rounded-xl p-4 flex items-center gap-3">
+                <div key={i} className="bg-gray-700/30 border border-white/5 rounded-xl p-4 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
                     <Sparkles className="w-5 h-5 text-purple-400" />
                   </div>
                   <div>
                     <div className="font-medium text-white">{item.name}</div>
-                    <div className="text-slate-400 text-sm">{item.desc}</div>
+                    <div className="text-gray-400 text-sm">{item.desc}</div>
                   </div>
                 </div>
               ))}
@@ -731,7 +731,7 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* BETA OFFER */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-r from-purple-900/50 via-blue-900/50 to-cyan-900/50 border-y border-white/10">
+      <section className="py-20 bg-gradient-to-r from-purple-900/50 via-blue-900/50 to-cyan-900/50 border-y border-gray-700/50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-6">
             <Zap className="w-4 h-4" />
@@ -740,7 +740,7 @@ export default function MarketingHome() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Get 50% Off During Beta
           </h2>
-          <p className="text-slate-300 text-lg mb-8">
+          <p className="text-gray-300 text-lg mb-8">
             Be an early adopter and lock in beta pricing. Discount applies to select plans across Small Business, Professional, Sports, and FFL categories.
           </p>
           <Link
@@ -756,7 +756,7 @@ export default function MarketingHome() {
       {/* ─────────────────────────────────────────────────────────── */}
       {/* FINAL CTA */}
       {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-slate-950 relative overflow-hidden">
+      <section className="py-20 bg-gray-900 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-blue-500/10 rounded-full blur-3xl" />
         </div>
@@ -764,7 +764,7 @@ export default function MarketingHome() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Built for Modern Business Operations
           </h2>
-          <p className="text-slate-300 text-lg mb-8">
+          <p className="text-gray-300 text-lg mb-8">
             Join thousands of businesses running their entire operation from one platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -777,7 +777,7 @@ export default function MarketingHome() {
             </Link>
             <Link
               to="/contact"
-              className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold text-lg hover:bg-white/20 transition-all border border-white/20"
+              className="px-8 py-4 bg-gray-700/30 text-white rounded-xl font-semibold text-lg hover:bg-gray-600/30 transition-all border border-gray-600/50"
             >
               Contact Sales
             </Link>
