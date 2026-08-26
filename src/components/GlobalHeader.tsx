@@ -1,208 +1,108 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
 
-interface GlobalHeaderProps {
-  transparent?: boolean;
-}
+const solutions = [
+  { name: 'Small Business CRM', path: '/small-business-crm', desc: 'Service businesses, contractors, and local teams' },
+  { name: 'Restaurant / Retail CRM + POS', path: '/restaurant-retail-crm', desc: 'CRM and POS for food and retail operations' },
+  { name: 'Real Estate', path: '/real-estate', desc: 'Clients, deals, listings, and commissions' },
+  { name: 'Mortgage', path: '/mortgage', desc: 'Borrowers, loan pipeline, documents, and closings' },
+  { name: 'Healthcare', path: '/healthcare', desc: 'Professional CRM workflows for healthcare teams' },
+  { name: 'Legal', path: '/legal', desc: 'Cases, clients, documents, and deadlines' },
+  { name: 'Sports & Fitness', path: '/sports', desc: 'Teams, schedules, registrations, and payments' },
+  { name: 'Gun FFL / Firearms', path: '/gun-ffl-crm', desc: 'Inventory, CRM, POS, and compliance workflows' },
+  { name: 'E-Commerce', path: '/e-commerce', desc: 'Customers, orders, and storefront operations' },
+];
 
-const GlobalHeader: React.FC<GlobalHeaderProps> = ({ transparent = false }) => {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+type GlobalHeaderProps = { transparent?: boolean };
+
+export default function GlobalHeader(_props: GlobalHeaderProps = {}) {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const isHome = location.pathname === '/';
-  const useTransparentBg = (transparent || isHome) && !scrolled;
-
-  const solutions = [
-    { name: 'Small Business CRM', path: '/small-business-crm', desc: 'Service businesses & contractors' },
-    { name: 'Restaurant / Retail CRM', path: '/restaurant-retail-crm', desc: 'POS & inventory management' },
-    { name: 'Real Estate / Mortgage', path: '/real-estate', desc: 'Listings, deals & compliance' },
-    { name: 'Medical CRM', path: '/healthcare', desc: 'HIPAA-compliant patient management' },
-    { name: 'Legal CRM', path: '/legal', desc: 'Case management & time tracking' },
-    { name: 'Sports & Fitness', path: '/sports', desc: 'Teams, leagues & facilities' },
-    { name: 'Social Media Marketing', path: '/social-media-marketing', desc: 'Content & campaign management' },
-    { name: 'Gun FFL / Firearms', path: '/gun-ffl-crm', desc: 'ATF-compliant firearm sales' },
-    { name: 'E-Commerce', path: '/e-commerce', desc: 'Online store integration' },
-    { name: 'Reputation Management', path: '/reputation-management', desc: 'Reviews & brand monitoring' },
-  ];
+  const navClass = (path: string) =>
+    `text-sm font-semibold transition ${location.pathname === path ? 'text-cyan-700' : 'text-slate-700 hover:text-cyan-700'}`;
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        useTransparentBg 
-          ? 'bg-gray-900/80 backdrop-blur-md' 
-          : 'bg-white/97 backdrop-blur-xl shadow-sm border-b border-gray-200'
-      }`}
-      style={{ minHeight: '80px' }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[80px]">
-          {/* Logo */}
-          <Link to="/" className="inline-flex items-center">
-            <img 
-              src="/operon-logo-transparent.png" 
-              alt="Operon CRM" 
-              className="h-14 w-auto object-contain" 
-            />
-          </Link>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/90 bg-white/95 shadow-[0_1px_0_rgba(15,23,42,0.03)] backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link to="/" className="inline-flex items-center" aria-label="OPERON CRM home">
+          <img src="/operon-logo-transparent.png" alt="OPERON CRM" className="h-12 w-auto object-contain" />
+        </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-4">
-            <Link
-              to="/"
-              className={`text-sm font-medium transition-colors ${
-                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
-              }`}
-            >
-              Operon
-            </Link>
+        <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary navigation">
+          <Link to="/" className={navClass('/')}>Home</Link>
+          <Link to="/platform" className={navClass('/platform')}>About</Link>
 
-            <Link
-              to="/platform"
-              className={`text-sm font-medium transition-colors ${
-                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
-              }`}
-            >
-              About Operon
-            </Link>
-
-            {/* Solutions Dropdown */}
-            <div className="relative group">
-              <button 
-                className={`text-sm font-medium flex items-center gap-1 transition-colors ${
-                  useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
-                }`}
-              >
-                Solutions
-                <ChevronDown className="w-4 h-4" />
-              </button>
-              <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-                <div className="p-2">
-                  {solutions.map((solution) => (
-                    <Link
-                      key={solution.path}
-                      to={solution.path}
-                      className="block px-4 py-3 hover:bg-gray-50 rounded-lg"
-                    >
-                      <div className="font-semibold text-gray-900">{solution.name}</div>
-                      <div className="text-xs text-gray-500">{solution.desc}</div>
-                    </Link>
-                  ))}
-                </div>
+          <div className="group relative">
+            <button type="button" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-700 transition hover:text-cyan-700">
+              Solutions
+              <ChevronDown className="h-4 w-4" />
+            </button>
+            <div className="invisible absolute left-1/2 top-full mt-3 w-[38rem] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-3 opacity-0 shadow-2xl transition group-hover:visible group-hover:opacity-100">
+              <div className="grid grid-cols-2 gap-1">
+                {solutions.map((solution) => (
+                  <Link key={solution.path} to={solution.path} className="rounded-xl px-4 py-3 transition hover:bg-slate-50">
+                    <div className="font-semibold text-slate-950">{solution.name}</div>
+                    <div className="mt-1 text-xs leading-5 text-slate-500">{solution.desc}</div>
+                  </Link>
+                ))}
               </div>
+              <Link to="/social-media-marketing" className="mt-2 flex items-center justify-between rounded-xl border border-violet-100 bg-violet-50 px-4 py-3">
+                <div>
+                  <div className="font-semibold text-violet-950">Social Publisher Pro</div>
+                  <div className="mt-1 text-xs text-violet-700">Phase 2 add-on · Coming Soon</div>
+                </div>
+                <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-violet-700">COMING SOON</span>
+              </Link>
             </div>
+          </div>
 
-            <Link 
-              to="/pricing" 
-              className={`text-sm font-medium transition-colors ${
-                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
-              }`}
-            >
-              Pricing
-            </Link>
+          <Link to="/pricing" className={navClass('/pricing')}>Pricing</Link>
+          <Link to="/integrations" className={navClass('/integrations')}>Integrations</Link>
+          <Link to="/contact" className={navClass('/contact')}>Contact</Link>
+          <LanguageSwitcher />
+          <a href={`${APP_URL}/login`} className="text-sm font-semibold text-slate-700 transition hover:text-cyan-700">Login</a>
+          <Link to="/start" className="rounded-xl bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800">Get Started</Link>
+        </nav>
 
-            <Link 
-              to="/contact" 
-              className={`text-sm font-medium transition-colors ${
-                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
-              }`}
-            >
-              Contact
-            </Link>
-
-            <LanguageSwitcher transparent={useTransparentBg} />
-
-            <a 
-              href={`${APP_URL}/login`}
-              className={`text-sm font-medium transition-colors ${
-                useTransparentBg ? 'text-white/90 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
-              }`}
-            >
-              Login
-            </a>
-
-            <Link
-              to="/start"
-              className="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
-            >
-              Get Started
-            </Link>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button 
-            className={`md:hidden ${useTransparentBg ? 'text-white' : 'text-gray-700'}`}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
+        <button
+          type="button"
+          className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 lg:hidden"
+          onClick={() => setMobileOpen((open) => !open)}
+          aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
+          aria-expanded={mobileOpen}
+        >
+          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
       </div>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-white/98 backdrop-blur-xl border-b border-gray-200 shadow-lg">
-          <div className="px-4 py-5 space-y-4">
-            <Link to="/" className="block text-gray-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
-              Operon
-            </Link>
-            <Link to="/platform" className="block text-gray-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
-              About Operon
-            </Link>
-            
-            <div className="border-t border-gray-200 pt-4">
-              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Solutions</div>
+      {mobileOpen && (
+        <div className="border-t border-slate-200 bg-white lg:hidden">
+          <nav className="mx-auto max-w-7xl space-y-1 px-4 py-5 sm:px-6" aria-label="Mobile navigation">
+            <Link to="/" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">Home</Link>
+            <Link to="/platform" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">About</Link>
+            <div className="py-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Solutions</div>
+            <div className="grid gap-1 sm:grid-cols-2">
               {solutions.map((solution) => (
-                <Link
-                  key={solution.path}
-                  to={solution.path}
-                  className="block py-2 text-gray-700 hover:text-cyan-600"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
+                <Link key={solution.path} to={solution.path} onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
                   {solution.name}
                 </Link>
               ))}
             </div>
-
-            <Link to="/pricing" className="block text-gray-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
-              Pricing
-            </Link>
-            <Link to="/contact" className="block text-gray-700 hover:text-cyan-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
-              Contact
-            </Link>
-            
-            <div className="pt-2 border-t border-gray-200">
-              <LanguageSwitcher />
-            </div>
-            
-            <a href={`${APP_URL}/login`} className="block text-gray-700 hover:text-cyan-600 font-medium">
-              Login
-            </a>
-            
-            <Link
-              to="/start"
-              className="block w-full text-center px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Get Started
-            </Link>
-          </div>
+            <Link to="/social-media-marketing" onClick={() => setMobileOpen(false)} className="mt-2 block rounded-lg bg-violet-50 px-3 py-3 text-sm font-semibold text-violet-800">Social Publisher Pro · Coming Soon</Link>
+            <Link to="/pricing" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">Pricing</Link>
+            <Link to="/integrations" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">Integrations</Link>
+            <Link to="/contact" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">Contact</Link>
+            <div className="px-3 py-2"><LanguageSwitcher /></div>
+            <a href={`${APP_URL}/login`} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">Login</a>
+            <Link to="/start" onClick={() => setMobileOpen(false)} className="mt-3 block rounded-xl bg-slate-950 px-4 py-3 text-center font-semibold text-white">Get Started</Link>
+          </nav>
         </div>
       )}
     </header>
   );
-};
-
-export default GlobalHeader;
+}

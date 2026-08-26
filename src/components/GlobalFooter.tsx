@@ -1,170 +1,96 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Twitter, Link as LinkIcon, Instagram } from 'lucide-react';
 
 const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
 
-const GlobalFooter: React.FC = () => {
-  const currentYear = new Date().getFullYear();
+const groups = [
+  {
+    title: 'Product',
+    links: [
+      ['Platform', '/platform'],
+      ['Pricing', '/pricing'],
+      ['Integrations', '/integrations'],
+      ['API Docs', '/docs'],
+      ['Contact Sales', '/contact'],
+    ],
+  },
+  {
+    title: 'Solutions',
+    links: [
+      ['Small Business', '/small-business-crm'],
+      ['Restaurant / Retail + POS', '/restaurant-retail-crm'],
+      ['Real Estate', '/real-estate'],
+      ['Mortgage', '/mortgage'],
+      ['Healthcare', '/healthcare'],
+      ['Legal', '/legal'],
+      ['Sports & Fitness', '/sports'],
+      ['Gun FFL / Firearms', '/gun-ffl-crm'],
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      ['About OPERON', '/platform'],
+      ['Contact', '/contact'],
+      ['Support', '/contact'],
+      ['Get Started', '/start'],
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      ['Privacy', '/privacy'],
+      ['Terms', '/terms'],
+      ['Cookie Policy', '/cookie-policy'],
+      ['Compliance', '/compliance'],
+    ],
+  },
+] as const;
 
-  const footerLinks = {
-    product: [
-      { name: 'Features', path: '/platform' },
-      { name: 'Industries', path: '/#industries' },
-      { name: 'Pricing', path: '/pricing' },
-      { name: 'Integrations', path: '/integrations' },
-      { name: 'Lead Generation', path: '/social-media-marketing' },
-      { name: 'Reputation', path: '/reputation-management' },
-      { name: 'Demo', path: '/contact' },
-      { name: 'Login', path: `${APP_URL}/login`, external: true },
-      { name: 'API Docs', path: '/docs' },
-    ],
-    industries: [
-      { name: 'Real Estate', path: '/real-estate' },
-      { name: 'Mortgage', path: '/real-estate' },
-      { name: 'Legal', path: '/legal' },
-      { name: 'Healthcare', path: '/healthcare' },
-      { name: 'Title Companies', path: '/real-estate' },
-      { name: 'Sports & Athletics', path: '/sports' },
-      { name: 'Service Business', path: '/small-business-crm' },
-      { name: 'E-Commerce', path: '/e-commerce' },
-      { name: 'Reputation Management', path: '/reputation-management' },
-    ],
-    company: [
-      { name: 'About Us', path: '/platform' },
-      { name: 'Contact', path: '/contact' },
-      { name: 'Support', path: '/contact' },
-      { name: 'Partners', path: '/contact' },
-    ],
-    legal: [
-      { name: 'Privacy Policy', path: '/privacy' },
-      { name: 'Terms of Service', path: '/terms' },
-      { name: 'Cookie Policy', path: '/cookie-policy' },
-      { name: 'Compliance', path: '/platform' },
-      { name: 'Accessibility', path: '/accessibility' },
-    ],
-  };
+export default function GlobalFooter() {
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
-          {/* Brand Column */}
-          <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="inline-block mb-4">
-              <img 
-                src="/operon-logo-transparent.png" 
-                alt="Operon CRM" 
-                className="h-10 w-auto brightness-0 invert"
-              />
+    <footer className="border-t border-slate-200 bg-slate-50 text-slate-700">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[1.15fr_2fr]">
+          <div>
+            <Link to="/" className="inline-flex">
+              <img src="/operon-logo-transparent.png" alt="OPERON CRM" className="h-11 w-auto object-contain" />
             </Link>
-            <p className="text-gray-400 text-sm mb-6">
-              The operating system for modern businesses. Any industry. Complete compliance.
+            <p className="mt-4 max-w-sm text-sm leading-6 text-slate-600">
+              The operating system for modern businesses — CRM, operations, automation, and industry-focused workflows in one connected platform.
             </p>
-            <div className="flex gap-4">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                <Instagram className="w-5 h-5" />
-              </a>
+            <div className="mt-5 rounded-2xl border border-violet-100 bg-white p-4">
+              <p className="text-sm font-bold text-slate-950">Phase 2 add-ons</p>
+              <p className="mt-1 text-sm leading-6 text-slate-600">Phone System, Social Publisher Pro, and Geofencing / Location Marketing are coming soon with separate pricing.</p>
             </div>
           </div>
 
-          {/* Product Links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">PRODUCT</h4>
-            <ul className="space-y-2">
-              {footerLinks.product.map((link) => (
-                <li key={link.name}>
-                  {link.external ? (
-                    <a href={link.path} className="text-cyan-400 hover:text-cyan-300 text-sm transition-colors">
-                      {link.name}
-                    </a>
-                  ) : (
-                    <Link to={link.path} className="text-cyan-400 hover:text-cyan-300 text-sm transition-colors">
-                      {link.name}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Industries Links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">INDUSTRIES</h4>
-            <ul className="space-y-2">
-              {footerLinks.industries.map((link) => (
-                <li key={link.name}>
-                  <Link to={link.path} className="text-cyan-400 hover:text-cyan-300 text-sm transition-colors">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company Links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">COMPANY</h4>
-            <ul className="space-y-2">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <Link to={link.path} className="text-cyan-400 hover:text-cyan-300 text-sm transition-colors">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal Links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">LEGAL</h4>
-            <ul className="space-y-2">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <Link to={link.path} className="text-cyan-400 hover:text-cyan-300 text-sm transition-colors">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+            {groups.map((group) => (
+              <div key={group.title}>
+                <h2 className="text-sm font-bold uppercase tracking-[0.14em] text-slate-950">{group.title}</h2>
+                <ul className="mt-4 space-y-3">
+                  {group.links.map(([label, path]) => (
+                    <li key={label}>
+                      <Link to={path} className="text-sm text-slate-600 transition hover:text-cyan-700">{label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-400 text-sm">
-            © {currentYear} Operon CRM. All rights reserved. Created by{' '}
-            <a 
-              href="https://fstacktsolutions.com/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-cyan-500 hover:text-cyan-400 transition-colors"
-            >
-              Full Stack Tech & Solutions
-            </a>
-          </p>
-          <div className="flex gap-6">
-            <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Privacy
-            </Link>
-            <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Terms
-            </Link>
-            <Link to="/cookie-policy" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Cookies
-            </Link>
+        <div className="mt-12 flex flex-col gap-4 border-t border-slate-200 pt-7 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
+          <p>© {year} OPERON CRM. Full Stack Tech & Solutions.</p>
+          <div className="flex flex-wrap items-center gap-5">
+            <a href={`${APP_URL}/login`} className="font-semibold text-slate-700 hover:text-cyan-700">Client Login</a>
+            <Link to="/privacy" className="hover:text-cyan-700">Privacy</Link>
+            <Link to="/terms" className="hover:text-cyan-700">Terms</Link>
           </div>
         </div>
       </div>
     </footer>
   );
-};
-
-export default GlobalFooter;
+}
