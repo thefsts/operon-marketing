@@ -1,4 +1,4 @@
-import { Mail, MessageSquare } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 import LightFeaturePage from '../components/LightFeaturePage';
 
 export default function ContactPage() {
@@ -16,7 +16,6 @@ export default function ContactPage() {
         { title: 'Enterprise scope', description: 'Plan custom users, integrations, security, support, and deployment requirements.' },
         { title: 'Support', description: 'Route product and onboarding questions to the appropriate OPERON team.' },
       ]}
-      primaryCta={{ label: 'Email OPERON', to: '/contact' }}
       secondaryCta={{ label: 'View Pricing', to: '/pricing' }}
       note="For now, use hello@operoncrm.com for general OPERON inquiries. We are removing placeholder phone numbers and office addresses from the public site until verified business contact details are locked."
     />
