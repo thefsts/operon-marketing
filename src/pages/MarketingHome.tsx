@@ -1,877 +1,235 @@
-import { useEffect, useState } from 'react';
+import { ArrowRight, BarChart3, Briefcase, Building2, CheckCircle2, Globe2, MapPin, Phone, ShoppingCart, Sparkles, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { 
-  ArrowRight, Check, Zap, Shield, Users, BarChart3, Clock, Phone, Mail, 
-  Calendar, FileText, MessageSquare, TrendingUp, Settings, Sparkles,
-  Building2, Home, Briefcase, ShoppingCart, Stethoscope, Scale, Trophy,
-  Globe, ChevronRight, Star, Play, CheckCircle
-} from 'lucide-react';
-import GlobalHeader from '../components/GlobalHeader';
+import AddOnsSection from '../components/AddOnsSection';
 import GlobalFooter from '../components/GlobalFooter';
+import GlobalHeader from '../components/GlobalHeader';
+import { pricingFamilies } from '../lib/pricing';
 
-const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
-
-function saveFunnel(type: string) {
-  localStorage.setItem('operon_funnel_type', type);
-  localStorage.setItem('operon_last_url', window.location.href);
-  localStorage.setItem('operon_last_step', 'home');
-}
-
-// Industry solutions data with images
 const industries = [
-  { 
-    icon: Briefcase, 
-    name: 'Small Business', 
-    desc: 'Complete CRM for service businesses, contractors, and local pros.',
+  {
+    name: 'Small Business',
+    description: 'A clean CRM for service businesses, contractors, consultants, and local teams.',
     path: '/small-business-crm',
-    color: 'from-blue-500 to-cyan-400',
-    price: '$29',
-    image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=300&fit=crop'
+    icon: Briefcase,
+    startingAt: 29,
   },
-  { 
-    icon: ShoppingCart, 
-    name: 'Restaurant / Retail', 
-    desc: 'POS, inventory, and customer management in one system.',
+  {
+    name: 'Restaurant / Retail + POS',
+    description: 'Customer management and POS workflows for restaurants, shops, and retail operations.',
     path: '/restaurant-retail-crm',
-    color: 'from-orange-500 to-red-400',
-    price: '$69',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop'
+    icon: ShoppingCart,
+    startingAt: 69,
   },
-  { 
-    icon: Home, 
-    name: 'Real Estate', 
-    desc: 'Listings, deals, commissions, and compliance for agents.',
-    path: '/real-estate',
-    color: 'from-emerald-500 to-teal-400',
-    price: '$49',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop'
-  },
-  { 
-    icon: Stethoscope, 
-    name: 'Healthcare', 
-    desc: 'HIPAA-compliant patient management and scheduling.',
-    path: '/healthcare',
-    color: 'from-rose-500 to-pink-400',
-    price: '$49',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=300&fit=crop'
-  },
-  { 
-    icon: Scale, 
-    name: 'Legal', 
-    desc: 'Case management, time tracking, and client communications.',
-    path: '/legal',
-    color: 'from-amber-500 to-orange-400',
-    price: '$49',
-    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop'
-  },
-  { 
-    icon: Trophy, 
-    name: 'Sports & Fitness', 
-    desc: 'Teams, leagues, facilities, and school athletic programs.',
-    path: '/sports',
-    color: 'from-green-500 to-emerald-400',
-    price: '$29',
-    image: 'https://images.unsplash.com/photo-1461896836934-eea8ea3d6d8e?w=400&h=300&fit=crop'
-  },
-  { 
-    icon: Globe, 
-    name: 'Social Media Marketing', 
-    desc: 'Content scheduling, campaigns, and analytics.',
-    path: '/social-media-marketing',
-    color: 'from-purple-500 to-violet-400',
-    price: '$49',
-    image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop'
-  },
-  { 
-    icon: Shield, 
-    name: 'Gun FFL / Firearms', 
-    desc: 'ATF-compliant sales, inventory, and compliance tracking.',
-    path: '/gun-ffl-crm',
-    color: 'from-slate-500 to-slate-400',
-    price: '$29',
-    image: 'https://images.unsplash.com/photo-1585310988534-1e67e5a6c6e8?w=400&h=300&fit=crop'
-  },
-  { 
-    icon: BarChart3, 
-    name: 'E-Commerce', 
-    desc: 'Online store integration with full order management.',
-    path: '/e-commerce',
-    color: 'from-indigo-500 to-blue-400',
-    price: '$49',
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop'
-  },
-  { 
-    icon: Star, 
-    name: 'Reputation Management', 
-    desc: 'Reviews, brand monitoring, and online presence.',
-    path: '/reputation-management',
-    color: 'from-yellow-500 to-amber-400',
-    price: '$99',
-    image: 'https://images.unsplash.com/photo-1560472354-b33d0a0e1f6b?w=400&h=300&fit=crop'
+  {
+    name: 'Professional CRM',
+    description: 'Industry-focused CRM for real estate, mortgage, legal, healthcare, and other professional teams.',
+    path: '/platform',
+    icon: Building2,
+    startingAt: 49,
   },
 ];
 
-// Platform features
-const platformFeatures = [
-  { icon: Users, title: 'CRM & Contacts', desc: 'Complete customer relationship management' },
-  { icon: BarChart3, title: 'Pipelines & Deals', desc: 'Visual deal tracking and management' },
-  { icon: Calendar, title: 'Scheduling', desc: 'Appointments, reminders, and calendar sync' },
-  { icon: FileText, title: 'Documents', desc: 'Secure storage with e-signatures' },
-  { icon: MessageSquare, title: 'Communications', desc: 'SMS, email, and chat in one inbox' },
-  { icon: TrendingUp, title: 'Reporting', desc: 'Real-time analytics and dashboards' },
-  { icon: Zap, title: 'Automation', desc: 'Workflow automation and triggers' },
-  { icon: Sparkles, title: 'AI Assistant', desc: 'Intelligent suggestions and task automation' },
+const capabilities = [
+  { icon: Users, title: 'Customers & Contacts', description: 'Keep people, companies, notes, tasks, and activity organized in one place.' },
+  { icon: BarChart3, title: 'Pipelines & Opportunities', description: 'Track leads and opportunities through clear stages with less manual follow-up.' },
+  { icon: Sparkles, title: 'Automation & AI', description: 'Use intelligent assistance and workflows to reduce repetitive work across the CRM.' },
+  { icon: Globe2, title: 'Industry Workflows', description: 'Start with workflows designed around the way your industry actually operates.' },
 ];
 
-// Integration logos - Professional brand colors
-const integrations = [
-  { name: 'Stripe', color: '#635BFF' },
-  { name: 'Google', color: '#4285F4' },
-  { name: 'QuickBooks', color: '#2CA01C' },
-  { name: 'Zapier', color: '#FF4A00' },
-  { name: 'DoorDash', color: '#FF3008' },
-  { name: 'Uber Eats', color: '#06C167' },
-  { name: 'Slack', color: '#4A154B' },
-  { name: 'Mailchimp', color: '#FFE01B' },
-];
-
-// Competitor comparison data
-const competitors = [
-  { feature: 'All-in-One Platform', operon: true, salesforce: false, hubspot: false, zoho: false, pipedrive: false },
-  { feature: 'Industry-Specific Versions', operon: true, salesforce: false, hubspot: false, zoho: false, pipedrive: false },
-  { feature: 'Built-in POS System', operon: true, salesforce: false, hubspot: false, zoho: false, pipedrive: false },
-  { feature: 'AI Assistant Included', operon: true, salesforce: true, hubspot: true, zoho: false, pipedrive: false },
-  { feature: 'E-Signatures Built-in', operon: true, salesforce: true, hubspot: false, zoho: false, pipedrive: false },
-  { feature: 'Compliance Tools (HIPAA, ATF)', operon: true, salesforce: true, hubspot: false, zoho: false, pipedrive: false },
-  { feature: 'Unlimited Contacts', operon: true, salesforce: false, hubspot: false, zoho: false, pipedrive: false },
-  { feature: 'Starting Price', operon: '$29/mo', salesforce: '$25/user', hubspot: '$15/mo', zoho: '$14/user', pipedrive: '$15/user' },
-];
-
-// Add-ons
-const addOns = [
-  { name: 'Multi-Business', price: '10', desc: 'Manage multiple businesses under one account', unit: 'per business/mo' },
-  { name: 'White Label', price: '99', desc: 'Brand Operon as your own platform', unit: '/month' },
-  { name: 'Priority Support', price: '49', desc: '24/7 dedicated support team', unit: '/month' },
-];
-
-// Coming soon features
-const comingSoon = [
-  { name: 'Geofence Marketing', desc: 'Location-based marketing campaigns' },
-  { name: 'Business VoIP Phones', desc: 'Integrated business phone system' },
-];
-
-// Compliance items
-const complianceItems = [
-  { icon: Shield, title: 'HIPAA Compliance', desc: 'Healthcare data protection' },
-  { icon: FileText, title: 'ATF Compliance', desc: 'Firearms sales tracking' },
-  { icon: Scale, title: 'Legal Compliance', desc: 'Case and document management' },
-  { icon: CheckCircle, title: 'Sports Compliance', desc: 'Athletic eligibility tracking' },
+const phaseTwo = [
+  { icon: Phone, name: 'Phone System', description: 'Integrated business calling and communications with separate add-on pricing.' },
+  { icon: Sparkles, name: 'Social Publisher Pro', description: 'Social publishing, planning, approvals, and campaign tools as a paid add-on.' },
+  { icon: MapPin, name: 'Geofencing / Location Marketing', description: 'Location-aware marketing and geofence capabilities offered separately from the base CRM.' },
 ];
 
 export default function MarketingHome() {
-  const [continueBanner, setContinueBanner] = useState(false);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('operon_funnel_type');
-    if (saved && localStorage.getItem('operon_last_step')) {
-      setContinueBanner(true);
-    }
-  }, []);
+  const smallBusiness = pricingFamilies.find((family) => family.id === 'small-business');
+  const restaurantRetail = pricingFamilies.find((family) => family.id === 'restaurant-retail');
+  const professional = pricingFamilies.find((family) => family.id === 'professional');
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-white text-slate-900">
       <GlobalHeader />
 
-      {/* Top Announcement Bar */}
-      <div className="fixed top-[80px] left-0 right-0 z-40 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 text-white text-sm py-2 text-center font-medium">
-        <span className="hidden sm:inline">Set up in minutes</span>
-        <span className="sm:hidden">•</span>
-        <span className="mx-2">•</span>
-        <span>No contracts</span>
-        <span className="mx-2">•</span>
-        <span>Built for real businesses</span>
-      </div>
-
-      {/* Continue Banner */}
-      {continueBanner && (
-        <div className="fixed top-[116px] left-0 right-0 z-30 bg-emerald-600 text-white py-3 text-center">
-          <Link to="/start" className="font-medium hover:underline">
-            Continue your setup →
-          </Link>
-        </div>
-      )}
-
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* HERO SECTION */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className={`relative min-h-screen flex items-center justify-center pt-32 bg-gradient-to-br from-gray-900 via-purple-900/50 to-blue-900 overflow-hidden ${continueBanner ? 'mt-8' : ''}`}>
-        {/* Animated background effects */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-float-delayed" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-3xl animate-pulse-glow" />
-          
-          {/* Floating particles */}
-          <div className="absolute top-20 left-10 w-2 h-2 bg-cyan-400 rounded-full animate-float opacity-60" />
-          <div className="absolute top-40 right-20 w-3 h-3 bg-purple-400 rounded-full animate-float-delayed opacity-60" />
-          <div className="absolute bottom-40 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-float opacity-60" />
-          <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-pink-400 rounded-full animate-float-delayed opacity-60" />
-          <div className="absolute bottom-20 right-10 w-2 h-2 bg-green-400 rounded-full animate-float opacity-60" />
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center">
-            {/* Beta badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 text-orange-400 text-sm font-medium mb-8">
-              <Zap className="w-4 h-4" />
-              Limited Beta sale onboarding spots available
-            </div>
-
-            {/* Main headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-              Run Your Entire Business<br />
-              <span className="gradient-text-animate bg-clip-text text-transparent">
-                From One System
+      <main id="main-content" className="pt-20">
+        <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-cyan-50 via-white to-white">
+          <div className="absolute inset-x-0 top-0 h-[34rem] bg-[radial-gradient(circle_at_top_left,rgba(6,182,212,0.16),transparent_42%),radial-gradient(circle_at_top_right,rgba(124,58,237,0.10),transparent_38%)]" />
+          <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:px-8 lg:py-28">
+            <div>
+              <span className="inline-flex rounded-full border border-cyan-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-cyan-700 shadow-sm">
+                CRM + operations for modern businesses
               </span>
-            </h1>
-
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
-              CRM, POS, Marketing, Scheduling, Documents, and AI Assistant — all in one powerful platform designed for your industry.
-            </p>
-
-            {/* CTA buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Link
-                to="/start"
-                onClick={() => saveFunnel('general')}
-                className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/30 transition-all flex items-center justify-center gap-2"
-              >
-                Start Free Trial
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to="/pricing"
-                className="px-8 py-4 bg-gray-700/30 text-white rounded-xl font-semibold text-lg hover:bg-gray-600/30 transition-all border border-gray-600/50"
-              >
-                View Pricing
-              </Link>
-            </div>
-
-            <p className="text-gray-400 text-sm">
-              No credit card required • Set up in 5 minutes
-            </p>
-          </div>
-
-          {/* Dashboard preview - Realistic CRM Mockup */}
-          <div className="mt-16 relative animate-fade-in-up">
-            {/* Scroll indicator */}
-            <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-scroll-indicator z-20">
-              <span className="text-gray-500 text-xs">Scroll to explore</span>
-              <div className="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center pt-2">
-                <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" />
-              </div>
-            </div>
-            
-            <div className="relative rounded-2xl overflow-hidden border border-gray-700/50 shadow-2xl shadow-purple-500/20 hover-lift">
-              {/* Window chrome */}
-              <div className="bg-gray-800 px-4 py-3 flex items-center justify-between border-b border-gray-700/50">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                  <div className="w-3 h-3 rounded-full bg-green-500" />
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="text-gray-400 text-sm">Operon CRM</div>
-                </div>
-                <div className="w-16" />
-              </div>
-              
-              {/* Dashboard content */}
-              <div className="bg-gray-900 p-6">
-                {/* Top stats row */}
-                <div className="grid grid-cols-4 gap-4 mb-6">
-                  <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-xl p-4 border border-cyan-500/20">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-gray-400 text-xs">Revenue</span>
-                      <TrendingUp className="w-4 h-4 text-green-400" />
-                    </div>
-                    <div className="text-2xl font-bold text-white">$24,580</div>
-                    <div className="text-green-400 text-xs mt-1">+12.5% this month</div>
-                  </div>
-                  <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-4 border border-purple-500/20">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-gray-400 text-xs">Leads</span>
-                      <Users className="w-4 h-4 text-purple-400" />
-                    </div>
-                    <div className="text-2xl font-bold text-white">127</div>
-                    <div className="text-green-400 text-xs mt-1">+23 new this week</div>
-                  </div>
-                  <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-xl p-4 border border-emerald-500/20">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-gray-400 text-xs">Active Deals</span>
-                      <BarChart3 className="w-4 h-4 text-emerald-400" />
-                    </div>
-                    <div className="text-2xl font-bold text-white">43</div>
-                    <div className="text-green-400 text-xs mt-1">$156K pipeline</div>
-                  </div>
-                  <div className="bg-gradient-to-br from-orange-500/10 to-amber-500/10 rounded-xl p-4 border border-orange-500/20">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-gray-400 text-xs">Tasks</span>
-                      <CheckCircle className="w-4 h-4 text-orange-400" />
-                    </div>
-                    <div className="text-2xl font-bold text-white">18</div>
-                    <div className="text-gray-400 text-xs mt-1">5 due today</div>
-                  </div>
-                </div>
-                
-                {/* Main content area */}
-                <div className="grid grid-cols-3 gap-4">
-                  {/* Pipeline view */}
-                  <div className="col-span-2 bg-gray-800 rounded-xl p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-white font-semibold">Pipeline</h4>
-                      <span className="text-xs text-gray-400">4 stages</span>
-                    </div>
-                    <div className="grid grid-cols-4 gap-2">
-                      {['New', 'Qualified', 'Proposal', 'Won'].map((stage, i) => (
-                        <div key={stage} className="bg-gray-700/50 rounded-lg p-3">
-                          <div className="text-xs text-gray-400 mb-2">{stage}</div>
-                          <div className="space-y-2">
-                            {[1, 2].slice(0, i === 3 ? 1 : 2).map((_, j) => (
-                              <div key={j} className="bg-gray-600/50 rounded p-2 text-xs text-white truncate">
-                                Deal #{i}{j + 1}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {/* Activity feed */}
-                  <div className="bg-gray-800 rounded-xl p-4">
-                    <h4 className="text-white font-semibold mb-4">Recent Activity</h4>
-                    <div className="space-y-3">
-                      {[
-                        { action: 'New lead captured', time: '2m ago', icon: Users },
-                        { action: 'Meeting scheduled', time: '15m ago', icon: Calendar },
-                        { action: 'Deal closed - $2,400', time: '1h ago', icon: CheckCircle },
-                        { action: 'Email sent', time: '2h ago', icon: MessageSquare },
-                      ].map((item, i) => (
-                        <div key={i} className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center">
-                            <item.icon className="w-4 h-4 text-cyan-400" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-xs text-white truncate">{item.action}</div>
-                            <div className="text-xs text-gray-500">{item.time}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* INDUSTRY SOLUTIONS GRID */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 animate-fade-in-up">
-              Choose the System Built for Your Business
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Industry-specific solutions with features designed for how you work.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-            {industries.map((industry, i) => (
-              <Link
-                key={i}
-                to={industry.path}
-                onClick={() => saveFunnel(industry.name.toLowerCase().replace(/[^a-z]/g, '_'))}
-                className="group relative bg-gray-800/50 border border-gray-700/50 rounded-2xl overflow-hidden hover:border-gray-600/50 hover:bg-gray-700/50 transition-all hover:shadow-xl hover:shadow-purple-500/10 hover:-translate-y-1"
-              >
-                {/* Image with gradient overlay */}
-                <div className="relative h-32 overflow-hidden">
-                  <img 
-                    src={industry.image} 
-                    alt={industry.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className={`absolute inset-0 bg-gradient-to-t from-gray-800 via-gray-800/60 to-transparent`} />
-                  <div className={`absolute inset-0 bg-gradient-to-br ${industry.color} opacity-20 group-hover:opacity-30 transition-opacity`} />
-                </div>
-                
-                {/* Content */}
-                <div className="relative p-5">
-                  <div className={`absolute -top-6 left-4 w-10 h-10 rounded-lg bg-gradient-to-br ${industry.color} flex items-center justify-center shadow-lg`}>
-                    <industry.icon className="w-5 h-5 text-white" />
-                  </div>
-                  <h3 className="font-bold text-white mb-1 mt-2">{industry.name}</h3>
-                  <p className="text-gray-400 text-xs mb-3 line-clamp-2">{industry.desc}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-cyan-400 text-xs font-medium">From {industry.price}/mo</span>
-                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* PLATFORM FEATURES */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                Replace Your Entire Tech Stack
-              </h2>
-              <p className="text-gray-400 text-lg mb-8">
-                Stop paying for 10 different tools. Operon gives you everything in one platform, working together seamlessly.
+              <h1 className="mt-6 max-w-4xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+                Run your customer relationships and daily operations from one cleaner system.
+              </h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
+                OPERON CRM brings customer management, pipelines, tasks, automation, and industry-focused workflows together without forcing your team to juggle disconnected tools.
               </p>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                {platformFeatures.map((feature, i) => (
-                  <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-gray-700/50">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center flex-shrink-0">
-                      <feature.icon className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-white text-sm">{feature.title}</div>
-                      <div className="text-gray-400 text-xs">{feature.desc}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 blur-3xl" />
-              <div className="relative bg-gray-700/80 rounded-2xl border border-gray-700/50 p-6">
-                <div className="text-sm text-gray-400 mb-4">AI Assistant</div>
-                <div className="space-y-4">
-                  <div className="bg-gray-600/50 rounded-lg p-4">
-                    <p className="text-white text-sm">I've scheduled 3 appointments for tomorrow and sent follow-up emails to 12 leads. Your conversion rate is up 15% this week!</p>
-                  </div>
-                  <div className="flex justify-end">
-                    <div className="bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg p-4 max-w-xs">
-                      <p className="text-white text-sm">Show me my top 5 leads this month</p>
-                    </div>
-                  </div>
-                  <div className="bg-gray-600/50 rounded-lg p-4">
-                    <p className="text-white text-sm">Here are your top leads based on engagement. Would you like me to prioritize outreach?</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* INTEGRATIONS */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-16 bg-gray-800 border-y border-gray-700/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h3 className="text-xl font-semibold text-white mb-2">
-              Connect with the Tools You Already Use
-            </h3>
-            <p className="text-gray-400 text-sm">Seamless integrations with 100+ popular business tools</p>
-          </div>
-          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
-            {integrations.map((int, i) => (
-              <div 
-                key={i} 
-                className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-700/30 hover:bg-gray-700/50 border border-gray-700/50 hover:border-gray-600/50 transition-all cursor-pointer"
-              >
-                <div 
-                  className="w-6 h-6 rounded flex items-center justify-center text-white text-xs font-bold"
-                  style={{ backgroundColor: int.color }}
-                >
-                  {int.name.charAt(0)}
-                </div>
-                <span className="font-medium text-gray-300 group-hover:text-white transition-colors">{int.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* CRM COMPARISON */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Why Operon Wins
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              See how Operon compares to the leading CRM platforms on the market.
-            </p>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-gray-700/50">
-                  <th className="text-left py-4 px-4 text-gray-400 font-medium">Feature</th>
-                  <th className="text-center py-4 px-4 text-cyan-400 font-bold">Operon</th>
-                  <th className="text-center py-4 px-4 text-gray-400">Salesforce</th>
-                  <th className="text-center py-4 px-4 text-gray-400">HubSpot</th>
-                  <th className="text-center py-4 px-4 text-gray-400">Zoho</th>
-                  <th className="text-center py-4 px-4 text-gray-400">Pipedrive</th>
-                </tr>
-              </thead>
-              <tbody>
-                {competitors.map((row, i) => (
-                  <tr key={i} className="border-b border-white/5 hover:bg-white/5">
-                    <td className="py-4 px-4 text-white">{row.feature}</td>
-                    <td className="py-4 px-4 text-center">
-                      {typeof row.operon === 'boolean' ? (
-                        <CheckCircle className={`w-5 h-5 mx-auto ${row.operon ? 'text-cyan-400' : 'text-red-400'}`} />
-                      ) : (
-                        <span className="text-cyan-400 font-bold">{row.operon}</span>
-                      )}
-                    </td>
-                    <td className="py-4 px-4 text-center">
-                      {typeof row.salesforce === 'boolean' ? (
-                        <CheckCircle className={`w-5 h-5 mx-auto ${row.salesforce ? 'text-green-400' : 'text-red-400/50'}`} />
-                      ) : (
-                        <span className="text-gray-400">{row.salesforce}</span>
-                      )}
-                    </td>
-                    <td className="py-4 px-4 text-center">
-                      {typeof row.hubspot === 'boolean' ? (
-                        <CheckCircle className={`w-5 h-5 mx-auto ${row.hubspot ? 'text-green-400' : 'text-red-400/50'}`} />
-                      ) : (
-                        <span className="text-gray-400">{row.hubspot}</span>
-                      )}
-                    </td>
-                    <td className="py-4 px-4 text-center">
-                      {typeof row.zoho === 'boolean' ? (
-                        <CheckCircle className={`w-5 h-5 mx-auto ${row.zoho ? 'text-green-400' : 'text-red-400/50'}`} />
-                      ) : (
-                        <span className="text-gray-400">{row.zoho}</span>
-                      )}
-                    </td>
-                    <td className="py-4 px-4 text-center">
-                      {typeof row.pipedrive === 'boolean' ? (
-                        <CheckCircle className={`w-5 h-5 mx-auto ${row.pipedrive ? 'text-green-400' : 'text-red-400/50'}`} />
-                      ) : (
-                        <span className="text-gray-400">{row.pipedrive}</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* COMPLIANCE */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Compliance-Aware by Design
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Built-in compliance tools for regulated industries.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {complianceItems.map((item, i) => (
-              <div key={i} className="bg-gray-700/50 border border-gray-700/50 rounded-2xl p-6 hover:border-gray-600/50 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-4">
-                  <item.icon className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* SPORTS CRM SECTION */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-medium mb-6">
-                <Trophy className="w-4 h-4" />
-                Sports & Fitness CRM
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                Built for Sports Organizations
-              </h2>
-              <p className="text-gray-400 text-lg mb-8">
-                Manage teams, leagues, facilities, and school athletic programs with purpose-built tools.
-              </p>
-
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                {[
-                  { label: 'Teams & Leagues', icon: Users },
-                  { label: 'Facilities', icon: Building2 },
-                  { label: 'Schools', icon: FileText },
-                  { label: 'Compliance', icon: Shield },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-gray-700/50">
-                    <item.icon className="w-5 h-5 text-green-400" />
-                    <span className="text-white font-medium">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-
-              <Link
-                to="/sports"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-500/25 transition-all"
-              >
-                View Sports CRM
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl border border-green-500/20 p-8">
-              <div className="grid grid-cols-2 gap-4">
-                {['Player Management', 'Schedule Games', 'Track Stats', 'Team Communication'].map((item, i) => (
-                  <div key={i} className="bg-gray-700/50 rounded-lg p-4">
-                    <CheckCircle className="w-5 h-5 text-green-400 mb-2" />
-                    <span className="text-white text-sm font-medium">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* E-COMMERCE SECTION */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="bg-gradient-to-br from-indigo-500/10 to-blue-500/10 rounded-2xl border border-indigo-500/20 p-8">
-                <div className="grid grid-cols-2 gap-4">
-                  {['Product Catalog', 'Order Management', 'Payment Processing', 'Shipping Integration'].map((item, i) => (
-                    <div key={i} className="bg-gray-700/50 rounded-lg p-4">
-                      <CheckCircle className="w-5 h-5 text-indigo-400 mb-2" />
-                      <span className="text-white text-sm font-medium">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="order-1 lg:order-2">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
-                <ShoppingCart className="w-4 h-4" />
-                E-Commerce
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                Run Your Online Store Inside Your CRM
-              </h2>
-              <p className="text-gray-400 text-lg mb-8">
-                Full e-commerce integration with inventory, orders, payments, and customer management in one place.
-              </p>
-
-              <Link
-                to="/e-commerce"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-indigo-500/25 transition-all"
-              >
-                View E-Commerce
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* REPUTATION MANAGEMENT */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-sm font-medium mb-6">
-              <Star className="w-4 h-4" />
-              Reputation Management
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Honest, Ethical Reputation Management
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Monitor reviews, manage your online presence, and build trust with customers. No fake reviews — just honest reputation building.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {[
-              { name: 'Starter', price: '99', desc: 'Single business monitoring', features: ['Review monitoring', 'Google Business sync', 'Monthly reports'] },
-              { name: 'Professional', price: '199', desc: 'Multi-location businesses', features: ['Everything in Starter', 'Multiple locations', 'Competitor analysis', 'Response templates'] },
-              { name: 'Enterprise', price: '399', desc: 'Up to 2 businesses', features: ['Everything in Professional', '2 businesses included', 'Dedicated manager', 'Priority support'], note: 'No white labeling' },
-            ].map((plan, i) => (
-              <div key={i} className={`bg-gray-700/50 border rounded-2xl p-6 ${i === 2 ? 'border-yellow-500/50 ring-2 ring-yellow-500/20' : 'border-gray-700/50'}`}>
-                <h3 className="font-bold text-white text-lg mb-1">{plan.name}</h3>
-                <p className="text-gray-400 text-sm mb-4">{plan.desc}</p>
-                <div className="mb-6">
-                  <span className="text-3xl font-bold text-white">Starting at ${plan.price}</span>
-                  <span className="text-gray-400">/month</span>
-                </div>
-                <ul className="space-y-2 mb-6">
-                  {plan.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-2 text-sm text-gray-300">
-                      <Check className="w-4 h-4 text-yellow-400" />
-                      {f}
-                    </li>
-                  ))}
-                  {plan.note && (
-                    <li className="text-xs text-yellow-400 mt-2">* {plan.note}</li>
-                  )}
-                </ul>
-                <Link
-                  to="/reputation-management"
-                  className="block w-full text-center py-3 bg-gradient-to-r from-yellow-500 to-amber-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
-                >
-                  Learn More
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link to="/start" className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-6 py-3.5 font-semibold text-white transition hover:bg-slate-800">
+                  Get Started
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link to="/pricing" className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3.5 font-semibold text-slate-800 transition hover:border-cyan-300 hover:text-cyan-700">
+                  View Pricing
                 </Link>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* ADD-ONS */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Add-Ons
-            </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Extend your platform with powerful add-ons.
-            </p>
-          </div>
+              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-600">
+                {['Simple monthly pricing', 'Industry-focused options', 'Phase 2 add-ons shown separately'].map((item) => (
+                  <span key={item} className="inline-flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
-            {addOns.map((addon, i) => (
-              <div key={i} className="bg-gray-700/50 border border-gray-700/50 rounded-2xl p-6 hover:border-gray-600/50 transition-all">
-                <h3 className="font-bold text-white text-lg mb-1">{addon.name}</h3>
-                <p className="text-gray-400 text-sm mb-4">{addon.desc}</p>
-                <div className="mb-4">
-                  <span className="text-2xl font-bold text-white">Starting at ${addon.price}</span>
-                  <span className="text-gray-400"> {addon.unit}</span>
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-2xl shadow-slate-200/60 sm:p-7">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-5">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700">OPERON workspace</p>
+                  <h2 className="mt-1 text-xl font-bold text-slate-950">Business overview</h2>
+                </div>
+                <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Live data ready</span>
+              </div>
+
+              <div className="mt-5 grid gap-4 sm:grid-cols-3">
+                {[
+                  ['Open Leads', '24'],
+                  ['Active Opportunities', '12'],
+                  ['Tasks Due', '7'],
+                ].map(([label, value]) => (
+                  <div key={label} className="rounded-2xl bg-slate-50 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">{label}</p>
+                    <p className="mt-2 text-2xl font-bold text-slate-950">{value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 rounded-2xl border border-slate-200 p-4">
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold text-slate-950">Pipeline</p>
+                  <span className="text-xs text-slate-500">Sample workspace</span>
+                </div>
+                <div className="mt-4 grid gap-3 sm:grid-cols-4">
+                  {['New', 'Qualified', 'Proposal', 'Won'].map((stage, index) => (
+                    <div key={stage} className="rounded-xl bg-slate-50 p-3">
+                      <p className="text-xs font-semibold text-slate-500">{stage}</p>
+                      <p className="mt-2 text-lg font-bold text-slate-950">{[9, 6, 4, 11][index]}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-
-          <div className="text-center mb-12">
-            <p className="text-gray-300 mb-4">
-              Need something specific? <a href="mailto:support@operoncrm.com" className="text-cyan-400 hover:underline">Email us</a> for custom add-on development.
-            </p>
-          </div>
-
-          {/* Coming Soon */}
-          <div className="max-w-2xl mx-auto">
-            <h3 className="text-lg font-semibold text-white text-center mb-6">Coming Soon</h3>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {comingSoon.map((item, i) => (
-                <div key={i} className="bg-gray-700/30 border border-white/5 rounded-xl p-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-purple-400" />
-                  </div>
-                  <div>
-                    <div className="font-medium text-white">{item.name}</div>
-                    <div className="text-gray-400 text-sm">{item.desc}</div>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* BETA OFFER */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-r from-purple-900/50 via-blue-900/50 to-cyan-900/50 border-y border-gray-700/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium mb-6">
-            <Zap className="w-4 h-4" />
-            Limited Time Beta Sale
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">Choose your starting point</p>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">One OPERON platform, sized for the way you work.</h2>
+            <p className="mt-4 text-slate-600">The website now follows the same three pricing families as the approved pricing schedule.</p>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Get 50% Off During Beta
-          </h2>
-          <p className="text-gray-300 text-lg mb-8">
-            Be an early adopter and lock in beta pricing. Discount applies to select plans across Small Business, Professional, Sports, and FFL categories.
-          </p>
-          <Link
-            to="/pricing"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-orange-500/25 transition-all"
-          >
-            View Beta Pricing
-            <ArrowRight className="w-5 h-5" />
-          </Link>
-        </div>
-      </section>
 
-      {/* ─────────────────────────────────────────────────────────── */}
-      {/* FINAL CTA */}
-      {/* ─────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gray-900 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-blue-500/10 rounded-full blur-3xl" />
-        </div>
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Built for Modern Business Operations
-          </h2>
-          <p className="text-gray-300 text-lg mb-8">
-            Join thousands of businesses running their entire operation from one platform.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/start"
-              onClick={() => saveFunnel('general')}
-              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/30 transition-all"
-            >
-              Start Free Trial
-            </Link>
-            <Link
-              to="/contact"
-              className="px-8 py-4 bg-gray-700/30 text-white rounded-xl font-semibold text-lg hover:bg-gray-600/30 transition-all border border-gray-600/50"
-            >
-              Contact Sales
-            </Link>
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            {industries.map((industry) => {
+              const Icon = industry.icon;
+              return (
+                <article key={industry.name} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="mt-5 text-xl font-bold text-slate-950">{industry.name}</h3>
+                  <p className="mt-2 min-h-20 text-sm leading-6 text-slate-600">{industry.description}</p>
+                  <div className="mt-5 flex items-end gap-1">
+                    <span className="text-sm text-slate-500">Starting at</span>
+                    <span className="text-2xl font-bold text-slate-950">${industry.startingAt}</span>
+                    <span className="pb-0.5 text-sm text-slate-500">/mo</span>
+                  </div>
+                  <Link to={industry.path} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cyan-700 hover:text-cyan-800">
+                    Explore solution
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </article>
+              );
+            })}
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section className="border-y border-slate-200 bg-slate-50">
+          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+            <div className="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">Core platform</p>
+                <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">Built to replace scattered business tools with one operating layer.</h2>
+                <p className="mt-4 text-slate-600">Keep the core CRM fast and focused, then add specialized capability as your business needs it.</p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {capabilities.map((capability) => {
+                  const Icon = capability.icon;
+                  return (
+                    <article key={capability.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <h3 className="mt-4 font-bold text-slate-950">{capability.title}</h3>
+                      <p className="mt-2 text-sm leading-6 text-slate-600">{capability.description}</p>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+          <div className="rounded-[2rem] border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-cyan-50 p-6 sm:p-8 lg:p-10">
+            <div className="max-w-3xl">
+              <span className="inline-flex rounded-full border border-violet-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-violet-700">Phase 2 · Coming Soon</span>
+              <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-950">High-value add-ons are coming next.</h2>
+              <p className="mt-3 text-slate-600">These capabilities are being built as separate paid add-ons. We are not advertising final pricing until the service cost and production scope are locked.</p>
+            </div>
+
+            <div className="mt-8 grid gap-5 lg:grid-cols-3">
+              {phaseTwo.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <article key={item.name} className="rounded-2xl border border-violet-100 bg-white p-6 shadow-sm">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-50 text-violet-700">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="mt-5 text-lg font-bold text-slate-950">{item.name}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
+                    <Link to={item.name === 'Social Publisher Pro' ? '/social-media-marketing' : '/pricing'} className="mt-4 inline-flex text-sm font-semibold text-violet-700 hover:text-violet-800">
+                      Learn more
+                    </Link>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20">
+          <AddOnsSection />
+        </section>
+
+        <section className="border-t border-slate-200 bg-slate-950 text-white">
+          <div className="mx-auto flex max-w-7xl flex-col gap-7 px-4 py-14 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Ready to see OPERON?</p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight">Start with the CRM your business needs today.</h2>
+              <p className="mt-3 text-slate-300">Then expand into Phase 2 add-ons as they move through production readiness.</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link to="/start" className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-slate-100">Get Started</Link>
+              <Link to="/pricing" className="rounded-xl border border-slate-700 px-5 py-3 text-sm font-semibold text-white hover:border-cyan-400 hover:text-cyan-200">View Pricing</Link>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <GlobalFooter />
     </div>
