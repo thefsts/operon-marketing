@@ -1,227 +1,82 @@
-import React from 'react';
+import { ArrowRight, Calendar, CheckCircle2, CreditCard, Mail, MessageSquare, Plug, Webhook } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { 
-  ArrowRight, MessageSquare, Phone, Mail, CreditCard, 
-  Zap, Webhook, HardDrive, FileText, Calendar, CheckCircle,
-  Calculator, ShoppingCart, Users, Star, Clock, Building
-} from 'lucide-react';
-import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
+import GlobalHeader from '../components/GlobalHeader';
 
-const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
-
-const integrations = {
-  communication: {
+const categories = [
+  {
     title: 'Communication',
-    description: 'Connect with your favorite communication tools',
-    items: [
-      { name: 'Slack', icon: MessageSquare, status: 'Native', description: 'Real-time team notifications and alerts' },
-      { name: 'Twilio', icon: Phone, status: 'Native', description: 'SMS and voice communications' },
-      { name: 'Gmail', icon: Mail, status: 'Native', description: 'Email sync and tracking' },
-      { name: 'Outlook', icon: Mail, status: 'Via Zapier', description: 'Calendar and email integration' },
-      { name: 'Microsoft Teams', icon: MessageSquare, status: 'Via Zapier', description: 'Team collaboration and chat' },
-    ]
+    icon: MessageSquare,
+    items: ['Gmail', 'Microsoft 365 / Outlook', 'Slack', 'Business messaging providers'],
   },
-  calendarScheduling: {
+  {
     title: 'Calendar & Scheduling',
-    description: 'Sync calendars and automate scheduling',
-    items: [
-      { name: 'Google Calendar', icon: Calendar, status: 'Native', description: 'Two-way calendar synchronization' },
-      { name: 'Calendly', icon: Clock, status: 'Via Zapier', description: 'Automated appointment scheduling' },
-      { name: 'Outlook Calendar', icon: Calendar, status: 'Via Zapier', description: 'Microsoft calendar integration' },
-    ]
+    icon: Calendar,
+    items: ['Google Calendar', 'Microsoft Calendar', 'Scheduling tools'],
   },
-  payments: {
-    title: 'Payments',
-    description: 'Accept payments through multiple providers',
-    items: [
-      { name: 'PayPal', icon: CreditCard, status: 'Native', description: 'Online payment processing' },
-      { name: 'Square', icon: CreditCard, status: 'Native', description: 'POS and online payments' },
-      { name: 'Afterpay', icon: CreditCard, status: 'Coming Soon', description: 'Buy now, pay later options' },
-      { name: 'Zip', icon: CreditCard, status: 'Coming Soon', description: 'Flexible payment plans' },
-      { name: 'Stripe', icon: CreditCard, status: 'Coming Soon', description: 'Payment processing platform' },
-    ]
+  {
+    title: 'Payments & Commerce',
+    icon: CreditCard,
+    items: ['Stripe', 'Square', 'POS and commerce integrations'],
   },
-  automation: {
-    title: 'Automation',
-    description: 'Connect with automation platforms',
-    items: [
-      { name: 'Zapier', icon: Zap, status: 'Native', description: 'Connect 5000+ apps automatically' },
-      { name: 'Make', icon: Zap, status: 'Native', description: 'Visual workflow automation' },
-      { name: 'Webhooks', icon: Webhook, status: 'Native', description: 'Custom real-time integrations' },
-      { name: 'n8n', icon: Zap, status: 'Via Webhook', description: 'Self-hosted workflow automation' },
-    ]
+  {
+    title: 'Automation & API',
+    icon: Webhook,
+    items: ['Webhooks', 'Zapier / Make-style workflows', 'API access as released'],
   },
-  filesStorage: {
-    title: 'Files & Storage',
-    description: 'Sync and backup your data',
-    items: [
-      { name: 'Google Drive', icon: HardDrive, status: 'Via Zapier', description: 'Cloud storage and documents' },
-      { name: 'Dropbox', icon: HardDrive, status: 'Via Zapier', description: 'File sync and backup' },
-      { name: 'OneDrive', icon: HardDrive, status: 'Via Zapier', description: 'Microsoft cloud storage' },
-      { name: 'CSV Import/Export', icon: FileText, status: 'Native', description: 'Bulk data management' },
-    ]
+  {
+    title: 'Email & Notifications',
+    icon: Mail,
+    items: ['Resend', 'Transactional email', 'Notification routing'],
   },
-  accountingFinance: {
-    title: 'Accounting & Finance',
-    description: 'Sync with your accounting software',
-    items: [
-      { name: 'QuickBooks', icon: Calculator, status: 'Coming Soon', description: 'Accounting software sync' },
-      { name: 'Xero', icon: Calculator, status: 'Coming Soon', description: 'Cloud accounting integration' },
-      { name: 'FreshBooks', icon: Calculator, status: 'Via Zapier', description: 'Invoicing and accounting' },
-    ]
+  {
+    title: 'Connected Services',
+    icon: Plug,
+    items: ['QuickBooks', 'DocuSign', 'Gusto', 'Customer-owned third-party services'],
   },
-  commerceOperations: {
-    title: 'Commerce & Operations',
-    description: 'E-commerce and business operations',
-    items: [
-      { name: 'WooCommerce', icon: ShoppingCart, status: 'Via Zapier', description: 'WordPress e-commerce platform' },
-      { name: 'BigCommerce', icon: ShoppingCart, status: 'Via Zapier', description: 'Enterprise e-commerce' },
-      { name: 'Amazon', icon: ShoppingCart, status: 'Coming Soon', description: 'Marketplace integration' },
-      { name: 'eBay', icon: ShoppingCart, status: 'Coming Soon', description: 'Marketplace sync' },
-    ]
-  },
-  crmMarketing: {
-    title: 'CRM & Marketing',
-    description: 'Connect your marketing and CRM tools',
-    items: [
-      { name: 'HubSpot', icon: Users, status: 'Via Zapier', description: 'Marketing automation' },
-      { name: 'Mailchimp', icon: Mail, status: 'Via Zapier', description: 'Email marketing campaigns' },
-      { name: 'Salesforce', icon: Building, status: 'Coming Soon', description: 'Enterprise CRM sync' },
-    ]
-  },
-  reviews: {
-    title: 'Reviews & Reputation',
-    description: 'Manage your online reputation',
-    items: [
-      { name: 'Google Reviews', icon: Star, status: 'Native', description: 'Google Business Profile reviews' },
-      { name: 'Facebook Reviews', icon: Star, status: 'Native', description: 'Facebook page reviews' },
-      { name: 'Yelp', icon: Star, status: 'Via API', description: 'Business review platform' },
-      { name: 'Trustpilot', icon: Star, status: 'Coming Soon', description: 'Customer review platform' },
-    ]
-  }
-};
+];
 
 export default function IntegrationsPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white text-slate-900">
       <GlobalHeader />
-
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Integrate with the tools your business{' '}
-            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              already uses
-            </span>
-          </h1>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            Connect Operon with your existing tech stack. Native integrations, Zapier support, and custom webhooks.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white text-sm">
-              <CheckCircle className="w-4 h-4 text-green-400" />
-              40+ Integrations
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white text-sm">
-              <CheckCircle className="w-4 h-4 text-green-400" />
-              Native + Zapier
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white text-sm">
-              <CheckCircle className="w-4 h-4 text-green-400" />
-              Custom Webhooks
-            </div>
+      <main id="main-content" className="pt-20">
+        <section className="border-b border-slate-200 bg-gradient-to-b from-cyan-50 to-white">
+          <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+            <span className="inline-flex rounded-full border border-cyan-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-cyan-700">Integrations</span>
+            <h1 className="mt-6 max-w-4xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">Connect OPERON to the tools your business already uses.</h1>
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">OPERON is being built around a clean integration layer so customers can connect communications, calendars, payments, accounting, documents, and automation without scattering business data across disconnected workflows.</p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Integrations Grid */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {Object.entries(integrations).map(([key, category]) => (
-            <div key={key} className="mb-16 last:mb-0">
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">{category.title}</h2>
-                <p className="text-slate-500">{category.description}</p>
-              </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {category.items.map((item, index) => (
-                  <div 
-                    key={index} 
-                    className="bg-slate-50 border border-slate-200 rounded-xl p-6 hover:shadow-lg hover:border-cyan-300 transition-all"
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-cyan-100 to-blue-100 rounded-xl flex items-center justify-center">
-                        <item.icon className="w-6 h-6 text-cyan-600" />
-                      </div>
-                      <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
-                        item.status === 'Native' 
-                          ? 'bg-green-100 text-green-700' 
-                          : item.status === 'Coming Soon'
-                          ? 'bg-orange-100 text-orange-700'
-                          : 'bg-blue-100 text-blue-700'
-                      }`}>
-                        {item.status}
-                      </span>
-                    </div>
-                    <h3 className="font-bold text-slate-900 mb-2">{item.name}</h3>
-                    <p className="text-sm text-slate-500">{item.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* API Section */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">
-            Build Custom Integrations with Our API
-          </h2>
-          <p className="text-lg text-slate-600 mb-8">
-            Full REST API access with webhooks, OAuth support, and comprehensive documentation.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link 
-              to="/api-docs" 
-              className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl font-semibold hover:bg-slate-800 transition-colors"
-            >
-              <FileText className="w-5 h-5" />
-              API Documentation
-            </Link>
-            <Link 
-              to="/contact" 
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-colors"
-            >
-              Contact Sales
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {categories.map((category) => {
+              const Icon = category.icon;
+              return (
+                <article key={category.title} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-50 text-cyan-700"><Icon className="h-5 w-5" /></div>
+                  <h2 className="mt-5 text-xl font-bold text-slate-950">{category.title}</h2>
+                  <ul className="mt-4 space-y-3">
+                    {category.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2 text-sm leading-6 text-slate-600"><CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-emerald-600" />{item}</li>
+                    ))}
+                  </ul>
+                </article>
+              );
+            })}
           </div>
-        </div>
-      </section>
 
-      {/* Custom Integration CTA */}
-      <section className="py-20 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Need a custom integration?
-          </h2>
-          <p className="text-xl text-slate-300 mb-8">
-            Our team can build custom integrations tailored to your business needs.
-          </p>
-          <Link 
-            to="/contact" 
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/30 transition-all"
-          >
-            Book Demo
-            <ArrowRight className="w-5 h-5" />
-          </Link>
-        </div>
-      </section>
+          <div className="mt-10 rounded-3xl border border-amber-200 bg-amber-50 p-6 text-sm leading-6 text-amber-900">
+            Availability depends on provider credentials, platform approvals, customer-owned subscriptions, and the OPERON release stage. We do not present an integration as live until it has been verified end to end.
+          </div>
 
+          <div className="mt-12 rounded-[2rem] bg-slate-950 p-8 text-white lg:flex lg:items-center lg:justify-between">
+            <div><h2 className="text-2xl font-bold">Need a specific integration?</h2><p className="mt-2 text-slate-300">Tell us what your business uses and we will confirm the current connection path.</p></div>
+            <Link to="/contact" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 lg:mt-0">Contact us <ArrowRight className="h-4 w-4" /></Link>
+          </div>
+        </section>
+      </main>
       <GlobalFooter />
     </div>
   );
