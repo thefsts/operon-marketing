@@ -8,7 +8,14 @@ interface LogoProps {
   asAnchor?: boolean;
 }
 
-export default function Logo({ size = 'md', showText = true, className = '', dark = false, asAnchor = false }: LogoProps) {
+export default function Logo(props: LogoProps) {
+  const {
+    size = 'md',
+    className = '',
+    dark = false,
+    asAnchor = false,
+  } = props;
+
   const imgSizeClasses = {
     sm: 'h-8',
     md: 'h-10',
