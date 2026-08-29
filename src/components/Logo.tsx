@@ -16,24 +16,27 @@ export default function Logo({ size = 'md', showText = true, className = '', dar
   };
 
   const content = (
-    <img
-      src="/operon-logo-transparent.png"
-      alt="Operon CRM"
-      className={`${imgSizeClasses[size]} w-auto object-contain`}
-      style={{ filter: dark ? 'brightness(0) invert(1)' : 'none' }}
-    />
+    <span className="inline-flex items-center gap-3">
+      <img
+        src="/operon-logo-transparent.png"
+        alt="OPERON CRM"
+        className={`${imgSizeClasses[size]} w-auto object-contain`}
+        style={{ filter: dark ? 'brightness(0) invert(1)' : 'none' }}
+      />
+      {showText && <span className="sr-only">OPERON CRM</span>}
+    </span>
   );
 
   if (asAnchor) {
     return (
-      <a href="/" className={`inline-flex items-center ${className}`}>
+      <a href="/" className={`inline-flex items-center ${className}`} aria-label="OPERON CRM home">
         {content}
       </a>
     );
   }
 
   return (
-    <Link to="/" className={`inline-flex items-center ${className}`}>
+    <Link to="/" className={`inline-flex items-center ${className}`} aria-label="OPERON CRM home">
       {content}
     </Link>
   );
