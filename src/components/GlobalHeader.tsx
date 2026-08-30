@@ -1,108 +1,16 @@
 import { useState } from 'react';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, MapPin, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import LanguageSwitcher from './LanguageSwitcher';
-
-const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.operoncrm.com';
-
-const solutions = [
-  { name: 'Small Business CRM', path: '/small-business-crm', desc: 'Service businesses, contractors, and local teams' },
-  { name: 'Restaurant / Retail CRM + POS', path: '/restaurant-retail-crm', desc: 'CRM and POS for food and retail operations' },
-  { name: 'Real Estate', path: '/real-estate', desc: 'Clients, deals, listings, and commissions' },
-  { name: 'Mortgage', path: '/mortgage', desc: 'Borrowers, loan pipeline, documents, and closings' },
-  { name: 'Healthcare', path: '/healthcare', desc: 'Professional CRM workflows for healthcare teams' },
-  { name: 'Legal', path: '/legal', desc: 'Cases, clients, documents, and deadlines' },
-  { name: 'Sports & Fitness', path: '/sports', desc: 'Teams, schedules, registrations, and payments' },
-  { name: 'Gun FFL / Firearms', path: '/gun-ffl-crm', desc: 'Inventory, CRM, POS, and compliance workflows' },
-  { name: 'E-Commerce', path: '/e-commerce', desc: 'Customers, orders, and storefront operations' },
-];
-
-type GlobalHeaderProps = { transparent?: boolean };
-
-export default function GlobalHeader(_props: GlobalHeaderProps = {}) {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
-
-  const navClass = (path: string) =>
-    `text-sm font-semibold transition ${location.pathname === path ? 'text-cyan-700' : 'text-slate-700 hover:text-cyan-700'}`;
-
-  return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/90 bg-white/95 shadow-[0_1px_0_rgba(15,23,42,0.03)] backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="inline-flex items-center" aria-label="OPERON CRM home">
-          <img src="/operon-logo-transparent.png" alt="OPERON CRM" className="h-12 w-auto object-contain" />
-        </Link>
-
-        <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary navigation">
-          <Link to="/" className={navClass('/')}>Home</Link>
-          <Link to="/platform" className={navClass('/platform')}>About</Link>
-
-          <div className="group relative">
-            <button type="button" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-700 transition hover:text-cyan-700">
-              Solutions
-              <ChevronDown className="h-4 w-4" />
-            </button>
-            <div className="invisible absolute left-1/2 top-full mt-3 w-[38rem] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-3 opacity-0 shadow-2xl transition group-hover:visible group-hover:opacity-100">
-              <div className="grid grid-cols-2 gap-1">
-                {solutions.map((solution) => (
-                  <Link key={solution.path} to={solution.path} className="rounded-xl px-4 py-3 transition hover:bg-slate-50">
-                    <div className="font-semibold text-slate-950">{solution.name}</div>
-                    <div className="mt-1 text-xs leading-5 text-slate-500">{solution.desc}</div>
-                  </Link>
-                ))}
-              </div>
-              <Link to="/social-media-marketing" className="mt-2 flex items-center justify-between rounded-xl border border-violet-100 bg-violet-50 px-4 py-3">
-                <div>
-                  <div className="font-semibold text-violet-950">Social Publisher Pro</div>
-                  <div className="mt-1 text-xs text-violet-700">Phase 2 add-on · Coming Soon</div>
-                </div>
-                <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-violet-700">COMING SOON</span>
-              </Link>
-            </div>
-          </div>
-
-          <Link to="/pricing" className={navClass('/pricing')}>Pricing</Link>
-          <Link to="/integrations" className={navClass('/integrations')}>Integrations</Link>
-          <Link to="/contact" className={navClass('/contact')}>Contact</Link>
-          <LanguageSwitcher />
-          <a href={`${APP_URL}/login`} className="text-sm font-semibold text-slate-700 transition hover:text-cyan-700">Login</a>
-          <Link to="/start" className="rounded-xl bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800">Get Started</Link>
-        </nav>
-
-        <button
-          type="button"
-          className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 lg:hidden"
-          onClick={() => setMobileOpen((open) => !open)}
-          aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
-          aria-expanded={mobileOpen}
-        >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
-      </div>
-
-      {mobileOpen && (
-        <div className="border-t border-slate-200 bg-white lg:hidden">
-          <nav className="mx-auto max-w-7xl space-y-1 px-4 py-5 sm:px-6" aria-label="Mobile navigation">
-            <Link to="/" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">Home</Link>
-            <Link to="/platform" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">About</Link>
-            <div className="py-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Solutions</div>
-            <div className="grid gap-1 sm:grid-cols-2">
-              {solutions.map((solution) => (
-                <Link key={solution.path} to={solution.path} onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
-                  {solution.name}
-                </Link>
-              ))}
-            </div>
-            <Link to="/social-media-marketing" onClick={() => setMobileOpen(false)} className="mt-2 block rounded-lg bg-violet-50 px-3 py-3 text-sm font-semibold text-violet-800">Social Publisher Pro · Coming Soon</Link>
-            <Link to="/pricing" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">Pricing</Link>
-            <Link to="/integrations" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">Integrations</Link>
-            <Link to="/contact" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">Contact</Link>
-            <div className="px-3 py-2"><LanguageSwitcher /></div>
-            <a href={`${APP_URL}/login`} className="block rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-50">Login</a>
-            <Link to="/start" onClick={() => setMobileOpen(false)} className="mt-3 block rounded-xl bg-slate-950 px-4 py-3 text-center font-semibold text-white">Get Started</Link>
-          </nav>
-        </div>
-      )}
-    </header>
-  );
-}
+const APP_URL=import.meta.env.VITE_APP_URL||'https://app.operoncrm.com';
+const solutions=[
+{name:'Small Business CRM',path:'/small-business-crm',desc:'Service businesses, contractors, and local teams'},
+{name:'Restaurant / Retail CRM + POS',path:'/restaurant-retail-crm',desc:'CRM and POS for food and retail operations'},
+{name:'Real Estate',path:'/real-estate',desc:'Clients, deals, listings, and commissions'},
+{name:'Mortgage',path:'/mortgage',desc:'Borrowers, loan pipeline, documents, and closings'},
+{name:'Healthcare',path:'/healthcare',desc:'Professional CRM workflows for healthcare teams'},
+{name:'Legal',path:'/legal',desc:'Cases, clients, documents, and deadlines'},
+{name:'Sports & Fitness',path:'/sports',desc:'Teams, schedules, registrations, and payments'},
+{name:'E-Commerce',path:'/e-commerce',desc:'Customers, orders, and storefront operations'}];
+type GlobalHeaderProps={transparent?:boolean};
+export default function GlobalHeader(_props:GlobalHeaderProps={}){const[mobileOpen,setMobileOpen]=useState(false);const location=useLocation();const navClass=(path:string)=>`text-sm font-semibold transition ${location.pathname===path?'text-cyan-700':'text-slate-700 hover:text-cyan-700'}`;return <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/90 bg-white/95 shadow-[0_1px_0_rgba(15,23,42,.03)] backdrop-blur-xl"><div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"><Link to="/" className="inline-flex items-center" aria-label="OPERON CRM home"><img src="/operon-logo-transparent.png" alt="OPERON CRM" className="h-12 w-auto object-contain"/></Link><nav className="hidden items-center gap-5 lg:flex" aria-label="Primary navigation"><Link to="/" className={navClass('/')}>Home</Link><Link to="/platform" className={navClass('/platform')}>About</Link><div className="group relative"><button type="button" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-700 hover:text-cyan-700">Solutions<ChevronDown className="h-4 w-4"/></button><div className="invisible absolute left-1/2 top-full mt-3 w-[40rem] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-3 opacity-0 shadow-2xl transition group-hover:visible group-hover:opacity-100"><div className="grid grid-cols-2 gap-1">{solutions.map(s=><Link key={s.path} to={s.path} className="rounded-xl px-4 py-3 hover:bg-slate-50"><div className="font-semibold text-slate-950">{s.name}</div><div className="mt-1 text-xs leading-5 text-slate-500">{s.desc}</div></Link>)}</div><div className="mt-2 grid grid-cols-2 gap-2"><Link to="/social-publisher-pro" className="rounded-xl border border-violet-100 bg-violet-50 px-4 py-3"><div className="font-semibold text-violet-950">Social Publisher Pro™</div><div className="mt-1 text-xs text-violet-700">Publishing + agency CRM workflows</div></Link><Link to="/geofence" className="rounded-xl border border-cyan-100 bg-cyan-50 px-4 py-3"><div className="flex items-center gap-2 font-semibold text-cyan-950"><MapPin className="h-4 w-4"/>Operon Geofence™</div><div className="mt-1 text-xs text-cyan-700">Location intelligence for workforce, operations & marketing</div></Link></div></div></div><Link to="/pricing" className={navClass('/pricing')}>Pricing</Link><Link to="/integrations" className={navClass('/integrations')}>Integrations</Link><Link to="/contact" className={navClass('/contact')}>Contact</Link><LanguageSwitcher/><a href={`${APP_URL}/login`} className="text-sm font-semibold text-slate-700 hover:text-cyan-700">Login</a><Link to="/start" className="rounded-xl bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white">Get Started</Link></nav><button type="button" className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 lg:hidden" onClick={()=>setMobileOpen(o=>!o)} aria-label={mobileOpen?'Close navigation':'Open navigation'} aria-expanded={mobileOpen}>{mobileOpen?<X className="h-6 w-6"/>:<Menu className="h-6 w-6"/>}</button></div>{mobileOpen&&<div className="border-t border-slate-200 bg-white lg:hidden"><nav className="mx-auto max-w-7xl space-y-1 px-4 py-5 sm:px-6" aria-label="Mobile navigation"><Link to="/" onClick={()=>setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold">Home</Link><Link to="/platform" onClick={()=>setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold">About</Link><div className="py-2 text-xs font-bold uppercase tracking-[.16em] text-slate-400">Solutions</div><div className="grid gap-1 sm:grid-cols-2">{solutions.map(s=><Link key={s.path} to={s.path} onClick={()=>setMobileOpen(false)} className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700">{s.name}</Link>)}</div><Link to="/social-publisher-pro" onClick={()=>setMobileOpen(false)} className="mt-2 block rounded-lg bg-violet-50 px-3 py-3 text-sm font-semibold text-violet-800">Social Publisher Pro™</Link><Link to="/geofence" onClick={()=>setMobileOpen(false)} className="block rounded-lg bg-cyan-50 px-3 py-3 text-sm font-semibold text-cyan-800">Operon Geofence™</Link><Link to="/pricing" onClick={()=>setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold">Pricing</Link><Link to="/integrations" onClick={()=>setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold">Integrations</Link><Link to="/contact" onClick={()=>setMobileOpen(false)} className="block rounded-lg px-3 py-2 font-semibold">Contact</Link><div className="px-3 py-2"><LanguageSwitcher/></div><a href={`${APP_URL}/login`} className="block rounded-lg px-3 py-2 font-semibold">Login</a><Link to="/start" onClick={()=>setMobileOpen(false)} className="mt-3 block rounded-xl bg-slate-950 px-4 py-3 text-center font-semibold text-white">Get Started</Link></nav></div>}</header>}
