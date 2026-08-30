@@ -29,7 +29,6 @@ import NotFound from './pages/NotFound';
 import CookieConsent from './components/CookieConsent';
 import AccessibilityControls from './components/AccessibilityControls';
 
-// Redirect component for old routes to # anchors
 function AnchorRedirect({ anchor }: { anchor: string }) {
   React.useEffect(() => {
     window.location.replace(`/#${anchor}`);
@@ -41,15 +40,13 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Main single-page app */}
         <Route path="/" element={<MarketingHome />} />
-
-        {/* Utility pages - kept as separate routes */}
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/platform" element={<PlatformPage />} />
         <Route path="/small-business-crm" element={<SmallBusinessCRMPage />} />
         <Route path="/restaurant-retail-crm" element={<RestaurantRetailCRMPage />} />
         <Route path="/social-media-marketing" element={<SocialMediaMarketingPage />} />
+        <Route path="/social-publisher-pro" element={<SocialMediaMarketingPage />} />
         <Route path="/docs" element={<ApiDocs />} />
         <Route path="/api-docs" element={<ApiDocs />} />
         <Route path="/contact" element={<ContactPage />} />
@@ -58,8 +55,6 @@ function App() {
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/start" element={<StartPage />} />
         <Route path="/get-started" element={<StartPage />} />
-
-        {/* Industry/Feature dedicated pages */}
         <Route path="/real-estate" element={<RealEstatePage />} />
         <Route path="/mortgage" element={<MortgagePage />} />
         <Route path="/healthcare" element={<HealthcarePage />} />
@@ -75,7 +70,6 @@ function App() {
         <Route path="/reputation-management" element={<ReputationManagementPage />} />
         <Route path="/reputation" element={<ReputationManagementPage />} />
         <Route path="/about" element={<AnchorRedirect anchor="about" />} />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
       <CookieConsent />
