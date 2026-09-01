@@ -1,205 +1,133 @@
-import { useState, useEffect } from 'react';
-import { X, Settings } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Settings, X } from 'lucide-react';
 
 interface CookiePreferences {
-  necessary: boolean;
+  necessary: true;
   analytics: boolean;
   functional: boolean;
   marketing: boolean;
 }
 
+const necessaryOnly: CookiePreferences = {
+  necessary: true,
+  analytics: false,
+  functional: false,
+  marketing: false,
+};
+
+function persistPreferences(preferences: CookiePreferences) {
+  localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+  window.dispatchEvent(new CustomEvent('operon:cookie-consent', { detail: preferences }));
+}
+
 export default function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [preferences, setPreferences] = useState<CookiePreferences>({
-    necessary: true,
-    analytics: false,
-    functional: false,
-    marketing: false,
-  });
+  const [preferences, setPreferences] = useState<CookiePreferences>(necessaryOnly);
 
   useEffect(() => {
     const consent = localStorage.getItem('cookieConsent');
     if (!consent) {
       setShowBanner(true);
-    } else {
-      try {
-        const savedPreferences = JSON.parse(consent);
-        setPreferences(savedPreferences);
-      } catch (e) {
-        setShowBanner(true);
-      }
+      return;
+    }
+
+    try {
+      const saved = JSON.parse(consent) as Partial<CookiePreferences>;
+      setPreferences({
+        necessary: true,
+        analytics: saved.analytics === true,
+        functional: saved.functional === true,
+        marketing: saved.marketing === true,
+      });
+    } catch {
+      localStorage.removeItem('cookieConsent');
+      setShowBanner(true);
     }
   }, []);
 
-  const acceptAll = () => {
-    const allAccepted: CookiePreferences = {
-      necessary: true,
-      analytics: true,
-      functional: true,
-      marketing: true,
-    };
-    localStorage.setItem('cookieConsent', JSON.stringify(allAccepted));
-    setPreferences(allAccepted);
+  const save = (next: CookiePreferences) => {
+    persistPreferences(next);
+    setPreferences(next);
     setShowBanner(false);
     setShowSettings(false);
   };
 
-  const declineAll = () => {
-    const onlyNecessary: CookiePreferences = {
-      necessary: true,
-      analytics: false,
-      functional: false,
-      marketing: false,
-    };
-    localStorage.setItem('cookieConsent', JSON.stringify(onlyNecessary));
-    setPreferences(onlyNecessary);
-    setShowBanner(false);
-    setShowSettings(false);
-  };
+  const acceptAll = () => save({ necessary: true, analytics: true, functional: true, marketing: true });
+  const declineAll = () => save(necessaryOnly);
+  const savePreferences = () => save(preferences);
 
-  const savePreferences = () => {
-    localStorage.setItem('cookieConsent', JSON.stringify(preferences));
-    setShowBanner(false);
-    setShowSettings(false);
-  };
-
-  const handlePreferenceChange = (key: keyof CookiePreferences, value: boolean) => {
-    if (key === 'necessary') return; // Necessary cookies cannot be disabled
-    setPreferences(prev => ({ ...prev, [key]: value }));
+  const toggle = (key: Exclude<keyof CookiePreferences, 'necessary'>) => {
+    setPreferences((current) => ({ ...current, [key]: !current[key] }));
   };
 
   if (!showBanner) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
-      <div className="max-w-4xl mx-auto bg-slate-900 text-white rounded-2xl shadow-2xl overflow-hidden">
+    <div className="fixed inset-x-0 bottom-0 z-50 p-4" role="region" aria-label="Cookie preferences">
+      <div className="mx-auto max-w-4xl overflow-hidden rounded-2xl bg-slate-950 text-white shadow-2xl ring-1 ring-white/10">
         {!showSettings ? (
-          <div className="p-6">
+          <div className="p-5 sm:p-6">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
-                <h3 className="text-lg font-semibold mb-2">🍪 We Value Your Privacy</h3>
-                <p className="text-slate-300 text-sm mb-4">
-                  We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. 
-                  By clicking "Accept All", you consent to our use of cookies. 
-                  <a href="/cookie-policy" className="text-cyan-400 hover:text-cyan-300 ml-1">Learn more</a>
+                <h2 className="text-lg font-semibold">Your privacy choices</h2>
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-300">
+                  OPERON uses essential browser storage to run this site. Optional analytics are disabled until you choose to allow them. You can accept optional categories, decline them, or manage your preferences.
+                  <a href="/cookie-policy" className="ml-1 font-medium text-cyan-300 hover:text-cyan-200">Read the Cookie Policy</a>.
                 </p>
-                <div className="flex flex-wrap gap-3">
-                  <button
-                    onClick={acceptAll}
-                    className="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg hover:shadow-cyan-500/30 transition-all"
-                  >
-                    Accept All
-                  </button>
-                  <button
-                    onClick={declineAll}
-                    className="px-6 py-2.5 bg-slate-700 text-white rounded-lg font-medium hover:bg-slate-600 transition-colors"
-                  >
-                    Decline
-                  </button>
-                  <button
-                    onClick={() => setShowSettings(true)}
-                    className="px-6 py-2.5 border border-slate-600 text-white rounded-lg font-medium hover:border-cyan-500 transition-colors flex items-center gap-2"
-                  >
-                    <Settings className="w-4 h-4" />
-                    Manage Preferences
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <button type="button" onClick={acceptAll} className="rounded-lg bg-cyan-600 px-5 py-2.5 font-medium text-white hover:bg-cyan-500">Accept optional cookies</button>
+                  <button type="button" onClick={declineAll} className="rounded-lg bg-slate-800 px-5 py-2.5 font-medium text-white hover:bg-slate-700">Necessary only</button>
+                  <button type="button" onClick={() => setShowSettings(true)} className="flex items-center gap-2 rounded-lg border border-slate-600 px-5 py-2.5 font-medium text-white hover:border-cyan-400">
+                    <Settings className="h-4 w-4" /> Manage preferences
                   </button>
                 </div>
               </div>
-              <button
-                onClick={declineAll}
-                className="p-1 hover:bg-slate-700 rounded-lg transition-colors"
-                aria-label="Close"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <button type="button" onClick={declineAll} className="rounded-lg p-1 hover:bg-slate-800" aria-label="Close and use necessary cookies only"><X className="h-5 w-5" /></button>
             </div>
           </div>
         ) : (
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold">Cookie Preferences</h3>
-              <button
-                onClick={() => setShowSettings(false)}
-                className="p-1 hover:bg-slate-700 rounded-lg transition-colors"
-                aria-label="Close settings"
-              >
-                <X className="w-5 h-5" />
-              </button>
+          <div className="p-5 sm:p-6">
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="text-lg font-semibold">Cookie preferences</h2>
+              <button type="button" onClick={() => setShowSettings(false)} className="rounded-lg p-1 hover:bg-slate-800" aria-label="Close preferences"><X className="h-5 w-5" /></button>
             </div>
-
-            <div className="space-y-4 mb-6">
-              {/* Necessary */}
-              <div className="flex items-start justify-between gap-4 p-4 bg-slate-800 rounded-lg">
-                <div>
-                  <h4 className="font-medium text-white">Necessary Cookies</h4>
-                  <p className="text-slate-400 text-sm">Essential for the website to function. Cannot be disabled.</p>
-                </div>
-                <div className="w-12 h-6 bg-cyan-600 rounded-full flex items-center justify-end px-1">
-                  <div className="w-4 h-4 bg-white rounded-full" />
-                </div>
-              </div>
-
-              {/* Analytics */}
-              <div className="flex items-start justify-between gap-4 p-4 bg-slate-800 rounded-lg">
-                <div>
-                  <h4 className="font-medium text-white">Analytics Cookies</h4>
-                  <p className="text-slate-400 text-sm">Help us understand how visitors interact with our website.</p>
-                </div>
-                <button
-                  onClick={() => handlePreferenceChange('analytics', !preferences.analytics)}
-                  className={`w-12 h-6 rounded-full flex items-center transition-colors ${preferences.analytics ? 'bg-cyan-600 justify-end px-1' : 'bg-slate-600 justify-start px-1'}`}
-                >
-                  <div className="w-4 h-4 bg-white rounded-full" />
-                </button>
-              </div>
-
-              {/* Functional */}
-              <div className="flex items-start justify-between gap-4 p-4 bg-slate-800 rounded-lg">
-                <div>
-                  <h4 className="font-medium text-white">Functional Cookies</h4>
-                  <p className="text-slate-400 text-sm">Enable enhanced functionality and personalization.</p>
-                </div>
-                <button
-                  onClick={() => handlePreferenceChange('functional', !preferences.functional)}
-                  className={`w-12 h-6 rounded-full flex items-center transition-colors ${preferences.functional ? 'bg-cyan-600 justify-end px-1' : 'bg-slate-600 justify-start px-1'}`}
-                >
-                  <div className="w-4 h-4 bg-white rounded-full" />
-                </button>
-              </div>
-
-              {/* Marketing */}
-              <div className="flex items-start justify-between gap-4 p-4 bg-slate-800 rounded-lg">
-                <div>
-                  <h4 className="font-medium text-white">Marketing Cookies</h4>
-                  <p className="text-slate-400 text-sm">Used to deliver relevant advertisements.</p>
-                </div>
-                <button
-                  onClick={() => handlePreferenceChange('marketing', !preferences.marketing)}
-                  className={`w-12 h-6 rounded-full flex items-center transition-colors ${preferences.marketing ? 'bg-cyan-600 justify-end px-1' : 'bg-slate-600 justify-start px-1'}`}
-                >
-                  <div className="w-4 h-4 bg-white rounded-full" />
-                </button>
-              </div>
+            <div className="mt-5 space-y-3">
+              <PreferenceRow title="Necessary" description="Required for core website functionality and preference storage." enabled disabled />
+              <PreferenceRow title="Analytics" description="Allows configured analytics tools to measure site usage." enabled={preferences.analytics} onToggle={() => toggle('analytics')} />
+              <PreferenceRow title="Functional" description="Allows optional experience and preference features when configured." enabled={preferences.functional} onToggle={() => toggle('functional')} />
+              <PreferenceRow title="Marketing" description="Allows optional marketing technologies when configured." enabled={preferences.marketing} onToggle={() => toggle('marketing')} />
             </div>
-
-            <div className="flex gap-3">
-              <button
-                onClick={savePreferences}
-                className="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg hover:shadow-cyan-500/30 transition-all"
-              >
-                Save Preferences
-              </button>
-              <button
-                onClick={acceptAll}
-                className="px-6 py-2.5 border border-slate-600 text-white rounded-lg font-medium hover:border-cyan-500 transition-colors"
-              >
-                Accept All
-              </button>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <button type="button" onClick={savePreferences} className="rounded-lg bg-cyan-600 px-5 py-2.5 font-medium text-white hover:bg-cyan-500">Save preferences</button>
+              <button type="button" onClick={declineAll} className="rounded-lg border border-slate-600 px-5 py-2.5 font-medium text-white hover:border-cyan-400">Necessary only</button>
+              <button type="button" onClick={acceptAll} className="rounded-lg border border-slate-600 px-5 py-2.5 font-medium text-white hover:border-cyan-400">Accept all</button>
             </div>
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+function PreferenceRow({ title, description, enabled, disabled = false, onToggle }: { title: string; description: string; enabled: boolean; disabled?: boolean; onToggle?: () => void }) {
+  return (
+    <div className="flex items-center justify-between gap-4 rounded-xl bg-slate-900 p-4">
+      <div>
+        <h3 className="font-medium text-white">{title}</h3>
+        <p className="mt-1 text-sm text-slate-400">{description}</p>
+      </div>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={enabled}
+        aria-label={`${title} cookies`}
+        disabled={disabled}
+        onClick={onToggle}
+        className={`relative h-7 w-14 shrink-0 rounded-full transition-colors ${enabled ? 'bg-cyan-600' : 'bg-slate-600'} disabled:cursor-not-allowed disabled:opacity-80`}
+      >
+        <span className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-transform ${enabled ? 'left-8' : 'left-1'}`} />
+      </button>
     </div>
   );
 }

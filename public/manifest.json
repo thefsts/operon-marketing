@@ -1,12 +1,12 @@
 {
-  "name": "OPERON - Industry Adaptive Business Operating System",
-  "short_name": "OPERON",
-  "description": "Transform your business with OPERON's adaptive CRM. Industry-specific workflows, intelligent automation, and seamless integrations for modern enterprises.",
+  "name": "OPERON CRM - Business Operations Platform",
+  "short_name": "OPERON CRM",
+  "description": "OPERON CRM connects customer management, pipelines, operations, automation, and industry-focused workflows in one business platform.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#06b6d4",
-  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "/icons/logo-192.png",
@@ -19,16 +19,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
     }
   ],
   "categories": ["business", "productivity"],
