@@ -64,16 +64,19 @@ export const confirmedAddOns = [
   },
 ] as const;
 
+export const phaseOneAddOns = [
+  {
+    name: 'Social Publisher Pro',
+    status: 'Phase 1',
+    description: 'Social publishing, campaign, approval, and CRM-connected marketing workflows included in the Phase 1 rollout. Availability can depend on provider/API certification and account eligibility during beta.',
+  },
+] as const;
+
 export const phaseTwoAddOns = [
   {
     name: 'Phone System',
     status: 'Coming Soon',
     description: 'Telnyx-first business phone capability. Usage/provider charges will be covered by add-on or pass-through pricing.',
-  },
-  {
-    name: 'Social Publisher Pro',
-    status: 'Coming Soon',
-    description: 'Social publishing and campaign tools offered as a paid add-on. Final customer pricing is still being set.',
   },
   {
     name: 'Geofencing / Location Marketing',
