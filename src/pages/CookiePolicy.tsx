@@ -1,124 +1,36 @@
-import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import GlobalFooter from '../components/GlobalFooter';
+import GlobalHeader from '../components/GlobalHeader';
+
+const sections = [
+  ['What browser storage we use', 'The public OPERON website uses local browser storage for choices such as cookie consent, accessibility preferences, language preference, and limited funnel/navigation state. Essential storage supports the user experience and does not require advertising or tracking.'],
+  ['Analytics', 'If analytics services are configured, OPERON does not initialize Google Analytics or PostHog unless the visitor has explicitly enabled analytics in the cookie controls. Analytics remains off by default until consent is granted.'],
+  ['Functional preferences', 'Functional browser storage may remember optional site preferences. Disabling optional preferences may reset convenience settings but should not prevent access to public marketing content.'],
+  ['Marketing and advertising', 'The current OPERON public marketing site does not require advertising cookies or cross-site advertising trackers to function. If marketing technology is added later, this policy and the consent controls will be updated before that technology is enabled where consent is required.'],
+  ['Third-party services', 'Some links or future integrations may lead to third-party services with their own privacy and cookie practices. A third-party service is not considered active on this website merely because OPERON may integrate with that provider elsewhere in the product.'],
+  ['Managing your choices', 'Use the cookie banner to accept, decline, or customize available categories. You can also clear site data through your browser. Declining optional categories does not disable necessary storage.'],
+  ['Policy changes', 'We may update this Cookie Policy when the public website, analytics configuration, or applicable requirements change. The current version will be posted here.'],
+] as const;
 
 export default function CookiePolicy() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold text-slate-900 mb-8">Cookie Policy</h1>
-        <p className="text-slate-500 mb-8">Last updated: {new Date().toLocaleDateString()}</p>
-
-        <div className="prose prose-slate max-w-none">
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-4">1. What Are Cookies</h2>
-            <p className="text-slate-600 mb-4">
-              Cookies are small text files that are stored on your device when you visit our website. 
-              They are widely used to make websites work more efficiently and to provide information 
-              to the website owners.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-4">2. Types of Cookies We Use</h2>
-            
-            <h3 className="text-xl font-medium text-slate-800 mb-2">Essential Cookies</h3>
-            <p className="text-slate-600 mb-4">
-              These cookies are necessary for the website to function properly. They enable core 
-              functionality such as security, network management, and accessibility. The website 
-              cannot function properly without these cookies.
-            </p>
-
-            <h3 className="text-xl font-medium text-slate-800 mb-2">Analytics Cookies</h3>
-            <p className="text-slate-600 mb-4">
-              We use analytics cookies to understand how visitors interact with our website. 
-              This helps us improve our website and services. These cookies collect information 
-              anonymously, including the number of visitors, where visitors come from, and the 
-              pages they visit.
-            </p>
-
-            <h3 className="text-xl font-medium text-slate-800 mb-2">Functional Cookies</h3>
-            <p className="text-slate-600 mb-4">
-              These cookies enable the website to provide enhanced functionality and personalization, 
-              such as remembering your preferences and settings.
-            </p>
-
-            <h3 className="text-xl font-medium text-slate-800 mb-2">Marketing Cookies</h3>
-            <p className="text-slate-600 mb-4">
-              These cookies are used to track visitors across websites. The intention is to display 
-              ads that are relevant and engaging for the individual user.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-4">3. How We Use Cookies</h2>
-            <p className="text-slate-600 mb-4">
-              OPERON uses cookies for the following purposes:
-            </p>
-            <ul className="list-disc list-inside text-slate-600 space-y-2">
-              <li>To authenticate users and maintain session state</li>
-              <li>To remember user preferences and settings</li>
-              <li>To analyze website traffic and usage patterns</li>
-              <li>To improve our website and services</li>
-              <li>To provide personalized content and advertising</li>
-              <li>To ensure security and prevent fraud</li>
-            </ul>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-4">4. Third-Party Cookies</h2>
-            <p className="text-slate-600 mb-4">
-              We may use third-party services that set their own cookies, including:
-            </p>
-            <ul className="list-disc list-inside text-slate-600 space-y-2">
-              <li>Google Analytics - for website analytics</li>
-              <li>Stripe - for payment processing</li>
-              <li>Social media platforms - for sharing and engagement features</li>
-            </ul>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-4">5. Managing Cookies</h2>
-            <p className="text-slate-600 mb-4">
-              You can control and manage cookies in several ways:
-            </p>
-            <ul className="list-disc list-inside text-slate-600 space-y-2">
-              <li>Through our cookie consent banner</li>
-              <li>Through your browser settings</li>
-              <li>Through third-party opt-out mechanisms</li>
-            </ul>
-            <p className="text-slate-600 mt-4">
-              Please note that disabling certain cookies may affect the functionality of our website.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-4">6. Updates to This Policy</h2>
-            <p className="text-slate-600 mb-4">
-              We may update this Cookie Policy from time to time. Any changes will be posted on 
-              this page with an updated revision date.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-4">7. Contact Us</h2>
-            <p className="text-slate-600">
-              If you have any questions about our Cookie Policy, please contact us at:{' '}
-              <a href="mailto:support@operoncrm.com" className="text-cyan-600 hover:text-cyan-700">
-                support@operoncrm.com
-              </a>
-            </p>
-          </section>
-        </div>
-
-        <div className="mt-12 pt-8 border-t border-slate-200">
-          <a href="/" className="text-cyan-600 hover:text-cyan-700 font-medium">
-            ← Back to Home
-          </a>
-        </div>
-      </div>
+    <div className="min-h-screen bg-white text-slate-900">
+      <GlobalHeader />
+      <main id="main-content" className="pt-20">
+        <section className="border-b border-slate-200 bg-gradient-to-b from-cyan-50 via-white to-white">
+          <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:py-20">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-cyan-700">OPERON legal</p>
+            <h1 className="mt-3 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">Cookie Policy</h1>
+            <p className="mt-4 text-sm font-medium text-slate-500">Effective August 31, 2026</p>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">This page describes the browser storage and optional analytics behavior currently used by the OPERON public marketing website.</p>
+          </div>
+        </section>
+        <section className="mx-auto max-w-4xl px-4 py-14 sm:px-6 lg:py-16">
+          <div className="space-y-10">{sections.map(([title, body], index) => <section key={title}><h2 className="text-2xl font-bold text-slate-950">{index + 1}. {title}</h2><p className="mt-3 leading-7 text-slate-600">{body}</p></section>)}</div>
+          <section className="mt-10"><h2 className="text-2xl font-bold text-slate-950">8. Questions</h2><p className="mt-3 leading-7 text-slate-600">Questions about cookies or website privacy can be submitted through the OPERON contact page.</p><Link to="/contact" className="mt-5 inline-flex rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800">Contact OPERON</Link></section>
+        </section>
+      </main>
+      <GlobalFooter />
     </div>
   );
 }
