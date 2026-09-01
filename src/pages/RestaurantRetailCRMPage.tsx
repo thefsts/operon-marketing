@@ -1,4 +1,4 @@
-import { BarChart3, CheckCircle2, ShoppingBag, Store, Users, Utensils } from 'lucide-react';
+import { BarChart3, Building2, CheckCircle2, MapPin, ShoppingBag, Store, Users, Utensils } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import GlobalFooter from '../components/GlobalFooter';
 import GlobalHeader from '../components/GlobalHeader';
@@ -6,54 +6,24 @@ import PricingFamilySection from '../components/PricingFamilySection';
 import { pricingFamilies } from '../lib/pricing';
 
 const features = [
-  { icon: Store, title: 'CRM + POS', description: 'Connect customer records with restaurant or retail transaction workflows.' },
-  { icon: Users, title: 'Customer relationships', description: 'Keep customer activity, notes, follow-up, and loyalty context organized.' },
-  { icon: ShoppingBag, title: 'Operational workflows', description: 'Support orders, products, inventory-related processes, and daily business activity.' },
-  { icon: BarChart3, title: 'Business visibility', description: 'Bring customer and operational reporting into one connected workspace.' },
+  { icon: Store, title: 'CRM + POS', description: 'Connect customer records, sales activity, products, orders, and point-of-sale workflows in one system.' },
+  { icon: Users, title: 'Customer & Loyalty', description: 'Keep customer activity, preferences, notes, follow-up, promotions, and loyalty context organized.' },
+  { icon: ShoppingBag, title: 'Inventory & Purchasing', description: 'Support product, stock, purchasing, receiving, and daily operational workflows with better visibility.' },
+  { icon: BarChart3, title: 'Business Visibility', description: 'Bring sales, customer, inventory, location, and operational reporting into one connected workspace.' },
+  { icon: Building2, title: 'Office / Operations Management', description: 'Coordinate staff, schedules, documents, approvals, vendors, and back-office work from Pro-level operations.' },
+  { icon: MapPin, title: 'Multi-Location Growth', description: 'Expand to additional stores, restaurants, bars, clubs, or venues with location-level controls and reporting.' },
 ];
+
+const stack = ['Office/Operations Management', 'Extra Location', 'Operon Geofence', 'Social Publisher Pro', 'Extra Storage', 'POS'];
 
 export default function RestaurantRetailCRMPage() {
   const family = pricingFamilies.find((item) => item.id === 'restaurant-retail');
-
-  return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <GlobalHeader />
-      <main id="main-content" className="pt-20">
-        <section className="border-b border-slate-200 bg-gradient-to-b from-orange-50 via-white to-white">
-          <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:px-8 lg:py-24">
-            <div>
-              <span className="inline-flex rounded-full border border-orange-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-700">Restaurant / Retail CRM + POS</span>
-              <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">Customer management and POS workflows in one cleaner operating system.</h1>
-              <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">OPERON brings customer relationships and day-to-day restaurant or retail operations together without forcing teams to manage disconnected systems.</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link to="/start" className="rounded-xl bg-slate-950 px-6 py-3.5 font-semibold text-white hover:bg-slate-800">Get Started</Link>
-                <Link to="/pricing#restaurant-retail" className="rounded-xl border border-slate-300 bg-white px-6 py-3.5 font-semibold text-slate-800 hover:border-orange-300">View Pricing</Link>
-              </div>
-            </div>
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-xl shadow-slate-200/60">
-              <Utensils className="h-9 w-9 text-orange-600" />
-              <h2 className="mt-5 text-2xl font-bold text-slate-950">Built around the operation</h2>
-              <div className="mt-5 space-y-4">
-                {['Restaurant / retail CRM and POS plans start at $69/month.', 'White-label Restaurant / Retail CRM + POS is $199/month.', 'Phase 2 marketing and phone services remain separate paid add-ons.'].map((item) => (
-                  <div key={item} className="flex gap-3 text-sm leading-6 text-slate-600"><CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-emerald-600" />{item}</div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {features.map((feature) => {
-              const Icon = feature.icon;
-              return <article key={feature.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><Icon className="h-6 w-6 text-orange-600" /><h2 className="mt-4 font-bold text-slate-950">{feature.title}</h2><p className="mt-2 text-sm leading-6 text-slate-600">{feature.description}</p></article>;
-            })}
-          </div>
-        </section>
-
-        {family && <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8"><PricingFamilySection family={family} /></section>}
-      </main>
-      <GlobalFooter />
-    </div>
-  );
+  return <div className="min-h-screen bg-white text-slate-900"><GlobalHeader/><main id="main-content" className="pt-20">
+    <section className="overflow-hidden border-b border-slate-200 bg-gradient-to-b from-orange-50 via-white to-white"><div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 text-center sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24 lg:text-left"><div><span className="inline-flex rounded-full border border-orange-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-700">Restaurant / Retail / Clubs CRM + POS</span><h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Run the floor, the customer relationship, and the back office together.</h1><p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600 lg:mx-0">OPERON connects CRM, POS, inventory, loyalty, staff workflows, office operations, and multi-location visibility for restaurants, retail stores, bars, nightclubs, and hospitality concepts.</p><div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start"><Link to="/start" className="rounded-xl bg-slate-950 px-6 py-3.5 font-semibold text-white hover:bg-slate-800">Get Started</Link><a href="#pricing" className="rounded-xl border border-slate-300 bg-white px-6 py-3.5 font-semibold text-slate-800 hover:border-orange-300">View Pricing</a></div></div><div className="mx-auto w-full max-w-2xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-3 shadow-2xl shadow-orange-100/70"><img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1400&q=82" alt="Modern restaurant and hospitality operation" className="h-80 w-full rounded-[1.5rem] object-cover sm:h-96" loading="eager"/><div className="grid grid-cols-3 gap-3 p-3 text-center text-xs font-bold text-slate-700 sm:text-sm"><div className="rounded-xl bg-orange-50 p-3">POS</div><div className="rounded-xl bg-emerald-50 p-3">Operations</div><div className="rounded-xl bg-violet-50 p-3">Customers</div></div></div></div></section>
+    <section className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20"><div className="mx-auto max-w-3xl"><p className="text-sm font-bold uppercase tracking-[.18em] text-orange-700">One operating system</p><h2 className="mt-3 text-3xl font-bold text-slate-950 sm:text-4xl">Built for front-of-house, sales, customers, inventory, and management.</h2></div><div className="mt-10 grid items-stretch gap-5 md:grid-cols-2 lg:grid-cols-3">{features.map((feature)=>{const Icon=feature.icon;return <article key={feature.title} className="flex h-full flex-col items-center rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"><div className="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-50 text-orange-600"><Icon className="h-5 w-5"/></div><h3 className="mt-4 text-lg font-bold text-slate-950">{feature.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{feature.description}</p></article>})}</div></section>
+    <section className="border-y border-slate-200 bg-slate-50"><div className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20"><Utensils className="mx-auto h-9 w-9 text-orange-600"/><h2 className="mx-auto mt-4 max-w-4xl text-3xl font-bold text-slate-950">Restaurants, retail, bars, nightclubs, and clubs can share the same OPERON foundation without feeling like the same business.</h2><p className="mx-auto mt-4 max-w-3xl leading-7 text-slate-600">Configure menus or products, customer programs, staff roles, reservations and events, operational locations, inventory needs, and reporting around the way each venue actually runs.</p><div className="mx-auto mt-8 grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-4">{['Restaurant operations','Retail operations','Bars & nightlife','Clubs & venues'].map((item)=><div key={item} className="rounded-2xl border border-slate-200 bg-white p-5 font-bold shadow-sm">{item}</div>)}</div></div></section>
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20"><div className="grid items-center gap-8 rounded-[2rem] border border-orange-100 bg-orange-50/60 p-8 text-center lg:grid-cols-[.8fr_1.2fr] lg:p-10 lg:text-left"><div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-white text-orange-600 shadow-sm lg:mx-0"><Building2 className="h-9 w-9"/></div><div><p className="text-sm font-bold uppercase tracking-[.18em] text-orange-700">Pro → Elite progression</p><h2 className="mt-2 text-3xl font-bold text-slate-950">Office/Operations Management first. Advanced venue and club management at Elite.</h2><p className="mt-4 leading-7 text-slate-600">Higher tiers build on the CRM and POS foundation with staff operations, purchasing, approvals, location controls, reservations, events, and deeper venue-management workflows.</p></div></div></section>
+    {family&&<section id="pricing" className="border-y border-slate-200 bg-white"><div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20"><PricingFamilySection family={family}/></div></section>}
+    <section className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20"><p className="text-sm font-bold uppercase tracking-[.18em] text-emerald-700">Recommended OPERON growth stack</p><h2 className="mt-3 text-3xl font-bold text-slate-950">Build beyond the base system as your operation grows.</h2><div className="mx-auto mt-8 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-3">{stack.map((item)=><div key={item} className="flex min-h-24 items-center justify-center rounded-2xl border border-slate-200 bg-white p-5 font-bold shadow-sm"><CheckCircle2 className="mr-2 h-5 w-5 text-emerald-600"/>{item}</div>)}</div><p className="mx-auto mt-6 max-w-3xl text-sm leading-6 text-slate-600">Qualifying combinations of two or more eligible OPERON add-ons receive 15% off the eligible add-on subtotal. Automatic discounts do not stack.</p><Link to="/pricing#addons" className="mt-7 inline-flex rounded-xl bg-orange-600 px-5 py-3 text-sm font-semibold text-white hover:bg-orange-700">Explore Products & Add-ons</Link></section>
+  </main><GlobalFooter/></div>;
 }
