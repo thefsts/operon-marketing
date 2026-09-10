@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BadgePercent, CalendarCheck, Layers3, PlugZap } from 'lucide-react';
+import { BadgePercent, CalendarCheck, Clock3, Layers3, PlugZap } from 'lucide-react';
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
 import PricingFamilySection from '../components/PricingFamilySection';
@@ -20,8 +20,13 @@ export default function PricingPage() {
     <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-cyan-50 via-white to-white text-center">
       <div className="absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top_left,rgba(6,182,212,0.14),transparent_45%),radial-gradient(circle_at_top_right,rgba(124,58,237,0.10),transparent_38%)]"/>
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="mx-auto max-w-4xl"><span className="inline-flex rounded-full border border-cyan-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-cyan-700 shadow-sm">OPERON Pricing</span><h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Choose the OPERON solution you need, then compare its plans.</h1><p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-600">Select one service below to review its tiers. Add products, capacity, and integrations after you choose the system that fits your business.</p></div>
-        <div className="mx-auto mt-9 grid max-w-5xl items-stretch gap-4 md:grid-cols-3"><div className="flex h-full flex-col items-center rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><CalendarCheck className="h-6 w-6 text-emerald-600"/><h2 className="mt-3 font-bold">10% annual full-pay savings</h2><p className="mt-1 text-sm text-slate-600">{pricingRules.annual} The $99 Founding Beta core CRM plan is excluded from this annual discount.</p></div><div className="flex h-full flex-col items-center rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><Layers3 className="h-6 w-6 text-cyan-700"/><h2 className="mt-3 font-bold">15% qualifying combo savings</h2><p className="mt-1 text-sm text-slate-600">{pricingRules.combo}</p></div><div className="flex h-full flex-col items-center rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><BadgePercent className="h-6 w-6 text-violet-700"/><h2 className="mt-3 font-bold">Discount lockout</h2><p className="mt-1 text-sm text-slate-600">{pricingRules.lockout}</p></div></div>
+        <div className="mx-auto max-w-4xl"><span className="inline-flex rounded-full border border-cyan-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-cyan-700 shadow-sm">OPERON Pricing</span><h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Choose the OPERON solution you need, then compare its plans.</h1><p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-600">Select one service below to review its tiers. Every plan includes a 15-day free trial. Add products, capacity, and integrations after you choose the system that fits your business.</p></div>
+        <div className="mx-auto mt-9 grid max-w-6xl items-stretch gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="flex h-full flex-col items-center rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><CalendarCheck className="h-6 w-6 text-emerald-600"/><h2 className="mt-3 font-bold">15% annual full-pay savings</h2><p className="mt-1 text-sm text-slate-600">Save 15% when a standard plan is paid in full for the year.</p></div>
+          <div className="flex h-full flex-col items-center rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><Clock3 className="h-6 w-6 text-violet-700"/><h2 className="mt-3 font-bold">15-day free trial</h2><p className="mt-1 text-sm text-slate-600">Every OPERON plan starts with a 15-day free trial.</p></div>
+          <div className="flex h-full flex-col items-center rounded-2xl border border-amber-200 bg-amber-50/70 p-5 shadow-sm"><BadgePercent className="h-6 w-6 text-amber-700"/><h2 className="mt-3 font-bold">$99 Founding Beta exception</h2><p className="mt-1 text-sm text-slate-600">The $99/month Founding Beta core CRM plan does not receive the 15% annual paid-in-full discount.</p></div>
+          <div className="flex h-full flex-col items-center rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><Layers3 className="h-6 w-6 text-cyan-700"/><h2 className="mt-3 font-bold">Add-on savings stay separate</h2><p className="mt-1 text-sm text-slate-600">{pricingRules.combo} {pricingRules.lockout}</p></div>
+        </div>
       </div>
     </section>
 
