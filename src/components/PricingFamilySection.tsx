@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { annualPrice, type PricingFamily } from '../lib/pricing';
 
 type Props = { family: PricingFamily; onSelect?: (planName: string) => void };
+type FeatureGroup = { title: string; items: string[] };
 
 const valueGroups = [
   { title: 'CRM & customer operations', matches: ['crm', 'contact', 'client', 'lead', 'borrower', 'roster', 'customer'] },
@@ -25,9 +26,9 @@ function accumulatedFeatures(family: PricingFamily, planIndex: number) {
   return result;
 }
 
-function groupFeatures(features: string[]) {
+function groupFeatures(features: string[]): FeatureGroup[] {
   const used = new Set<string>();
-  const groups = valueGroups.map((group) => {
+  const groups: FeatureGroup[] = valueGroups.map((group) => {
     const items = features.filter((feature) => group.matches.some((match) => feature.toLowerCase().includes(match)));
     items.forEach((item) => used.add(item));
     return { title: group.title, items };
@@ -56,8 +57,6 @@ export default function PricingFamilySection({ family, onSelect }: Props) {
 
     <button type="button" onClick={()=>setShowComparison((value)=>!value)} aria-expanded={showComparison} className="mx-auto mt-8 inline-flex items-center gap-2 rounded-xl border border-cyan-200 bg-cyan-50 px-5 py-3 text-sm font-bold text-cyan-800 hover:bg-cyan-100">{showComparison?'Hide detailed comparison':'See all features & compare plans'}<ChevronDown className={`h-4 w-4 transition ${showComparison?'rotate-180':''}`}/></button>
 
-    {showComparison&&<div className="mt-8 overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm"><table className="w-full min-w-[900px] border-collapse text-left"><thead><tr className="bg-slate-50"><th className="sticky left-0 z-10 min-w-64 border-b border-r border-slate-200 bg-slate-50 p-5 text-sm font-bold text-slate-950">Included capability</th>{family.plans.map((plan)=><th key={plan.name} className="min-w-40 border-b border-slate-200 p-5 text-center text-sm font-bold text-slate-950">{plan.name}{plan.monthlyPrice!==null&&<span className="mt-1 block text-xs font-medium text-slate-500">${plan.monthlyPrice.toLocaleString()}/mo</span>}</th>)}</tr></thead><tbody>{valueGroups.map((group)=>{
-      const allFeatures=accumulatedFeatures(family,family.plans.length-1); const items=groupFeatures(allFeatures).find((candidate)=>candidate.title===group.title)?.items??[]; if(!items.length)return null;
-      return <tr key={group.title}><td colSpan={family.plans.length+1} className="border-b border-slate-200 bg-cyan-50/60 px-5 py-3 text-xs font-bold uppercase tracking-[.14em] text-cyan-800">{group.title}</td></tr>})}{accumulatedFeatures(family,family.plans.length-1).map((feature)=><tr key={feature} className="border-b border-slate-100 last:border-0"><td className="sticky left-0 border-r border-slate-200 bg-white p-4 text-sm font-semibold text-slate-700">{feature}</td>{family.plans.map((plan,planIndex)=>{const has=accumulatedFeatures(family,planIndex).some((item)=>item.toLowerCase()===feature.toLowerCase());return <td key={plan.name} className="p-4 text-center">{has?<span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-50 text-emerald-700" aria-label="Included"><Check className="h-4 w-4"/></span>:<span className="text-slate-300" aria-label="Not included">—</span>}</td>})}</tr>)}</tbody></table></div>}
+    {showComparison&&<div className="mt-8 overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm"><table className="w-full min-w-[900px] border-collapse text-left"><thead><tr className="bg-slate-50"><th className="sticky left-0 z-10 min-w-64 border-b border-r border-slate-200 bg-slate-50 p-5 text-sm font-bold text-slate-950">Included capability</th>{family.plans.map((plan)=><th key={plan.name} className="min-w-40 border-b border-slate-200 p-5 text-center text-sm font-bold text-slate-950">{plan.name}{plan.monthlyPrice!==null&&<span className="mt-1 block text-xs font-medium text-slate-500">${plan.monthlyPrice.toLocaleString()}/mo</span>}</th>)}</tr></thead><tbody>{groupFeatures(accumulatedFeatures(family,family.plans.length-1)).map((group)=><tr key={group.title}><td colSpan={family.plans.length+1} className="border-b border-slate-200 bg-cyan-50/60 px-5 py-3 text-xs font-bold uppercase tracking-[.14em] text-cyan-800">{group.title}</td></tr>)}{accumulatedFeatures(family,family.plans.length-1).map((feature)=><tr key={feature} className="border-b border-slate-100 last:border-0"><td className="sticky left-0 border-r border-slate-200 bg-white p-4 text-sm font-semibold text-slate-700">{feature}</td>{family.plans.map((plan,planIndex)=>{const has=accumulatedFeatures(family,planIndex).some((item)=>item.toLowerCase()===feature.toLowerCase());return <td key={plan.name} className="p-4 text-center">{has?<span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-50 text-emerald-700" aria-label="Included"><Check className="h-4 w-4"/></span>:<span className="text-slate-300" aria-label="Not included">—</span>}</td>})}</tr>)}</tbody></table></div>}
   </section>;
 }
