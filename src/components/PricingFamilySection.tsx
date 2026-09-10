@@ -1,7 +1,7 @@
 import { Check, ChevronDown, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { annualPrice, type PricingFamily } from '../lib/pricing';
+import { type PricingFamily } from '../lib/pricing';
 
 type Props = { family: PricingFamily; onSelect?: (planName: string) => void };
 type FeatureGroup = { title: string; items: string[] };
@@ -14,6 +14,8 @@ const valueGroups = [
   { title: 'Industry & advanced capability', matches: ['inventory', 'pos', 'gym', 'range', 'facility', 'location', 'membership', 'listing', 'loan'] },
   { title: 'Branding & enterprise', matches: ['white-label', 'white label', 'brand', 'domain', 'enterprise', 'custom'] },
 ] as const;
+
+const annualPriceWithDiscount = (monthlyPrice: number) => Math.round(monthlyPrice * 12 * 0.85);
 
 function accumulatedFeatures(family: PricingFamily, planIndex: number) {
   const seen = new Set<string>();
@@ -40,19 +42,18 @@ function groupFeatures(features: string[]): FeatureGroup[] {
 
 export default function PricingFamilySection({ family, onSelect }: Props) {
   const [showComparison, setShowComparison] = useState(false);
-  const annualEligible = family.id !== 'founding-beta';
 
   return <section id={family.id} className="scroll-mt-28 text-center">
     <div className="mx-auto mb-8 max-w-3xl"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">{family.name}</p><h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">Choose the level that fits your operation</h2><p className="mt-3 text-slate-600">{family.description}</p><Link to={family.servicePath} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cyan-700 hover:text-cyan-900">Explore the full {family.name} service <ExternalLink className="h-4 w-4"/></Link></div>
 
     <div className={`grid items-stretch gap-5 ${family.plans.length >= 5 ? 'md:grid-cols-2 xl:grid-cols-5' : 'md:grid-cols-2 xl:grid-cols-4'}`}>{family.plans.map((plan, planIndex)=>{
       const included = accumulatedFeatures(family, planIndex);
-      return <article key={plan.name} className={`relative flex h-full min-h-[36rem] flex-col rounded-3xl border bg-white p-6 text-center shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg ${plan.highlighted?'border-cyan-300 bg-cyan-50/40 ring-1 ring-cyan-100':'border-slate-200'}`}>
+      return <article key={plan.name} className={`relative flex h-full min-h-[38rem] flex-col rounded-3xl border bg-white p-6 text-center shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg ${plan.highlighted?'border-cyan-300 bg-cyan-50/40 ring-1 ring-cyan-100':'border-slate-200'}`}>
         {plan.highlighted&&<span className="mx-auto mb-3 rounded-full bg-cyan-700 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">Most Popular</span>}
         <h3 className="text-xl font-bold text-slate-950">{plan.name}</h3><p className="mt-2 min-h-16 text-sm leading-6 text-slate-600">{plan.description}</p>
-        <div className="mt-5 min-h-24">{plan.monthlyPrice===null?<><span className="text-2xl font-bold text-slate-950">Contact Sales</span><p className="mt-2 text-xs text-slate-500">Pricing is confirmed with the final scope.</p></>:<><div className="flex items-end justify-center gap-1"><span className="text-4xl font-bold tracking-tight text-slate-950">${plan.monthlyPrice.toLocaleString()}</span><span className="pb-1 text-sm text-slate-500">/ month</span></div>{annualEligible?<p className="mt-2 text-xs font-semibold text-emerald-700">${annualPrice(plan.monthlyPrice).toLocaleString()} / year paid in full · save 10%</p>:<p className="mt-2 text-xs font-semibold text-slate-500">Monthly beta pricing · annual 10% discount does not apply</p>}</>}</div>
+        <div className="mt-5 min-h-28">{plan.monthlyPrice===null?<><span className="text-2xl font-bold text-slate-950">Contact Sales</span><p className="mt-2 text-xs text-slate-500">Pricing is confirmed with the final scope.</p></>:<><div className="flex items-end justify-center gap-1"><span className="text-4xl font-bold tracking-tight text-slate-950">${plan.monthlyPrice.toLocaleString()}</span><span className="pb-1 text-sm text-slate-500">/ month</span></div><p className="mt-2 text-xs font-semibold text-emerald-700">${annualPriceWithDiscount(plan.monthlyPrice).toLocaleString()} / year paid in full · save 15%</p></>}<p className="mt-3 text-xs font-bold text-violet-700">15-day free trial included</p></div>
         <div className="mt-5 flex-1 border-t border-slate-200 pt-5"><p className="mb-3 text-sm font-bold text-slate-950">What you get at this level</p><ul className="space-y-3 text-left">{included.slice(0, 8).map((feature)=><li key={feature} className="flex items-start gap-2 text-sm leading-5 text-slate-600"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600"/><span>{feature}</span></li>)}</ul>{included.length>8&&<p className="mt-3 text-xs font-semibold text-cyan-700">+ {included.length-8} more included capabilities</p>}</div>
-        {onSelect?<button type="button" onClick={()=>onSelect(plan.name)} className="mt-6 w-full rounded-xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">{plan.monthlyPrice===null?'Contact Sales':`Choose ${plan.name}`}</button>:<Link to={family.servicePath} className="mt-6 block w-full rounded-xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">{plan.monthlyPrice===null?'View Service':'View Plan Details'}</Link>}
+        {onSelect?<button type="button" onClick={()=>onSelect(plan.name)} className="mt-6 w-full rounded-xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">{plan.monthlyPrice===null?'Contact Sales':'Start 15-Day Free Trial'}</button>:<Link to={family.servicePath} className="mt-6 block w-full rounded-xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">{plan.monthlyPrice===null?'View Service':'Start 15-Day Free Trial'}</Link>}
       </article>})}</div>
 
     <button type="button" onClick={()=>setShowComparison((value)=>!value)} aria-expanded={showComparison} className="mx-auto mt-8 inline-flex items-center gap-2 rounded-xl border border-cyan-200 bg-cyan-50 px-5 py-3 text-sm font-bold text-cyan-800 hover:bg-cyan-100">{showComparison?'Hide detailed comparison':'See all features & compare plans'}<ChevronDown className={`h-4 w-4 transition ${showComparison?'rotate-180':''}`}/></button>
