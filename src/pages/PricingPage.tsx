@@ -1,47 +1,76 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BadgePercent, CalendarCheck, Clock3, Layers3, PlugZap } from 'lucide-react';
+import { CalendarCheck, Clock3, ShieldCheck, Sparkles } from 'lucide-react';
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
 import PricingFamilySection from '../components/PricingFamilySection';
 import AddOnsSection from '../components/AddOnsSection';
 import { geofenceBusinessEdition, geofenceManagedServicePricing } from '../lib/businessEditionPricing';
 import { approvedPricingFamilies } from '../lib/approvedIndustryPricing';
-import { clientPaidThirdPartyServices, pricingRules } from '../lib/pricing';
 
-const integrations = ['QuickBooks', 'Gusto', 'DocuSign', 'Slack', 'Google Workspace', 'Microsoft 365', 'Square', 'PayPal', 'Telnyx', 'APIs & Webhooks'];
 const selectableFamilies = [...approvedPricingFamilies, geofenceBusinessEdition];
+
+type BillingCycle = 'monthly' | 'yearly';
 
 export default function PricingPage() {
   const [selectedFamilyId, setSelectedFamilyId] = useState(selectableFamilies[0]?.id ?? '');
+  const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
   const selectedFamily = useMemo(() => selectableFamilies.find((family) => family.id === selectedFamilyId) ?? selectableFamilies[0], [selectedFamilyId]);
   const isGeofenceBusiness = selectedFamily?.id === 'geofence-business';
 
-  return <div className="min-h-screen bg-white text-slate-900"><GlobalHeader/><main id="main-content" className="pt-20">
-    <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-cyan-50 via-white to-white text-center">
-      <div className="absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top_left,rgba(6,182,212,0.14),transparent_45%),radial-gradient(circle_at_top_right,rgba(124,58,237,0.10),transparent_38%)]"/>
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="mx-auto max-w-4xl"><span className="inline-flex rounded-full border border-cyan-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-cyan-700 shadow-sm">OPERON Pricing</span><h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Choose the OPERON solution you need, then compare its plans.</h1><p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-600">Select one service below to review its tiers. Every plan includes a 15-day free trial. Add products, capacity, and integrations after you choose the system that fits your business.</p></div>
-        <div className="mx-auto mt-9 grid max-w-6xl items-stretch gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <div className="flex h-full flex-col items-center rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><CalendarCheck className="h-6 w-6 text-emerald-600"/><h2 className="mt-3 font-bold">15% annual full-pay savings</h2><p className="mt-1 text-sm text-slate-600">Save 15% when a standard plan is paid in full for the year.</p></div>
-          <div className="flex h-full flex-col items-center rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><Clock3 className="h-6 w-6 text-violet-700"/><h2 className="mt-3 font-bold">15-day free trial</h2><p className="mt-1 text-sm text-slate-600">Every OPERON plan starts with a 15-day free trial.</p></div>
-          <div className="flex h-full flex-col items-center rounded-2xl border border-amber-200 bg-amber-50/70 p-5 shadow-sm"><BadgePercent className="h-6 w-6 text-amber-700"/><h2 className="mt-3 font-bold">$99 Founding Beta exception</h2><p className="mt-1 text-sm text-slate-600">The $99/month Founding Beta core CRM plan does not receive the 15% annual paid-in-full discount.</p></div>
-          <div className="flex h-full flex-col items-center rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><Layers3 className="h-6 w-6 text-cyan-700"/><h2 className="mt-3 font-bold">Add-on savings stay separate</h2><p className="mt-1 text-sm text-slate-600">{pricingRules.combo} {pricingRules.lockout}</p></div>
+  return <div className="min-h-screen bg-white text-slate-900">
+    <GlobalHeader/>
+    <main id="main-content" className="pt-20">
+      <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 text-white">
+        <div className="absolute inset-0 opacity-25" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1800&q=85')", backgroundSize: 'cover', backgroundPosition: 'center' }}/>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-900/55"/>
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:py-16">
+          <div className="text-left">
+            <p className="text-sm font-bold uppercase tracking-[.2em] text-cyan-300">All-in-one business CRM</p>
+            <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">More Than a CRM — <span className="text-cyan-300">It’s Your Growth Engine.</span></h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-200">Attract. Manage. Automate. Grow. One platform built to adapt to the way your business works.</p>
+            <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {[['15-Day Free Trial','Try it risk free.'],['No Long-Term Contracts','Freedom to grow your way.'],['Save 15% Annually','Pay the year in full.'],['Cancel Anytime','You stay in control.']].map(([title,copy])=><div key={title} className="rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur"><div className="text-sm font-bold text-white">{title}</div><div className="mt-1 text-xs leading-5 text-slate-300">{copy}</div></div>)}
+            </div>
+          </div>
+          <div className="relative mx-auto w-full max-w-xl">
+            <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 p-3 shadow-2xl backdrop-blur">
+              <div className="rounded-[1.5rem] bg-white p-5 text-slate-900 shadow-xl">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-cyan-700">OPERON CRM</p><h2 className="mt-1 text-xl font-bold">Business Command Center</h2></div><img src="/operon-logo-transparent.png" alt="OPERON CRM" className="h-10 w-auto"/></div>
+                <div className="mt-5 grid grid-cols-3 gap-3">{['Pipeline','Customers','Automation'].map((label,index)=><div key={label} className="rounded-xl bg-slate-50 p-3 text-center"><div className="text-lg font-bold text-slate-950">{index===0?'Active':index===1?'Connected':'Running'}</div><div className="mt-1 text-xs text-slate-500">{label}</div></div>)}</div>
+                <div className="mt-4 rounded-2xl bg-gradient-to-r from-cyan-50 to-blue-50 p-4"><div className="flex h-32 items-end gap-2">{[38,62,51,79,67,88,72,96].map((height,index)=><div key={index} className="flex-1 rounded-t-md bg-cyan-500/80" style={{height:`${height}%`}}/>)}</div><div className="mt-3 flex items-center justify-between text-xs text-slate-500"><span>Illustrative dashboard view</span><span>CRM + Operations</span></div></div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section className="mx-auto max-w-7xl px-4 py-12 text-center sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-3xl"><p className="text-sm font-bold uppercase tracking-[0.18em] text-cyan-700">Select a service</p><h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">One service at a time. No endless pricing wall.</h2></div>
-      <div className="mx-auto mt-7 flex max-w-6xl flex-wrap justify-center gap-2" role="tablist" aria-label="OPERON pricing services">{selectableFamilies.map((family) => {const active=family.id===selectedFamily?.id;return <button key={family.id} type="button" role="tab" aria-selected={active} onClick={()=>setSelectedFamilyId(family.id)} className={`rounded-xl border px-4 py-2.5 text-sm font-semibold shadow-sm transition ${active?'border-cyan-700 bg-cyan-700 text-white':'border-slate-200 bg-white text-slate-700 hover:border-cyan-300 hover:text-cyan-700'}`}>{family.name}</button>;})}</div>
-    </section>
+      <section className="border-b border-slate-200 bg-gradient-to-b from-white to-slate-50/70">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="text-center"><p className="text-sm font-bold uppercase tracking-[.18em] text-cyan-700">Choose your industry</p><h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">See tailored pricing and value for your business.</h2></div>
+          <div className="mx-auto mt-7 flex max-w-6xl flex-wrap justify-center gap-2" role="tablist" aria-label="OPERON pricing services">
+            {selectableFamilies.map((family)=>{const active=family.id===selectedFamily?.id;return <button key={family.id} type="button" role="tab" aria-selected={active} onClick={()=>setSelectedFamilyId(family.id)} className={`rounded-xl border px-4 py-2.5 text-sm font-semibold shadow-sm transition ${active?'border-cyan-600 bg-cyan-600 text-white shadow-cyan-100':'border-slate-200 bg-white text-slate-700 hover:border-cyan-300 hover:text-cyan-700'}`}>{family.name}</button>;})}
+          </div>
 
-    <section className="mx-auto max-w-[96rem] px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20">{selectedFamily&&<PricingFamilySection key={selectedFamily.id} family={selectedFamily}/>}</section>
+          <div className="mx-auto mt-8 flex max-w-xl items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-sm" aria-label="Billing cycle">
+            <button type="button" onClick={()=>setBillingCycle('monthly')} className={`rounded-xl px-5 py-2.5 text-sm font-bold transition ${billingCycle==='monthly'?'bg-cyan-600 text-white':'text-slate-600 hover:bg-slate-50'}`}>Monthly</button>
+            <button type="button" onClick={()=>setBillingCycle('yearly')} className={`rounded-xl px-5 py-2.5 text-sm font-bold transition ${billingCycle==='yearly'?'bg-cyan-600 text-white':'text-slate-600 hover:bg-slate-50'}`}>Yearly</button>
+            <span className="rounded-xl bg-emerald-50 px-4 py-2.5 text-sm font-bold text-emerald-700">Save 15%</span>
+          </div>
+          <p className="mt-4 text-center text-sm text-slate-500">The $99/month Founding Beta core CRM plan is the exception and does not receive the annual discount.</p>
+        </div>
+      </section>
 
-    {isGeofenceBusiness&&<section className="mx-auto max-w-7xl px-4 pb-16 text-center sm:px-6 lg:px-8"><div className="rounded-[2rem] border border-cyan-200 bg-cyan-50/60 p-6 sm:p-8"><p className="text-sm font-bold uppercase tracking-[.18em] text-cyan-700">Sell managed geofence services</p><h2 className="mt-2 text-3xl font-bold text-slate-950">Your OPERON subscription is the platform. Client campaigns are the service you sell.</h2><p className="mx-auto mt-3 max-w-4xl leading-7 text-slate-600">Business Edition customers can use OPERON to organize and deliver geofence marketing for their own clients. These managed-service prices are separate from the Business Edition software subscription, and client media/data/vendor budgets remain separately funded.</p><div className="mt-7 grid items-stretch gap-4 md:grid-cols-2 xl:grid-cols-4">{geofenceManagedServicePricing.map((item)=><article key={item.name} className="flex h-full flex-col justify-center rounded-2xl border border-slate-200 bg-white p-5"><h3 className="font-bold text-slate-950">{item.name}</h3><p className="mt-3 text-lg font-bold text-cyan-700">{item.price}</p></article>)}</div></div></section>}
+      <section className="mx-auto max-w-[96rem] px-4 py-14 sm:px-6 lg:px-8"><PricingFamilySection key={`${selectedFamily?.id}-${billingCycle}`} family={selectedFamily} billingCycle={billingCycle}/></section>
 
-    <section id="addons" className="mx-auto max-w-[96rem] px-4 pb-16 sm:px-6 lg:px-8"><AddOnsSection/></section>
+      {isGeofenceBusiness&&<section className="mx-auto max-w-7xl px-4 pb-14 text-center sm:px-6 lg:px-8"><div className="rounded-[2rem] border border-cyan-200 bg-cyan-50/60 p-6 sm:p-8"><p className="text-sm font-bold uppercase tracking-[.18em] text-cyan-700">Sell managed geofence services</p><h2 className="mt-2 text-3xl font-bold text-slate-950">Your OPERON subscription is the platform. Client campaigns are the service you sell.</h2><p className="mx-auto mt-3 max-w-4xl leading-7 text-slate-600">Business Edition customers can use OPERON to organize and deliver geofence marketing for their own clients. Client media, data and vendor budgets remain separately funded.</p><div className="mt-7 grid items-stretch gap-4 md:grid-cols-2 xl:grid-cols-4">{geofenceManagedServicePricing.map((item)=><article key={item.name} className="flex h-full flex-col justify-center rounded-2xl border border-slate-200 bg-white p-5"><h3 className="font-bold text-slate-950">{item.name}</h3><p className="mt-3 text-lg font-bold text-cyan-700">{item.price}</p></article>)}</div></div></section>}
 
-    <section className="mx-auto max-w-[96rem] space-y-10 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20"><section className="rounded-[2rem] border border-slate-200 bg-gradient-to-b from-slate-50 to-white p-6 text-center shadow-sm sm:p-8 lg:p-10"><div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-violet-700"><PlugZap className="h-6 w-6"/></div><p className="mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-violet-700">Integrations</p><h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">Connect the tools your business already relies on.</h2><p className="mx-auto mt-3 max-w-3xl text-slate-600">OPERON is designed to connect CRM and operations with accounting, workforce, documents, communications, payments and automation. Availability depends on the selected system, plan and provider configuration.</p><div className="mx-auto mt-8 grid max-w-5xl gap-3 sm:grid-cols-2 md:grid-cols-5">{integrations.map((name)=><div key={name} className="flex min-h-20 items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 shadow-sm">{name}</div>)}</div><Link to="/integrations" className="mt-8 inline-flex rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-800">Browse integrations</Link></section><section className="rounded-[2rem] border border-slate-200 bg-white p-6 text-center shadow-sm sm:p-8 lg:p-10"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">Third-party costs</p><h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">Provider subscriptions and usage stay transparent.</h2><p className="mx-auto mt-3 max-w-3xl text-slate-600">Third-party subscriptions, transaction fees, advertising/media spend, telecommunications usage and provider charges are not included unless specifically stated.</p><div className="mx-auto mt-6 flex max-w-4xl flex-wrap justify-center gap-2">{clientPaidThirdPartyServices.map((service)=><span key={service} className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{service}</span>)}</div></section><section className="rounded-[2rem] bg-slate-950 px-6 py-10 text-center text-white sm:px-8 lg:px-10"><div className="mx-auto max-w-2xl"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Build your OPERON</p><h2 className="mt-2 text-3xl font-bold tracking-tight">Choose the service first. Add the tools that make it fit.</h2><p className="mt-3 text-slate-300">Tell us your industry, team size, locations and workflow needs. We can help match the base system, tier and add-ons.</p></div><div className="mt-7 flex flex-wrap justify-center gap-3"><Link to="/contact" className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-slate-100">Contact Sales</Link><Link to="/start" className="rounded-xl border border-slate-700 px-5 py-3 text-sm font-semibold text-white hover:border-cyan-400 hover:text-cyan-200">Get Started</Link></div></section></section>
-  </main><GlobalFooter/></div>;
+      <section className="mx-auto max-w-[96rem] px-4 pb-12 sm:px-6 lg:px-8"><AddOnsSection/></section>
+
+      <section className="border-y border-slate-200 bg-white"><div className="mx-auto grid max-w-7xl gap-6 px-4 py-10 text-center sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">{[[CalendarCheck,'15-day free trial','On every standard OPERON plan.'],[Sparkles,'Detailed tier value','See exactly what grows as you move up.'],[ShieldCheck,'No long-term lock-in','Choose the plan that fits now and change as needed.'],[Clock3,'Capacity grows with tiers','Storage and usage allowances increase by plan.']].map(([Icon,title,copy])=>{const C=Icon as typeof CalendarCheck;return <div key={title as string} className="rounded-2xl border border-slate-100 bg-slate-50/60 p-5"><C className="mx-auto h-6 w-6 text-cyan-700"/><h3 className="mt-3 font-bold text-slate-950">{title as string}</h3><p className="mt-1 text-sm leading-6 text-slate-600">{copy as string}</p></div>})}</div></section>
+
+      <section className="bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950 text-white"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 py-10 text-center sm:px-6 lg:flex-row lg:px-8 lg:text-left"><div><p className="text-sm font-bold uppercase tracking-[.18em] text-cyan-300">Ready to grow your business?</p><h2 className="mt-2 text-3xl font-bold">Start your 15-day free trial today.</h2><p className="mt-2 text-slate-300">Choose the industry and tier that fit your operation now. Upgrade when you need more.</p></div><div className="flex flex-wrap justify-center gap-3"><Link to="/start" className="rounded-xl bg-cyan-500 px-6 py-3 text-sm font-bold text-white hover:bg-cyan-400">Start Free Trial</Link><Link to="/contact" className="rounded-xl border border-white/25 px-6 py-3 text-sm font-bold text-white hover:border-cyan-300">Talk to Sales</Link></div></div></section>
+    </main>
+    <GlobalFooter/>
+  </div>;
 }
