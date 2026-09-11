@@ -6,10 +6,11 @@ import GlobalFooter from '../components/GlobalFooter';
 import PricingFamilySection from '../components/PricingFamilySection';
 import AddOnsSection from '../components/AddOnsSection';
 import { geofenceBusinessEdition, geofenceManagedServicePricing } from '../lib/businessEditionPricing';
-import { clientPaidThirdPartyServices, pricingFamilies, pricingRules } from '../lib/pricing';
+import { approvedPricingFamilies } from '../lib/approvedIndustryPricing';
+import { clientPaidThirdPartyServices, pricingRules } from '../lib/pricing';
 
 const integrations = ['QuickBooks', 'Gusto', 'DocuSign', 'Slack', 'Google Workspace', 'Microsoft 365', 'Square', 'PayPal', 'Telnyx', 'APIs & Webhooks'];
-const selectableFamilies = [...pricingFamilies, geofenceBusinessEdition];
+const selectableFamilies = [...approvedPricingFamilies, geofenceBusinessEdition];
 
 export default function PricingPage() {
   const [selectedFamilyId, setSelectedFamilyId] = useState(selectableFamilies[0]?.id ?? '');
