@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CalendarCheck, Clock3, ShieldCheck, Sparkles } from 'lucide-react';
+import { BarChart3, CalendarCheck, Megaphone, ShieldCheck, Smartphone, Users } from 'lucide-react';
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
 import PricingFamilySection from '../components/PricingFamilySection';
@@ -9,15 +9,6 @@ import { geofenceBusinessEdition, geofenceManagedServicePricing } from '../lib/b
 import { approvedPricingFamilies } from '../lib/approvedIndustryPricing';
 
 const selectableFamilies = [...approvedPricingFamilies, geofenceBusinessEdition];
-const productScreens = [
-  { src: '/product-screenshots/pipeline_board.png', label: 'Sales Pipeline' },
-  { src: '/product-screenshots/pos_retail.png', label: 'POS & Retail' },
-  { src: '/product-screenshots/social_dashboard.png', label: 'Social Publisher' },
-  { src: '/product-screenshots/geofence_dashboard.png', label: 'Geofence Marketing' },
-  { src: '/product-screenshots/restaurant_dashboard.png', label: 'Restaurant Operations' },
-  { src: '/product-screenshots/gym_dashboard.png', label: 'Gym Management' },
-];
-
 type BillingCycle = 'monthly' | 'yearly';
 
 export default function PricingPage() {
@@ -29,60 +20,43 @@ export default function PricingPage() {
   return <div className="min-h-screen bg-white text-slate-900">
     <GlobalHeader/>
     <main id="main-content" className="pt-20">
-      <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 text-white">
-        <div className="absolute inset-0 opacity-25" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1800&q=85')", backgroundSize: 'cover', backgroundPosition: 'center' }}/>
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-900/60"/>
-        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[.9fr_1.1fr] lg:px-8 lg:py-16">
+      <section className="relative overflow-hidden border-b border-slate-200 bg-slate-950 text-white">
+        <div className="absolute inset-0 opacity-35" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1800&q=85')", backgroundSize: 'cover', backgroundPosition: 'center' }}/>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-900/55"/>
+        <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:px-8 lg:py-12">
           <div className="text-left">
-            <p className="text-sm font-bold uppercase tracking-[.2em] text-cyan-300">All-in-one business CRM</p>
-            <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">More Than a CRM — <span className="text-cyan-300">It’s Your Growth Engine.</span></h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-200">Attract. Manage. Automate. Grow. One platform built to adapt to the way your business works.</p>
-            <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-2">
-              {[['15-Day Free Trial','Try it risk free.'],['No Long-Term Contracts','Freedom to grow your way.'],['Save 15% Annually','Pay the year in full.'],['Cancel Anytime','You stay in control.']].map(([title,copy])=><div key={title} className="rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur"><div className="text-sm font-bold text-white">{title}</div><div className="mt-1 text-xs leading-5 text-slate-300">{copy}</div></div>)}
-            </div>
+            <p className="text-sm font-bold uppercase tracking-[.18em] text-cyan-300">All-in-one business CRM</p>
+            <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">More Than a CRM —<br/>It’s Your <span className="text-cyan-400">Growth Engine.</span></h1>
+            <p className="mt-3 text-lg leading-7 text-slate-100">Attract. Manage. Automate. Grow.<br/>One platform. Every industry.</p>
+            <div className="mt-7 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">{[['15-Day Free Trial','Try it risk free.'],['No Long-Term Contracts','Freedom to grow your way.'],['Save 15% Annually','More value. Lower cost.'],['Cancel Anytime','You’re in control.']].map(([title,copy])=><div key={title} className="border-t border-cyan-500/40 pt-3"><div className="text-xs font-bold text-white">{title}</div><div className="mt-1 text-[11px] leading-4 text-slate-300">{copy}</div></div>)}</div>
           </div>
-          <div className="relative mx-auto w-full max-w-3xl pb-5">
-            <div className="absolute -inset-5 rounded-[3rem] bg-cyan-400/10 blur-3xl"/>
-            <div className="relative rounded-[2rem] border border-white/20 bg-slate-950/70 p-2.5 shadow-2xl backdrop-blur">
-              <div className="flex items-center gap-2 px-3 py-2"><span className="h-2.5 w-2.5 rounded-full bg-rose-400"/><span className="h-2.5 w-2.5 rounded-full bg-amber-300"/><span className="h-2.5 w-2.5 rounded-full bg-emerald-400"/><span className="ml-3 text-[11px] font-semibold uppercase tracking-[.14em] text-slate-400">Real OPERON CRM dashboard</span></div>
-              <div className="overflow-hidden rounded-[1.35rem] border border-slate-700 bg-white"><img src="/product-screenshots/dashboard_main.png" alt="Real OPERON CRM dashboard with business metrics, pipeline and activity" className="block h-auto w-full"/></div>
-            </div>
-            <div className="relative mx-auto h-3 w-[82%] rounded-b-[2rem] bg-gradient-to-b from-slate-400 to-slate-700 shadow-xl"/>
+          <div className="relative mx-auto w-full max-w-2xl">
+            <div className="rounded-2xl border border-white/20 bg-slate-900/80 p-2 shadow-2xl"><img src="/product-screenshots/dashboard_main.png" alt="Real OPERON CRM dashboard" className="block w-full rounded-xl"/></div>
+            <p className="mt-3 text-right text-sm font-semibold italic text-white">One Platform. Real OPERON tools.</p>
           </div>
         </div>
       </section>
 
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-          <div className="text-center"><p className="text-sm font-bold uppercase tracking-[.18em] text-cyan-700">Built for the way you work</p><h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">One OPERON platform. Real tools for every part of the business.</h2><p className="mx-auto mt-3 max-w-3xl text-slate-600">Explore real OPERON product screens across sales, point of sale, marketing and industry operations.</p></div>
-          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{productScreens.map((screen)=><figure key={screen.src} className="group overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm"><div className="aspect-[16/9] overflow-hidden bg-slate-100"><img src={screen.src} alt={`Real OPERON ${screen.label} screen`} loading="lazy" className="h-full w-full object-cover object-top transition duration-300 group-hover:scale-[1.02]"/></div><figcaption className="border-t border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-800">{screen.label}</figcaption></figure>)}</div>
+      <section className="bg-gradient-to-b from-white to-sky-50/40">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div><h2 className="text-2xl font-bold text-slate-950">Choose Your Industry</h2><p className="text-sm text-slate-600">See tailored pricing and features for your business.</p></div>
+          <div className="mt-3 flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="OPERON pricing services">{selectableFamilies.map((family)=>{const active=family.id===selectedFamily?.id;return <button key={family.id} type="button" role="tab" aria-selected={active} onClick={()=>setSelectedFamilyId(family.id)} className={`shrink-0 rounded-lg border px-4 py-2.5 text-xs font-bold transition ${active?'border-sky-500 bg-sky-500 text-white shadow-md shadow-sky-100':'border-slate-200 bg-white text-slate-700 hover:border-sky-300'}`}>{family.name}</button>;})}</div>
         </div>
       </section>
 
-      <section className="border-b border-slate-200 bg-gradient-to-b from-white to-slate-50/70">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-          <div className="text-center"><p className="text-sm font-bold uppercase tracking-[.18em] text-cyan-700">Choose your industry</p><h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">See tailored pricing and value for your business.</h2></div>
-          <div className="mx-auto mt-7 flex max-w-6xl flex-wrap justify-center gap-2" role="tablist" aria-label="OPERON pricing services">
-            {selectableFamilies.map((family)=>{const active=family.id===selectedFamily?.id;return <button key={family.id} type="button" role="tab" aria-selected={active} onClick={()=>setSelectedFamilyId(family.id)} className={`rounded-xl border px-4 py-2.5 text-sm font-semibold shadow-sm transition ${active?'border-cyan-600 bg-cyan-600 text-white shadow-cyan-100':'border-slate-200 bg-white text-slate-700 hover:border-cyan-300 hover:text-cyan-700'}`}>{family.name}</button>;})}
-          </div>
-          <div className="mx-auto mt-8 flex max-w-xl items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-sm" aria-label="Billing cycle">
-            <button type="button" onClick={()=>setBillingCycle('monthly')} className={`rounded-xl px-5 py-2.5 text-sm font-bold transition ${billingCycle==='monthly'?'bg-cyan-600 text-white':'text-slate-600 hover:bg-slate-50'}`}>Monthly</button>
-            <button type="button" onClick={()=>setBillingCycle('yearly')} className={`rounded-xl px-5 py-2.5 text-sm font-bold transition ${billingCycle==='yearly'?'bg-cyan-600 text-white':'text-slate-600 hover:bg-slate-50'}`}>Yearly</button>
-            <span className="rounded-xl bg-emerald-50 px-4 py-2.5 text-sm font-bold text-emerald-700">Save 15%</span>
-          </div>
-          <p className="mt-4 text-center text-sm text-slate-500">The $99/month Founding Beta core CRM plan is the exception and does not receive the annual discount.</p>
-        </div>
+      <section className="mx-auto max-w-[96rem] px-4 pb-8 sm:px-6 lg:px-8">
+        <div className="mb-4 flex flex-col justify-between gap-4 lg:flex-row lg:items-end"><div><h2 className="text-3xl font-bold tracking-tight text-slate-950">Choose the Plan That Fits Your Business</h2><p className="mt-1 text-sm text-slate-600">All plans include a 15-day free trial. Upgrade, downgrade, or cancel anytime.</p></div><div className="flex w-fit items-center rounded-full border border-sky-200 bg-white p-1 shadow-sm"><button type="button" onClick={()=>setBillingCycle('monthly')} className={`rounded-full px-5 py-2 text-sm font-bold ${billingCycle==='monthly'?'bg-sky-500 text-white':'text-slate-700'}`}>Monthly</button><button type="button" onClick={()=>setBillingCycle('yearly')} className={`rounded-full px-5 py-2 text-sm font-bold ${billingCycle==='yearly'?'bg-sky-500 text-white':'text-slate-700'}`}>Yearly</button><span className="px-4 text-sm font-bold text-emerald-600">Save 15%</span></div></div>
+        <PricingFamilySection key={`${selectedFamily?.id}-${billingCycle}`} family={selectedFamily} billingCycle={billingCycle}/>
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 rounded-2xl bg-gradient-to-r from-fuchsia-50 via-sky-50 to-violet-50 px-5 py-3 text-xs font-semibold text-slate-700"><span>🎁 <strong className="text-violet-700">15-Day Free Trial</strong> · On Every Plan</span><span>％ <strong className="text-violet-700">Save 15%</strong> When You Pay Annually</span><span>⭐ <strong className="text-violet-700">$99 Founding Beta</strong> · No Annual Discount</span><span>🛡️ <strong className="text-violet-700">No Long-Term Contracts</strong> · Cancel Anytime</span></div>
       </section>
 
-      <section className="mx-auto max-w-[96rem] px-4 py-14 sm:px-6 lg:px-8"><PricingFamilySection key={`${selectedFamily?.id}-${billingCycle}`} family={selectedFamily} billingCycle={billingCycle}/></section>
+      {isGeofenceBusiness&&<section className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8"><div className="rounded-2xl border border-cyan-200 bg-cyan-50 p-6 text-center"><h2 className="text-2xl font-bold text-slate-950">Managed Geofence Services</h2><p className="mx-auto mt-2 max-w-3xl text-sm text-slate-600">Use OPERON to organize and deliver geofence marketing for your own clients. Client media, data and vendor budgets remain separately funded.</p><div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">{geofenceManagedServicePricing.map((item)=><article key={item.name} className="rounded-xl border border-slate-200 bg-white p-4"><h3 className="font-bold">{item.name}</h3><p className="mt-2 font-bold text-cyan-700">{item.price}</p></article>)}</div></div></section>}
 
-      {isGeofenceBusiness&&<section className="mx-auto max-w-7xl px-4 pb-14 text-center sm:px-6 lg:px-8"><div className="rounded-[2rem] border border-cyan-200 bg-cyan-50/60 p-6 sm:p-8"><p className="text-sm font-bold uppercase tracking-[.18em] text-cyan-700">Sell managed geofence services</p><h2 className="mt-2 text-3xl font-bold text-slate-950">Your OPERON subscription is the platform. Client campaigns are the service you sell.</h2><p className="mx-auto mt-3 max-w-4xl leading-7 text-slate-600">Business Edition customers can use OPERON to organize and deliver geofence marketing for their own clients. Client media, data and vendor budgets remain separately funded.</p><div className="mt-7 grid items-stretch gap-4 md:grid-cols-2 xl:grid-cols-4">{geofenceManagedServicePricing.map((item)=><article key={item.name} className="flex h-full flex-col justify-center rounded-2xl border border-slate-200 bg-white p-5"><h3 className="font-bold text-slate-950">{item.name}</h3><p className="mt-3 text-lg font-bold text-cyan-700">{item.price}</p></article>)}</div></div></section>}
+      <section className="mx-auto max-w-[96rem] px-4 pb-6 sm:px-6 lg:px-8"><AddOnsSection/></section>
 
-      <section className="mx-auto max-w-[96rem] px-4 pb-12 sm:px-6 lg:px-8"><AddOnsSection/></section>
+      <section className="mx-auto max-w-7xl px-4 pb-7 sm:px-6 lg:px-8"><h2 className="mb-5 text-2xl font-bold text-slate-950">Included in Every Plan</h2><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">{[[Users,'Contact Management','Keep your client data organized.'],[BarChart3,'Sales Pipeline','Track and close more deals.'],[Megaphone,'Marketing Tools','Email, SMS and automation.'],[CalendarCheck,'Reporting & Analytics','Make smarter decisions.'],[Smartphone,'Mobile Access','Work from anywhere.'],[ShieldCheck,'Secure & Reliable','Your data is always protected.']].map(([Icon,title,copy])=>{const C=Icon as typeof Users;return <div key={title as string} className="text-center"><div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-sky-300 text-sky-600"><C className="h-5 w-5"/></div><h3 className="mt-2 text-sm font-bold text-slate-950">{title as string}</h3><p className="mt-1 text-xs leading-5 text-slate-500">{copy as string}</p></div>})}</div></section>
 
-      <section className="border-y border-slate-200 bg-white"><div className="mx-auto grid max-w-7xl gap-6 px-4 py-10 text-center sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">{[[CalendarCheck,'15-day free trial','On every standard OPERON plan.'],[Sparkles,'Detailed tier value','See exactly what grows as you move up.'],[ShieldCheck,'No long-term lock-in','Choose the plan that fits now and change as needed.'],[Clock3,'Capacity grows with tiers','Storage and usage allowances increase by plan.']].map(([Icon,title,copy])=>{const C=Icon as typeof CalendarCheck;return <div key={title as string} className="rounded-2xl border border-slate-100 bg-slate-50/60 p-5"><C className="mx-auto h-6 w-6 text-cyan-700"/><h3 className="mt-3 font-bold text-slate-950">{title as string}</h3><p className="mt-1 text-sm leading-6 text-slate-600">{copy as string}</p></div>})}</div></section>
-
-      <section className="bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950 text-white"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 py-10 text-center sm:px-6 lg:flex-row lg:px-8 lg:text-left"><div><p className="text-sm font-bold uppercase tracking-[.18em] text-cyan-300">Ready to grow your business?</p><h2 className="mt-2 text-3xl font-bold">Start your 15-day free trial today.</h2><p className="mt-2 text-slate-300">Choose the industry and tier that fit your operation now. Upgrade when you need more.</p></div><div className="flex flex-wrap justify-center gap-3"><Link to="/start" className="rounded-xl bg-cyan-500 px-6 py-3 text-sm font-bold text-white hover:bg-cyan-400">Start Free Trial</Link><Link to="/contact" className="rounded-xl border border-white/25 px-6 py-3 text-sm font-bold text-white hover:border-cyan-300">Talk to Sales</Link></div></div></section>
+      <section className="border-y border-slate-200 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-4 py-7 text-center sm:px-6 lg:flex-row lg:px-8 lg:text-left"><div><h2 className="text-2xl font-bold">Ready to Grow Your Business?</h2><p className="mt-1 text-sm text-slate-300">Start your 15-day free trial today. No long-term contract.</p></div><div className="flex gap-3"><Link to="/start" className="rounded-lg bg-sky-500 px-7 py-3 text-sm font-bold text-white hover:bg-sky-400">Start Free Trial</Link><Link to="/contact" className="rounded-lg border border-sky-400 bg-white px-7 py-3 text-sm font-bold text-slate-900">Talk to Sales</Link></div></div></section>
     </main>
     <GlobalFooter/>
   </div>;
