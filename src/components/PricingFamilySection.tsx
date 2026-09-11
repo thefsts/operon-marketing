@@ -1,4 +1,4 @@
-import { Check, ChevronDown, ExternalLink, Sparkles } from 'lucide-react';
+import { Check, ChevronDown, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { type PricingFamily } from '../lib/pricing';
