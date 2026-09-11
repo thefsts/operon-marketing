@@ -9,6 +9,14 @@ import { geofenceBusinessEdition, geofenceManagedServicePricing } from '../lib/b
 import { approvedPricingFamilies } from '../lib/approvedIndustryPricing';
 
 const selectableFamilies = [...approvedPricingFamilies, geofenceBusinessEdition];
+const productScreens = [
+  { src: '/product-screenshots/pipeline_board.png', label: 'Sales Pipeline' },
+  { src: '/product-screenshots/pos_retail.png', label: 'POS & Retail' },
+  { src: '/product-screenshots/social_dashboard.png', label: 'Social Publisher' },
+  { src: '/product-screenshots/geofence_dashboard.png', label: 'Geofence Marketing' },
+  { src: '/product-screenshots/restaurant_dashboard.png', label: 'Restaurant Operations' },
+  { src: '/product-screenshots/gym_dashboard.png', label: 'Gym Management' },
+];
 
 type BillingCycle = 'monthly' | 'yearly';
 
@@ -23,25 +31,31 @@ export default function PricingPage() {
     <main id="main-content" className="pt-20">
       <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 text-white">
         <div className="absolute inset-0 opacity-25" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1800&q=85')", backgroundSize: 'cover', backgroundPosition: 'center' }}/>
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-900/55"/>
-        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:py-16">
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-900/60"/>
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[.9fr_1.1fr] lg:px-8 lg:py-16">
           <div className="text-left">
             <p className="text-sm font-bold uppercase tracking-[.2em] text-cyan-300">All-in-one business CRM</p>
             <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">More Than a CRM — <span className="text-cyan-300">It’s Your Growth Engine.</span></h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-200">Attract. Manage. Automate. Grow. One platform built to adapt to the way your business works.</p>
-            <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-2">
               {[['15-Day Free Trial','Try it risk free.'],['No Long-Term Contracts','Freedom to grow your way.'],['Save 15% Annually','Pay the year in full.'],['Cancel Anytime','You stay in control.']].map(([title,copy])=><div key={title} className="rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur"><div className="text-sm font-bold text-white">{title}</div><div className="mt-1 text-xs leading-5 text-slate-300">{copy}</div></div>)}
             </div>
           </div>
-          <div className="relative mx-auto w-full max-w-xl">
-            <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 p-3 shadow-2xl backdrop-blur">
-              <div className="rounded-[1.5rem] bg-white p-5 text-slate-900 shadow-xl">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-4"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-cyan-700">OPERON CRM</p><h2 className="mt-1 text-xl font-bold">Business Command Center</h2></div><img src="/operon-logo-transparent.png" alt="OPERON CRM" className="h-10 w-auto"/></div>
-                <div className="mt-5 grid grid-cols-3 gap-3">{['Pipeline','Customers','Automation'].map((label,index)=><div key={label} className="rounded-xl bg-slate-50 p-3 text-center"><div className="text-lg font-bold text-slate-950">{index===0?'Active':index===1?'Connected':'Running'}</div><div className="mt-1 text-xs text-slate-500">{label}</div></div>)}</div>
-                <div className="mt-4 rounded-2xl bg-gradient-to-r from-cyan-50 to-blue-50 p-4"><div className="flex h-32 items-end gap-2">{[38,62,51,79,67,88,72,96].map((height,index)=><div key={index} className="flex-1 rounded-t-md bg-cyan-500/80" style={{height:`${height}%`}}/>)}</div><div className="mt-3 flex items-center justify-between text-xs text-slate-500"><span>Illustrative dashboard view</span><span>CRM + Operations</span></div></div>
-              </div>
+          <div className="relative mx-auto w-full max-w-3xl pb-5">
+            <div className="absolute -inset-5 rounded-[3rem] bg-cyan-400/10 blur-3xl"/>
+            <div className="relative rounded-[2rem] border border-white/20 bg-slate-950/70 p-2.5 shadow-2xl backdrop-blur">
+              <div className="flex items-center gap-2 px-3 py-2"><span className="h-2.5 w-2.5 rounded-full bg-rose-400"/><span className="h-2.5 w-2.5 rounded-full bg-amber-300"/><span className="h-2.5 w-2.5 rounded-full bg-emerald-400"/><span className="ml-3 text-[11px] font-semibold uppercase tracking-[.14em] text-slate-400">Real OPERON CRM dashboard</span></div>
+              <div className="overflow-hidden rounded-[1.35rem] border border-slate-700 bg-white"><img src="/product-screenshots/dashboard_main.png" alt="Real OPERON CRM dashboard with business metrics, pipeline and activity" className="block h-auto w-full"/></div>
             </div>
+            <div className="relative mx-auto h-3 w-[82%] rounded-b-[2rem] bg-gradient-to-b from-slate-400 to-slate-700 shadow-xl"/>
           </div>
+        </div>
+      </section>
+
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="text-center"><p className="text-sm font-bold uppercase tracking-[.18em] text-cyan-700">Built for the way you work</p><h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">One OPERON platform. Real tools for every part of the business.</h2><p className="mx-auto mt-3 max-w-3xl text-slate-600">Explore real OPERON product screens across sales, point of sale, marketing and industry operations.</p></div>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{productScreens.map((screen)=><figure key={screen.src} className="group overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm"><div className="aspect-[16/9] overflow-hidden bg-slate-100"><img src={screen.src} alt={`Real OPERON ${screen.label} screen`} loading="lazy" className="h-full w-full object-cover object-top transition duration-300 group-hover:scale-[1.02]"/></div><figcaption className="border-t border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-800">{screen.label}</figcaption></figure>)}</div>
         </div>
       </section>
 
@@ -51,7 +65,6 @@ export default function PricingPage() {
           <div className="mx-auto mt-7 flex max-w-6xl flex-wrap justify-center gap-2" role="tablist" aria-label="OPERON pricing services">
             {selectableFamilies.map((family)=>{const active=family.id===selectedFamily?.id;return <button key={family.id} type="button" role="tab" aria-selected={active} onClick={()=>setSelectedFamilyId(family.id)} className={`rounded-xl border px-4 py-2.5 text-sm font-semibold shadow-sm transition ${active?'border-cyan-600 bg-cyan-600 text-white shadow-cyan-100':'border-slate-200 bg-white text-slate-700 hover:border-cyan-300 hover:text-cyan-700'}`}>{family.name}</button>;})}
           </div>
-
           <div className="mx-auto mt-8 flex max-w-xl items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-sm" aria-label="Billing cycle">
             <button type="button" onClick={()=>setBillingCycle('monthly')} className={`rounded-xl px-5 py-2.5 text-sm font-bold transition ${billingCycle==='monthly'?'bg-cyan-600 text-white':'text-slate-600 hover:bg-slate-50'}`}>Monthly</button>
             <button type="button" onClick={()=>setBillingCycle('yearly')} className={`rounded-xl px-5 py-2.5 text-sm font-bold transition ${billingCycle==='yearly'?'bg-cyan-600 text-white':'text-slate-600 hover:bg-slate-50'}`}>Yearly</button>
