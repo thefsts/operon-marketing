@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { type PricingFamily } from '../lib/pricing';
 
 type BillingCycle = 'monthly' | 'yearly';
-type Props = { family: PricingFamily; billingCycle: BillingCycle; onSelect?: (planName: string) => void };
+type Props = { family: PricingFamily; billingCycle?: BillingCycle; onSelect?: (planName: string) => void };
 type FeatureGroup = { title: string; items: string[] };
 
 const valueGroups = [
@@ -42,7 +42,7 @@ function groupFeatures(features: string[]): FeatureGroup[] {
   return groups;
 }
 
-export default function PricingFamilySection({ family, billingCycle, onSelect }: Props) {
+export default function PricingFamilySection({ family, billingCycle = 'monthly', onSelect }: Props) {
   const [showComparison, setShowComparison] = useState(false);
 
   return <section id={family.id} className="scroll-mt-28 text-center">
