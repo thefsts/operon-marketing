@@ -281,13 +281,42 @@ const gunFfl: PricingFamily = {
   ],
 };
 
-const posSystem: PricingFamily = {
-  ...restaurantRetailClubs,
-  id: 'pos',
-  name: 'POS System',
+const cannabis: PricingFamily = {
+  id: 'cannabis',
+  name: 'Cannabis CRM',
   description:
-    'CRM-connected point of sale, inventory and operational workflows. Restaurant and retail POS pricing is included in the corresponding OPERON CRM + POS tiers.',
-  servicePath: '/pos',
+    'CRM, regulated retail operations, customer workflows, inventory, delivery coordination and compliance-ready business operations for cannabis businesses.',
+  servicePath: '/cannabis',
+  plans: [
+    plan('Starter', null, 'Core OPERON cannabis business workflows for a single regulated operation.', [
+      'Customer and relationship CRM',
+      'Retail and order workflow support',
+      'Inventory and location operations',
+      'Business reporting',
+      'Compliance-ready operational records',
+    ]),
+    plan('Growth', null, 'Expanded team, inventory and customer operations for growing cannabis businesses.', [
+      'Everything in Starter',
+      'Expanded team workflows',
+      'Multi-department operating visibility',
+      'Customer retention workflows',
+      'Expanded reporting',
+    ]),
+    plan('Pro', null, 'Advanced operational controls for regulated cannabis businesses.', [
+      'Everything in Growth',
+      'Office and operations management',
+      'Advanced inventory and workflow controls',
+      'Delivery coordination workflows',
+      'Expanded management reporting',
+    ], true),
+    plan('Enterprise', null, 'For larger and multi-location cannabis operators requiring scoped deployment and integrations.', [
+      'Everything in Pro',
+      'Multi-location operating model',
+      'Advanced implementation options',
+      'Integration planning',
+      'Custom deployment scope',
+    ]),
+  ],
 };
 
 export const approvedPricingFamilies: PricingFamily[] = [
@@ -300,6 +329,6 @@ export const approvedPricingFamilies: PricingFamily[] = [
   sports,
   gunFfl,
   ecommerce,
-  posSystem,
+  cannabis,
   socialPublisher,
 ];
