@@ -15,7 +15,7 @@ const solutions = [
   { name: 'Sports & Fitness CRM', path: '/sports', desc: 'Teams, gyms, scheduling, memberships, payments, and portals' },
   { name: 'Gun / FFL CRM', path: '/gun-ffl-crm', desc: 'FFL retail, inventory, POS, range, and business workflows' },
   { name: 'E-Commerce CRM', path: '/e-commerce', desc: 'Customers, orders, catalog, inventory, and storefront operations' },
-  { name: 'POS System', path: '/pos', desc: 'CRM-connected point of sale, inventory, and operations' },
+  { name: 'Cannabis CRM', path: '/cannabis', desc: 'Regulated cannabis retail, customer, inventory, delivery, and business operations' },
 ];
 
 const featuredSolutions = [
