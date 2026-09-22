@@ -15,6 +15,7 @@ import SportsPage from './pages/SportsPage';
 import GunFFLPage from './pages/GunFFLPage';
 import ECommercePage from './pages/ECommercePage';
 import POSPage from './pages/POSPage';
+import CannabisPage from './pages/CannabisPage';
 import IntegrationsPage from './pages/IntegrationsPage';
 import ReputationManagementPage from './pages/ReputationManagementPage';
 import LeadGenerationPage from './pages/LeadGenerationPage';
@@ -48,7 +49,7 @@ function App() {
     <Route path="/docs" element={<ApiDocs />} /><Route path="/api-docs" element={<ApiDocs />} />
     <Route path="/contact" element={<ContactPage />} /><Route path="/privacy" element={<PrivacyPolicy />} /><Route path="/terms" element={<TermsOfService />} /><Route path="/cookie-policy" element={<CookiePolicy />} />
     <Route path="/start" element={<StartPage />} /><Route path="/get-started" element={<StartPage />} />
-    <Route path="/real-estate" element={<RealEstatePage />} /><Route path="/mortgage" element={<MortgagePage />} /><Route path="/healthcare" element={<HealthcarePage />} /><Route path="/legal" element={<LegalPage />} /><Route path="/sports" element={<SportsPage />} /><Route path="/gun-ffl-crm" element={<GunFFLPage />} /><Route path="/e-commerce" element={<ECommercePage />} /><Route path="/pos" element={<POSPage />} /><Route path="/compliance" element={<CompliancePage />} /><Route path="/integrations" element={<IntegrationsPage />} /><Route path="/lead-generation" element={<LeadGenerationPage />} /><Route path="/client-billing" element={<ClientBillingPage />} /><Route path="/reputation-management" element={<ReputationManagementPage />} /><Route path="/reputation" element={<ReputationManagementPage />} /><Route path="/about" element={<AnchorRedirect anchor="about" />} /><Route path="*" element={<NotFound />} />
+    <Route path="/real-estate" element={<RealEstatePage />} /><Route path="/mortgage" element={<MortgagePage />} /><Route path="/healthcare" element={<HealthcarePage />} /><Route path="/legal" element={<LegalPage />} /><Route path="/sports" element={<SportsPage />} /><Route path="/gun-ffl-crm" element={<GunFFLPage />} /><Route path="/e-commerce" element={<ECommercePage />} /><Route path="/cannabis" element={<CannabisPage />} /><Route path="/pos" element={<POSPage />} /><Route path="/compliance" element={<CompliancePage />} /><Route path="/integrations" element={<IntegrationsPage />} /><Route path="/lead-generation" element={<LeadGenerationPage />} /><Route path="/client-billing" element={<ClientBillingPage />} /><Route path="/reputation-management" element={<ReputationManagementPage />} /><Route path="/reputation" element={<ReputationManagementPage />} /><Route path="/about" element={<AnchorRedirect anchor="about" />} /><Route path="*" element={<NotFound />} />
   </Routes><CookieConsent/><AccessibilityControls/></BrowserRouter>;
 }
 export default App;
